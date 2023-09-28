@@ -18,3 +18,4 @@ struct Prefrences: Codable, Hashable {
         var email: Bool
     }
 }
+//create db
