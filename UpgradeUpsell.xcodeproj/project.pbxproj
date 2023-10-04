@@ -35,7 +35,7 @@
 		5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466252ABBD0D90006FBB5 /* RenovateProject.swift */; };
 		5F9466282ABBD10F0006FBB5 /* InvestmentSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466272ABBD10F0006FBB5 /* InvestmentSuggestion.swift */; };
 		5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F94662A2ABC836A0006FBB5 /* RootView.swift */; };
-		5F94662D2ABC838C0006FBB5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F94662C2ABC838C0006FBB5 /* HomeView.swift */; };
+		5F94662D2ABC838C0006FBB5 /* HomeView_Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F94662C2ABC838C0006FBB5 /* HomeView_Owner.swift */; };
 		5F9466312ABC83F70006FBB5 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466302ABC83F70006FBB5 /* SignInView.swift */; };
 		5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466322ABC84400006FBB5 /* SignUpView.swift */; };
 		5F9466352ABC845C0006FBB5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466342ABC845C0006FBB5 /* ProfileView.swift */; };
@@ -69,7 +69,7 @@
 		5F9466252ABBD0D90006FBB5 /* RenovateProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenovateProject.swift; sourceTree = "<group>"; };
 		5F9466272ABBD10F0006FBB5 /* InvestmentSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentSuggestion.swift; sourceTree = "<group>"; };
 		5F94662A2ABC836A0006FBB5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		5F94662C2ABC838C0006FBB5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5F94662C2ABC838C0006FBB5 /* HomeView_Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Owner.swift; sourceTree = "<group>"; };
 		5F9466302ABC83F70006FBB5 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5F9466322ABC84400006FBB5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		5F9466342ABC845C0006FBB5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -97,6 +97,7 @@
 		5A8DAB2F2ABCB39500CDCBCB /* Owner */ = {
 			isa = PBXGroup;
 			children = (
+				5F94662C2ABC838C0006FBB5 /* HomeView_Owner.swift */,
 				5A8DAB302ABCB3A200CDCBCB /* CreateProjectView.swift */,
 				5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */,
 				5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */,
@@ -115,6 +116,7 @@
 		5A8DAB372ABCB51100CDCBCB /* Investor */ = {
 			isa = PBXGroup;
 			children = (
+				5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */,
 				5A8DAB292ABCA86200CDCBCB /* RenovationPersonDashboardView.swift */,
 			);
 			path = Investor;
@@ -125,13 +127,11 @@
 			children = (
 				5F9465F62ABB33E50006FBB5 /* ContentView.swift */,
 				5F94662A2ABC836A0006FBB5 /* RootView.swift */,
-				5F94662C2ABC838C0006FBB5 /* HomeView.swift */,
 				5F9466302ABC83F70006FBB5 /* SignInView.swift */,
 				5F9466322ABC84400006FBB5 /* SignUpView.swift */,
 				5F9466342ABC845C0006FBB5 /* ProfileView.swift */,
 				5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */,
 				5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */,
-				5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */,
 			);
 			path = setting;
 			sourceTree = "<group>";
@@ -313,7 +313,7 @@
 				5F94661C2ABBC06E0006FBB5 /* ChatMessage.swift in Sources */,
 				5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */,
 				5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */,
-				5F94662D2ABC838C0006FBB5 /* HomeView.swift in Sources */,
+				5F94662D2ABC838C0006FBB5 /* HomeView_Owner.swift in Sources */,
 				5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */,
 				5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */,
 				5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */,
