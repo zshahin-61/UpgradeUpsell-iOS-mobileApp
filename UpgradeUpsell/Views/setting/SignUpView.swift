@@ -18,7 +18,9 @@ struct SignUpView: View {
     @State private var confirmPasswordFromUI : String = ""
     @State private var addressFromUI : String = ""
     @State private var phoneFromUI : String = ""
-    @State private var nameFromUI : String = ""
+    @State private var fullNameFromUI : String = ""
+    let roles = ["Owner", "Investor", "Realtor"]
+    @State private var selectedRole = "Owner"
     @State private var errorMsg : String? = nil
     
     @Binding var rootScreen : RootView
@@ -29,64 +31,105 @@ struct SignUpView: View {
     var body: some View {
         
         VStack{
-//            Form{
-//                TextField("Enter Email", text: self.$emailFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
-//
-//                SecureField("Enter Password", text: self.$passwordFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
-//
-//                SecureField("Confirm Password", text: self.$confirmPasswordFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
-//
-//                TextField("Name", text: self.$nameFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
-//
-//                TextField("Address", text: self.$addressFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
-//
-//                TextField("Phone Number", text: self.$phoneFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
-//
-//                VStack{
-//                  Text("User Profile Picture")
-//                    if photoLibraryManager.isAuthorized {
-//                                Button(action: {
-//                                    isShowingPicker = true
-//                                }) {
-//                                    Text("Select Image")
-//                                }
-//                                if let image = selectedImage {
-//                                    Image(uiImage: image)
-//                                        .resizable()
-//                                        .aspectRatio(contentMode: .fit)
-//                                }
-//                            } else {
-//                                Button(action: {
-//                                    photoLibraryManager.requestPermission()
-//                                }) {
-//                                    Text("Request Access For Photo Library")
-//                                }
-//                            }
-//                        }
-//                .sheet(isPresented: $isShowingPicker) {
-//                            if photoLibraryManager.isAuthorized {
-//                                ImagePickerView(selectedImage: $selectedImage)
-//                            } else {
-//                                Text("Access to photo library is not authorized.")
-//                            }
-//                        }
-//            }
-//            .autocorrectionDisabled(true)
-//
+            //Form{
+                TextField("Enter Email", text: self.$emailFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+
+                SecureField("Enter Password", text: self.$passwordFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+
+                SecureField("Confirm Password", text: self.$confirmPasswordFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+
+                TextField("Name", text: self.$fullNameFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+                
+                Picker("Select Role", selection: $selectedRole) {
+                                    ForEach(roles, id: \.self) {
+                                        Text($0)
+                                    }
+                                }
+                                .pickerStyle(.wheel)
+
+                TextField("Address", text: self.$addressFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+
+                TextField("Phone Number", text: self.$phoneFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+
+                VStack{
+                  Text("User Profile Picture")
+                    if photoLibraryManager.isAuthorized {
+                                Button(action: {
+                                    isShowingPicker = true
+                                }) {
+                                    Text("Select Image")
+                                }
+                                if let image = selectedImage {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                }
+                            } else {
+                                Button(action: {
+                                    photoLibraryManager.requestPermission()
+                                }) {
+                                    Text("Request Access For Photo Library")
+                                }
+                            }
+                        }
+                .sheet(isPresented: $isShowingPicker) {
+                            if photoLibraryManager.isAuthorized {
+                                ImagePickerView(selectedImage: $selectedImage)
+                            } else {
+                                Text("Access to photo library is not authorized.")
+                            }
+                        }
+            //}
+            .autocorrectionDisabled(true)
+
             Button(action: {
                 //sign up function
+                if isFormValid() {
+                       // Attempt to create a new user with Firebase Authentication
+                    self.authHelper.signUp(email: self.emailFromUI.lowercased(), password: self.passwordFromUI, withCompletion: { isSuccessful in
+                        
+                        if (isSuccessful){
+                            // MARK: USER IMAGE
+                            var imageData :Data? = nil
+                            
+                            if(selectedImage != nil )
+                            {
+                                let image = selectedImage!
+                                let imageName = "\(UUID().uuidString).jpg"
+                                
+                                imageData = image.jpegData(compressionQuality: 0.1)
+                            }
+                            
+                            let user : UserProfile = UserProfile(username: emailFromUI, fullName: fullNameFromUI, email: emailFromUI, role: selectedRole, userBio: "", profilePicture: imageData, prefrences: Prefrences(), idCard: nil, contactNumber: phoneFromUI, address: addressFromUI)
+                            
+                          //  self.dbHelper.createUserProfile(newUser: user)
+                            //Load User Data
+                            //self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
+                              //  if(isSuccessful){
+                               //     dbHelper.getFriends()
+                                 //   dbHelper.getMyEventsList()
+                               // }
+                            //})
+                            //show to home screen
+                            self.rootScreen = .Home
+                        }else{
+                            //show the alert with invalid username/password prompt
+                            print(#function, "unable to create user")
+                        }
+                    })
+                   }
             }){
                 Text("Create Account")
             }.buttonStyle(.borderedProminent)
@@ -109,6 +152,12 @@ struct SignUpView: View {
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: emailFromUI)
     }
+    
+    func isFormValid() -> Bool {
+        // Add more validation checks if needed
+        return !emailFromUI.isEmpty && isEmailValid() && !passwordFromUI.isEmpty && passwordFromUI == confirmPasswordFromUI
+    }
+    
 }
 
 

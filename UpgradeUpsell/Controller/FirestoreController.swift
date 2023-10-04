@@ -33,6 +33,7 @@ class FirestoreController: ObservableObject {
     /// Fields //////
     private let FIELD_userID = "userID"
     private let FIELD_username = "username"
+    private let FIELD_fullName = "fullName"
     private let FIELD_role = "role"
     private let FIELD_email = "email"
     private let FIELD_authenticationToken = "authenticationToken"
@@ -129,5 +130,8 @@ class FirestoreController: ObservableObject {
             }
         }
     }
+    
+    
+    
     
 }

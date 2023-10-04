@@ -13,8 +13,18 @@ struct Prefrences: Codable, Hashable {
     var language: String
     var fontSize: Int?
 
-    struct Notifs: Codable, Hashable {
-        var push: Bool
-        var email: Bool
+    // Static function to define default preferences
+    init() {
+        self.theme = "light" // Set your default theme here
+        
+        self.notifications = Notifs()
+       // self.notifications.email = true
+        self.language = "en_US"
+        self.fontSize = 16
     }
+}
+
+struct Notifs: Codable, Hashable {
+    var push: Bool = true
+    var email: Bool = true
 }

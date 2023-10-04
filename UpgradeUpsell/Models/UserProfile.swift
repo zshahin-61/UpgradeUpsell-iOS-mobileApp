@@ -88,11 +88,14 @@ struct UserProfile: Codable, Hashable, Identifiable {
         self.role = role
         self.fullName = fullName
         self.email = email
-        self.prefrences = prefrences
+        self.prefrences = Prefrences()
         self.userBio = userBio
         self.idCard = idCard
         self.contactNumber = contactNumber
         self.address = address
     }
+    
+    
+    
 }
-//this is 
+
