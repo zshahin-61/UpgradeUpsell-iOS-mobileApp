@@ -1,7 +1,13 @@
+//
+//  HomeView_Investor.swift
+//  UpgradeUpsell
+//
+//  Created by Golnaz Chehrazi on 2023-10-04.
+//
+
 import SwiftUI
 
-struct HomeView: View {
-    
+struct HomeView_Investor: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var selectedTab = 0
@@ -15,26 +21,26 @@ struct HomeView: View {
         NavigationView {
             TabView(selection: $selectedTab) {
                 NavigationLink(destination: CreateProjectView()) {
-                    Text("Create New Project")
+                    Text("Projects")
                 }
                 .tabItem {
-                    Label("Create Project", systemImage: "plus.circle")
+                    Label("Projects", systemImage: "plus.circle")
                 }
                 .tag(0)
                 
                 NavigationLink(destination: ProjectListView()) {
-                    Text("View Your Projects")
+                    Text("Saved Projects")
                 }
                 .tabItem {
-                    Label("View Projects", systemImage: "list.bullet.rectangle")
+                    Label("Saved Projects", systemImage: "list.bullet.rectangle")
                 }
                 .tag(1)
                 
                 NavigationLink(destination: ProjectOffersView()) {
-                    Text("View Project Offers")
+                    Text("My Offers")
                 }
                 .tabItem {
-                    Label("View Offers", systemImage: "gift")
+                    Label("My Offers", systemImage: "gift")
                 }
                 .tag(2)
                 
@@ -66,5 +72,3 @@ struct HomeView: View {
         })
     }
 }
-    
-

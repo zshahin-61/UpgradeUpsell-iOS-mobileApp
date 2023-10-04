@@ -46,7 +46,7 @@ struct SignInView: View {
                         if (isSuccessful){
 
                             self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
-                                
+                                // MARK: check role of user and forward to their screens
                             })
 
                             self.rootScreen = .Home

@@ -36,12 +36,12 @@
 		5F9466282ABBD10F0006FBB5 /* InvestmentSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466272ABBD10F0006FBB5 /* InvestmentSuggestion.swift */; };
 		5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F94662A2ABC836A0006FBB5 /* RootView.swift */; };
 		5F94662D2ABC838C0006FBB5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F94662C2ABC838C0006FBB5 /* HomeView.swift */; };
-		5F94662F2ABC83A00006FBB5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F94662E2ABC83A00006FBB5 /* LoginView.swift */; };
 		5F9466312ABC83F70006FBB5 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466302ABC83F70006FBB5 /* SignInView.swift */; };
 		5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466322ABC84400006FBB5 /* SignUpView.swift */; };
 		5F9466352ABC845C0006FBB5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466342ABC845C0006FBB5 /* ProfileView.swift */; };
 		5F9466372ABCC5940006FBB5 /* PhotoLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */; };
 		5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */; };
+		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,12 +70,12 @@
 		5F9466272ABBD10F0006FBB5 /* InvestmentSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentSuggestion.swift; sourceTree = "<group>"; };
 		5F94662A2ABC836A0006FBB5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		5F94662C2ABC838C0006FBB5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		5F94662E2ABC83A00006FBB5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5F9466302ABC83F70006FBB5 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5F9466322ABC84400006FBB5 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		5F9466342ABC845C0006FBB5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryManager.swift; sourceTree = "<group>"; };
 		5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,14 +94,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5A8DAB2F2ABCB39500CDCBCB /* Client */ = {
+		5A8DAB2F2ABCB39500CDCBCB /* Owner */ = {
 			isa = PBXGroup;
 			children = (
 				5A8DAB302ABCB3A200CDCBCB /* CreateProjectView.swift */,
 				5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */,
 				5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */,
 			);
-			path = Client;
+			path = Owner;
 			sourceTree = "<group>";
 		};
 		5A8DAB362ABCB50500CDCBCB /* Realtor */ = {
@@ -112,12 +112,12 @@
 			path = Realtor;
 			sourceTree = "<group>";
 		};
-		5A8DAB372ABCB51100CDCBCB /* Renoation */ = {
+		5A8DAB372ABCB51100CDCBCB /* Investor */ = {
 			isa = PBXGroup;
 			children = (
 				5A8DAB292ABCA86200CDCBCB /* RenovationPersonDashboardView.swift */,
 			);
-			path = Renoation;
+			path = Investor;
 			sourceTree = "<group>";
 		};
 		5A8DAB382ABCB54100CDCBCB /* setting */ = {
@@ -126,12 +126,12 @@
 				5F9465F62ABB33E50006FBB5 /* ContentView.swift */,
 				5F94662A2ABC836A0006FBB5 /* RootView.swift */,
 				5F94662C2ABC838C0006FBB5 /* HomeView.swift */,
-				5F94662E2ABC83A00006FBB5 /* LoginView.swift */,
 				5F9466302ABC83F70006FBB5 /* SignInView.swift */,
 				5F9466322ABC84400006FBB5 /* SignUpView.swift */,
 				5F9466342ABC845C0006FBB5 /* ProfileView.swift */,
 				5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */,
 				5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */,
+				5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */,
 			);
 			path = setting;
 			sourceTree = "<group>";
@@ -211,12 +211,20 @@
 		5F9466292ABC82D90006FBB5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5FD8823F2ACDAEB90034439F /* New Group */,
 				5A8DAB382ABCB54100CDCBCB /* setting */,
-				5A8DAB372ABCB51100CDCBCB /* Renoation */,
+				5A8DAB372ABCB51100CDCBCB /* Investor */,
 				5A8DAB362ABCB50500CDCBCB /* Realtor */,
-				5A8DAB2F2ABCB39500CDCBCB /* Client */,
+				5A8DAB2F2ABCB39500CDCBCB /* Owner */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5FD8823F2ACDAEB90034439F /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +311,7 @@
 				5F9466242ABBC4B30006FBB5 /* Investment.swift in Sources */,
 				5A8DAB2E2ABCAB6100CDCBCB /* SettingsView.swift in Sources */,
 				5F94661C2ABBC06E0006FBB5 /* ChatMessage.swift in Sources */,
+				5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */,
 				5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */,
 				5F94662D2ABC838C0006FBB5 /* HomeView.swift in Sources */,
 				5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */,
@@ -320,7 +329,6 @@
 				5F9466222ABBC4250006FBB5 /* ProfitSharing.swift in Sources */,
 				5F9466202ABBC35A0006FBB5 /* FinancialTransaction.swift in Sources */,
 				5F9466132ABB55F50006FBB5 /* FireAuthController.swift in Sources */,
-				5F94662F2ABC83A00006FBB5 /* LoginView.swift in Sources */,
 				5F9466352ABC845C0006FBB5 /* ProfileView.swift in Sources */,
 				5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */,
 				5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */,
@@ -457,6 +465,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"UpgradeUpsell/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -485,6 +494,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"UpgradeUpsell/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

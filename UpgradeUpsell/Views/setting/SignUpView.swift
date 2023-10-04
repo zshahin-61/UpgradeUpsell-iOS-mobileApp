@@ -53,7 +53,7 @@ struct SignUpView: View {
                                         Text($0)
                                     }
                                 }
-                                .pickerStyle(.wheel)
+                .pickerStyle(.segmented)
 
                 TextField("Address", text: self.$addressFromUI)
                     .textInputAutocapitalization(.never)

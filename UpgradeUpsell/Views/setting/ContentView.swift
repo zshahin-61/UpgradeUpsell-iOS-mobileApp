@@ -22,7 +22,9 @@ struct ContentView: View {
                 SignInView(rootScreen: $root).environmentObject(authHelper).environmentObject(self.dbHelper)
             case .Home:
                 HomeView(rootScreen: $root).environmentObject(authHelper).environmentObject(self.dbHelper)
-                    
+            case .InvestorHome:
+                HomeView_Investor(rootScreen: $root).environmentObject(authHelper).environmentObject(self.dbHelper)
+              
             case .SignUp:
                 SignUpView(rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
             case .Profile:
