@@ -45,20 +45,26 @@ struct SignInView: View {
                     self.authHelper.signIn(email: self.emailFromUI, password: self.passwordFromUI, withCompletion: { isSuccessful in
                         if (isSuccessful){
 
-                            self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
-                                // MARK: check role of user and forward to their screens
-                                if let loginedUserRole = dbHelper.userProfile?.role{
-                                    if loginedUserRole == "Owner"{
-                                        self.rootScreen = .Home
-                                    }
-                                    else if loginedUserRole == "Investor"{
-                                        self.rootScreen = .InvestorHome
-                                    }
-                                    else if loginedUserRole == "Realtor"{
-                                        self.rootScreen = .RealtorHome
-                                    }
+                            self.dbHelper.getUserProfile(withCompletion: {isSuccessful_2 in
+                                if( isSuccessful_2){
+                                    // MARK: check role of user and forward to their screens
+                                    if let loginedUserRole = dbHelper.userProfile?.role{
+                                        if loginedUserRole == "Owner"{
+                                            self.rootScreen = .Home
+                                        }
+                                        else if loginedUserRole == "Investor"{
+                                            self.rootScreen = .InvestorHome
+                                        }
+                                        else if loginedUserRole == "Realtor"{
+                                            self.rootScreen = .RealtorHome
+                                        }
                                         
                                         
+                                    }
+                                }
+                                else{
+                                    self.showAlert = true
+                                    print(#function, "User does not exist in user profile collection")
                                 }
                             })
 
