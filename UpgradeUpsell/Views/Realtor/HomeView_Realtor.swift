@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView_Realtor: View {
-    
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var selectedTab = 0
@@ -17,16 +16,8 @@ struct HomeView_Realtor: View {
     
     
     var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink(destination: PropertyListForRealtorView()) {
-                    Text("View Properties for Sale")
-                }
-                Text("Submit Purchase Offers")
-                Text("Notifications")
-            }
-            .navigationTitle("Realtor Person Dashboard")
-        }
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
+
 
