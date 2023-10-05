@@ -87,7 +87,7 @@ class FirestoreController: ObservableObject {
     
     //////
     
-    private var loggedInUserEmail: String = ""
+    private var loggedInUserID: String = ""
     
     init(db: Firestore) {
         self.db = db
@@ -102,10 +102,10 @@ class FirestoreController: ObservableObject {
     
     // MARK: User profile functions
     func getUserProfile(withCompletion completion: @escaping (Bool) -> Void) {
-        self.loggedInUserEmail = UserDefaults.standard.string(forKey: "KEY_EMAIL") ?? ""
-        print("\(self.loggedInUserEmail)")
+        self.loggedInUserID = UserDefaults.standard.string(forKey: "KEY_ID") ?? ""
+        print("\(self.loggedInUserID)")
         
-        let document = db.collection(COLLECTION_UsersProfile).document(self.loggedInUserEmail)
+        let document = db.collection(COLLECTION_UsersProfile).document(self.loggedInUserID)
         
         document.addSnapshotListener { (documentSnapshot, error) in
             if let document = documentSnapshot, document.exists {

@@ -54,7 +54,7 @@ class FireAuthController : ObservableObject{
                 
                 self.user = authResult?.user
                 //save the email in the UserDefaults
-                UserDefaults.standard.set(self.user?.email, forKey: "KEY_EMAIL")
+                UserDefaults.standard.set(self.user?.email, forKey: "KEY_ID")
                 
                 DispatchQueue.main.async {
                     self.isLoginSuccessful = true
@@ -90,7 +90,7 @@ class FireAuthController : ObservableObject{
                 
                 self.user = authResult?.user
                 //save the email in the UserDefaults
-                UserDefaults.standard.set(self.user?.email, forKey: "KEY_EMAIL")
+                UserDefaults.standard.set(self.user?.uid, forKey: "KEY_ID")
                 
                 print(#function, "user email : \(self.user?.email)")
                 print(#function, "user displayName : \(self.user?.displayName)")

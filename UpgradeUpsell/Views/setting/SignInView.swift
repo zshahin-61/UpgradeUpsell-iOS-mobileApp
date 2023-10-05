@@ -45,8 +45,8 @@ struct SignInView: View {
                     self.authHelper.signIn(email: self.emailFromUI, password: self.passwordFromUI, withCompletion: { isSuccessful in
                         if (isSuccessful){
 
-                            self.dbHelper.getUserProfile(withCompletion: {isSuccessful_2 in
-                                if( isSuccessful_2){
+                            self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
+                                if( isSuccessful){
                                     // MARK: check role of user and forward to their screens
                                     if let loginedUserRole = dbHelper.userProfile?.role{
                                         if loginedUserRole == "Owner"{
