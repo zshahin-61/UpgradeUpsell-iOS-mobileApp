@@ -16,6 +16,16 @@ struct HomeView_Realtor: View {
     
     
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            VStack {
+                NavigationLink(destination: PropertyListForRealtorView()) {
+                    Text("View Properties for Sale")
+                }
+                Text("Submit Purchase Offers")
+                Text("Notifications")
+            }
+            .navigationTitle("Realtor Dashboard")
+        }
     }
 }
+

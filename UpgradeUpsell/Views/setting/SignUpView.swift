@@ -33,7 +33,11 @@ struct SignUpView: View {
     var body: some View {
         
         VStack{
-            //Form{
+//            Text("Sign Up")
+//                .font(.largeTitle)
+//                .fontWeight(.bold)
+//                .foregroundColor(.blue)
+            Form{
                 TextField("Enter Email", text: self.$emailFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
@@ -46,16 +50,24 @@ struct SignUpView: View {
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
 
-                TextField("Full Name", text: self.$fullNameFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+//                VStack(alignment: .leading, spacing: 10) {
+//                    Text("Full Name")
+//                        .font(.headline)
+                    TextField("Enter Full Name", text: $fullNameFromUI)
+                        .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.words)
+                //}
                 
-                Picker("Select Role", selection: $selectedRole) {
-                                    ForEach(roles, id: \.self) {
-                                        Text($0)
-                                    }
-                                }
-                .pickerStyle(.segmented)
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("I am ...")
+                        .font(.headline)
+                    Picker("Role", selection: $selectedRole) {
+                        ForEach(roles, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                }
 
                 TextField("Address", text: self.$addressFromUI)
                     .textInputAutocapitalization(.never)
@@ -93,7 +105,7 @@ struct SignUpView: View {
                                 Text("Access to photo library is not authorized.")
                             }
                         }
-            //}
+            }
             .autocorrectionDisabled(true)
 
             Button(action: {
@@ -151,7 +163,13 @@ struct SignUpView: View {
                    }
             }){
                 Text("Create Account")
-            }.buttonStyle(.borderedProminent)
+                    .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+            }
+            .buttonStyle(.borderedProminent)
                 .disabled(self.passwordFromUI != self.confirmPasswordFromUI || self.emailFromUI.isEmpty || self.passwordFromUI.isEmpty || self.confirmPasswordFromUI.isEmpty || !isEmailValid())
             
                 .navigationBarTitle("Sign Up", displayMode: .inline)
