@@ -24,7 +24,7 @@ struct UpgradeUpsellApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(authHelper)
+            ContentView().environmentObject(authHelper).accentColor(Color.red)
         }
     }
 }
