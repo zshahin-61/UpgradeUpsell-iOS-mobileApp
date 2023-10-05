@@ -9,8 +9,8 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct UserProfile: Codable, Hashable, Identifiable {
-    @DocumentID var id = UUID().uuidString
-    var username: String
+    @DocumentID var id : String? = UUID().uuidString
+    //var username: String?
     var role: String
     var fullName: String
     var email: String
@@ -24,15 +24,15 @@ struct UserProfile: Codable, Hashable, Identifiable {
     let address: String
     
     init?(dictionary: [String: Any]) {
-//        guard let myUserID = dictionary["id"] as? String else {
-//            print(#function, "Unable to get user ID from JSON")
-//            return nil
-//        }
-        
-        guard let myUsername = dictionary["username"] as? String else {
-            print(#function, "Unable to get username from JSON")
+        guard let myUserID = dictionary["id"] as? String else {
+            print(#function, "Unable to get user ID from JSON")
             return nil
         }
+        
+//        guard let myUsername = dictionary["username"] as? String else {
+//            print(#function, "Unable to get username from JSON")
+//            return nil
+//        }
         
         guard let myRole = dictionary["role"] as? String else {
             print(#function, "Unable to get role from JSON")
@@ -80,17 +80,18 @@ struct UserProfile: Codable, Hashable, Identifiable {
         }
 
 //        self.init(user: myName, contactNumber: myContactNumber, address: myAddress, image: myImage, friends: myFriends, numberOfEventsAttending: myNumberOfEventsAttending)
-        self.init(username: myUsername, fullName: myFullName, email: myEmail, role: myRole, userBio: myUserBio, profilePicture: myProfilePicture,  prefrences: myPrefrences, idCard: myIdCard, contactNumber: myContactNumber, address: myAddress)
+        self.init(id:myUserID, fullName: myFullName, email: myEmail, role: myRole, userBio: myUserBio, profilePicture: myProfilePicture,  prefrences: myPrefrences, contactNumber: myContactNumber, address: myAddress)
     }
     
-    init(username: String, fullName:String, email: String, role: String, userBio: String, profilePicture: Data?,  prefrences: Prefrences, idCard: Data?, contactNumber: String, address: String) {
-        self.username = username
+    init(id: String, fullName:String, email: String, role: String, userBio: String, profilePicture: Data?,  prefrences: Prefrences, contactNumber: String, address: String) {
+        self.id = id
+        //self.username = username
         self.role = role
         self.fullName = fullName
         self.email = email
         self.prefrences = Prefrences()
         self.userBio = userBio
-        self.idCard = idCard
+        //self.idCard = idCard
         self.contactNumber = contactNumber
         self.address = address
     }

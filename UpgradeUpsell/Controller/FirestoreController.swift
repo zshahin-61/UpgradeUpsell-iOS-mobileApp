@@ -31,17 +31,19 @@ class FirestoreController: ObservableObject {
     /// END COLLECTIONS LIST //////
     
     /// Fields //////
-    private let FIELD_userID = "userID"
-    private let FIELD_username = "username"
-    private let FIELD_fullName = "fullName"
-    private let FIELD_role = "role"
-    private let FIELD_email = "email"
-    private let FIELD_authenticationToken = "authenticationToken"
-    private let FIELD_preferences = "preferences"
-    private let FIELD_userBio = "userBio"
-    private let FIELD_profilePicture = "profilePicture"
-    private let FIELD_notifications = "notifications"
-    private let FIELD_favoriteProjects = "favoriteProjects"
+    private let FIELD_UP_userID = "userID"
+    private let FIELD_UP_username = "username"
+    private let FIELD_UP_fullName = "fullName"
+    private let FIELD_UP_role = "role"
+    private let FIELD_UP_email = "email"
+    private let FIELD_UP_address = "address"
+    private let FIELD_UP_contactNumber = "contactNumber"
+    private let FIELD_UP_authenticationToken = "authenticationToken"
+    private let FIELD_UP_preferences = "preferences"
+    private let FIELD_UP_userBio = "userBio"
+    private let FIELD_UP_profilePicture = "profilePicture"
+    private let FIELD_UP_notifications = "notifications"
+    private let FIELD_UP_favoriteProjects = "favoriteProjects"
     //////
     private let FIELD_notifID = "notifID"
     private let FIELD_title = "title"
@@ -132,6 +134,28 @@ class FirestoreController: ObservableObject {
     }
     
     
+    func createUserProfile(newUser: UserProfile){
+        print(#function, "Inserting profile Info")
+        
+        do{
+            let docRef = db.collection(COLLECTION_UsersProfile).document(newUser.id!)
+            try docRef.setData([FIELD_UP_email: newUser.email,
+                FIELD_UP_fullName: newUser.fullName,
+                     FIELD_UP_role : newUser.role,
+                              FIELD_UP_userBio: newUser.userBio,
+                       FIELD_UP_profilePicture: newUser.profilePicture
+                                ,
+                         FIELD_UP_address: newUser.address,
+                       FIELD_UP_contactNumber: newUser.contactNumber
+                               ]){ error in
+            }
+            
+            print(#function, "user \(newUser.fullName) successfully added to database")
+        }catch let err as NSError{
+            print(#function, "Unable to add user to database : \(err)")
+        }//do..catch
+        
+    }
     
     
 }
