@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestoreSwift
 
 struct SignUpView: View {
     @EnvironmentObject var authHelper : FireAuthController
@@ -44,7 +46,7 @@ struct SignUpView: View {
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
 
-                TextField("Name", text: self.$fullNameFromUI)
+                TextField("Full Name", text: self.$fullNameFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                 
@@ -112,18 +114,35 @@ struct SignUpView: View {
                                 imageData = image.jpegData(compressionQuality: 0.1)
                             }
                             
-                            let user : UserProfile = UserProfile(username: emailFromUI, fullName: fullNameFromUI, email: emailFromUI, role: selectedRole, userBio: "", profilePicture: imageData, prefrences: Prefrences(), idCard: nil, contactNumber: phoneFromUI, address: addressFromUI)
+                            guard let user = Auth.auth().currentUser else{
+                                return
+                            }
                             
-                          //  self.dbHelper.createUserProfile(newUser: user)
+                            var newUser : UserProfile = UserProfile(id: user.uid, fullName: fullNameFromUI, email: emailFromUI, role: selectedRole, userBio: "", profilePicture: imageData, prefrences: Prefrences(), contactNumber: phoneFromUI, address: addressFromUI)
+                            
+                            self.dbHelper.createUserProfile(newUser: newUser)
                             //Load User Data
                             //self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
-                              //  if(isSuccessful){
-                               //     dbHelper.getFriends()
-                                 //   dbHelper.getMyEventsList()
-                               // }
+                            //  if(isSuccessful){
+                            //     dbHelper.getFriends()
+                            //   dbHelper.getMyEventsList()
+                            // }
                             //})
                             //show to home screen
-                            self.rootScreen = .Home
+                            if self.selectedRole == "Owner" {
+                                
+                                self.rootScreen = .Home
+                                
+                            }else if self.selectedRole == "Investor" {
+                                
+                                self.rootScreen = .InvestorHome
+                                
+                            }else if self.selectedRole == "Realtor" {
+                                
+                                self.rootScreen = .RealtorHome
+                                
+                            }
+                            
                         }else{
                             //show the alert with invalid username/password prompt
                             print(#function, "unable to create user")
