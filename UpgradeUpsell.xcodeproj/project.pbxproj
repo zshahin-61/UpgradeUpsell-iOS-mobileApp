@@ -43,6 +43,7 @@
 		5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */; };
 		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
 		5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882462ACE591C0034439F /* HomeView_Realtor.swift */; };
+		5FD882492ACF407B0034439F /* Offers_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882482ACF407B0034439F /* Offers_Investor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
 		5FD882462ACE591C0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
+		5FD882482ACF407B0034439F /* Offers_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offers_Investor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			children = (
 				5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */,
 				5A8DAB292ABCA86200CDCBCB /* RenovationPersonDashboardView.swift */,
+				5FD882482ACF407B0034439F /* Offers_Investor.swift */,
 			);
 			path = Investor;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */,
 				5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */,
 				5F9466152ABB5C460006FBB5 /* FirestoreController.swift in Sources */,
+				5FD882492ACF407B0034439F /* Offers_Investor.swift in Sources */,
 				5A8DAB332ABCB3B500CDCBCB /* ProjectListView.swift in Sources */,
 				5A8DAB312ABCB3A200CDCBCB /* CreateProjectView.swift in Sources */,
 			);
