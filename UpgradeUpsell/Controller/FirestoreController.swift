@@ -143,8 +143,7 @@ class FirestoreController: ObservableObject {
                 FIELD_UP_fullName: newUser.fullName,
                      FIELD_UP_role : newUser.role,
                               FIELD_UP_userBio: newUser.userBio,
-                       FIELD_UP_profilePicture: newUser.profilePicture
-                                ,
+                       FIELD_UP_profilePicture: newUser.profilePicture,
                          FIELD_UP_address: newUser.address,
                        FIELD_UP_contactNumber: newUser.contactNumber
                                ]){ error in

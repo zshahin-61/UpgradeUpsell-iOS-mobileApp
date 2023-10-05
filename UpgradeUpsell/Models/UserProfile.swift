@@ -94,6 +94,7 @@ struct UserProfile: Codable, Hashable, Identifiable {
         //self.idCard = idCard
         self.contactNumber = contactNumber
         self.address = address
+        self.profilePicture = profilePicture
     }
     
     
