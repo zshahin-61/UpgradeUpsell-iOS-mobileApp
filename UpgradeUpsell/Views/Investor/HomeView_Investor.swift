@@ -14,8 +14,8 @@ struct HomeView_Investor: View {
     
     @Binding var rootScreen: RootView
     
-    let userName = "Golnaz"
-    let userFamily = "Cherazi"
+    //let userName = "Golnaz"
+    //let userFamily = "Cherazi"
     
     var body: some View {
         NavigationView {
@@ -53,7 +53,7 @@ struct HomeView_Investor: View {
             //                .onAppear {
             //                    UITabBar.appearance().isHidden = true // Hide the system tab bar
         }
-        .navigationBarTitle("Dashboard", displayMode: .inline)
+        .navigationBarTitle("Investor Dashboard", displayMode: .inline)
         .navigationBarItems(trailing: HStack {
             Button(action: {
                 self.authHelper.signOut()

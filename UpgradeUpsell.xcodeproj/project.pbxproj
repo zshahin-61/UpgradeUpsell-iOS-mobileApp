@@ -125,7 +125,7 @@
 			path = Investor;
 			sourceTree = "<group>";
 		};
-		5A8DAB382ABCB54100CDCBCB /* setting */ = {
+		5A8DAB382ABCB54100CDCBCB /* settings */ = {
 			isa = PBXGroup;
 			children = (
 				5F9465F62ABB33E50006FBB5 /* ContentView.swift */,
@@ -136,7 +136,7 @@
 				5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */,
 				5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */,
 			);
-			path = setting;
+			path = settings;
 			sourceTree = "<group>";
 		};
 		5F9465E82ABB33E50006FBB5 = {
@@ -215,7 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				5FD8823F2ACDAEB90034439F /* New Group */,
-				5A8DAB382ABCB54100CDCBCB /* setting */,
+				5A8DAB382ABCB54100CDCBCB /* settings */,
 				5A8DAB372ABCB51100CDCBCB /* Investor */,
 				5A8DAB362ABCB50500CDCBCB /* Realtor */,
 				5A8DAB2F2ABCB39500CDCBCB /* Owner */,

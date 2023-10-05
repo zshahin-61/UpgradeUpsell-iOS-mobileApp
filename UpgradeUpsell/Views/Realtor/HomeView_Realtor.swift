@@ -51,7 +51,7 @@ struct HomeView_Realtor: View {
             //                .onAppear {
             //                    UITabBar.appearance().isHidden = true // Hide the system tab bar
         }
-        .navigationBarTitle("Dashboard", displayMode: .inline)
+        .navigationBarTitle("Realtor Dashboard", displayMode: .inline)
         .navigationBarItems(trailing: HStack {
             Button(action: {
                 self.authHelper.signOut()
