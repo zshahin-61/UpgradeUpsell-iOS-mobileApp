@@ -103,7 +103,7 @@ struct SignInView: View {
                         .foregroundColor(.white)
                         .bold()
                         .padding()
-                        .background(Color.red)
+                        .background(Color.brown)
                 }
                 .cornerRadius(8)
             }
@@ -123,7 +123,7 @@ struct SignInView: View {
             configuration.label
                 //.padding()
                 .foregroundColor(.white)
-                .background(!self.isEnabled ? Color.gray : Color.red)
+                .background(!self.isEnabled ? Color.gray : Color.brown)
                 .cornerRadius(8)
                 .opacity(!self.isEnabled ? 0.8 : 1.0)
                 //.disabled(!self.isEnabled)
