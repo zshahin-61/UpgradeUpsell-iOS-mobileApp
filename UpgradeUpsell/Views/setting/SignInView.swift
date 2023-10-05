@@ -47,9 +47,22 @@ struct SignInView: View {
 
                             self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
                                 // MARK: check role of user and forward to their screens
+                                if let loginedUserRole = dbHelper.userProfile?.role{
+                                    if loginedUserRole == "Owner"{
+                                        self.rootScreen = .Home
+                                    }
+                                    else if loginedUserRole == "Investor"{
+                                        self.rootScreen = .InvestorHome
+                                    }
+                                    else if loginedUserRole == "Realtor"{
+                                        self.rootScreen = .RealtorHome
+                                    }
+                                        
+                                        
+                                }
                             })
 
-                            self.rootScreen = .Home
+                            
                         }else{
                             //show the alert with invalid username/password prompt
                             self.showAlert = true
