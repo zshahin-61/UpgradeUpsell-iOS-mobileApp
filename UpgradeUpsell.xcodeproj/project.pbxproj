@@ -42,7 +42,7 @@
 		5F9466372ABCC5940006FBB5 /* PhotoLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */; };
 		5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */; };
 		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
-		5FD882452ACE38EC0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882442ACE38EC0034439F /* HomeView_Realtor.swift */; };
+		5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882462ACE591C0034439F /* HomeView_Realtor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +77,7 @@
 		5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryManager.swift; sourceTree = "<group>"; };
 		5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
-		5FD882442ACE38EC0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
+		5FD882462ACE591C0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */,
-				5FD882442ACE38EC0034439F /* HomeView_Realtor.swift */,
+				5FD882462ACE591C0034439F /* HomeView_Realtor.swift */,
 			);
 			path = Realtor;
 			sourceTree = "<group>";
@@ -320,7 +320,7 @@
 				5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */,
 				5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */,
 				5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */,
-				5FD882452ACE38EC0034439F /* HomeView_Realtor.swift in Sources */,
+				5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */,
 				5F9466312ABC83F70006FBB5 /* SignInView.swift in Sources */,
 				5A8DAB352ABCB3C300CDCBCB /* ProjectOffersView.swift in Sources */,
 				5F9466372ABCC5940006FBB5 /* PhotoLibraryManager.swift in Sources */,
