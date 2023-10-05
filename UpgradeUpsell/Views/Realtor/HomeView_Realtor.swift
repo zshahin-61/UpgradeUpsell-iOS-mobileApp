@@ -17,15 +17,57 @@ struct HomeView_Realtor: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                NavigationLink(destination: PropertyListForRealtorView()) {
-                    Text("View Properties for Sale")
+            TabView(selection: $selectedTab) {
+                NavigationLink(destination: CreateProjectView()) {
+                    Text("List of Selling Properties")
                 }
-                Text("Submit Purchase Offers")
+                .tabItem {
+                    Label("List of Selling Properties", systemImage: "plus.circle")
+                }
+                .tag(0)
+                
+                NavigationLink(destination: ProjectListView()) {
+                    Text("Saved Properties")
+                }
+                .tabItem {
+                    Label("Saved Properties", systemImage: "list.bullet.rectangle")
+                }
+                .tag(1)
+                
+                NavigationLink(destination: ProjectOffersView()) {
+                    Text("Offers")
+                }
+                .tabItem {
+                    Label("Offers", systemImage: "gift")
+                }
+                .tag(2)
+                
                 Text("Notifications")
+                    .tabItem {
+                        Label("Notifications", systemImage: "bell")
+                    }
+                    .tag(3)
             }
-            .navigationTitle("Realtor Dashboard")
+            //                .onAppear {
+            //                    UITabBar.appearance().isHidden = true // Hide the system tab bar
         }
+        .navigationBarTitle("Dashboard", displayMode: .inline)
+        .navigationBarItems(trailing: HStack {
+            Button(action: {
+                self.authHelper.signOut()
+                rootScreen = .Login
+            }) {
+                Image(systemName: "arrow.right.circle.fill")
+            }
+            
+            NavigationLink(destination: ProfileView()) {
+                Image(systemName: "person.circle.fill")
+            }
+            
+            NavigationLink(destination: SettingsView()) {
+                Image(systemName: "gearshape.fill")
+            }
+        })
     }
 }
 
