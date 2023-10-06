@@ -136,12 +136,12 @@ class FirestoreController: ObservableObject {
         do{
             let docRef = db.collection(COLLECTION_UsersProfile).document(newUser.id!)
             try docRef.setData([FIELD_UP_email: newUser.email,
-                FIELD_UP_fullName: newUser.fullName,
-                     FIELD_UP_role : newUser.role,
+                             FIELD_UP_fullName: newUser.fullName,
+                                FIELD_UP_role : newUser.role,
                               FIELD_UP_userBio: newUser.userBio,
                        FIELD_UP_profilePicture: newUser.profilePicture,
-                         FIELD_UP_address: newUser.address,
-                       FIELD_UP_contactNumber: newUser.contactNumber
+                              FIELD_UP_address: newUser.address,
+                        FIELD_UP_contactNumber: newUser.contactNumber
                                ]){ error in
             }
             self.userProfile = newUser
@@ -168,11 +168,11 @@ class FirestoreController: ObservableObject {
                     .collection(COLLECTION_UsersProfile)
                     .document(userToUpdate.id!)
                     .updateData([FIELD_UP_fullName : userToUpdate.fullName,
-                       FIELD_UP_contactNumber : userToUpdate.contactNumber,
-                              FIELD_UP_address : userToUpdate.address,
+                            FIELD_UP_contactNumber : userToUpdate.contactNumber,
+                                  FIELD_UP_address : userToUpdate.address,
                                   FIELD_UP_userBio : userToUpdate.userBio,
                             FIELD_UP_profilePicture: userToUpdate.profilePicture
-                          ]){ error in
+                                ]){ error in
                         
                         if let err = error {
                             print(#function, "Unable to update user profile in database : \(err)")
@@ -185,7 +185,6 @@ class FirestoreController: ObservableObject {
             }//catch
         }//else
     }
-    
     
     func deleteUser(withCompletion completion: @escaping (Bool) -> Void) {
         
@@ -225,5 +224,49 @@ class FirestoreController: ObservableObject {
         }
     }
     
+// MARK: renovateProjects
+    func addRenovateProject(_ newProject: RenovateProject) {
+        
+        do {
+            let _ = try self.db.collection(COLLECTION_RenovateProject).addDocument(from: newProject)
+        } catch {
+            print("Error adding project to Firestore: \(error)")
+        }
+    }
     
+    func deleteRenovateProject(_ projectToDelete: RenovateProject) {
+        db.collection(COLLECTION_RenovateProject).document(projectToDelete.id!).delete { error in
+            if let error = error {
+                print("Error deleting project from Firestore: \(error)")
+            } else {
+                print("Project deleted successfully")
+            }
+        }
+    }
+    
+    func updateRenovateProject(_ prjToUpdate: RenovateProject) {
+        
+        do {
+            try self.db.collection(COLLECTION_RenovateProject).document(prjToUpdate.id!).setData(from: prjToUpdate)
+        } catch {
+            print("Error updating project in Firestore: \(error)")
+        }
+    }
+    
+    func getRenovateProjects(completion: @escaping ([RenovateProject]?, Error?) -> Void) {
+        self.db.collection(COLLECTION_RenovateProject).getDocuments { querySnapshot, error in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                var projects = [RenovateProject]()
+                for document in querySnapshot!.documents {
+                    if let project = try? document.data(as: RenovateProject.self) {
+                        projects.append(project)
+                    }
+                }
+                completion(projects, nil)
+            }
+        }
+    }
 }
+
