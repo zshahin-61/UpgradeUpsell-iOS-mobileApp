@@ -92,7 +92,8 @@ struct SignUpView: View {
                         if let image = selectedImage {
                             Image(uiImage: image)
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 150, height: 150)
+                                .clipShape(Circle())
                         }
                     } else {
                         Button(action: {

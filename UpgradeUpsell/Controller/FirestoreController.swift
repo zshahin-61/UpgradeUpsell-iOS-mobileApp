@@ -173,6 +173,7 @@ class FirestoreController: ObservableObject {
                     .updateData([FIELD_UP_fullName : userToUpdate.fullName,
                        FIELD_UP_contactNumber : userToUpdate.contactNumber,
                               FIELD_UP_address : userToUpdate.address,
+                                  FIELD_UP_userBio : userToUpdate.userBio,
                             FIELD_UP_profilePicture: userToUpdate.profilePicture
                           ]){ error in
                         
