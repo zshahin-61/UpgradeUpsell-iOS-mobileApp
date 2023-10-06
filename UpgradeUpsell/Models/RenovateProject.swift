@@ -82,11 +82,6 @@ struct RenovateProject: Codable , Identifiable {
             return nil
         }
         
-        guard let myInvestmentSuggestions = dictionary["investmentSuggestions"] as? [InvestmentSuggestion] else {
-            print(#function, "Unable to get address from JSON")
-            return nil
-        }
-        
         guard let mySelectedInvestmentSuggestionID = dictionary["selectedInvestmentSuggestionID"] as? String else {
             print(#function, "Unable to get selectedInvestmentSuggestionID from JSON")
             return nil
