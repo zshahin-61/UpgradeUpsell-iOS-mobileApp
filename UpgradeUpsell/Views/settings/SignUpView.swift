@@ -135,11 +135,10 @@ struct SignUpView: View {
                             self.dbHelper.createUserProfile(newUser: newUser)
                             //Load User Data
                             //self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
-                            //  if(isSuccessful){
-                            //     dbHelper.getFriends()
-                            //   dbHelper.getMyEventsList()
-                            // }
-                            //})
+                            //if(isSuccessful)
+                            //{
+                            
+                            
                             //show to home screen
                             if self.selectedRole == "Owner" {
                                 
@@ -154,7 +153,8 @@ struct SignUpView: View {
                                 self.rootScreen = .RealtorHome
                                 
                             }
-                            
+                        //}
+                             //})
                         }else{
                             //show the alert with invalid username/password prompt
                             print(#function, "unable to create user")

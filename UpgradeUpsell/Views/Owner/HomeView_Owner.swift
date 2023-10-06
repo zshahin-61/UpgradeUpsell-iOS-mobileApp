@@ -62,7 +62,7 @@ struct HomeView: View {
                 Image(systemName: "person.circle.fill")
             }
             
-            NavigationLink(destination: SettingsView()) {
+            NavigationLink(destination: SettingsView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                 Image(systemName: "gearshape.fill")
             }
         })
