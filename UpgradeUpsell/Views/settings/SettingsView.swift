@@ -1,3 +1,10 @@
+//
+//  SettingsView.swift
+//  UpgradeUpsell
+//
+//  Created by Golnaz Chehrazi - Zahra Shahin on 2023-10-04.
+//
+
 import SwiftUI
 
 struct SettingsView: View {
@@ -19,29 +26,29 @@ struct SettingsView: View {
                 Form {
                     Section(header: Text("Preferences")) {
                         
-                                                
-                                                Picker("Theme", selection: $themeFromUI) {
-                                                    Text("Light").tag("light")
-                                                    Text("Dark").tag("dark")
-                                                }
-                                                
-                                                Picker("Language", selection: $langFromUI) {
-                                                    Text("English").tag("en_US")
-                                                    Text("Spanish").tag("es_ES")
-                                                    // Add more languages here as needed
-                                                }
-                                                
-                                                Stepper("Font Size: \(fontSizeFromUI)", value: $fontSizeFromUI, in: 12...24)
+                        
+                        Picker("Theme", selection: $themeFromUI) {
+                            Text("Light").tag("light")
+                            Text("Dark").tag("dark")
+                        }
+                        
+                        Picker("Language", selection: $langFromUI) {
+                            Text("English").tag("en_US")
+                            Text("Spanish").tag("es_ES")
+                            // Add more languages here as needed
+                        }
+                        
+                        Stepper("Font Size: \(fontSizeFromUI)", value: $fontSizeFromUI, in: 12...24)
                     }
                     
                     Section(header: Text("Notifications")) {
                         Toggle(isOn: $pushNotifFromUI , label: {
-                                                    Text("Push Notifications")
-                                                })
-                                                
-                                                Toggle(isOn: $notificationsEmail, label: {
-                                                    Text("Email Notifications")
-                                                })
+                            Text("Push Notifications")
+                        })
+                        
+                        Toggle(isOn: $notificationsEmail, label: {
+                            Text("Email Notifications")
+                        })
                     }
                     
                     Section(header: Text("Account Settings")) {
@@ -51,7 +58,7 @@ struct SettingsView: View {
                             
                             // TODO: before delete checking other collections has data of this user
                             
-                           
+                            
                         }){
                             Image(systemName: "multiply.circle").foregroundColor(Color.white)
                             Text("Delete User Account")
@@ -62,6 +69,18 @@ struct SettingsView: View {
                 }//Form
             }
             .navigationTitle("Settings")
+            // .onAppear here, at the root level of SettingsView
+            .onAppear {
+                guard let userPref = dbHelper.userProfile?.prefrences else{
+                    return
+                }
+                self.fontSizeFromUI = userPref.fontSize ?? 14
+                self.langFromUI = userPref.language
+                self.notificationsEmail = userPref.notifications.email
+                self.pushNotifFromUI = userPref.notifications.push
+                self.themeFromUI = userPref.theme
+                
+            }
         }
         .alert(isPresented: $showingDeleteAlert) {
             Alert(
