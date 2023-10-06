@@ -31,12 +31,9 @@ struct ContentView: View {
                 SignUpView(rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
             case .Profile:
                 ProfileView(rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
-                //               rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
                 
             case .Settings:
-                SettingsView()
-//                (rootScreen:
-//                    $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
+                SettingsView(rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
 }
         }.padding()
     }

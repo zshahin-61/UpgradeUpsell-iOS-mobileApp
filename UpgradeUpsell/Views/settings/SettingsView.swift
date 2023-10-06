@@ -5,6 +5,7 @@ struct SettingsView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     
     @State private var showingDeleteAlert = false
+    @Binding var rootScreen : RootView
     
     var body: some View {
         NavigationView {
@@ -23,25 +24,28 @@ struct SettingsView: View {
                     }
                     
                     Section(header: Text("Account Settings")) {
-                        Button(action: {
-                            // Show a confirmation alert
-                            showingDeleteAlert.toggle()
-                        }) {
-                            HStack {
-                                Image(systemName: "multiply.circle")
-                                    .foregroundColor(.white)
-                                    .font(.title2)
-                                    .padding(5)
-                                
-                                Text("Delete User Account")
-                                    .foregroundColor(.white)
-                                    .font(.title2)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.red)
-                            .cornerRadius(15)
-                        }
+                        Button(action:{
+                            // TODO: before delete checking other collections has data of this user
+                            self.dbHelper.deleteUser(withCompletion: { isSuccessful in
+                                if (isSuccessful){
+                                    self.authHelper.deleteAccountFromAuth(withCompletion: { isSuccessful2 in
+                                        if (isSuccessful2){
+                                            //sign out using Auth
+                                            self.authHelper.signOut()
+                                            
+                                            //self.selectedLink = 1
+                                            //dismiss current screen and show login screen
+                                            self.rootScreen = .Login
+                                        }
+                                    }
+                                    )}
+                            })
+                        }){
+                            Image(systemName: "multiply.circle").foregroundColor(Color.white)
+                            Text("Delete User Account")
+                        }.padding(5).font(.title2).foregroundColor(Color.white)//
+                            .buttonBorderShape(.roundedRectangle(radius: 15)).buttonStyle(.bordered).background(Color.red)
+                        
                     }
                 }
             }

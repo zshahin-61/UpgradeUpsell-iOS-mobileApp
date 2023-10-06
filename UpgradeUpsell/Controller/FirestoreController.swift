@@ -135,7 +135,7 @@ class FirestoreController: ObservableObject {
     
     func createUserProfile(newUser: UserProfile){
         print(#function, "Inserting profile Info")
-        
+        self.loggedInUserID = newUser.id!
         do{
             let docRef = db.collection(COLLECTION_UsersProfile).document(newUser.id!)
             try docRef.setData([FIELD_UP_email: newUser.email,
@@ -147,7 +147,7 @@ class FirestoreController: ObservableObject {
                        FIELD_UP_contactNumber: newUser.contactNumber
                                ]){ error in
             }
-            
+            self.userProfile = newUser
             print(#function, "user \(newUser.fullName) successfully added to database")
         }catch let err as NSError{
             print(#function, "Unable to add user to database : \(err)")
