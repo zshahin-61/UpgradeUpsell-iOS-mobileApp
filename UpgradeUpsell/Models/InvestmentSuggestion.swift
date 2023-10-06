@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct InvestmentSuggestion: Codable, Identifiable {
+struct InvestmentSuggestion: Codable, Hashable,Identifiable {
     @DocumentID var id = UUID().uuidString
     var investorID: String
     var projectID: String
@@ -55,7 +55,6 @@ struct InvestmentSuggestion: Codable, Identifiable {
 
         self.init(id: myID, investorID: myInvestorID, projectID:myProjectID, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus)
     }
-    
     
     init(id: String, investorID: String, projectID: String, amountOffered: Double, durationWeeks: Int, description: String, status: String) {
         self.id = id

@@ -285,5 +285,84 @@ class FirestoreController: ObservableObject {
             }
         }
     }
+    
+    // MARK: functions for Collection investment Sugesstions
+    func addInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
+        do {
+            let _ = try db.collection(COLLECTION_InvestmentSuggestion).addDocument(from: suggestion)
+        } catch {
+            print("Error adding investment suggestion to Firestore: \(error)")
+        }
+    }
+    
+    func updateInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
+        do {
+            try self.db.collection(COLLECTION_InvestmentSuggestion).document(suggestion.id!).setData(from: suggestion)
+        } catch {
+            print("Error updating investment suggestion in Firestore: \(error)")
+        }
+    }
+    
+    func deleteInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
+        self.db.collection(COLLECTION_InvestmentSuggestion).document(suggestion.id!).delete { error in
+            if let error = error {
+                print("Error deleting investment suggestion from Firestore: \(error)")
+            } else {
+                print("Investment suggestion deleted successfully")
+            }
+        }
+    }
+    
+    func getInvestmentSuggestions(completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
+        self.db.collection(COLLECTION_InvestmentSuggestion).getDocuments { querySnapshot, error in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                var suggestions = [InvestmentSuggestion]()
+                for document in querySnapshot!.documents {
+                    if let suggestion = try? document.data(as: InvestmentSuggestion.self) {
+                        suggestions.append(suggestion)
+                    }
+                }
+                completion(suggestions, nil)
+            }
+        }
+    }
+    
+    func getInvestmentSuggestionsbyInvestorID(forInvestorID investorID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
+        self.db.collection(COLLECTION_InvestmentSuggestion)
+            .whereField("investorID", isEqualTo: investorID)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion(nil, error)
+                } else {
+                    var suggestions = [InvestmentSuggestion]()
+                    for document in querySnapshot!.documents {
+                        if let suggestion = try? document.data(as: InvestmentSuggestion.self) {
+                            suggestions.append(suggestion)
+                        }
+                    }
+                    completion(suggestions, nil)
+                }
+        }
+    }
+    
+    func getInvestmentSuggestionsbyProjectID(forProjectID projectID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
+        self.db.collection(COLLECTION_InvestmentSuggestion)
+            .whereField("projectID", isEqualTo: projectID)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion(nil, error)
+                } else {
+                    var suggestions = [InvestmentSuggestion]()
+                    for document in querySnapshot!.documents {
+                        if let suggestion = try? document.data(as: InvestmentSuggestion.self) {
+                            suggestions.append(suggestion)
+                        }
+                    }
+                    completion(suggestions, nil)
+                }
+        }
+    }
 }
 
