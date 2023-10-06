@@ -128,8 +128,9 @@ struct ProfileView: View {
                 
                 ////////
                 
-                dbHelper.userProfile!.fullName = nameFromUI
-                dbHelper.userProfile!.contactNumber = contactNumberFromUI
+                self.dbHelper.userProfile!.fullName = nameFromUI
+                self.dbHelper.userProfile!.contactNumber = contactNumberFromUI
+                self.dbHelper.userProfile!.userBio = bioFromUI
                 
                 self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
                 self.presentationMode.wrappedValue.dismiss()
