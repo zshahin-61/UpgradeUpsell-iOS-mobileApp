@@ -224,18 +224,18 @@ class FirestoreController: ObservableObject {
         }
     }
     
-    // MARK: renovateProjects
-    func addRenovateProject(_ newProject: RenovateProject) {
+    // MARK: renovateProjects Collection Functions
+    func addRenovateProject(_ newPrj: RenovateProject) {
         
         do {
-            let _ = try self.db.collection(COLLECTION_RenovateProject).addDocument(from: newProject)
+            let _ = try self.db.collection(COLLECTION_RenovateProject).addDocument(from: newPrj)
         } catch {
             print("Error adding project to Firestore: \(error)")
         }
     }
     
-    func deleteRenovateProject(_ projectToDelete: RenovateProject) {
-        db.collection(COLLECTION_RenovateProject).document(projectToDelete.id!).delete { error in
+    func deleteRenovateProject(_ prjToDelete: RenovateProject) {
+        db.collection(COLLECTION_RenovateProject).document(prjToDelete.id!).delete { error in
             if let error = error {
                 print("Error deleting project from Firestore: \(error)")
             } else {
@@ -269,5 +269,21 @@ class FirestoreController: ObservableObject {
         }
     }
     
+    func getRenovateProjectByID(_ projectID: String, completion: @escaping (RenovateProject?, Error?) -> Void) {
+        db.collection(COLLECTION_RenovateProject).document(projectID).getDocument { document, error in
+            if let error = error {
+                completion(nil, error)
+            } else if let document = document, document.exists {
+                do {
+                    let project = try document.data(as: RenovateProject.self)
+                    completion(project, nil)
+                } catch {
+                    completion(nil, error)
+                }
+            } else {
+                completion(nil, nil) // Document does not exist
+            }
+        }
+    }
 }
 
