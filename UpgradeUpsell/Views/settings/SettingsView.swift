@@ -89,14 +89,14 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             // .onAppear here, at the root level of SettingsView
             .onAppear {
-//                guard let userPref = dbHelper.userProfile?.prefrences else{
-//                    return
-//                }
-//                self.fontSizeFromUI = userPref.fontSize ?? 14
-//                self.langFromUI = userPref.language
-//                self.notificationsEmail = userPref.notifications.email
-//                self.pushNotifFromUI = userPref.notifications.push
-//                self.themeFromUI = userPref.theme
+                guard let userPref = dbHelper.userPrefrences else{
+                    return
+                }
+                self.fontSizeFromUI = userPref.fontSize ?? 14
+                self.langFromUI = userPref.language
+                self.notificationsEmail = userPref.emailNotif
+                self.pushNotifFromUI = userPref.pushNotif
+                self.themeFromUI = userPref.theme
                 
             }
         }

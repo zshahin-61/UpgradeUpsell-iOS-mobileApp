@@ -47,6 +47,8 @@ struct SignInView: View {
 
                             self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
                                 if( isSuccessful){
+                                    
+//                                    self.dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id, completion: <#T##(Prefrences?, Error?) -> Void#>)
                                     // MARK: check role of user and forward to their screens
                                     if let loginedUserRole = dbHelper.userProfile?.role{
                                         if loginedUserRole == "Owner"{
