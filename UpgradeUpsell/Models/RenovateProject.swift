@@ -10,7 +10,6 @@ import FirebaseFirestoreSwift
 
 struct RenovateProject: Codable , Identifiable {
     @DocumentID var id = UUID().uuidString
-    //let projectID: String
     var title: String
     var description: String
     var location: String
