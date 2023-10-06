@@ -4,6 +4,12 @@ struct SettingsView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     
+    @State private var pushNotifFromUI = false
+       @State private var notificationsEmail = false
+       @State private var themeFromUI = "light"
+       @State private var langFromUI = "en-us"
+       @State private var fontSizeFromUI = 14
+    
     @State private var showingDeleteAlert = false
     @Binding var rootScreen : RootView
     
@@ -12,15 +18,30 @@ struct SettingsView: View {
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
-                        // Add preference settings here
-                        Text("Preference 1")
-                        Text("Preference 2")
+                        
+                                                
+                                                Picker("Theme", selection: $themeFromUI) {
+                                                    Text("Light").tag("light")
+                                                    Text("Dark").tag("dark")
+                                                }
+                                                
+                                                Picker("Language", selection: $langFromUI) {
+                                                    Text("English").tag("en_US")
+                                                    Text("Spanish").tag("es_ES")
+                                                    // Add more languages here as needed
+                                                }
+                                                
+                                                Stepper("Font Size: \(fontSizeFromUI)", value: $fontSizeFromUI, in: 12...24)
                     }
                     
                     Section(header: Text("Notifications")) {
-                        // Add notification settings here
-                        Text("Notification 1")
-                        Text("Notification 2")
+                        Toggle(isOn: $pushNotifFromUI , label: {
+                                                    Text("Push Notifications")
+                                                })
+                                                
+                                                Toggle(isOn: $notificationsEmail, label: {
+                                                    Text("Email Notifications")
+                                                })
                     }
                     
                     Section(header: Text("Account Settings")) {
@@ -47,7 +68,7 @@ struct SettingsView: View {
                             .buttonBorderShape(.roundedRectangle(radius: 15)).buttonStyle(.bordered).background(Color.red)
                         
                     }
-                }
+                }//Form
             }
             .navigationTitle("Settings")
         }

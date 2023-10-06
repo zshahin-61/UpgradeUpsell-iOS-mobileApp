@@ -224,6 +224,43 @@ class FirestoreController: ObservableObject {
         }
     }
     
+    func savePreferences(preferences: Prefrences, forUserID userID: String, completion: @escaping (Error?) -> Void) {
+            // TODO: Save preferences to Firestore for the given userID
+            // Example:
+             let preferencesRef = db.collection(COLLECTION_UsersProfile).document(userID)
+             preferencesRef.setData(["preferences": preferences]) { error in
+                 completion(error)
+             }
+            
+            
+        }
+        
+        func getPreferencesFromFirestore(forUserID userID: String, completion: @escaping (Prefrences?, Error?) -> Void) {
+            // TODO: Retrieve preferences from Firestore for the given userID
+            // Example:
+             let preferencesRef = db.collection(COLLECTION_UsersProfile).document(userID)
+             preferencesRef.getDocument { document, error in
+                 if let error = error {
+                     completion(nil, error)
+                 } else if let document = document, document.exists {
+                     do {
+                         let preferences = try document.data(as: Prefrences.self)
+                         completion(preferences, nil)
+                     } catch {
+                         completion(nil, error)
+                     }
+                 } else {
+                     completion(nil, nil) // Document does not exist
+                 }
+             }
+            
+//            // Simulate a completion with default preferences for demonstration purposes (remove in production)
+//            let defaultPreferences = Prefrences()
+//            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+//                completion(defaultPreferences, nil)
+//            }
+        }
+    
     // MARK: renovateProjects Collection Functions
     func addRenovateProject(_ newPrj: RenovateProject) {
         
