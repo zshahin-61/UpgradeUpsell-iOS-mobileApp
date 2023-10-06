@@ -46,21 +46,12 @@ struct SettingsView: View {
                     
                     Section(header: Text("Account Settings")) {
                         Button(action:{
+                            
+                            showingDeleteAlert = true
+                            
                             // TODO: before delete checking other collections has data of this user
-                            self.dbHelper.deleteUser(withCompletion: { isSuccessful in
-                                if (isSuccessful){
-                                    self.authHelper.deleteAccountFromAuth(withCompletion: { isSuccessful2 in
-                                        if (isSuccessful2){
-                                            //sign out using Auth
-                                            self.authHelper.signOut()
-                                            
-                                            //self.selectedLink = 1
-                                            //dismiss current screen and show login screen
-                                            self.rootScreen = .Login
-                                        }
-                                    }
-                                    )}
-                            })
+                            
+                           
                         }){
                             Image(systemName: "multiply.circle").foregroundColor(Color.white)
                             Text("Delete User Account")
@@ -78,7 +69,20 @@ struct SettingsView: View {
                 message: Text("Are you sure you want to delete your account? This action cannot be undone."),
                 primaryButton: .destructive(Text("Delete")) {
                     // Delete account logic here
-//                    authHelper.deleteAccount()
+                    self.dbHelper.deleteUser(withCompletion: { isSuccessful in
+                        if (isSuccessful){
+                            self.authHelper.deleteAccountFromAuth(withCompletion: { isSuccessful2 in
+                                if (isSuccessful2){
+                                    //sign out using Auth
+                                    self.authHelper.signOut()
+                                    
+                                    //self.selectedLink = 1
+                                    //dismiss current screen and show login screen
+                                    self.rootScreen = .Login
+                                }
+                            }
+                            )}
+                    })
                 },
                 secondaryButton: .cancel()
             )
