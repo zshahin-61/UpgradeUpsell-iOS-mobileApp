@@ -32,6 +32,7 @@ struct ProfileView: View {
         VStack(alignment: .leading,spacing: 10){
             //Form{
             Group{
+                HStack{
                 if let data = imageData,
                    let uiImage = UIImage(data: data) {
                     if(selectedImage == nil)
@@ -48,7 +49,7 @@ struct ProfileView: View {
                 VStack{
                     //Text("Picture").bold()
                     if photoLibraryManager.isAuthorized {
-                        
+                        //HStack{
                         if let image = selectedImage {
                             Image(uiImage: image)
                                 .resizable()
@@ -60,6 +61,7 @@ struct ProfileView: View {
                         }) {
                             Text("Change Picture")
                         }
+                        //}//Hstack
                     } else {
                         Button(action: {
                             photoLibraryManager.requestPermission()
@@ -75,7 +77,7 @@ struct ProfileView: View {
                         Text("Access to photo library is not authorized.")
                     }
                 }
-                
+            }
                 Text("Full Name:").bold()
                 TextField("Full Name:", text: self.$nameFromUI)
                     .textInputAutocapitalization(.never)
