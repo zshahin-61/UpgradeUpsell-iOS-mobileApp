@@ -28,7 +28,7 @@ struct ProfileView: View {
     @State private var imageData: Data?
     
     var body: some View {
-        VStack{
+        VStack(alignment: .leading,spacing: 10){
             //Form{
             Group{
                 if let data = imageData,
@@ -74,7 +74,7 @@ struct ProfileView: View {
                     }
                 }
                 
-                
+                Text("Full Name:").bold()
                 TextField("Full Name:", text: self.$nameFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
