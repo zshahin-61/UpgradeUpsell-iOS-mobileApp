@@ -224,7 +224,7 @@ class FirestoreController: ObservableObject {
         }
     }
     
-// MARK: renovateProjects
+    // MARK: renovateProjects
     func addRenovateProject(_ newProject: RenovateProject) {
         
         do {
@@ -268,5 +268,6 @@ class FirestoreController: ObservableObject {
             }
         }
     }
+    
 }
 
