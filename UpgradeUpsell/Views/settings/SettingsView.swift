@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
-    
+    @Environment(\.presentationMode) var presentationMode
     @State private var pushNotifFromUI = false
        @State private var notificationsEmail = false
        @State private var themeFromUI = "light"
@@ -51,6 +51,29 @@ struct SettingsView: View {
                         })
                     }
                     
+                    Button(action: {
+                        var newPref = Prefrences()
+                        newPref.fontSize = fontSizeFromUI
+                        newPref.theme = themeFromUI
+                        newPref.language = langFromUI
+                        newPref.notifications.email = notificationsEmail
+                        newPref.notifications.push = pushNotifFromUI
+                        
+                        self.dbHelper.savePreferences(preferences: newPref, forUserID: dbHelper.userProfile!.id!) { error in
+                            if let error = error {
+                                // Handle the error here
+                                print("Error saving preferences: \(error.localizedDescription)")
+                            } else {
+                                // Preferences saved successfully
+                                print("Preferences saved successfully")
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                        }
+
+                    }) {
+                        Text("Save Preferences")
+                    }
+                
                     Section(header: Text("Account Settings")) {
                         Button(action:{
                             
