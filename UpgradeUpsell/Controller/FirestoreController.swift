@@ -344,7 +344,7 @@ class FirestoreController: ObservableObject {
                     }
                     completion(suggestions, nil)
                 }
-        }
+            }
     }
     
     func getInvestmentSuggestionsbyProjectID(forProjectID projectID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
@@ -362,7 +362,8 @@ class FirestoreController: ObservableObject {
                     }
                     completion(suggestions, nil)
                 }
-        }
+            }
     }
+    
 }
 
