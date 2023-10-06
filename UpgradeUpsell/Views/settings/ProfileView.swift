@@ -6,6 +6,7 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileView: View {
+    @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject var authHelper : FireAuthController
     @EnvironmentObject var dbHelper : FirestoreController
@@ -37,8 +38,8 @@ struct ProfileView: View {
                     {
                         Image(uiImage: uiImage)
                             .resizable()
-                                        .frame(width: 200, height: 200)
-                                        .clipShape(Circle())
+                            .frame(width: 150, height: 150)
+                            .clipShape(Circle())
                     }
                     else{
                         //
@@ -51,7 +52,8 @@ struct ProfileView: View {
                         if let image = selectedImage {
                             Image(uiImage: image)
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 150, height: 150)
+                                .clipShape(Circle())
                         }
                         Button(action: {
                             isShowingPicker = true
@@ -124,8 +126,8 @@ struct ProfileView: View {
                 dbHelper.userProfile!.contactNumber = contactNumberFromUI
                 
                 self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
-                
-                rootScreen = .Home
+                self.presentationMode.wrappedValue.dismiss()
+                //rootScreen = .Home
             }){
                 Text("Update Profile")
             }.buttonStyle(.borderedProminent)
