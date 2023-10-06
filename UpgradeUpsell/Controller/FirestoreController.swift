@@ -10,10 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class FirestoreController: ObservableObject {
-    
-    //    @Published var myEventsList: [MyEvent] = [MyEvent]()
-        @Published var userProfile: UserProfile?
-    //    @Published var myFriendsList: [UserProfile] = [UserProfile]()
+    @Published var userProfile: UserProfile?
     
     private let db: Firestore
     private static var shared: FirestoreController?
