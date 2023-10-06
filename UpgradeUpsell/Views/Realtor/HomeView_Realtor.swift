@@ -57,7 +57,7 @@ struct HomeView_Realtor: View {
                 self.authHelper.signOut()
                 rootScreen = .Login
             }) {
-                Image(systemName: "arrow.right.circle.fill")
+                Image(systemName: "arrow.left.circle.fill")
             }
             
             NavigationLink(destination: ProfileView()) {

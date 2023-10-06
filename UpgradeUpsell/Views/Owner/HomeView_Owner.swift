@@ -53,7 +53,8 @@ struct HomeView: View {
                 self.authHelper.signOut()
                 rootScreen = .Login
             }) {
-                Image(systemName: "arrow.right.circle.fill")
+                //Text("Signout")
+                Image(systemName: "arrow.left.circle.fill")
             }
             
             NavigationLink(destination: ProfileView()) {
