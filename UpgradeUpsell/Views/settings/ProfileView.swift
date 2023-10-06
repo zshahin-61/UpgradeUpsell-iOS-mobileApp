@@ -21,7 +21,7 @@ struct ProfileView: View {
     
     @State private var showAlert = false
     
-//    @Binding var rootScreen : RootView
+    @Binding var rootScreen : RootView
     
     @State private var isShowingPicker = false
     @State private var selectedImage: UIImage?
@@ -29,33 +29,34 @@ struct ProfileView: View {
     
     var body: some View {
         VStack{
-            Form{
-                Text("Dear user: \(self.emailFromUI)")
-                
-                TextField("Name", text: self.$nameFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
-                
-                TextField("Address", text: self.$addressFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
-                
-                TextField("Phone Number", text: self.$contactNumberFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
-                
+            //Form{
+            Group{
+                if let data = imageData,
+                   let uiImage = UIImage(data: data) {
+                    if(selectedImage == nil)
+                    {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                                        .frame(width: 200, height: 200)
+                                        .clipShape(Circle())
+                    }
+                    else{
+                        //
+                    }
+                }
                 VStack{
-                    Text("User Profile Picture")
+                    //Text("Picture").bold()
                     if photoLibraryManager.isAuthorized {
-                        Button(action: {
-                            isShowingPicker = true
-                        }) {
-                            Text("Select Image")
-                        }
+                        
                         if let image = selectedImage {
                             Image(uiImage: image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                        }
+                        Button(action: {
+                            isShowingPicker = true
+                        }) {
+                            Text("Change Picture")
                         }
                     } else {
                         Button(action: {
@@ -73,53 +74,110 @@ struct ProfileView: View {
                     }
                 }
                 
-                if let data = imageData,
-                   let uiImage = UIImage(data: data) {
-                    if(selectedImage == nil)
-                    {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    }
-                    else{
-                        //
-                    }
-                } else {
-                    Text("No image available")
-                }
+                
+                TextField("Full Name:", text: self.$nameFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+                Text("eMail:").bold()
+                Text(self.emailFromUI)
+                
+                Text("Address:").bold()
+                TextField("Address", text: self.$addressFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+                Text("Phone Number:").bold()
+                TextField("Phone Number", text: self.$contactNumberFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+            }
+                
+//                else {
+//                    //Text("No image available")
+//                }
                 
                 if let err = errorMsg{
                     Text(err).foregroundColor(Color.red).bold()
                 }
-            }
-            .autocorrectionDisabled(true)
+            //}//from
+           // .autocorrectionDisabled(true)
             
             //HStack{
             Button(action: {
-              
+                //Validate the data such as no mandatory inputs, password rules, etc.
+                //
+                dbHelper.userProfile!.address = addressFromUI
+                //Image
                 var imageData :Data? = nil
-        
-              
                 
-//                rootScreen = .Home
+                if(selectedImage != nil )
+                {
+                    let image = selectedImage!
+                    let imageName = "\(UUID().uuidString).jpg"
+                    
+                    imageData = image.jpegData(compressionQuality: 0.1)
+                    dbHelper.userProfile!.profilePicture = imageData
+                }
+                
+                ////////
+                
+                dbHelper.userProfile!.fullName = nameFromUI
+                dbHelper.userProfile!.contactNumber = contactNumberFromUI
+                
+                self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
+                
+                rootScreen = .Home
             }){
                 Text("Update Profile")
             }.buttonStyle(.borderedProminent)
             
             Spacer()
             Button(action:{
-                
+                // TODO: before delete checking other collections has data of this user
+                self.dbHelper.deleteUser(withCompletion: { isSuccessful in
+                    if (isSuccessful){
+                        self.authHelper.deleteAccountFromAuth(withCompletion: { isSuccessful2 in
+                            if (isSuccessful2){
+                                //sign out using Auth
+                                self.authHelper.signOut()
+                                
+                                //self.selectedLink = 1
+                                //dismiss current screen and show login screen
+                                self.rootScreen = .Login
+                            }
+                        }
+                        )}
+                })
             }){
-//                Image(systemName: "multiply.circle").foregroundColor(Color.white)
-//                Text("Delete User Account")
-            }            
+                Image(systemName: "multiply.circle").foregroundColor(Color.white)
+                Text("Delete User Account")
+            }.padding(5).font(.title2).foregroundColor(Color.white)//
+                .buttonBorderShape(.roundedRectangle(radius: 15)).buttonStyle(.bordered).background(Color.red)
+            
                 .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(
                     leading: Button(action: {
-//                        rootScreen = .Home
+                        rootScreen = .Home
                     }) {
                         Text("Back")
                     })
         }.padding()
+            .onAppear(){
+                
+                if let currentUser = dbHelper.userProfile{
+                    self.emailFromUI = currentUser.email
+                    self.addressFromUI = currentUser.address
+                    self.nameFromUI = currentUser.fullName
+                    
+                    self.contactNumberFromUI = currentUser.contactNumber
+                    self.errorMsg = nil
+                    
+                    // MARK: Show image from db
+                    if let imageData = currentUser.profilePicture as? Data {
+                        self.imageData = imageData
+                    } else {
+                        print("Invalid image data format")
+                    }
+                }
+            }
     }
 }

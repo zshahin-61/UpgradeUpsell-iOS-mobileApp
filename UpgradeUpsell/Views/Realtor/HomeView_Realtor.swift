@@ -12,7 +12,7 @@ struct HomeView_Realtor: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var selectedTab = 0
     
-    @Binding var rootScreen: RootView
+    @Binding var rootScreen: RootView 
     
     
     var body: some View {
@@ -61,7 +61,7 @@ struct HomeView_Realtor: View {
                 Image(systemName: "lock.shield.fill")
             }
             
-            NavigationLink(destination: ProfileView()) {
+            NavigationLink(destination: ProfileView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                 Image(systemName: "person.circle.fill")
             }
             

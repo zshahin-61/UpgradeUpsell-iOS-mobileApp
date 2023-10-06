@@ -20,8 +20,8 @@ struct UserProfile: Codable, Hashable, Identifiable {
     var profilePicture: Data?
     var favoriteProjects: [String]?
     var idCard:Data?
-    let contactNumber: String
-    let address: String
+    var contactNumber: String
+    var address: String
     
     init?(dictionary: [String: Any]) {
         guard let myUserID = dictionary["id"] as? String else {

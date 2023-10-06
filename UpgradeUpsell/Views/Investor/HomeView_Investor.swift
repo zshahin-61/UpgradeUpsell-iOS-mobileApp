@@ -63,7 +63,7 @@ struct HomeView_Investor: View {
                 Image(systemName: "lock.shield.fill")
             }
             
-            NavigationLink(destination: ProfileView()) {
+            NavigationLink(destination: ProfileView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                 Image(systemName: "person.circle.fill")
             }
             

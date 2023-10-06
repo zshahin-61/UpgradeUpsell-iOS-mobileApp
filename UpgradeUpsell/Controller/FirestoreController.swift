@@ -133,7 +133,6 @@ class FirestoreController: ObservableObject {
         }
     }
     
-    
     func createUserProfile(newUser: UserProfile){
         print(#function, "Inserting profile Info")
         
@@ -154,6 +153,78 @@ class FirestoreController: ObservableObject {
             print(#function, "Unable to add user to database : \(err)")
         }//do..catch
         
+    }
+    
+    func updateUserProfile(userToUpdate : UserProfile){
+        print(#function, "Updating user profile \(userToUpdate.fullName), ID : \(userToUpdate.id)")
+        
+        
+        //get the email address of currently logged in user
+        self.loggedInUserID = UserDefaults.standard.string(forKey: "KEY_ID") ?? ""
+        
+        if (self.loggedInUserID.isEmpty){
+            print(#function, "Logged in user's ID address not available. Can't update User Profile")
+        }
+        else{
+            do{
+                try self.db
+                    .collection(COLLECTION_UsersProfile)
+                    .document(userToUpdate.id!)
+                    .updateData([FIELD_UP_fullName : userToUpdate.fullName,
+                       FIELD_UP_contactNumber : userToUpdate.contactNumber,
+                              FIELD_UP_address : userToUpdate.address,
+                            FIELD_UP_profilePicture: userToUpdate.profilePicture
+                          ]){ error in
+                        
+                        if let err = error {
+                            print(#function, "Unable to update user profile in database : \(err)")
+                        }else{
+                            print(#function, "User profile \(userToUpdate.fullName) successfully updated in database")
+                        }
+                    }
+            }catch let err as NSError{
+                print(#function, "Unable to update user profile in database : \(err)")
+            }//catch
+        }//else
+    }
+    
+    
+    func deleteUser(withCompletion completion: @escaping (Bool) -> Void) {
+        
+        //get the email address of currently logged in user
+        self.loggedInUserID = UserDefaults.standard.string(forKey: "KEY_ID") ?? ""
+        
+        if (self.loggedInUserID.isEmpty){
+            print(#function, "Logged in user's ID address not available. Can't delete USER")
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+        else{
+            do{
+                try self.db
+                    .collection(COLLECTION_UsersProfile)
+                    .document(self.loggedInUserID)
+                    .delete{ error in
+                        if let err = error {
+                            print(#function, "Unable to delete user from database : \(err)")
+                            DispatchQueue.main.async {
+                                completion(false)
+                            }
+                        }else{
+                            print(#function, "user \(self.loggedInUserID) successfully deleted from database")
+                            DispatchQueue.main.async {
+                                completion(true)
+                            }
+                        }
+                    }
+            }catch let err as NSError{
+                print(#function, "Unable to delete user from database : \(err)")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
+            }
+        }
     }
     
     
