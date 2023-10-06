@@ -59,7 +59,8 @@ struct HomeView_Investor: View {
                 self.authHelper.signOut()
                 rootScreen = .Login
             }) {
-                Image(systemName: "arrow.left.circle.fill")
+                //Image(systemName: "lock.circle.fill")
+                Image(systemName: "lock.shield.fill")
             }
             
             NavigationLink(destination: ProfileView()) {

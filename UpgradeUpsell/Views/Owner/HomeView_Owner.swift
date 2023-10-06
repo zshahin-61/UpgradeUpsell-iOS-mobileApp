@@ -54,7 +54,8 @@ struct HomeView: View {
                 rootScreen = .Login
             }) {
                 //Text("Signout")
-                Image(systemName: "arrow.left.circle.fill")
+                //Image(systemName: "lock.circle.fill")
+                Image(systemName: "lock.shield.fill")
             }
             
             NavigationLink(destination: ProfileView()) {
