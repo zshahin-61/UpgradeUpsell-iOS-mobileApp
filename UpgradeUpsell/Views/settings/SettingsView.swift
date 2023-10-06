@@ -52,20 +52,15 @@ struct SettingsView: View {
                     }
                     
                     Button(action: {
-                        var newPref = Prefrences()
-                        newPref.fontSize = fontSizeFromUI
-                        newPref.theme = themeFromUI
-                        newPref.language = langFromUI
-                        newPref.notifications.email = notificationsEmail
-                        newPref.notifications.push = pushNotifFromUI
-                        
-                        self.dbHelper.savePreferences(preferences: newPref, forUserID: dbHelper.userProfile!.id!) { error in
+                        var newPref = Prefrences(id: dbHelper.userProfile!.id!, fontSize: fontSizeFromUI, theme: themeFromUI, language: langFromUI, pushNotif: pushNotifFromUI, emailNotif: notificationsEmail)
+//
+                        self.dbHelper.saveUserPrefrences(newPref: newPref) { (prefrences, error) in
                             if let error = error {
-                                // Handle the error here
+                                // Handle the error
                                 print("Error saving preferences: \(error.localizedDescription)")
-                            } else {
-                                // Preferences saved successfully
-                                print("Preferences saved successfully")
+                            } else if let preferences = prefrences {
+                                // Successfully saved/update the preferences
+                                print("Preferences saved/updated successfully: \(prefrences)")
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                         }
@@ -94,14 +89,14 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             // .onAppear here, at the root level of SettingsView
             .onAppear {
-                guard let userPref = dbHelper.userProfile?.prefrences else{
-                    return
-                }
-                self.fontSizeFromUI = userPref.fontSize ?? 14
-                self.langFromUI = userPref.language
-                self.notificationsEmail = userPref.notifications.email
-                self.pushNotifFromUI = userPref.notifications.push
-                self.themeFromUI = userPref.theme
+//                guard let userPref = dbHelper.userProfile?.prefrences else{
+//                    return
+//                }
+//                self.fontSizeFromUI = userPref.fontSize ?? 14
+//                self.langFromUI = userPref.language
+//                self.notificationsEmail = userPref.notifications.email
+//                self.pushNotifFromUI = userPref.notifications.push
+//                self.themeFromUI = userPref.theme
                 
             }
         }

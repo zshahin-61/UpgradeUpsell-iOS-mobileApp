@@ -11,12 +11,14 @@ import FirebaseFirestoreSwift
 
 class FirestoreController: ObservableObject {
     @Published var userProfile: UserProfile?
+    @Published var userPrefrences: Prefrences?
     
     private let db: Firestore
     private static var shared: FirestoreController?
     
     /// COLLECTIONS LIST  /////////////
     private let COLLECTION_UsersProfile = "UsersProfile"
+    private let COLLECTION_Prefrences = "Prefrences"
     private let COLLECTION_Notification = "Notification"
     private let COLLECTION_RenovateProject = "RenovateProject"
     private let COLLECTION_InvestmentSuggestion = "InvestmentSuggestions"
@@ -42,6 +44,12 @@ class FirestoreController: ObservableObject {
     private let FIELD_UP_notifications = "notifications"
     private let FIELD_UP_favoriteProjects = "favoriteProjects"
     //////
+    private let FIELD_theme = "theme"
+    private let FIELD_fontSize = "fontSize"
+    private let FIELD_language = "language"
+    private let FIELD_emailNotif = "emailNotif"
+    private let FIELD_pushNotif = "pushNotif"
+    ///
     private let FIELD_notifID = "notifID"
     private let FIELD_title = "title"
     private let FIELD_message = "message"
@@ -224,16 +232,62 @@ class FirestoreController: ObservableObject {
         }
     }
     
-    func savePreferences(preferences: Prefrences, forUserID userID: String, completion: @escaping (Error?) -> Void) {
-            // TODO: Save preferences to Firestore for the given userID
-            // Example:
-             let preferencesRef = db.collection(COLLECTION_UsersProfile).document(userID)
-             preferencesRef.setData(["preferences": preferences]) { error in
-                 completion(error)
-             }
-            
-            
+    
+    // Prefrences Collection Functions
+    func saveUserPrefrences(newPref: Prefrences, completion: @escaping (Prefrences?, Error?) -> Void) {
+        print(#function, "Inserting preferences Info")
+        
+        let docRef = db.collection(COLLECTION_Prefrences).document(newPref.id!)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                // Document exists, update the existing document
+                do {
+                    try docRef.updateData([
+                        self.FIELD_theme: newPref.theme,
+                        self.FIELD_fontSize: newPref.fontSize,
+                        self.FIELD_language: newPref.language,
+                        self.FIELD_pushNotif: newPref.pushNotif,
+                        self.FIELD_emailNotif: newPref.emailNotif
+                    ]) { error in
+                        if let error = error {
+                            print(#function, "Error updating document: \(error)")
+                            completion(nil, error)
+                        } else {
+                            print(#function, "Document updated successfully")
+                            completion(newPref, nil)
+                        }
+                    }
+                } catch let err as NSError {
+                    print(#function, "Unable to update document: \(err)")
+                    completion(nil, err)
+                }
+            } else {
+                // Document doesn't exist, insert a new document
+                do {
+                    try docRef.setData([
+                        self.FIELD_theme: newPref.theme,
+                        self.FIELD_fontSize: newPref.fontSize,
+                        self.FIELD_language: newPref.language,
+                        self.FIELD_pushNotif: newPref.pushNotif,
+                        self.FIELD_emailNotif: newPref.emailNotif
+                    ]) { error in
+                        if let error = error {
+                            print(#function, "Error adding document: \(error)")
+                            completion(nil, error)
+                        } else {
+                            print(#function, "Document added successfully")
+                            completion(newPref, nil)
+                        }
+                    }
+                } catch let err as NSError {
+                    print(#function, "Unable to add document: \(err)")
+                    completion(nil, err)
+                }
+            }
         }
+    }
+
         
         func getPreferencesFromFirestore(forUserID userID: String, completion: @escaping (Prefrences?, Error?) -> Void) {
             // TODO: Retrieve preferences from Firestore for the given userID

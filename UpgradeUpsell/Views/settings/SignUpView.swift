@@ -135,7 +135,7 @@ struct SignUpView: View {
                                 return
                             }
                             
-                            var newUser : UserProfile = UserProfile(id: user.uid, fullName: self.fullNameFromUI, email: self.emailFromUI, role: selectedRole, userBio: self.bioFromUI, profilePicture: imageData, prefrences: Prefrences(), contactNumber: self.phoneFromUI, address: self.addressFromUI)
+                            var newUser : UserProfile = UserProfile(id: user.uid, fullName: self.fullNameFromUI, email: self.emailFromUI, role: selectedRole, userBio: self.bioFromUI, profilePicture: imageData, contactNumber: self.phoneFromUI, address: self.addressFromUI)
                             
                             self.dbHelper.createUserProfile(newUser: newUser)
                             

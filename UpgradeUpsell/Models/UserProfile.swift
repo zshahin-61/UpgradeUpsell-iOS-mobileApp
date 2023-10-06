@@ -15,7 +15,6 @@ struct UserProfile: Codable, Hashable, Identifiable {
     var fullName: String
     var email: String
     var authenticationToken: String?
-    var prefrences: Prefrences?
     var userBio: String
     var profilePicture: Data?
     var favoriteProjects: [String]?
@@ -54,10 +53,12 @@ struct UserProfile: Codable, Hashable, Identifiable {
             return nil
         }
 
-        guard let myPrefrences = dictionary["prefrences"] as? Prefrences else {
-            print(#function, "Unable to get prefrences from JSON")
-            return nil
-        }
+//        guard let myPrefrences = dictionary["prefrences"] as? Prefrences else {
+//            print(#function, "Unable to get prefrences from JSON")
+//            return nil
+//        }
+        
+        //let myPrefrences = dictionary["prefrences"] as? Prefrences ?? Prefrences()
         
         guard let myProfilePicture = dictionary["profilePicture"] as? Data else {
             print(#function, "Unable to get profilePicture from JSON")
@@ -80,16 +81,15 @@ struct UserProfile: Codable, Hashable, Identifiable {
         }
 
 //        self.init(user: myName, contactNumber: myContactNumber, address: myAddress, image: myImage, friends: myFriends, numberOfEventsAttending: myNumberOfEventsAttending)
-        self.init(id:myUserID, fullName: myFullName, email: myEmail, role: myRole, userBio: myUserBio, profilePicture: myProfilePicture,  prefrences: myPrefrences, contactNumber: myContactNumber, address: myAddress)
+        self.init(id:myUserID, fullName: myFullName, email: myEmail, role: myRole, userBio: myUserBio, profilePicture: myProfilePicture, contactNumber: myContactNumber, address: myAddress)
     }
     
-    init(id: String, fullName:String, email: String, role: String, userBio: String, profilePicture: Data?,  prefrences: Prefrences, contactNumber: String, address: String) {
+    init(id: String, fullName:String, email: String, role: String, userBio: String, profilePicture: Data?, contactNumber: String, address: String) {
         self.id = id
         //self.username = username
         self.role = role
         self.fullName = fullName
         self.email = email
-        self.prefrences = Prefrences()
         self.userBio = userBio
         //self.idCard = idCard
         self.contactNumber = contactNumber
