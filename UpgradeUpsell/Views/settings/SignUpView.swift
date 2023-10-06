@@ -21,6 +21,7 @@ struct SignUpView: View {
     @State private var addressFromUI : String = ""
     @State private var phoneFromUI : String = ""
     @State private var fullNameFromUI : String = ""
+    @State private var bioFromUI : String = ""
     let roles = ["Owner", "Investor", "Realtor"]
     @State private var selectedRole = "Owner"
     @State private var errorMsg : String? = nil
@@ -33,29 +34,29 @@ struct SignUpView: View {
     var body: some View {
         
         VStack{
-//            Text("Sign Up")
-//                .font(.largeTitle)
-//                .fontWeight(.bold)
-//                .foregroundColor(.blue)
+            //            Text("Sign Up")
+            //                .font(.largeTitle)
+            //                .fontWeight(.bold)
+            //                .foregroundColor(.blue)
             Form{
                 TextField("Enter Email", text: self.$emailFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
-
+                
                 SecureField("Enter Password", text: self.$passwordFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
-
+                
                 SecureField("Confirm Password", text: self.$confirmPasswordFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
-
-//                VStack(alignment: .leading, spacing: 10) {
-//                    Text("Full Name")
-//                        .font(.headline)
-                    TextField("Enter Full Name", text: $fullNameFromUI)
-                        .textFieldStyle(.roundedBorder)
-                        .autocapitalization(.words)
+                
+                //                VStack(alignment: .leading, spacing: 10) {
+                //                    Text("Full Name")
+                //                        .font(.headline)
+                TextField("Enter Full Name", text: $fullNameFromUI)
+                    .textFieldStyle(.roundedBorder)
+                    .autocapitalization(.words)
                 //}
                 
                 VStack(alignment: .leading, spacing: 10) {
@@ -68,50 +69,53 @@ struct SignUpView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-
+                TextField("Bio", text: self.$bioFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+                
                 TextField("Address", text: self.$addressFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
-
+                
                 TextField("Phone Number", text: self.$phoneFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
-
+                
                 VStack{
-                  Text("User Profile Picture")
+                    Text("User Profile Picture")
                     if photoLibraryManager.isAuthorized {
-                                Button(action: {
-                                    isShowingPicker = true
-                                }) {
-                                    Text("Select Image")
-                                }
-                                if let image = selectedImage {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                }
-                            } else {
-                                Button(action: {
-                                    photoLibraryManager.requestPermission()
-                                }) {
-                                    Text("Request Access For Photo Library")
-                                }
-                            }
+                        Button(action: {
+                            isShowingPicker = true
+                        }) {
+                            Text("Select Image")
                         }
+                        if let image = selectedImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }
+                    } else {
+                        Button(action: {
+                            photoLibraryManager.requestPermission()
+                        }) {
+                            Text("Request Access For Photo Library")
+                        }
+                    }
+                }
                 .sheet(isPresented: $isShowingPicker) {
-                            if photoLibraryManager.isAuthorized {
-                                ImagePickerView(selectedImage: $selectedImage)
-                            } else {
-                                Text("Access to photo library is not authorized.")
-                            }
-                        }
+                    if photoLibraryManager.isAuthorized {
+                        ImagePickerView(selectedImage: $selectedImage)
+                    } else {
+                        Text("Access to photo library is not authorized.")
+                    }
+                }
             }
             .autocorrectionDisabled(true)
-
+            
             Button(action: {
                 //sign up function
                 if isFormValid() {
-                       // Attempt to create a new user with Firebase Authentication
+                    // Attempt to create a new user with Firebase Authentication
                     self.authHelper.signUp(email: self.emailFromUI.lowercased(), password: self.passwordFromUI, withCompletion: { isSuccessful in
                         
                         if (isSuccessful){
@@ -130,14 +134,9 @@ struct SignUpView: View {
                                 return
                             }
                             
-                            var newUser : UserProfile = UserProfile(id: user.uid, fullName: fullNameFromUI, email: emailFromUI, role: selectedRole, userBio: "", profilePicture: imageData, prefrences: Prefrences(), contactNumber: phoneFromUI, address: addressFromUI)
+                            var newUser : UserProfile = UserProfile(id: user.uid, fullName: self.fullNameFromUI, email: self.emailFromUI, role: selectedRole, userBio: self.bioFromUI, profilePicture: imageData, prefrences: Prefrences(), contactNumber: self.phoneFromUI, address: self.addressFromUI)
                             
                             self.dbHelper.createUserProfile(newUser: newUser)
-                            //Load User Data
-                            //self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
-                            //if(isSuccessful)
-                            //{
-                            
                             
                             //show to home screen
                             if self.selectedRole == "Owner" {
@@ -153,33 +152,31 @@ struct SignUpView: View {
                                 self.rootScreen = .RealtorHome
                                 
                             }
-                        //}
-                             //})
                         }else{
                             //show the alert with invalid username/password prompt
                             print(#function, "unable to create user")
                         }
                     })
-                   }
+                }
             }){
                 Text("Create Account")
                     .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.brown)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                    .padding()
+                    .background(Color.brown)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
             }
             .buttonStyle(.borderedProminent)
-                .disabled(self.passwordFromUI != self.confirmPasswordFromUI || self.emailFromUI.isEmpty || self.passwordFromUI.isEmpty || self.confirmPasswordFromUI.isEmpty || !isEmailValid())
+            .disabled(self.passwordFromUI != self.confirmPasswordFromUI || self.emailFromUI.isEmpty || self.passwordFromUI.isEmpty || self.confirmPasswordFromUI.isEmpty || !isEmailValid())
             
-                .navigationBarTitle("Sign Up", displayMode: .inline)
-                .navigationBarItems(
-                    trailing: Button(action: {
-                        rootScreen = .Login
-                    }) {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
-                    })
+            .navigationBarTitle("Sign Up", displayMode: .inline)
+            .navigationBarItems(
+                trailing: Button(action: {
+                    rootScreen = .Login
+                }) {
+                    Image(systemName: "chevron.left")
+                    Text("Back")
+                })
         }
     }
     
@@ -194,7 +191,6 @@ struct SignUpView: View {
         // Add more validation checks if needed
         return !emailFromUI.isEmpty && isEmailValid() && !passwordFromUI.isEmpty && passwordFromUI == confirmPasswordFromUI
     }
-    
 }
 
 

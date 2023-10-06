@@ -17,7 +17,7 @@ struct ProfileView: View {
     @State private var addressFromUI : String = ""
     @State private var contactNumberFromUI : String = ""
     @State private var nameFromUI : String = ""
-    
+    @State private var bioFromUI : String = ""
     @State private var errorMsg : String? = nil
     
     @State private var showAlert = false
@@ -31,60 +31,64 @@ struct ProfileView: View {
     var body: some View {
         VStack(alignment: .leading,spacing: 10){
             //Form{
-            Group{
+            
                 HStack{
-                if let data = imageData,
-                   let uiImage = UIImage(data: data) {
-                    if(selectedImage == nil)
-                    {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .clipShape(Circle())
-                    }
-                    else{
-                        //
-                    }
-                }
-                VStack{
-                    //Text("Picture").bold()
-                    if photoLibraryManager.isAuthorized {
-                        //HStack{
-                        if let image = selectedImage {
-                            Image(uiImage: image)
+                    if let data = imageData,
+                       let uiImage = UIImage(data: data) {
+                        if(selectedImage == nil)
+                        {
+                            Image(uiImage: uiImage)
                                 .resizable()
                                 .frame(width: 150, height: 150)
                                 .clipShape(Circle())
                         }
-                        Button(action: {
-                            isShowingPicker = true
-                        }) {
-                            Text("Change Picture")
+                        else{
+                            //
                         }
-                        //}//Hstack
-                    } else {
-                        Button(action: {
-                            photoLibraryManager.requestPermission()
-                        }) {
-                            Text("Request Access For Photo Library")
+                    }
+                    VStack{
+                        //Text("Picture").bold()
+                        if photoLibraryManager.isAuthorized {
+                            //HStack{
+                            if let image = selectedImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Circle())
+                            }
+                            Button(action: {
+                                isShowingPicker = true
+                            }) {
+                                Text("Change Picture")
+                            }
+                            //}//Hstack
+                        } else {
+                            Button(action: {
+                                photoLibraryManager.requestPermission()
+                            }) {
+                                Text("Request Access For Photo Library")
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $isShowingPicker) {
+                        if photoLibraryManager.isAuthorized {
+                            ImagePickerView(selectedImage: $selectedImage)
+                        } else {
+                            Text("Access to photo library is not authorized.")
                         }
                     }
                 }
-                .sheet(isPresented: $isShowingPicker) {
-                    if photoLibraryManager.isAuthorized {
-                        ImagePickerView(selectedImage: $selectedImage)
-                    } else {
-                        Text("Access to photo library is not authorized.")
-                    }
-                }
-            }
+            Group{
                 Text("Full Name:").bold()
                 TextField("Full Name:", text: self.$nameFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                 Text("eMail:").bold()
                 Text(self.emailFromUI)
-                
+                Text("Bio:").bold()
+                TextField("Bio", text: self.$bioFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
                 Text("Address:").bold()
                 TextField("Address", text: self.$addressFromUI)
                     .textInputAutocapitalization(.never)
@@ -150,7 +154,7 @@ struct ProfileView: View {
                     self.emailFromUI = currentUser.email
                     self.addressFromUI = currentUser.address
                     self.nameFromUI = currentUser.fullName
-                    
+                    self.bioFromUI = currentUser.userBio
                     self.contactNumberFromUI = currentUser.contactNumber
                     self.errorMsg = nil
                     
