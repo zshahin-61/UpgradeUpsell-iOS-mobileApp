@@ -148,24 +148,6 @@ struct RenovateProject: Codable , Identifiable {
         self.realtorID = realtorID
     }
     
-    init( title: String, description: String, location: String, lng: Double, lat: Double, images: [Data], ownerID: String, category: String, investmentNeeded: Double,  selectedInvestmentSuggestionID: String, status: String, startDate: Date, endDate: Date, createdDate: Date, updatedDate: Date, favoriteCount: Int, realtorID: String) {
-        self.title = title
-        self.description = description
-        self.location = location
-        self.lng = lng
-        self.lat = lat
-        self.images = images
-        self.ownerID = ownerID
-        self.category = category
-        self.investmentNeeded = investmentNeeded
-        self.selectedInvestmentSuggestionID = selectedInvestmentSuggestionID
-        self.status = status
-        self.startDate = startDate
-        self.endDate = endDate
-        self.createdDate = createdDate
-        self.updatedDate = updatedDate
-        self.favoriteCount = favoriteCount
-        self.realtorID = realtorID
-    }
+  
     
 }
