@@ -316,6 +316,32 @@ class FirestoreController: ObservableObject {
         }
     
     // MARK: renovateProjects Collection Functions
+    
+    func addProperty(_ property: RenovateProject, userID: String, completion: @escaping (Bool) -> Void) {
+        var propertyToSave = property
+        propertyToSave.id = nil // Clear the ID to generate a new one
+        
+        do {
+            let _ = try self.db
+                .collection(COLLECTION_UsersProfile)
+                .document(userID)
+                .collection(COLLECTION_RenovateProject)
+                .addDocument(from: propertyToSave) { error in
+                    if let error = error {
+                        print("Error adding property to Firestore: \(error)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+        } catch {
+            print("Error adding property to Firestore: \(error)")
+            completion(false)
+        }
+    }
+
+
+    
     func addRenovateProject(_ newPrj: RenovateProject) {
         
         do {

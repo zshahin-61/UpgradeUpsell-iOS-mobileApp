@@ -1,65 +1,78 @@
 import SwiftUI
+import Firebase
 
 struct CreateProjectView: View {
-    @State private var propertyTitle = ""
-    @State private var propertyType = ""
-    @State private var propertyDescription = ""
-    @State private var streetAddress = ""
-    @State private var city = ""
-    @State private var state = ""
-    @State private var zipCode = ""
-    @State private var bedrooms = ""
-    @State private var bathrooms = ""
-    @State private var propertySize = ""
-    @State private var price = ""
-    @State private var contactName = ""
-    @State private var contactEmail = ""
-    @State private var contactPhone = ""
+    @EnvironmentObject var dbHelper: FirestoreController
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State private var title = ""
+    @State private var description = ""
+    @State private var location = ""
+    @State private var lng: Double = 0.0
+    @State private var lat: Double = 0.0
+    @State private var ownerID = ""
+    @State private var category = ""
+    @State private var investmentNeeded: Double = 0.0
+    @State private var status = ""
+    @State private var startDate = Date()
+    @State private var endDate = Date()
     
     var body: some View {
         NavigationView {
-            Form {
+            VStack {
                 Section(header: Text("Property Information")) {
-                    TextField("Property Title", text: $propertyTitle)
-                    TextField("Property Type", text: $propertyType)
-                    TextField("Street Address", text: $streetAddress)
-                    TextField("City", text: $city)
-                    TextField("State/Province", text: $state)
-                    TextField("ZIP/Postal Code", text: $zipCode)
-                    TextField("Number of Bedrooms", text: $bedrooms)
-                    TextField("Number of Bathrooms", text: $bathrooms)
-                    TextField("Property Size", text: $propertySize)
-                    TextField("Price", text: $price)
+                    TextField("Title", text: $title)
+                    TextField("Description", text: $description)
+                    TextField("Location", text: $location)
+                    TextField("Longitude", value: $lng, formatter: NumberFormatter())
+                    TextField("Latitude", value: $lat, formatter: NumberFormatter())
+                    TextField("Owner ID", text: $ownerID)
+                    TextField("Category", text: $category)
+                    TextField("Investment Needed", value: $investmentNeeded, formatter: NumberFormatter())
+                    TextField("Status", text: $status)
                 }
-                
-                Section(header: Text("Property Description")) {
-                    TextEditor(text: $propertyDescription)
-                        .frame(height: 100)
-                        .background(Color(UIColor.systemGray6))
-                        .cornerRadius(5)
-                }
-                
-                Section(header: Text("Contact Information")) {
-                    TextField("Name", text: $contactName)
-                    TextField("Email", text: $contactEmail)
-                    TextField("Phone", text: $contactPhone)
+                VStack {
+                    DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                    DatePicker("End Date", selection: $endDate, displayedComponents: .date)
                 }
                 
                 Section {
                     Button(action: {
-                        // Save the property information to your database
-                        // You can add validation and saving logic here
+                        // Create a RenovateProject object with the input data
+                        let newProperty = RenovateProject(
+                            title: title,
+                            description: description,
+                            location: location,
+                            lng: lng,
+                            lat: lat,
+                            images: [], // Add images as needed
+                            ownerID: ownerID,
+                            category: category,
+                            investmentNeeded: investmentNeeded,
+                            selectedInvestmentSuggestionID: "", // Provide a valid value for selectedInvestmentSuggestionID
+                            status: status,
+                            startDate: startDate,
+                            endDate: endDate,
+                            createdDate: Date(),
+                            updatedDate: Date(),
+                            favoriteCount: 0,
+                            realtorID: "" // Set the realtorID as needed
+                        )
+                        
+                        // Save the property to Firestore
+                        dbHelper.addProperty(newProperty, userID: ownerID) { success in
+                            if success {
+                                // Property saved successfully
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        }
                     }) {
-                        Text("Submit Property")
-                            .foregroundColor(.white)
+                        Text("Add Property")
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
+
                 }
             }
-            .navigationTitle("Add Property")
+            .navigationBarTitle("Add Property")
         }
     }
 }
