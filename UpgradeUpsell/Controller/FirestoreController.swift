@@ -316,14 +316,32 @@ class FirestoreController: ObservableObject {
         }
     
     // MARK: renovateProjects Collection Functions
-    func addRenovateProject(_ newPrj: RenovateProject) {
+    
+    func addProperty(_ property: RenovateProject, userID: String, completion: @escaping (Bool) -> Void) {
+        var propertyToSave = property
+        print("userrrrr",COLLECTION_UsersProfile)
+        propertyToSave.id = nil // Clear the ID to generate a new one
         
         do {
-            let _ = try self.db.collection(COLLECTION_RenovateProject).addDocument(from: newPrj)
+            let _ = try self.db
+                .collection(COLLECTION_UsersProfile)
+                .document(userID)
+                .collection(COLLECTION_RenovateProject)
+                .addDocument(from: propertyToSave) { error in
+                    if let error = error {
+                        print("Error adding property to Firestore: \(error)")
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
         } catch {
-            print("Error adding project to Firestore: \(error)")
+            print("Error adding property to Firestore: \(error)")
+            completion(false)
         }
     }
+
+
     
     func deleteRenovateProject(_ prjToDelete: RenovateProject) {
         db.collection(COLLECTION_RenovateProject).document(prjToDelete.id!).delete { error in
@@ -344,21 +362,24 @@ class FirestoreController: ObservableObject {
         }
     }
     
-    func getRenovateProjects(completion: @escaping ([RenovateProject]?, Error?) -> Void) {
-        self.db.collection(COLLECTION_RenovateProject).getDocuments { querySnapshot, error in
-            if let error = error {
-                completion(nil, error)
-            } else {
-                var projects = [RenovateProject]()
-                for document in querySnapshot!.documents {
-                    if let project = try? document.data(as: RenovateProject.self) {
-                        projects.append(project)
+    func getUserProjects(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
+        self.db.collection(COLLECTION_RenovateProject)
+            .whereField("ownerID", isEqualTo: userID)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion(nil, error)
+                } else {
+                    var projects = [RenovateProject]()
+                    for document in querySnapshot!.documents {
+                        if let project = try? document.data(as: RenovateProject.self) {
+                            projects.append(project)
+                        }
                     }
+                    completion(projects, nil)
                 }
-                completion(projects, nil)
             }
-        }
     }
+
     
     func getRenovateProjectByID(_ projectID: String, completion: @escaping (RenovateProject?, Error?) -> Void) {
         db.collection(COLLECTION_RenovateProject).document(projectID).getDocument { document, error in

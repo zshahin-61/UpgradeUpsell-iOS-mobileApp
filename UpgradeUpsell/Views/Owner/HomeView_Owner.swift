@@ -5,7 +5,7 @@ struct HomeView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var selectedTab = 0
-    
+
     @Binding var rootScreen: RootView
     
     //let userName = "Golnaz"
@@ -14,19 +14,21 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedTab) {
-                NavigationLink(destination: CreateProjectView()) {
-                    Text("Create New Project")
-                }
-                .tabItem {
-                    Label("Create Project", systemImage: "plus.circle")
-                }
-                .tag(0)
+             
                 
                 NavigationLink(destination: ProjectListView()) {
                     Text("View Your Projects")
                 }
                 .tabItem {
                     Label("View Projects", systemImage: "list.bullet.rectangle")
+                }
+                .tag(0)
+                
+                NavigationLink(destination: CreateProjectView()) {
+                    Text("Create New Project")
+                }
+                .tabItem {
+                    Label("Create Project", systemImage: "plus.circle")
                 }
                 .tag(1)
                 

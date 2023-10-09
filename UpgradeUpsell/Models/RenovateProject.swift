@@ -1,9 +1,4 @@
-//
-//  RenovateProject.swift
-//  UpgradeUpsell
-//
-//  Created by Golnaz Chehrazi on 2023-09-20.
-//
+
 
 import Foundation
 import FirebaseFirestoreSwift
@@ -153,5 +148,6 @@ struct RenovateProject: Codable , Identifiable {
         self.realtorID = realtorID
     }
     
+  
     
 }

@@ -131,5 +131,8 @@ class FireAuthController : ObservableObject{
             }
         }
     }
+
+    
+    
 }
 
