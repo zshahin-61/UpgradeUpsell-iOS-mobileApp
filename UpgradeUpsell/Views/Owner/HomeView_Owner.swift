@@ -5,7 +5,9 @@ struct HomeView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var selectedTab = 0
-
+    
+    // Property to store the user's projects
+        @State private var userProjects: [RenovateProject] = []
     @Binding var rootScreen: RootView
     
     //let userName = "Golnaz"
@@ -68,7 +70,21 @@ struct HomeView: View {
                 Image(systemName: "gearshape.fill")
             }
         })
+        .onAppear {
+            print("I am here")
+            
+                if let userID = authHelper.user?.uid {
+                    dbHelper.getUserProjects(userID: userID) { projects, error in
+                        if let projects = projects {
+                            self.userProjects = projects
+                        } else if let error = error {
+                            // Handle the error
+                            print("Error fetching user projects: \(error.localizedDescription)")
+                        }
+                    }
+                }
+            }
+        }
     }
-}
     
 

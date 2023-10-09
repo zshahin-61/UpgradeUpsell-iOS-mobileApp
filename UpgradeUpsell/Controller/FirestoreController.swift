@@ -379,7 +379,6 @@ class FirestoreController: ObservableObject {
                 }
             }
     }
-
     
     func getRenovateProjectByID(_ projectID: String, completion: @escaping (RenovateProject?, Error?) -> Void) {
         db.collection(COLLECTION_RenovateProject).document(projectID).getDocument { document, error in

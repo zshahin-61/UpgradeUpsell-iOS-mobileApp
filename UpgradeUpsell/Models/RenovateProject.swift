@@ -82,11 +82,7 @@ struct RenovateProject: Codable , Identifiable {
             return nil
         }
         
-        guard let myInvestmentNeeded = dictionary["investmentNeeded"] as? Double else {
-            print(#function, "Unable to get investmentNeeded from JSON")
-            return nil
-        }
-        
+
         guard let myStatus = dictionary["status"] as? String else {
             print(#function, "Unable to get status from JSON")
             return nil
