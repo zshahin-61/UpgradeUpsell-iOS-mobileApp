@@ -44,8 +44,10 @@
 		5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */; };
 		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
 		5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882462ACE591C0034439F /* HomeView_Realtor.swift */; };
-		5FD882492ACF407B0034439F /* Offers_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882482ACF407B0034439F /* Offers_Investor.swift */; };
+		5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */; };
 		5FD8824D2AD0A73D0034439F /* UserPreferencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8824C2AD0A73D0034439F /* UserPreferencesViewModel.swift */; };
+		5FD8824F2AD5BD570034439F /* ProjectsList_Investor_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */; };
+		5FD882512AD5BD880034439F /* MyOffersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882502AD5BD880034439F /* MyOffersView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,8 +84,10 @@
 		5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
 		5FD882462ACE591C0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
-		5FD882482ACF407B0034439F /* Offers_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offers_Investor.swift; sourceTree = "<group>"; };
+		5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOffers_InvestorView.swift; sourceTree = "<group>"; };
 		5FD8824C2AD0A73D0034439F /* UserPreferencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesViewModel.swift; sourceTree = "<group>"; };
+		5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsList_Investor_View.swift; sourceTree = "<group>"; };
+		5FD882502AD5BD880034439F /* MyOffersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOffersView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +131,9 @@
 			children = (
 				5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */,
 				5A8DAB292ABCA86200CDCBCB /* RenovationPersonDashboardView.swift */,
-				5FD882482ACF407B0034439F /* Offers_Investor.swift */,
+				5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */,
+				5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */,
+				5FD882502AD5BD880034439F /* MyOffersView.swift */,
 			);
 			path = Investor;
 			sourceTree = "<group>";
@@ -330,8 +336,10 @@
 				5F9466182ABB609B0006FBB5 /* UserProfile.swift in Sources */,
 				5F94661A2ABBB01D0006FBB5 /* Prefrences.swift in Sources */,
 				5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */,
+				5FD882512AD5BD880034439F /* MyOffersView.swift in Sources */,
 				5A8DAB2A2ABCA86200CDCBCB /* RenovationPersonDashboardView.swift in Sources */,
 				5F9466282ABBD10F0006FBB5 /* InvestmentSuggestion.swift in Sources */,
+				5FD8824F2AD5BD570034439F /* ProjectsList_Investor_View.swift in Sources */,
 				5F94661E2ABBC0E50006FBB5 /* Message.swift in Sources */,
 				5F9466222ABBC4250006FBB5 /* ProfitSharing.swift in Sources */,
 				5F9466202ABBC35A0006FBB5 /* FinancialTransaction.swift in Sources */,
@@ -340,7 +348,7 @@
 				5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */,
 				5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */,
 				5F9466152ABB5C460006FBB5 /* FirestoreController.swift in Sources */,
-				5FD882492ACF407B0034439F /* Offers_Investor.swift in Sources */,
+				5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */,
 				5A8DAB332ABCB3B500CDCBCB /* ProjectListView.swift in Sources */,
 				5A8DAB312ABCB3A200CDCBCB /* CreateProjectView.swift in Sources */,
 			);
