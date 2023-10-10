@@ -14,7 +14,7 @@ struct ProjectsList_InvestorView: View {
     
     var body: some View {
         List(prjList) { prj in
-            NavigationLink(destination: ProjectDetailView(project: prj)) {
+            NavigationLink(destination: MakeOffers_InvestorView(project: prj)) {
                 ProjectListItemView(project: prj)
             }
         }

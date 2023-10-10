@@ -422,11 +422,20 @@ class FirestoreController: ObservableObject {
     }
     
     // MARK: functions for Collection investment Sugesstions
-    func addInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
+    func addInvestmentSuggestion(_ suggestion: InvestmentSuggestion, completion: @escaping (Error?) -> Void) {
         do {
-            let _ = try db.collection(COLLECTION_InvestmentSuggestion).addDocument(from: suggestion)
+            try db.collection(COLLECTION_InvestmentSuggestion).addDocument(from: suggestion) { error in
+                if let error = error {
+                    print("Error adding investment suggestion to Firestore: \(error)")
+                    completion(error)
+                } else {
+                    print("Suggestion added successfully")
+                    completion(nil) // Signal success by passing nil for the error
+                }
+            }
         } catch {
-            print("Error adding investment suggestion to Firestore: \(error)")
+            print("Error preparing data for Firestore: \(error)")
+            completion(error) // Pass the error to the completion handler
         }
     }
     

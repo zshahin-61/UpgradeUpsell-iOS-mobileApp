@@ -13,10 +13,6 @@ struct HomeView_Investor: View {
     @State private var selectedTab = 0
     
     @Binding var rootScreen: RootView
-   
-
-    //let userName = "Golnaz"
-    //let userFamily = "Cherazi"
     
     var body: some View {
         TabView() {
@@ -29,11 +25,11 @@ struct HomeView_Investor: View {
                 Text("View Projects")
             }
             
-            MakeOffers_InvestorView()
-            .tabItem {
-                Label("Make Offer", systemImage: "plus.circle")
-                Text("Make Offer")
-            }
+//            MakeOffers_InvestorView(project: nil)
+//            .tabItem {
+//                Label("Make Offer", systemImage: "plus.circle")
+//                Text("Make Offer")
+//            }
             
             ProjectOffersView()
             .tabItem {
