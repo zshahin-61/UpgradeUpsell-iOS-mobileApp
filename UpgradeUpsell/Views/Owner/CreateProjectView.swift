@@ -1,3 +1,10 @@
+//
+//  CreateProjectView.swift
+//  UpgradeUpsell
+//
+//  Created by Created by Zahra Shahin - Golnaz Chehrazi .
+//
+
 import SwiftUI
 import Firebase
 
@@ -41,10 +48,10 @@ struct CreateProjectView: View {
                 Section {
                     Button(action: {
                         guard let userID = authHelper.user?.uid else {
-                            // Handle the case when the user is not signed in.
-                            // You can show an alert or take appropriate action.
-                            return
-                        }
+                                                  // Handle the case when the user is not signed in.
+                                                  // You can show an alert or take appropriate action.
+                                                  return
+                                              }
                         
                         let newProperty = RenovateProject(
                             projectID: UUID().uuidString,

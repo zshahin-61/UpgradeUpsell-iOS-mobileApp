@@ -1,8 +1,7 @@
 //
 //  SwiftUIView.swift
 //  UpgradeUpsell
-//
-//  Created by Golnaz Chehrazi on 2023-10-05.
+//  Created by Created by Zahra Shahin - Golnaz Chehrazi .
 //
 
 import SwiftUI
