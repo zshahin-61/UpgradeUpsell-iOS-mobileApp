@@ -13,6 +13,7 @@
 		5A8DAB312ABCB3A200CDCBCB /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB302ABCB3A200CDCBCB /* CreateProjectView.swift */; };
 		5A8DAB332ABCB3B500CDCBCB /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */; };
 		5A8DAB352ABCB3C300CDCBCB /* ProjectOffersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */; };
+		5A8DAB3E2AD4A48B00CDCBCB /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */; };
 		5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */; };
 		5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9465F62ABB33E50006FBB5 /* ContentView.swift */; };
 		5F9465F92ABB33E60006FBB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F9465F82ABB33E60006FBB5 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		5A8DAB302ABCB3A200CDCBCB /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
 		5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectOffersView.swift; sourceTree = "<group>"; };
+		5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationHelper.swift; path = UpgradeUpsell/Models/LocationHelper.swift; sourceTree = SOURCE_ROOT; };
 		5F9465F12ABB33E50006FBB5 /* UpgradeUpsell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpgradeUpsell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeUpsellApp.swift; sourceTree = "<group>"; };
 		5F9465F62ABB33E50006FBB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -210,8 +212,8 @@
 				5F94661D2ABBC0E50006FBB5 /* Message.swift */,
 				5F94661F2ABBC35A0006FBB5 /* FinancialTransaction.swift */,
 				5F9466212ABBC4250006FBB5 /* ProfitSharing.swift */,
-				5F9466232ABBC4B30006FBB5 /* Investment.swift */,
 				5F9466252ABBD0D90006FBB5 /* RenovateProject.swift */,
+				5F9466232ABBC4B30006FBB5 /* Investment.swift */,
 				5F9466272ABBD10F0006FBB5 /* InvestmentSuggestion.swift */,
 			);
 			path = Models;
@@ -220,7 +222,7 @@
 		5F9466292ABC82D90006FBB5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5FD8823F2ACDAEB90034439F /* New Group */,
+				5FD8823F2ACDAEB90034439F /* Helper */,
 				5A8DAB382ABCB54100CDCBCB /* settings */,
 				5A8DAB372ABCB51100CDCBCB /* Investor */,
 				5A8DAB362ABCB50500CDCBCB /* Realtor */,
@@ -229,11 +231,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5FD8823F2ACDAEB90034439F /* New Group */ = {
+		5FD8823F2ACDAEB90034439F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */,
 			);
-			path = "New Group";
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +327,7 @@
 				5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */,
 				5F94662D2ABC838C0006FBB5 /* HomeView_Owner.swift in Sources */,
 				5FD8824D2AD0A73D0034439F /* UserPreferencesViewModel.swift in Sources */,
+				5A8DAB3E2AD4A48B00CDCBCB /* LocationHelper.swift in Sources */,
 				5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */,
 				5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */,
 				5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */,
