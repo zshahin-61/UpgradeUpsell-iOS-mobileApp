@@ -55,7 +55,7 @@
 		5A8DAB302ABCB3A200CDCBCB /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
 		5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectOffersView.swift; sourceTree = "<group>"; };
-		5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationHelper.swift; path = UpgradeUpsell/Models/LocationHelper.swift; sourceTree = SOURCE_ROOT; };
+		5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationHelper.swift; path = UpgradeUpsell/Helper/LocationHelper.swift; sourceTree = SOURCE_ROOT; };
 		5F9465F12ABB33E50006FBB5 /* UpgradeUpsell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpgradeUpsell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeUpsellApp.swift; sourceTree = "<group>"; };
 		5F9465F62ABB33E50006FBB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -189,6 +189,7 @@
 		5F9466032ABB34B60006FBB5 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */,
 				5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */,
 			);
 			path = Helper;
@@ -222,21 +223,12 @@
 		5F9466292ABC82D90006FBB5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5FD8823F2ACDAEB90034439F /* Helper */,
 				5A8DAB382ABCB54100CDCBCB /* settings */,
 				5A8DAB372ABCB51100CDCBCB /* Investor */,
 				5A8DAB362ABCB50500CDCBCB /* Realtor */,
 				5A8DAB2F2ABCB39500CDCBCB /* Owner */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		5FD8823F2ACDAEB90034439F /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */,
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

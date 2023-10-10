@@ -25,13 +25,11 @@ struct HomeView: View {
                     Text("View Projects")
                 }
                 
-                
                 CreateProjectView()
                 .tabItem {
                     Label("Add Property", systemImage: "plus.circle")
                     Text("Add Property")
                 }
-                
                 
                 ProjectOffersView()
                 .tabItem {
@@ -45,11 +43,6 @@ struct HomeView: View {
                     }
 
                 
-//                ProjectOffersView()
-//                .tabItem {
-//                    Label("Notifications", systemImage: "bell")
-//                    Text("Notifications)
-//                }
                 
            
             //                .onAppear {
@@ -74,20 +67,7 @@ struct HomeView: View {
                 Image(systemName: "gearshape.fill")
             }
         })
-        .onAppear {
-            print("I am here")
-            
-                if let userID = authHelper.user?.uid {
-                    dbHelper.getUserProjects(userID: userID) { projects, error in
-                        if let projects = projects {
-                            self.userProjects = projects
-                        } else if let error = error {
-                            // Handle the error
-                            print("Error fetching user projects: \(error.localizedDescription)")
-                        }
-                    }
-                }
-            }
+        
         }
     }
     
