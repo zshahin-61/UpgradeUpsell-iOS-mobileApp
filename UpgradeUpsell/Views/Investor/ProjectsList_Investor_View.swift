@@ -43,10 +43,13 @@ struct ProjectListItemView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            Text(project.category)
             Text(project.title)
                 .font(.headline)
             Text(project.location)
                 .font(.subheadline)
+            Text("Estimated Fund:$\(project.investmentNeeded)")
+        
             // Add any other project details you want to display
         }
     }

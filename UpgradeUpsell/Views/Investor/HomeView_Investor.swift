@@ -23,22 +23,22 @@ struct HomeView_Investor: View {
          
 //                        EventsListView().environmentObject(locationHelper)
 
-            ProjectListView()
+            ProjectsList_InvestorView()
             .tabItem {
                 Label("View Projects", systemImage: "list.bullet.rectangle")
                 Text("View Projects")
             }
             
-            CreateProjectView()
+            MakeOffers_InvestorView()
             .tabItem {
-                Label("Add Property", systemImage: "plus.circle")
-                Text("Add Property")
+                Label("Make Offer", systemImage: "plus.circle")
+                Text("Make Offer")
             }
             
             ProjectOffersView()
             .tabItem {
-                Label("View Offers", systemImage: "gift")
-                Text("View Offers")
+                Label("My Offers", systemImage: "gift")
+                Text("My Offers")
             }
         
             Text("Notifications")
