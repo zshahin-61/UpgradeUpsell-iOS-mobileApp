@@ -5,9 +5,7 @@ struct HomeView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var selectedTab = 0
-    
-    // Property to store the user's projects
-        @State private var userProjects: [RenovateProject] = []
+   
     @Binding var rootScreen: RootView
     
     //let userName = "Golnaz"

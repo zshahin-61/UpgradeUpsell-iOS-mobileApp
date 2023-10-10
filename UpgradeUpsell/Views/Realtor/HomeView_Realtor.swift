@@ -1,9 +1,4 @@
-//
-//  HomeView_Realtor.swift
-//  UpgradeUpsell
-//
-//  Created by Golnaz Chehrazi on 2023-10-04.
-//
+
 
 import SwiftUI
 
@@ -13,41 +8,38 @@ struct HomeView_Realtor: View {
     @State private var selectedTab = 0
     
     @Binding var rootScreen: RootView 
-    
+
     
     var body: some View {
-        NavigationView {
-            TabView(selection: $selectedTab) {
-                NavigationLink(destination: CreateProjectView()) {
-                    Text("List of Selling Properties")
-                }
-                .tabItem {
-                    Label("List of Selling Properties", systemImage: "plus.circle")
-                }
-                .tag(0)
-                
-                NavigationLink(destination: ProjectListView()) {
-                    Text("Saved Properties")
-                }
-                .tabItem {
-                    Label("Saved Properties", systemImage: "list.bullet.rectangle")
-                }
-                .tag(1)
-                
-                NavigationLink(destination: ProjectOffersView()) {
-                    Text("Offers")
-                }
-                .tabItem {
-                    Label("Offers", systemImage: "gift")
-                }
-                .tag(2)
-                
-                Text("Notifications")
-                    .tabItem {
-                        Label("Notifications", systemImage: "bell")
-                    }
-                    .tag(3)
+        TabView() {
+         
+//                        EventsListView().environmentObject(locationHelper)
+
+            ProjectListView()
+            .tabItem {
+                Label("View Projects", systemImage: "list.bullet.rectangle")
+                Text("View Projects")
             }
+            
+            CreateProjectView()
+            .tabItem {
+                Label("Add Property", systemImage: "plus.circle")
+                Text("Add Property")
+            }
+            
+            ProjectOffersView()
+            .tabItem {
+                Label("View Offers", systemImage: "gift")
+                Text("View Offers")
+            }
+        
+            Text("Notifications")
+                .tabItem {
+                    Label("Notifications", systemImage: "bell")
+                }
+
+            
+            
             //                .onAppear {
             //                    UITabBar.appearance().isHidden = true // Hide the system tab bar
         }

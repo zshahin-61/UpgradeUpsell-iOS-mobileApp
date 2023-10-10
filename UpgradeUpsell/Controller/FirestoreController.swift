@@ -13,6 +13,7 @@ class FirestoreController: ObservableObject {
     @Published var userProfile: UserProfile?
     @Published var userPrefrences: Prefrences?
     @Published var myPropertyList: [RenovateProject] = [RenovateProject]()
+    @Published var userProperty: RenovateProject?
 
     private let db: Firestore
     private static var shared: FirestoreController?

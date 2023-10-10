@@ -1,11 +1,14 @@
 import SwiftUI
 import Firebase
 
+
 struct CreateProjectView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @EnvironmentObject var authHelper: FireAuthController
     @Environment(\.presentationMode) var presentationMode
     
+//    @State private var userProjects: [RenovateProject] = []
+
     @State private var title = ""
     @State private var description = ""
     @State private var location = ""
@@ -81,8 +84,3 @@ struct CreateProjectView: View {
     }
 }
 
-struct CreateProjectView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateProjectView()
-    }
-}
