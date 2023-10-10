@@ -10,7 +10,7 @@ struct MakeOffers_InvestorView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject var dbHelper: FirestoreController
-    @EnvironmentObject var authHelper: FireAuthController
+    //@EnvironmentObject var authHelper: FireAuthController
     
     let project: RenovateProject
         
@@ -22,15 +22,22 @@ struct MakeOffers_InvestorView: View {
         @State private var showAlert = false
 
         var body: some View {
-            Form {
+            VStack {
                 Group{
                     //Text("Investor ID: \(dbHelper.userProfile?.id!)")
-                    Text("Owner ID: \(project.ownerID)")
-                    Text("Project ID:\(project.category)")
-                    TextField("Amount Offered", value: $amountOffered, formatter: NumberFormatter())
-                    TextField("Duration in Weeks", value: $durationWeeks, formatter: NumberFormatter())
-                    TextField("Description", text: $description)
-                    //TextField("Status", text: $status)
+                    Text("Title: \(project.title)")
+                    Text("Category: \(project.category)")
+                    Text("Insert date: \(project.createdDate)")
+                    Text("Description: \(project.description)")
+                    Text("Likes count: \(project.favoriteCount)")
+                    Text("Status: \(project.status)")
+                    Text("Location: \(project.location)")
+                    Form{
+                        TextField("Amount Offered", value: $amountOffered, formatter: NumberFormatter())
+                        TextField("Duration in Weeks", value: $durationWeeks, formatter: NumberFormatter())
+                        TextField("Description", text: $description)
+                    }
+                        //TextField("Status", text: $status)
                 }
                 Button("Submit") {
                     
@@ -51,7 +58,7 @@ struct MakeOffers_InvestorView: View {
                         showAlert = true
                     }
                 }
-            } // FORM
+            } // VSTACK
             .alert(isPresented: $showAlert) {
                         Alert(
                             title: Text("Conversion Result"),
@@ -59,6 +66,6 @@ struct MakeOffers_InvestorView: View {
                             dismissButton: .default(Text("OK"))
                         )
                     }
-            .navigationBarTitle("Add Investment Suggestion")
+            .navigationBarTitle("Add an Offer")
         }
     }
