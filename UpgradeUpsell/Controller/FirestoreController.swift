@@ -12,7 +12,8 @@ import FirebaseFirestoreSwift
 class FirestoreController: ObservableObject {
     @Published var userProfile: UserProfile?
     @Published var userPrefrences: Prefrences?
-    
+    @Published var myPropertyList: [RenovateProject] = [RenovateProject]()
+
     private let db: Firestore
     private static var shared: FirestoreController?
     
@@ -93,7 +94,7 @@ class FirestoreController: ObservableObject {
     //////
     
     private var loggedInUserID: String = ""
-    
+
     init(db: Firestore) {
         self.db = db
     }
@@ -315,8 +316,11 @@ class FirestoreController: ObservableObject {
 //            }
         }
     
+    
+    
     // MARK: renovateProjects Collection Functions
     
+
     func addProperty(_ property: RenovateProject, userID: String, completion: @escaping (Bool) -> Void) {
         var propertyToSave = property
         print("userrrrr",COLLECTION_UsersProfile)
@@ -324,8 +328,8 @@ class FirestoreController: ObservableObject {
         
         do {
             let _ = try self.db
-                .collection(COLLECTION_UsersProfile)
-                .document(userID)
+//                .collection(COLLECTION_UsersProfile)
+//                .document(userID)
                 .collection(COLLECTION_RenovateProject)
                 .addDocument(from: propertyToSave) { error in
                     if let error = error {

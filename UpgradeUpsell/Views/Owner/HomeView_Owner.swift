@@ -14,40 +14,54 @@ struct HomeView: View {
    // let userFamily = "Cherazi"
     
     var body: some View {
-        NavigationView {
-            TabView(selection: $selectedTab) {
+        
+            TabView() {
              
-                
-                NavigationLink(destination: ProjectListView()) {
-                    Text("View Your Projects")
-                }
+//                        EventsListView().environmentObject(locationHelper)
+
+                ProjectListView()
                 .tabItem {
                     Label("View Projects", systemImage: "list.bullet.rectangle")
+                    Text("View Projects")
                 }
-                .tag(0)
                 
-                NavigationLink(destination: CreateProjectView()) {
-                    Text("Create New Project")
-                }
+//                NavigationLink(destination: ProjectListView()) {
+//                    Text("View Your Projects")
+//                }
+//                .tabItem {
+//                    Label("View Projects", systemImage: "list.bullet.rectangle")
+//                }
+//                .tag(0)
+                
+                CreateProjectView()
                 .tabItem {
-                    Label("Create Project", systemImage: "plus.circle")
+                    Label("Add Property", systemImage: "plus.circle")
+                    Text("Add Property")
                 }
-                .tag(1)
                 
-                NavigationLink(destination: ProjectOffersView()) {
-                    Text("View Project Offers")
-                }
+//                NavigationLink(destination: CreateProjectView()) {
+//                    Text("Create oiuoiuoui Project")
+//                }
+//                .tabItem {
+//                    Label("Create Project", systemImage: "plus.circle")
+//                }
+//                .tag(1)
+                
+                ProjectOffersView()
                 .tabItem {
                     Label("View Offers", systemImage: "gift")
+                    Text("View Offers")
                 }
-                .tag(2)
                 
-                Text("Notifications")
-                    .tabItem {
-                        Label("Notifications", systemImage: "bell")
-                    }
-                    .tag(3)
-            }
+
+                
+//                ProjectOffersView()
+//                .tabItem {
+//                    Label("Notifications", systemImage: "bell")
+//                    Text("Notifications)
+//                }
+                
+           
             //                .onAppear {
             //                    UITabBar.appearance().isHidden = true // Hide the system tab bar
         }
