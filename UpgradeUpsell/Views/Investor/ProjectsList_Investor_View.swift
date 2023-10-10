@@ -9,19 +9,32 @@ import SwiftUI
 
 struct ProjectsList_InvestorView: View {
     @EnvironmentObject var dbHelper: FirestoreController
-
+    @State private var prjList: [RenovateProject] = []
+    @State private var isLoading: Bool = false
+    
     var body: some View {
-Text("salam")
-        //        List(dbHelper.projects) { project in
-//            NavigationLink(destination: ProjectDetailView(project: project)) {
-//                ProjectListItemView(project: project)
-//            }
-//        }
-//        .navigationTitle("Renovation Projects")
-//        .onAppear {
-//            // Fetch renovation projects from Firestore when the view appears.
-//            dbHelper.fetchRenovationProjects()
-//        }
+        List(prjList) { prj in
+            NavigationLink(destination: ProjectDetailView(project: prj)) {
+                ProjectListItemView(project: prj)
+            }
+        }
+        .navigationTitle("Renovation Projects")
+        .onAppear {
+            // Fetch investment suggestions when the view appears.
+            if let role = dbHelper.userProfile?.role {
+                if(role == "Investor"){
+                    self.isLoading = true
+                    self.dbHelper.getRenovateProjectByStatus(status: "Released") { (renovateProjects, error) in
+                        self.isLoading = false
+                        if let error = error {
+                            print("Error getting investment suggestions: \(error)")
+                        } else if let projectList = renovateProjects {
+                            self.prjList = projectList
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

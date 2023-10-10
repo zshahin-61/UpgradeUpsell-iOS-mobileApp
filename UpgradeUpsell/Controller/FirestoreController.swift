@@ -403,6 +403,24 @@ class FirestoreController: ObservableObject {
         }
     }
     
+    func getRenovateProjectByStatus(status: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
+        self.db.collection(COLLECTION_RenovateProject)
+            .whereField("status", isEqualTo: status)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion(nil, error)
+                } else {
+                    var projects = [RenovateProject]()
+                    for document in querySnapshot!.documents {
+                        if let project = try? document.data(as: RenovateProject.self) {
+                            projects.append(project)
+                        }
+                    }
+                    completion(projects, nil)
+                }
+            }
+    }
+    
     // MARK: functions for Collection investment Sugesstions
     func addInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
         do {
