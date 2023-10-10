@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 struct InvestmentSuggestion: Codable, Hashable,Identifiable {
     @DocumentID var id = UUID().uuidString
     var investorID: String
+    var ownerID:String
     var projectID: String
     var amountOffered: Double
     var durationWeeks: Int
@@ -25,6 +26,11 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
         
         guard let myInvestorID = dictionary["investorID"] as? String else {
             print(#function, "Unable to get investorID from JSON")
+            return nil
+        }
+        
+        guard let myOwnerID = dictionary["ownerID"] as? String else {
+            print(#function, "Unable to get ownerID from JSON")
             return nil
         }
         
@@ -53,12 +59,13 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
             return nil
         }
 
-        self.init(id: myID, investorID: myInvestorID, projectID:myProjectID, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus)
+        self.init(id: myID, investorID: myInvestorID, ownerID: myOwnerID, projectID:myProjectID, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus)
     }
     
-    init(id: String, investorID: String, projectID: String, amountOffered: Double, durationWeeks: Int, description: String, status: String) {
+    init(id: String, investorID: String, ownerID: String, projectID: String, amountOffered: Double, durationWeeks: Int, description: String, status: String) {
         self.id = id
         self.investorID = investorID
+        self.ownerID = ownerID
         self.projectID = projectID
         self.amountOffered = amountOffered
         self.durationWeeks = durationWeeks
