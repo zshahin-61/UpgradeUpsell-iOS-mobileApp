@@ -25,13 +25,6 @@ struct HomeView: View {
                     Text("View Projects")
                 }
                 
-//                NavigationLink(destination: ProjectListView()) {
-//                    Text("View Your Projects")
-//                }
-//                .tabItem {
-//                    Label("View Projects", systemImage: "list.bullet.rectangle")
-//                }
-//                .tag(0)
                 
                 CreateProjectView()
                 .tabItem {
@@ -39,20 +32,17 @@ struct HomeView: View {
                     Text("Add Property")
                 }
                 
-//                NavigationLink(destination: CreateProjectView()) {
-//                    Text("Create oiuoiuoui Project")
-//                }
-//                .tabItem {
-//                    Label("Create Project", systemImage: "plus.circle")
-//                }
-//                .tag(1)
                 
                 ProjectOffersView()
                 .tabItem {
                     Label("View Offers", systemImage: "gift")
                     Text("View Offers")
                 }
-                
+            
+                Text("Notifications")
+                    .tabItem {
+                        Label("Notifications", systemImage: "bell")
+                    }
 
                 
 //                ProjectOffersView()
