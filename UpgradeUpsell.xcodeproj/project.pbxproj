@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A8DAB2A2ABCA86200CDCBCB /* RenovationPersonDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB292ABCA86200CDCBCB /* RenovationPersonDashboardView.swift */; };
 		5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */; };
 		5A8DAB2E2ABCAB6100CDCBCB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */; };
 		5A8DAB312ABCB3A200CDCBCB /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB302ABCB3A200CDCBCB /* CreateProjectView.swift */; };
@@ -51,7 +50,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5A8DAB292ABCA86200CDCBCB /* RenovationPersonDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenovationPersonDashboardView.swift; sourceTree = "<group>"; };
 		5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtorPersonDashboardView.swift; sourceTree = "<group>"; };
 		5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A8DAB302ABCB3A200CDCBCB /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */,
-				5A8DAB292ABCA86200CDCBCB /* RenovationPersonDashboardView.swift */,
 				5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */,
 				5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */,
 				5FD882502AD5BD880034439F /* MyOffersView.swift */,
@@ -337,7 +334,6 @@
 				5F94661A2ABBB01D0006FBB5 /* Prefrences.swift in Sources */,
 				5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */,
 				5FD882512AD5BD880034439F /* MyOffersView.swift in Sources */,
-				5A8DAB2A2ABCA86200CDCBCB /* RenovationPersonDashboardView.swift in Sources */,
 				5F9466282ABBD10F0006FBB5 /* InvestmentSuggestion.swift in Sources */,
 				5FD8824F2AD5BD570034439F /* ProjectsList_Investor_View.swift in Sources */,
 				5F94661E2ABBC0E50006FBB5 /* Message.swift in Sources */,

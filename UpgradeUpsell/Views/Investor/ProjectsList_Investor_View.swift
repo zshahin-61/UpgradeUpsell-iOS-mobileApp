@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ProjectsList_InvestorView: View {
     @EnvironmentObject var dbHelper: FirestoreController
+    @EnvironmentObject var authHelper: FireAuthController
     @State private var prjList: [RenovateProject] = []
     @State private var isLoading: Bool = false
     
     var body: some View {
         List(prjList) { prj in
-            NavigationLink(destination: MakeOffers_InvestorView(project: prj)) {
+            NavigationLink(destination: MakeOffers_InvestorView(project: prj).environmentObject(dbHelper).environmentObject(authHelper)) {
                 ProjectListItemView(project: prj)
             }
         }

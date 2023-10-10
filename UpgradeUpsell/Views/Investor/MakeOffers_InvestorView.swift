@@ -8,10 +8,13 @@ import SwiftUI
 
 struct MakeOffers_InvestorView: View {
     @EnvironmentObject var dbHelper: FirestoreController
-    let project: RenovateProject?
-        @State private var investorID = ""
-        @State private var ownerID = ""
-        @State private var projectID = ""
+    @EnvironmentObject var authHelper: FireAuthController
+
+    
+    let project: RenovateProject
+        //@State private var investorID = ""
+        //@State private var ownerID = ""
+        //@State private var projectID = ""
         @State private var amountOffered = 0.0
         @State private var durationWeeks = 0
         @State private var description = ""
@@ -20,9 +23,9 @@ struct MakeOffers_InvestorView: View {
         var body: some View {
             Form {
                 Group{
-                    Text("Investor ID: \(investorID)")
-                    Text("Owner ID: \(ownerID)")
-                    Text("Project ID:\(projectID)")
+                    //Text("Investor ID: \(dbHelper.userProfile?.id!)")
+                    Text("Owner ID: \(project.ownerID)")
+                    Text("Project ID:\(project.category)")
                     TextField("Amount Offered", value: $amountOffered, formatter: NumberFormatter())
                     TextField("Duration in Weeks", value: $durationWeeks, formatter: NumberFormatter())
                     TextField("Description", text: $description)
@@ -30,7 +33,7 @@ struct MakeOffers_InvestorView: View {
                 }
                 Button("Submit") {
                     
-                    var newOffer : InvestmentSuggestion = InvestmentSuggestion(id: UUID().uuidString, investorID: dbHelper.userProfile?.id! ?? "", ownerID: "", projectID: "", amountOffered: amountOffered, durationWeeks: durationWeeks, description: description, status: "New")
+                    var newOffer : InvestmentSuggestion = InvestmentSuggestion(id: UUID().uuidString, investorID: self.authHelper.user?.uid ?? "", ownerID: project.ownerID, projectID: project.id!, amountOffered: amountOffered, durationWeeks: durationWeeks, description: description, status: "New")
                     
                     self.dbHelper.addInvestmentSuggestion(newOffer) { error in
                         if let error = error {
