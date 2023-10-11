@@ -1,10 +1,3 @@
-//
-//  ProjectOffersView.swift
-//  UpgradeUpsell
-//
-//  Created by Created by Zahra Shahin - Golnaz Chehrazi .
-//
-
 import SwiftUI
 
 struct ProjectOffersView: View {
@@ -29,8 +22,22 @@ struct ProjectOffersView: View {
                         Button(action:{
                             
                         }){
-                            Text("Investment suggestion: \(suggestion.projectID), \(suggestion.amountOffered), \(suggestion.durationWeeks)")
-                        }}
+                            Text("SALAM")
+//                            self.dbHelper.getRenovateProjectByID(suggestion.projectID) { (project, error) in
+//                                if let error = error {
+//                                    print("\(error)")
+//                                }
+//                                else if let prj = project{
+                                    Text("Investment suggestion: \(suggestion.projectID), \(suggestion.amountOffered), \(suggestion.durationWeeks)")
+//                                }
+//                                else
+//                                {
+//                                    Text("No Offers")
+//                                    print("no offers")
+//                                }
+                            //}
+                        }
+                    }
                 }
             }
             .onAppear {
@@ -51,5 +58,3 @@ struct ProjectOffersView: View {
         }
     }
 }
-
-

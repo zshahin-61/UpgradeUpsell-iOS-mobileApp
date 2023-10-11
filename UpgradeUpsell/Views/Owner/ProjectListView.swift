@@ -22,7 +22,7 @@ struct ProjectListView: View {
                 }
             }
             .onAppear {
-                if let userID = authHelper.user?.uid {
+                if let userID = self.dbHelper.userProfile?.id {
                     dbHelper.getUserProjects(userID: userID) { projects, error in
                         if let projects = projects {
                             self.userProjects = projects
