@@ -14,15 +14,16 @@ struct MakeOffers_InvestorView: View {
     
     let project: RenovateProject
         
-        @State private var amountOffered = 0.0
-        @State private var durationWeeks = 0
-        @State private var description = ""
+    @State private var amountOffered = "" // Removed the initial value
+    @State private var durationWeeks = "" // Removed the initial value
+    @State private var description = "" // Removed the initial value
+
         
         @State private var alertMessage = ""
         @State private var showAlert = false
 
         var body: some View {
-            VStack {
+            VStack(alignment: .leading, spacing: 10) {
                 Group{
                     //Text("Investor ID: \(dbHelper.userProfile?.id!)")
                     Text("Title: \(project.title)")
@@ -33,8 +34,8 @@ struct MakeOffers_InvestorView: View {
                     Text("Status: \(project.status)")
                     Text("Location: \(project.location)")
                     Form{
-                        TextField("Amount Offered", value: $amountOffered, formatter: NumberFormatter())
-                        TextField("Duration in Weeks", value: $durationWeeks, formatter: NumberFormatter())
+                        TextField("Amount Offered", text: $amountOffered)
+                        TextField("Duration in Weeks", text: $durationWeeks)
                         TextField("Description", text: $description)
                     }
                         //TextField("Status", text: $status)
@@ -58,6 +59,7 @@ struct MakeOffers_InvestorView: View {
                         showAlert = true
                     }
                 }
+                Spacer()
             } // VSTACK
             .alert(isPresented: $showAlert) {
                         Alert(
