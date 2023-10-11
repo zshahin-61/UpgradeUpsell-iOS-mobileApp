@@ -18,8 +18,9 @@ struct CreateProjectView: View {
     @State private var lng: Double = 0.0
     @State private var lat: Double = 0.0
     @State private var category = ""
+    @State private var selectedCategory = "Residential"
     @State private var investmentNeeded: Double = 0.0
-    @State private var status = ""
+    @State private var status = "Released"
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var numberOfBedrooms = 0
@@ -30,6 +31,17 @@ struct CreateProjectView: View {
     @State private var isFurnished = false
 
     @State private var showAlert = false
+
+    private let categories = [
+        "Condo",
+        "Townhouse",
+        "Apartment",
+        "Office Space",
+        "Retail Space",
+        "Warehouse",
+        "House",
+        "Other"
+    ]
 
     
     var body: some View {
@@ -42,7 +54,11 @@ struct CreateProjectView: View {
                         TextField("Location", text: $location)
                         TextField("Longitude", value: $lng, formatter: NumberFormatter())
                         TextField("Latitude", value: $lat, formatter: NumberFormatter())
-                        TextField("Category", text: $category)
+                        Picker("Category", selection: $selectedCategory) {
+                            ForEach(categories, id: \.self) { category in
+                                Text(category)
+                            }
+                        }
                         TextField("Investment Needed", value: $investmentNeeded, formatter: NumberFormatter())
                         TextField("Status", text: $status)
                     }
@@ -142,3 +158,30 @@ struct CreateProjectView: View {
         isFurnished = false
     }
 }
+
+
+//Kitchen Renovation
+//Bathroom Renovation
+//Whole House Renovation
+//Basement Renovation
+//Exterior Renovation
+//Interior Renovation
+//Roof Renovation
+//Flooring Renovation
+//Electrical Renovation
+//Plumbing Renovation
+//HVAC (Heating, Ventilation, and Air Conditioning) Renovation
+//Deck/Patio Renovation
+//Garage Renovation
+//Landscape Renovation
+//Swimming Pool Renovation
+//Commercial Property Renovation
+//Historic Property Renovation
+//Condo Renovation
+//Apartment Renovation
+//Office Space Renovation
+//Retail Space Renovation
+//Warehouse Renovation
+//Hotel Renovation
+//Restaurant Renovation
+//Other Renovation
