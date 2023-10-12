@@ -356,7 +356,27 @@ class FirestoreController: ObservableObject {
             documentReference.updateData([
                 "title": property.title,
                 "description": property.description,
-                // Include other fields to update
+                "location": property.location,
+                "lng": property.lng,
+                "lat": property.lat,
+                "images" : property.images,
+                "ownerID": property.ownerID,
+                "category": property.category,
+                "investmentNeeded": property.investmentNeeded,
+                "selectedInvestmentSuggestionID": property.selectedInvestmentSuggestionID,
+                "status": property.status,
+                "startDate": property.startDate,
+                "endDate": property.endDate,
+                "numberOfBedrooms": property.numberOfBedrooms,
+                "numberOfBathrooms": property.numberOfBedrooms,
+                "propertyType": property.propertyType,
+                "squareFootage": property.squareFootage,
+                "isFurnished": property.isFurnished,
+                "createdDate": property.createdDate,
+                "updatedDate": property.updatedDate,
+                "favoriteCount": property.favoriteCount,
+                "realtorID": property.realtorID
+                
             ]) { error in
                 if let error = error {
                     print("Error updating property in Firestore: \(error)")

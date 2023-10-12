@@ -47,6 +47,8 @@ struct CreateProjectView: View {
     @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
     
     
+    // status: Delete show but deactive by owner be onwer and didnot show on the list | all offer will be decline
+    
     private let categories = [
         "Residential",
         "Condo",
@@ -72,7 +74,7 @@ struct CreateProjectView: View {
                             Spacer()
                             TextField("", text: $title).textInputAutocapitalization(.never)
                                 .textFieldStyle(.roundedBorder)
-                         
+                            
                         }
                         VStack {
                             Text("Description").bold()
@@ -92,12 +94,12 @@ struct CreateProjectView: View {
                                 .cornerRadius(5)
                                 .border(Color.gray, width: 0.5)
                         }
-//                        HStack{
-//                            // google map
-//
-//                            Text("Location    ").font(.subheadline)
-//                            Spacer()
-//                        }
+                        //                        HStack{
+                        //                            // google map
+                        //
+                        //                            Text("Location    ").font(.subheadline)
+                        //                            Spacer()
+                        //                        }
                         // HStack {
                         //                            Text("Longitude").font(.subheadline)
                         //                            Spacer()
@@ -110,15 +112,7 @@ struct CreateProjectView: View {
                         //                            TextField("", value: $lat, formatter: NumberFormatter())
                         //                        }
                         
-                        //HStack {
-                        //                            Text("Category").font(.subheadline)
-                        //                            Spacer()
-                        //                            Picker("", selection: $selectedCategory) {
-                        //                                ForEach(categories, id: \.self) { category in
-                        //                                    Text(category)
-                        //                                }
-                        //                            }
-                        //                        }
+                      
                         HStack {
                             Text("Category").bold()
                             Spacer()
@@ -155,7 +149,7 @@ struct CreateProjectView: View {
                             Text("Number of Bathrooms:").bold()
                             Spacer()
                             Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
-
+                            
                         }
                         
                         //Image
@@ -178,7 +172,7 @@ struct CreateProjectView: View {
                                 VStack{
                                     
                                     Text("Upload Images").font(.subheadline)
-                 
+                                    
                                     
                                     if photoLibraryManager.isAuthorized {
                                         //HStack{
@@ -217,7 +211,7 @@ struct CreateProjectView: View {
                         VStack {
                             Text("Square Footage").bold()
                             Spacer()
-                        
+                            
                             TextField("", value: $squareFootage, formatter: NumberFormatter())
                         }
                         
@@ -228,22 +222,22 @@ struct CreateProjectView: View {
                         VStack{
                             DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
                             Spacer()
-
+                            
                             DatePicker("End Date", selection: $endDate, displayedComponents: .date)
                         }
                         
                     }
                     Button(action: {
-                if selectedProject != nil {
-                         // If selectedProject is not nil, it's an update operation
-                         updateProperty()
-                    resetFormFields()
-                    
-                     } else {
-                         // If selectedProject is nil, it's an insert operation
-                         insertProperty()
-                         resetFormFields()
-                     }
+                        if selectedProject != nil {
+                            // If selectedProject is not nil, it's an update operation
+                            updateProperty()
+                            resetFormFields()
+                            
+                        } else {
+                            // If selectedProject is nil, it's an insert operation
+                            insertProperty()
+                            resetFormFields()
+                        }
                         
                     }) {
                         Text("Save")
@@ -286,15 +280,19 @@ struct CreateProjectView: View {
                         if let imageData = currentProject.images as? Data {
                             self.imageData = imageData
                         } else {
+                            
                             print("Invalid image data format")
                         }
+                    }else {
+                        resetFormFields()
                     }
+                    
                 }
                 
-            }//VStack
-        }//ScrollView
+            }//scroll
+        }//NavigationView
         
-    }//NavigationView
+    }//View
     
     
     private func resetFormFields() {
@@ -313,6 +311,8 @@ struct CreateProjectView: View {
         propertyType = ""
         squareFootage = 0.0
         isFurnished = false
+        imageData = nil
+        
     }
     
     private func insertProperty() {
@@ -332,48 +332,46 @@ struct CreateProjectView: View {
         
         // Create a new property
         let newProperty = RenovateProject(
-           projectID: UUID().uuidString,
-           title: title,
-           description: description,
-           location: location,
-           lng: lng,
-           lat: lat,
-           images: imageData,
-           ownerID: userID,
-           category: selectedCategory,
-           investmentNeeded: investmentNeeded,
-           selectedInvestmentSuggestionID: "",
-           status: status,
-           startDate: startDate,
-           endDate: endDate,
-           numberOfBedrooms: numberOfBedrooms,
-           numberOfBathrooms: numberOfBathrooms,
-           propertyType: propertyType,
-           squareFootage: squareFootage,
-           isFurnished: isFurnished,
-           createdDate: Date(),
-           updatedDate: Date(),
-           favoriteCount: 0,
-           realtorID: ""
-       )
-                               
+            projectID: UUID().uuidString,
+            title: title,
+            description: description,
+            location: location,
+            lng: lng,
+            lat: lat,
+            images: imageData,
+            ownerID: userID,
+            category: selectedCategory,
+            investmentNeeded: investmentNeeded,
+            selectedInvestmentSuggestionID: "",
+            status: status,
+            startDate: startDate,
+            endDate: endDate,
+            numberOfBedrooms: numberOfBedrooms,
+            numberOfBathrooms: numberOfBathrooms,
+            propertyType: propertyType,
+            squareFootage: squareFootage,
+            isFurnished: isFurnished,
+            createdDate: Date(),
+            updatedDate: Date(),
+            favoriteCount: 0,
+            realtorID: ""
+        )
+        
         
         dbHelper.addProperty(newProperty, userID: userID) { success in
             if success {
                 presentationMode.wrappedValue.dismiss()
                 resetFormFields()
             } else {
-                // Handle error
             }
         }
     }
-
+    
     private func updateProperty() {
         guard let userID = dbHelper.userProfile?.id else {
             return
         }
         
-        // Update the imageData if a new image is selected
         if selectedImage != nil {
             let image = selectedImage!
             imageData = image.jpegData(compressionQuality: 0.1)
@@ -387,7 +385,7 @@ struct CreateProjectView: View {
             location: location,
             lng: lng,
             lat: lat,
-            images: imageData,
+            images : imageData,
             ownerID: userID,
             category: selectedCategory,
             investmentNeeded: investmentNeeded,
@@ -411,11 +409,10 @@ struct CreateProjectView: View {
                 presentationMode.wrappedValue.dismiss()
                 resetFormFields()
             } else {
-                // Handle error
             }
         }
     }
-
+    
     
 }
 
