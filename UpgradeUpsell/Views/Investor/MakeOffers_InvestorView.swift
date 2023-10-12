@@ -26,17 +26,38 @@ struct MakeOffers_InvestorView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Group{
                     //Text("Investor ID: \(dbHelper.userProfile?.id!)")
-                    Text("Title: \(project.title)")
-                    Text("Category: \(project.category)")
-                    Text("Insert date: \(project.createdDate)")
-                    Text("Description: \(project.description)")
-                    Text("Likes count: \(project.favoriteCount)")
-                    Text("Status: \(project.status)")
-                    Text("Location: \(project.location)")
+                    HStack{
+                        Text("Title: ").bold()
+                        Text("\(project.title)")}
+                    HStack{
+                        Text("Category: ").bold()
+                        Text("\(project.category)")
+                    }
+                    HStack{
+                        Text("Released date: ").bold()
+                        Text("\(dateFormatter.string(from: project.createdDate))")
+                    }
+                    HStack{
+                        Text("Description: ").bold()
+                        Text("\(project.description)")
+                    }
+                    HStack{
+                        Text("Likes: ").bold()
+                        Text("\(project.favoriteCount)")
+                    }
+                    HStack{
+                        Text("Status: ").bold()
+                        Text("\(project.status)")
+                    }
+                    HStack{
+                        Text("Location: ").bold()
+                        Text("\(project.location)")
+                    }
                     Form{
                         TextField("Amount Offered", text: $amountOffered)
                         TextField("Duration in Weeks", text: $durationWeeks)
                         //TextField("Description", text: $description)
+                        Text("Description:")
                         TextEditor(text: $description)
                                         .frame(height: 200) // Adjust the height as needed
                                         .border(Color.gray, width: 1)
@@ -74,4 +95,12 @@ struct MakeOffers_InvestorView: View {
                     }
             .navigationBarTitle("Add an Offer")
         }
+    
+    let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            formatter.timeStyle = .short
+            return formatter
+        }()
+    
     }

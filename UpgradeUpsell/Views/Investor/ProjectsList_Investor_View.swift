@@ -49,7 +49,7 @@ struct ProjectListItemView: View {
                 .font(.headline)
             Text(project.location)
                 .font(.subheadline)
-            Text("Estimated Fund:$\(project.investmentNeeded)")
+            //Text("Estimated Fund:$\(project.investmentNeeded)")
         
             // Add any other project details you want to display
         }
