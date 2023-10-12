@@ -71,7 +71,8 @@ struct CreateProjectView: View {
                             Text("Title").font(.subheadline).bold()
                             Spacer()
                             if let project = selectedProject {
-                                TextField(project.title, text: $title)
+                                TextField(project.title, text: self.$title).textInputAutocapitalization(.never)
+                                    .textFieldStyle(.roundedBorder)
                             } else {
                                 TextField("", text: $title)
                             }
@@ -137,7 +138,8 @@ struct CreateProjectView: View {
                             Text("Category").font(.subheadline)
                             Spacer()
                             if let project = selectedProject {
-                                Text(selectedProject?.category ?? "No Category")
+                              
+                         Text(selectedProject?.category ?? "No Category")
                             }
                             else{
                                 Picker("", selection: $selectedCategory) {
@@ -163,12 +165,12 @@ struct CreateProjectView: View {
 //                        }
                        
                         HStack {
-                            Text("Number of Bedrooms").font(.subheadline)
+                            Text("Number of Bedrooms").font(.subheadline).bold()
                             Spacer()
                             
                             if let project = selectedProject {
-                                Text("\(project.numberOfBedrooms)")
-                                TextField("\(numberOfBedrooms)", value: $numberOfBedrooms, formatter: NumberFormatter())
+                                TextField(String(project.numberOfBedrooms), value: self.$squareFootage, formatter: NumberFormatter())
+                                    .textFieldStyle(.roundedBorder)
                                
                             } else {
                                 Stepper("\(numberOfBedrooms)", value: $numberOfBedrooms, in: 0...10)
@@ -176,19 +178,22 @@ struct CreateProjectView: View {
                           
                         }
                         
-                        HStack {
-                            Text("Number of Bathrooms").font(.subheadline)
-                            Spacer()
-                            if let project = selectedProject {
+            
+                           
                         
-                                   TextField("Number of Bathrooms", value: $numberOfBathrooms, formatter: NumberFormatter())
-                               
-                            } else {
+                        HStack {
+                            Text("Number of Bathrooms:").font(.subheadline).bold()
+                            Spacer()
+                            
+                            if let project = selectedProject {
+                                TextField(String(project.numberOfBathrooms), value: self.$squareFootage, formatter: NumberFormatter())
+                                    .textFieldStyle(.roundedBorder)
+                            }  else {
                                 Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
                             }
                         }
                         
-                        
+                        //Image
                         VStack(alignment: .leading,spacing: 10){
                             
                             HStack{
@@ -206,7 +211,21 @@ struct CreateProjectView: View {
                                     }
                                 }
                                 VStack{
+                                    
                                     Text("Upload Images").font(.subheadline)
+                                    
+                                    if let project = selectedProject {
+                                        if let imageData = project.images, let image = UIImage(data: imageData) {
+                                            Image(uiImage: image)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 150, height: 150)
+                                        }
+                                    }
+                                    else{
+                                        //
+                                    }
+                                    
                                     if photoLibraryManager.isAuthorized {
                                         //HStack{
                                         if let image = selectedImage {
@@ -216,6 +235,7 @@ struct CreateProjectView: View {
                                                 .clipShape(Rectangle())
                                         }
                                         Button(action: {
+                                            
                                             isShowingPicker = true
                                         }) {
                                             Text("Change Picture")
@@ -247,13 +267,26 @@ struct CreateProjectView: View {
                         //                        }
                         
                         HStack {
-                            Text("Square Footage").font(.subheadline)
+                            Text("Square Footage").font(.subheadline).bold()
                             Spacer()
-                            TextField("", value: $squareFootage, formatter: NumberFormatter())
+                            if let project = selectedProject {
+                                TextField(String(project.squareFootage), value: $squareFootage, formatter: NumberFormatter())
+                            } else {
+                                TextField("", value: $squareFootage, formatter: NumberFormatter())
+                            }
                         }
-                        
-                        Toggle("Is Furnished", isOn: $isFurnished)
-                        
+
+                        HStack {
+                            if let project = selectedProject {
+                                Toggle("Is Furnished", isOn: $isFurnished)
+                                    .onAppear {
+                                        isFurnished = project.isFurnished
+                                    }
+                            } else {
+                                Toggle("Is Furnished", isOn: $isFurnished)
+                            }
+                        }
+
                         
                         //                    Section(header: Text("Dates").font(.headline)) {
                         //                        DatePicker("Start Date", selection: $startDate, displayedComponents: .date)

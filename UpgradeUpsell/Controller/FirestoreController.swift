@@ -359,14 +359,7 @@ class FirestoreController: ObservableObject {
         }
     }
     
-    func updateRenovateProject(_ prjToUpdate: RenovateProject) {
-        
-        do {
-            try self.db.collection(COLLECTION_RenovateProject).document(prjToUpdate.id!).setData(from: prjToUpdate)
-        } catch {
-            print("Error updating project in Firestore: \(error)")
-        }
-    }
+   
     
     func getUserProjects(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
         self.db.collection(COLLECTION_RenovateProject)

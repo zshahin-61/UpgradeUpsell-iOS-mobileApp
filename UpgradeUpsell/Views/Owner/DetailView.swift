@@ -14,6 +14,9 @@ struct DetailView: View {
 
     var body: some View {
         VStack {
+            
+            
+            
             Text("Title: \(selectedProject.title)")
             Text("Description: \(selectedProject.description)")
             Text("Location: \(selectedProject.location)")

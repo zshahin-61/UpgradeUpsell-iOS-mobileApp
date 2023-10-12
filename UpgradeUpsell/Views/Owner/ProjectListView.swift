@@ -18,7 +18,7 @@ struct ProjectListView: View {
     var body: some View {
         NavigationView {
                    List(userProjects) { property in
-                       
+//
 //                       NavigationLink(destination: DetailView(selectedProject: property)) {
 //                           Text(property.title)                       }
                        
@@ -28,6 +28,8 @@ struct ProjectListView: View {
                            Text(property.title)
                        }
             
+                       
+                       
                    }
         
             .onAppear {
