@@ -289,12 +289,11 @@ class FirestoreController: ObservableObject {
             }
         }
     }
-
         
-        func getPreferencesFromFirestore(forUserID userID: String, completion: @escaping (Prefrences?, Error?) -> Void) {
+    func getPreferencesFromFirestore(forUserID userID: String, completion: @escaping (Prefrences?, Error?) -> Void) {
             // TODO: Retrieve preferences from Firestore for the given userID
             // Example:
-             let preferencesRef = db.collection(COLLECTION_UsersProfile).document(userID)
+             let preferencesRef = db.collection(COLLECTION_Prefrences).document(userID)
              preferencesRef.getDocument { document, error in
                  if let error = error {
                      completion(nil, error)
@@ -317,12 +316,7 @@ class FirestoreController: ObservableObject {
 //            }
         }
     
-    
-    
     // MARK: renovateProjects Collection Functions
-    
-    
-
     func addProperty(_ property: RenovateProject, userID: String, completion: @escaping (Bool) -> Void) {
         var propertyToSave = property
         print("userrrrr",COLLECTION_UsersProfile)
@@ -377,7 +371,6 @@ class FirestoreController: ObservableObject {
             completion(false)
         }
     }
-
     
     func deleteRenovateProject(_ prjToDelete: RenovateProject) {
         db.collection(COLLECTION_RenovateProject).document(prjToDelete.id!).delete { error in
@@ -388,9 +381,7 @@ class FirestoreController: ObservableObject {
             }
         }
     }
-    
-   
-    
+
     func getUserProjects(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
         self.db.collection(COLLECTION_RenovateProject)
             .whereField("ownerID", isEqualTo: userID)
