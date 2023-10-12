@@ -264,17 +264,17 @@ struct CreateProjectView: View {
                             favoriteCount: selectedProject?.favoriteCount ?? 0,
                             realtorID: selectedProject?.realtorID ?? ""
                         )
-                                                if let project = selectedProject {
-                                                        // Update an existing project
-                                                        dbHelper.updateProperty(updatedProperty) { success in
-                                                            if success {
-                                                                presentationMode.wrappedValue.dismiss()
-                                                                resetFormFields()
-                                                            } else {
-                                                                // Handle error
-                                                            }
-                                                        }
-                                                } else {}
+//                                                if let project = selectedProject {
+//                                                        // Update an existing project
+//                                                        dbHelper.updateProperty(updatedProperty) { success in
+//                                                            if success {
+//                                                                presentationMode.wrappedValue.dismiss()
+//                                                                resetFormFields()
+//                                                            } else {
+//                                                                // Handle error
+//                                                            }
+//                                                        }
+//                                                } else {}
 //                        if title.isEmpty || description.isEmpty || location.isEmpty || status.isEmpty {
 //                            showAlert = true
 //                            return
