@@ -20,40 +20,41 @@ struct ProjectOffersView: View {
                     // Display investment suggestions when they are available.
                     ForEach(suggestions, id: \.id) { suggestion in
                         // Button(action:{
-                        
-                        //}){
-                        HStack{
-                            Text("Title:").bold()
-                            Spacer()
-                            Text("\(suggestion.projectTitle)")//.foregroundColor(.black)
+                        Section{
+                            //}){
+                            HStack{
+                                Text("Title:").bold()
+                                Spacer()
+                                Text("\(suggestion.projectTitle)")//.foregroundColor(.black)
+                            }
+                            HStack{
+                                Text("Offered amount:").bold()
+                                Spacer()
+                                Text(String(format: "%.2f", suggestion.amountOffered))//.foregroundColor(.black)
+                            }
+                            HStack{
+                                Text("Duration:").bold()
+                                Spacer()
+                                Text("\(suggestion.durationWeeks) Weeks")//.foregroundColor(.black)
+                            }
+                            HStack{
+                                Text("Status:").bold()
+                                Spacer()
+                                Text("\(suggestion.status)")//.foregroundColor(.black)
+                            }
+                            //VStack(alignment: .leading){//HStack{
+                            //Text("Description:").bold()
+                            //  Spacer()
+                            HStack{
+                                Text("\(suggestion.description)")
+                                   // .lineLimit(nil) // Allow it to wrap to the second line
+                                   // .fixedSize(horizontal: false, vertical: true) // Allow vertical expansion
+                            }
+                            //.foregroundColor(.black)
+                            //  }
+                            
+                            //}
                         }
-                        HStack{
-                            Text("Offered amount:").bold()
-                            Spacer()
-                            Text(String(format: "%.2f", suggestion.amountOffered))//.foregroundColor(.black)
-                        }
-                        HStack{
-                            Text("Duration:").bold()
-                            Spacer()
-                            Text("\(suggestion.durationWeeks) Weeks")//.foregroundColor(.black)
-                        }
-                        HStack{
-                            Text("Status:").bold()
-                            Spacer()
-                            Text("\(suggestion.status)")//.foregroundColor(.black)
-                        }
-                        //VStack(alignment: .leading){//HStack{
-                        //Text("Description:").bold()
-                        //  Spacer()
-                        HStack{
-                            Text("\(suggestion.description)")
-                                .lineLimit(nil) // Allow it to wrap to the second line
-                                .fixedSize(horizontal: false, vertical: true) // Allow vertical expansion
-                        }
-                        //.foregroundColor(.black)
-                        //  }
-                        
-                        //}
                     }
                 }
             }
