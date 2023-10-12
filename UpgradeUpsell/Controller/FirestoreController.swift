@@ -347,6 +347,36 @@ class FirestoreController: ObservableObject {
         }
     }
 
+    func updateProperty(_ property: RenovateProject, completion: @escaping (Bool) -> Void) {
+        guard let propertyID = property.id else {
+            print("Property ID is missing.>>>>>>>>>>>>>>>>>>>")
+            completion(false)
+            return
+        }
+
+        do {
+            let documentReference = try self.db
+                .collection(COLLECTION_RenovateProject)
+                .document(propertyID)
+
+            documentReference.updateData([
+                "title": property.title,
+                "description": property.description,
+                // Include other fields to update
+            ]) { error in
+                if let error = error {
+                    print("Error updating property in Firestore: \(error)")
+                    completion(false)
+                } else {
+                    print("Property updated successfully.")
+                    completion(true)
+                }
+            }
+        } catch {
+            print("Error updating property in Firestore: \(error)")
+            completion(false)
+        }
+    }
 
     
     func deleteRenovateProject(_ prjToDelete: RenovateProject) {

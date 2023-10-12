@@ -74,7 +74,8 @@ struct CreateProjectView: View {
                                 TextField(project.title, text: self.$title).textInputAutocapitalization(.never)
                                     .textFieldStyle(.roundedBorder)
                             } else {
-                                TextField("", text: $title)
+                                TextField("", text: $title).textInputAutocapitalization(.never)
+                                    .textFieldStyle(.roundedBorder)
                             }
                         }
                         HStack {
@@ -169,7 +170,7 @@ struct CreateProjectView: View {
                             Spacer()
                             
                             if let project = selectedProject {
-                                TextField(String(project.numberOfBedrooms), value: self.$squareFootage, formatter: NumberFormatter())
+                                TextField(String(project.numberOfBedrooms), value: $numberOfBedrooms, formatter: NumberFormatter())
                                     .textFieldStyle(.roundedBorder)
                                
                             } else {
@@ -186,7 +187,7 @@ struct CreateProjectView: View {
                             Spacer()
                             
                             if let project = selectedProject {
-                                TextField(String(project.numberOfBathrooms), value: self.$squareFootage, formatter: NumberFormatter())
+                                TextField(String(project.numberOfBathrooms), value: $numberOfBathrooms, formatter: NumberFormatter())
                                     .textFieldStyle(.roundedBorder)
                             }  else {
                                 Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
@@ -296,7 +297,18 @@ struct CreateProjectView: View {
                     }
                     Button(action: {
                         
-                        if title.isEmpty || description.isEmpty || location.isEmpty || status.isEmpty {
+//                        if let project = selectedProject {
+//                                // Update an existing project
+//                                dbHelper.updateProperty(updatedProperty) { success in
+//                                    if success {
+//                                        presentationMode.wrappedValue.dismiss()
+//                                        resetFormFields()
+//                                    } else {
+//                                        // Handle error
+//                                    }
+//                                }
+//                        } else {}
+                            if title.isEmpty || description.isEmpty || location.isEmpty || status.isEmpty {
                             showAlert = true
                             return
                         }
@@ -313,6 +325,32 @@ struct CreateProjectView: View {
                             print(imageName)
                             imageData = image.jpegData(compressionQuality: 0.1)
                         }
+                        
+                        let updatedProperty = RenovateProject(
+                                projectID: selectedProject?.id ?? UUID().uuidString,
+                                title: title,
+                                description: description,
+                                location: location,
+                                lng: lng,
+                                lat: lat,
+                                images: imageData,
+                                ownerID: userID,
+                                category: selectedCategory,
+                                investmentNeeded: investmentNeeded,
+                                selectedInvestmentSuggestionID: selectedProject?.selectedInvestmentSuggestionID ?? "",
+                                status: status,
+                                startDate: startDate,
+                                endDate: endDate,
+                                numberOfBedrooms: numberOfBedrooms,
+                                numberOfBathrooms: numberOfBathrooms,
+                                propertyType: propertyType,
+                                squareFootage: squareFootage,
+                                isFurnished: isFurnished,
+                                createdDate: selectedProject?.createdDate ?? Date(),
+                                updatedDate: Date(),
+                                favoriteCount: selectedProject?.favoriteCount ?? 0,
+                                realtorID: selectedProject?.realtorID ?? ""
+                            )
                         
                         let newProperty = RenovateProject(
                             projectID: UUID().uuidString,
