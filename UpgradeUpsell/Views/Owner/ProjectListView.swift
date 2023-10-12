@@ -11,16 +11,25 @@ import Firebase
 struct ProjectListView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @EnvironmentObject var authHelper: FireAuthController
-    
+
     @State private var userProjects: [RenovateProject] = []
-    
+    @State private var selectedProject: RenovateProject?
+
     var body: some View {
         NavigationView {
-            List(userProjects) { property in
-                NavigationLink(destination: CreateProjectView()) {
-                    Text(property.title)
-                }
-            }
+                   List(userProjects) { property in
+                       
+//                       NavigationLink(destination: DetailView(selectedProject: property)) {
+//                           Text(property.title)                       }
+                       
+                       
+
+                       NavigationLink(destination: CreateProjectView(selectedProject: property).environmentObject(authHelper).environmentObject(self.dbHelper)) {
+                           Text(property.title)
+                       }
+            
+                   }
+        
             .onAppear {
                 if let userID = self.dbHelper.userProfile?.id {
                     dbHelper.getUserProjects(userID: userID) { projects, error in
@@ -35,21 +44,5 @@ struct ProjectListView: View {
             }
             .navigationBarTitle("Your Properties")
         }
-    }
-}
-
-struct PropertyDetailView: View {
-    var property: RenovateProject
-    
-    var body: some View {
-        // Display property details here using the 'property' variable
-        Text("Property Title: \(property.title)")
-        // Add more property details as needed
-    }
-}
-
-struct ProjectListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectListView()
     }
 }

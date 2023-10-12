@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import Firebase
+import MapKit
 
 struct CreateProjectView: View {
     @EnvironmentObject var dbHelper: FirestoreController
@@ -17,13 +18,14 @@ struct CreateProjectView: View {
     @State private var selectedImage: UIImage?
     @State private var imageData: Data?
     
-
+    
+    
     @State private var title = ""
     @State private var description = ""
     @State private var location = ""
     @State private var lng: Double = 0.0
     @State private var lat: Double = 0.0
-//    @State private var category = ""
+    @State private var category = ""
     @State private var selectedCategory = "Residential"
     @State private var investmentNeeded: Double = 0.0
     @State private var status = "Released"
@@ -35,9 +37,16 @@ struct CreateProjectView: View {
     @State private var propertyType = ""
     @State private var squareFootage: Double = 0.0
     @State private var isFurnished = false
-
+    
     @State private var showAlert = false
-
+    
+      var selectedProject: RenovateProject?
+    
+    @EnvironmentObject var locationHelper: LocationHelper
+    
+    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    
+    
     private let categories = [
         "Residential",
         "Condo",
@@ -49,7 +58,7 @@ struct CreateProjectView: View {
         "House",
         "Other"
     ]
-
+    
     
     var body: some View {
         NavigationView {
@@ -57,161 +66,207 @@ struct CreateProjectView: View {
                 VStack(spacing: 20) {
                     
                     Section(header: Text("Property Information").font(.headline)) {
+                        
                         HStack {
                             Text("Title").font(.subheadline).bold()
                             Spacer()
-                            TextField("", text: $title)
+                            if let project = selectedProject {
+                                TextField(project.title, text: $title)
+                            } else {
+                                TextField("", text: $title)
+                            }
                         }
-
                         HStack {
                             Text("Description").font(.subheadline)
                             Spacer()
-                            TextEditor(text: $description)
-                                .frame(minHeight: 100)
-                                .cornerRadius(5)
-                                .border(Color.gray, width: 0.5)
+                            if let project = selectedProject {
+                                TextField(project.description, text: $description)
+                                           .frame(minHeight: 100)
+                                           .cornerRadius(5)
+                                           .border(Color.gray, width: 0.5)
+                            } else {
+                                // If selectedProject is nil,
+                                TextEditor(text: $description)
+                                    .frame(minHeight: 100)
+                                    .cornerRadius(5)
+                                    .border(Color.gray, width: 0.5)
+                            }
+                            
+                           
                         }
-
                         HStack {
                             Text("Location    ").font(.subheadline)
                             Spacer()
-                            TextEditor(text: $location)
-                                .frame(minHeight: 50)
-                                .cornerRadius(5)
-                                .border(Color.gray, width: 0.5)
+                            
+                            if let project = selectedProject {
+                                TextField(project.location, text: $location)
+                                           .frame(minHeight: 50)
+                                           .cornerRadius(5)
+                                           .border(Color.gray, width: 0.5)
+                            } else {
+                                TextEditor(text: $location)
+                                    .frame(minHeight: 50)
+                                    .cornerRadius(5)
+                                    .border(Color.gray, width: 0.5)
+                            }
+                            
+                           
                         }
+                        // HStack {
+                        //                            Text("Longitude").font(.subheadline)
+                        //                            Spacer()
+                        //                            TextField("", value: $lng, formatter: NumberFormatter())
+                        //                        }
+                        //
+                        //                        HStack {
+                        //                            Text("Latitude").font(.subheadline)
+                        //                            Spacer()
+                        //                            TextField("", value: $lat, formatter: NumberFormatter())
+                        //                        }
                         
-                    
-
-//                        HStack {
-//                            Text("Longitude").font(.subheadline)
+                            //HStack {
+//                            Text("Category").font(.subheadline)
 //                            Spacer()
-//                            TextField("", value: $lng, formatter: NumberFormatter())
+//                            Picker("", selection: $selectedCategory) {
+//                                ForEach(categories, id: \.self) { category in
+//                                    Text(category)
+//                                }
+//                            }
 //                        }
-//
-//                        HStack {
-//                            Text("Latitude").font(.subheadline)
-//                            Spacer()
-//                            TextField("", value: $lat, formatter: NumberFormatter())
-//                        }
-
                         HStack {
                             Text("Category").font(.subheadline)
                             Spacer()
-                            Picker("", selection: $selectedCategory) {
-                                ForEach(categories, id: \.self) { category in
-                                    Text(category)
+                            if let project = selectedProject {
+                                Text(selectedProject?.category ?? "No Category")
+                            }
+                            else{
+                                Picker("", selection: $selectedCategory) {
+                                    ForEach(categories, id: \.self) { category in
+                                        Text(category)
+                                    }
                                 }
                             }
                         }
 
+                        
+                        //                        HStack {
+                        //                            Text("Investment Needed").font(.subheadline)
+                        //                            Spacer()
+                        //                            TextField("", value: $investmentNeeded, formatter: NumberFormatter())
+                        //                        }
+                        
 //                        HStack {
-//                            Text("Investment Needed").font(.subheadline)
+//                            Text("Status")
 //                            Spacer()
-//                            TextField("", value: $investmentNeeded, formatter: NumberFormatter())
+//                            TextField("", text: $status)        .font(Font.custom("Helvetica Neue", size: 16).bold().italic())
+//
 //                        }
-
-                        HStack {
-                            Text("Status")
-                            Spacer()
-                            TextField("", text: $status)        .font(Font.custom("Helvetica Neue", size: 16).bold().italic())
-
-                        }
-
-
-                    }
-
+                       
                         HStack {
                             Text("Number of Bedrooms").font(.subheadline)
                             Spacer()
-                            Stepper("\(numberOfBedrooms)", value: $numberOfBedrooms, in: 0...10)
+                            
+                            if let project = selectedProject {
+                                Text("\(project.numberOfBedrooms)")
+                                TextField("\(numberOfBedrooms)", value: $numberOfBedrooms, formatter: NumberFormatter())
+                               
+                            } else {
+                                Stepper("\(numberOfBedrooms)", value: $numberOfBedrooms, in: 0...10)
+                            }
+                          
                         }
-
+                        
                         HStack {
                             Text("Number of Bathrooms").font(.subheadline)
                             Spacer()
-                            Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
-                        }
-
-                    
-                    VStack(alignment: .leading,spacing: 10){
+                            if let project = selectedProject {
                         
-                        HStack{
-                            if let data = imageData,
-                               let uiImage = UIImage(data: data) {
-                                if(selectedImage == nil)
-                                {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .frame(width: 150, height: 150)
-                                        .clipShape(Circle())
-                                }
-                                else{
-                                    //
-                                }
+                                   TextField("Number of Bathrooms", value: $numberOfBathrooms, formatter: NumberFormatter())
+                               
+                            } else {
+                                Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
                             }
-                            VStack{
-                                Text("Upload Images").font(.subheadline)
-                                if photoLibraryManager.isAuthorized {
-                                    //HStack{
-                                    if let image = selectedImage {
-                                        Image(uiImage: image)
+                        }
+                        
+                        
+                        VStack(alignment: .leading,spacing: 10){
+                            
+                            HStack{
+                                if let data = imageData,
+                                   let uiImage = UIImage(data: data) {
+                                    if(selectedImage == nil)
+                                    {
+                                        Image(uiImage: uiImage)
                                             .resizable()
                                             .frame(width: 150, height: 150)
-                                            .clipShape(Rectangle())
+                                            .clipShape(Circle())
                                     }
-                                    Button(action: {
-                                        isShowingPicker = true
-                                    }) {
-                                        Text("Change Picture")
-                                    }
-                                    //}//Hstack
-                                } else {
-                                    Button(action: {
-                                        photoLibraryManager.requestPermission()
-                                    }) {
-                                        Text("Request Access For Photo Library")
+                                    else{
+                                        //
                                     }
                                 }
-                            }
-                            .sheet(isPresented: $isShowingPicker) {
-                                if photoLibraryManager.isAuthorized {
-                                    ImagePickerView(selectedImage: $selectedImage)
-                                } else {
-                                    Text("Access to photo library is not authorized.")
+                                VStack{
+                                    Text("Upload Images").font(.subheadline)
+                                    if photoLibraryManager.isAuthorized {
+                                        //HStack{
+                                        if let image = selectedImage {
+                                            Image(uiImage: image)
+                                                .resizable()
+                                                .frame(width: 150, height: 150)
+                                                .clipShape(Rectangle())
+                                        }
+                                        Button(action: {
+                                            isShowingPicker = true
+                                        }) {
+                                            Text("Change Picture")
+                                        }
+                                        //}//Hstack
+                                    } else {
+                                        Button(action: {
+                                            photoLibraryManager.requestPermission()
+                                        }) {
+                                            Text("Request Access For Photo Library")
+                                        }
+                                    }
+                                }
+                                .sheet(isPresented: $isShowingPicker) {
+                                    if photoLibraryManager.isAuthorized {
+                                        ImagePickerView(selectedImage: $selectedImage)
+                                    } else {
+                                        Text("Access to photo library is not authorized.")
+                                    }
                                 }
                             }
                         }
-                    }
-                       
-            
-//                        HStack {
-//                            Text("Property Type").font(.subheadline)
-//                            Spacer()
-//                            TextField("", text: $propertyType)
-//                        }
-
+                        
+                        
+                        //                        HStack {
+                        //                            Text("Property Type").font(.subheadline)
+                        //                            Spacer()
+                        //                            TextField("", text: $propertyType)
+                        //                        }
+                        
                         HStack {
                             Text("Square Footage").font(.subheadline)
                             Spacer()
                             TextField("", value: $squareFootage, formatter: NumberFormatter())
                         }
-
+                        
                         Toggle("Is Furnished", isOn: $isFurnished)
-                    
-
-//                    Section(header: Text("Dates").font(.headline)) {
-//                        DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
-//                        DatePicker("End Date", selection: $endDate, displayedComponents: .date)
-//                    }
-
-                
+                        
+                        
+                        //                    Section(header: Text("Dates").font(.headline)) {
+                        //                        DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                        //                        DatePicker("End Date", selection: $endDate, displayedComponents: .date)
+                        //                    }
+                        
+                    }
                     Button(action: {
+                        
                         if title.isEmpty || description.isEmpty || location.isEmpty || status.isEmpty {
-                         
-                               showAlert = true
-                               return
-                           }
+                            showAlert = true
+                            return
+                        }
                         guard let userID = dbHelper.userProfile?.id else {
                             return
                         }
@@ -254,55 +309,58 @@ struct CreateProjectView: View {
                         
                         dbHelper.addProperty(newProperty, userID: userID) { success in
                             if success {
-                                showAlert = true
                                 presentationMode.wrappedValue.dismiss()
                                 resetFormFields()
-
                             } else {
-                               
+                                // Handle error
                             }
                         }
-                       
+                        
                     }) {
-                        Text("Add Property")
-                            .font(.headline)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 40)
-                            .background(Color.brown)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    } .alert(isPresented: $showAlert) {
-                        Alert(
-                            title: Text("Success"),
-                            message: Text("Property saved successfully"),
-                            dismissButton: .default(Text("OK"))
-                        )
+                            Text("Save")
+                                .font(.headline)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 40)
+                                .background(Color.brown)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .alert(isPresented: $showAlert) {
+                            Alert(
+                                title: Text("Success"),
+                                message: Text("Property saved successfully"),
+                                dismissButton: .default(Text("OK"))
+                            )
+                        }
                     }
-                }
-                .padding()
-        
-            }
+                    .padding()
+                    
+                }//VStack
+            }//ScrollView
+            
+        }//NavigationView
+    
+
+        private func resetFormFields() {
+            title = ""
+            description = ""
+            location = ""
+            lng = 0.0
+            lat = 0.0
+            selectedCategory = "Residential"
+            investmentNeeded = 0.0
+            status = ""
+            startDate = Date()
+            endDate = Date()
+            numberOfBedrooms = 0
+            numberOfBathrooms = 0
+            propertyType = ""
+            squareFootage = 0.0
+            isFurnished = false
         }
-    }
-
-    private func resetFormFields() {
-        title = ""
-        description = ""
-        location = ""
-        lng = 0.0
-        lat = 0.0
-        selectedCategory = "Residential"
-        investmentNeeded = 0.0
-        status = ""
-        startDate = Date()
-        endDate = Date()
-        numberOfBedrooms = 0
-        numberOfBathrooms = 0
-        propertyType = ""
-        squareFootage = 0.0
-        isFurnished = false
-    }
+        
+        
+    
+    
 }
-
-
 
