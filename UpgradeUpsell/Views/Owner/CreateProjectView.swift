@@ -67,59 +67,37 @@ struct CreateProjectView: View {
                     
                     Section(header: Text("Property Information").font(.headline)) {
                         
-                        HStack {
-                            Text("Title").font(.subheadline).bold()
+                        VStack {
+                            Text("Title").bold()
                             Spacer()
-                            if let project = selectedProject {
-                                TextField(project.title, text: self.$title).textInputAutocapitalization(.never)
-                                    .textFieldStyle(.roundedBorder)
-                            } else {
-                                TextField("", text: $title).textInputAutocapitalization(.never)
-                                    .textFieldStyle(.roundedBorder)
-                            }
+                            TextField("", text: $title).textInputAutocapitalization(.never)
+                                .textFieldStyle(.roundedBorder)
+                         
                         }
-                        HStack {
-                            Text("Description").font(.subheadline)
+                        VStack {
+                            Text("Description").bold()
                             Spacer()
-                            if let project = selectedProject {
-                                TextField(project.description, text: $description)
-                                    .frame(minHeight: 100)
-                                    .cornerRadius(5)
-                                    .border(Color.gray, width: 0.5)
-                            } else {
-                                // If selectedProject is nil,
-                                TextEditor(text: $description)
-                                    .frame(minHeight: 100)
-                                    .cornerRadius(5)
-                                    .border(Color.gray, width: 0.5)
-                            }
-                            
+                            TextEditor(text: $description)
+                                .frame(minHeight: 70)
+                                .cornerRadius(5)
+                                .border(Color.gray, width: 0.5)
                             
                         }
-                        HStack {
-                            Text("Address    ").font(.subheadline)
+                        VStack {
+                            
+                            Text("Address ").bold()
                             Spacer()
-                            
-                            if let project = selectedProject {
-                                TextField(project.location, text: $location)
-                                    .frame(minHeight: 50)
-                                    .cornerRadius(5)
-                                    .border(Color.gray, width: 0.5)
-                            } else {
-                                TextEditor(text: $location)
-                                    .frame(minHeight: 50)
-                                    .cornerRadius(5)
-                                    .border(Color.gray, width: 0.5)
-                            }
-                            
-                            
+                            TextEditor(text: $location)
+                                .frame(minWidth: 10, minHeight: 50)
+                                .cornerRadius(5)
+                                .border(Color.gray, width: 0.5)
                         }
-                        HStack{
-                            // google map
-                            
-                            Text("Location    ").font(.subheadline)
-                            Spacer()
-                        }
+//                        HStack{
+//                            // google map
+//
+//                            Text("Location    ").font(.subheadline)
+//                            Spacer()
+//                        }
                         // HStack {
                         //                            Text("Longitude").font(.subheadline)
                         //                            Spacer()
@@ -142,7 +120,7 @@ struct CreateProjectView: View {
                         //                            }
                         //                        }
                         HStack {
-                            Text("Category").font(.subheadline)
+                            Text("Category").bold()
                             Spacer()
                             Picker("", selection: $selectedCategory) {
                                 ForEach(categories, id: \.self) { category in
@@ -166,32 +144,18 @@ struct CreateProjectView: View {
                         //
                         //                        }
                         
-                        HStack {
-                            Text("Number of Bedrooms").font(.subheadline).bold()
+                        VStack {
+                            Text("Number of Bedrooms").bold()
                             Spacer()
-                            
-                            if let project = selectedProject {
-                                TextField(String(project.numberOfBedrooms), value: $numberOfBedrooms, formatter: NumberFormatter())
-                                    .textFieldStyle(.roundedBorder)
-                                
-                            } else {
-                                Stepper("\(numberOfBedrooms)", value: $numberOfBedrooms, in: 0...10)
-                            }
+                            Stepper("\(numberOfBedrooms)", value: $numberOfBedrooms, in: 0...10)
                             
                         }
                         
-                        
-                        
-                        HStack {
-                            Text("Number of Bathrooms:").font(.subheadline).bold()
+                        VStack {
+                            Text("Number of Bathrooms:").bold()
                             Spacer()
-                            
-                            if let project = selectedProject {
-                                TextField(String(project.numberOfBathrooms), value: $numberOfBathrooms, formatter: NumberFormatter())
-                                    .textFieldStyle(.roundedBorder)
-                            }  else {
-                                Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
-                            }
+                            Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
+
                         }
                         
                         //Image
@@ -205,7 +169,7 @@ struct CreateProjectView: View {
                                         Image(uiImage: uiImage)
                                             .resizable()
                                             .frame(width: 150, height: 150)
-                                            .clipShape(Circle())
+                                            .clipShape(Rectangle())
                                     }
                                     else{
                                         //
@@ -214,18 +178,7 @@ struct CreateProjectView: View {
                                 VStack{
                                     
                                     Text("Upload Images").font(.subheadline)
-                                    //
-                                    //                                    if let project = selectedProject {
-                                    //                                        if let imageData = project.images, let image = UIImage(data: imageData) {
-                                    //                                            Image(uiImage: image)
-                                    //                                                .resizable()
-                                    //                                                .aspectRatio(contentMode: .fit)
-                                    //                                                .frame(width: 150, height: 150)
-                                    //                                        }
-                                    //                                    }
-                                    //                                    else{
-                                    //                                        //
-                                    //                                    }
+                 
                                     
                                     if photoLibraryManager.isAuthorized {
                                         //HStack{
@@ -261,70 +214,29 @@ struct CreateProjectView: View {
                         }
                         
                         
-                        //                        HStack {
-                        //                            Text("Property Type").font(.subheadline)
-                        //                            Spacer()
-                        //                            TextField("", text: $propertyType)
-                        //                        }
-                        
-                        HStack {
-                            Text("Square Footage").font(.subheadline).bold()
+                        VStack {
+                            Text("Square Footage").bold()
                             Spacer()
-                            if let project = selectedProject {
-                                TextField(String(project.squareFootage), value: $squareFootage, formatter: NumberFormatter())
-                            } else {
-                                TextField("", value: $squareFootage, formatter: NumberFormatter())
-                            }
+                        
+                            TextField("", value: $squareFootage, formatter: NumberFormatter())
                         }
                         
                         HStack {
-                            if let project = selectedProject {
-                                Toggle("Is Furnished", isOn: $isFurnished)
-                                    .onAppear {
-                                        isFurnished = project.isFurnished
-                                    }
-                            } else {
-                                Toggle("Is Furnished", isOn: $isFurnished)
-                            }
                             
+                            Toggle("Is Furnished", isOn: $isFurnished)
+                        }
+                        VStack{
                             DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                            Spacer()
+
                             DatePicker("End Date", selection: $endDate, displayedComponents: .date)
                         }
-                        
-                        
-                           
-                        
                         
                     }
                     Button(action: {
                         
-                        //                        if let project = selectedProject {
-                        //                                // Update an existing project
-                        //                                dbHelper.updateProperty(updatedProperty) { success in
-                        //                                    if success {
-                        //                                        presentationMode.wrappedValue.dismiss()
-                        //                                        resetFormFields()
-                        //                                    } else {
-                        //                                        // Handle error
-                        //                                    }
-                        //                                }
-                        //                        } else {}
-                        if title.isEmpty || description.isEmpty || location.isEmpty || status.isEmpty {
-                            showAlert = true
-                            return
-                        }
                         guard let userID = dbHelper.userProfile?.id else {
                             return
-                        }
-                        //Image
-                        var imageData :Data? = nil
-                        
-                        if(selectedImage != nil )
-                        {
-                            let image = selectedImage!
-                            let imageName = "\(UUID().uuidString).jpg"
-                            print(imageName)
-                            imageData = image.jpegData(compressionQuality: 0.1)
                         }
                         
                         let updatedProperty = RenovateProject(
@@ -352,34 +264,62 @@ struct CreateProjectView: View {
                             favoriteCount: selectedProject?.favoriteCount ?? 0,
                             realtorID: selectedProject?.realtorID ?? ""
                         )
+                                                if let project = selectedProject {
+                                                        // Update an existing project
+                                                        dbHelper.updateProperty(updatedProperty) { success in
+                                                            if success {
+                                                                presentationMode.wrappedValue.dismiss()
+                                                                resetFormFields()
+                                                            } else {
+                                                                // Handle error
+                                                            }
+                                                        }
+                                                } else {}
+//                        if title.isEmpty || description.isEmpty || location.isEmpty || status.isEmpty {
+//                            showAlert = true
+//                            return
+//                        }
+                      
+                        //Image
+                        var imageData :Data? = nil
                         
-                        let newProperty = RenovateProject(
-                            projectID: UUID().uuidString,
-                            title: title,
-                            description: description,
-                            location: location,
-                            lng: lng,
-                            lat: lat,
-                            images: imageData,
-                            ownerID: userID,
-                            category: selectedCategory,
-                            investmentNeeded: investmentNeeded,
-                            selectedInvestmentSuggestionID: "",
-                            status: status,
-                            startDate: startDate,
-                            endDate: endDate,
-                            numberOfBedrooms: numberOfBedrooms,
-                            numberOfBathrooms: numberOfBathrooms,
-                            propertyType: propertyType,
-                            squareFootage: squareFootage,
-                            isFurnished: isFurnished,
-                            createdDate: Date(),
-                            updatedDate: Date(),
-                            favoriteCount: 0,
-                            realtorID: ""
-                        )
+                        if(selectedImage != nil )
+                        {
+                            let image = selectedImage!
+                            let imageName = "\(UUID().uuidString).jpg"
+                            print(imageName)
+                            imageData = image.jpegData(compressionQuality: 0.1)
+                        }
                         
-                        dbHelper.addProperty(newProperty, userID: userID) { success in
+                       
+                        
+//                        let newProperty = RenovateProject(
+//                            projectID: UUID().uuidString,
+//                            title: title,
+//                            description: description,
+//                            location: location,
+//                            lng: lng,
+//                            lat: lat,
+//                            images: imageData,
+//                            ownerID: userID,
+//                            category: selectedCategory,
+//                            investmentNeeded: investmentNeeded,
+//                            selectedInvestmentSuggestionID: "",
+//                            status: status,
+//                            startDate: startDate,
+//                            endDate: endDate,
+//                            numberOfBedrooms: numberOfBedrooms,
+//                            numberOfBathrooms: numberOfBathrooms,
+//                            propertyType: propertyType,
+//                            squareFootage: squareFootage,
+//                            isFurnished: isFurnished,
+//                            createdDate: Date(),
+//                            updatedDate: Date(),
+//                            favoriteCount: 0,
+//                            realtorID: ""
+//                        )
+                        
+                        dbHelper.addProperty(updatedProperty, userID: userID) { success in
                             if success {
                                 presentationMode.wrappedValue.dismiss()
                                 resetFormFields()
@@ -412,10 +352,21 @@ struct CreateProjectView: View {
                         self.title = currentProject.title
                         self.description = currentProject.description
                         self.selectedCategory = currentProject.category
-                        //                            self.nameFromUI = currentUser.fullName
-                        //                            self.bioFromUI = currentUser.userBio
-                        //                            self.contactNumberFromUI = currentUser.contactNumber
-                        //                            self.errorMsg = nil
+                        self.location = currentProject.location
+                        self.lng = currentProject.lng
+                        self.lat = currentProject.lat
+                        self.investmentNeeded = currentProject.investmentNeeded
+                        self.status = currentProject.status
+                        self.startDate = currentProject.startDate
+                        self.endDate = currentProject.endDate
+                        self.numberOfBedrooms = currentProject.numberOfBedrooms
+                        self.numberOfBathrooms = currentProject.numberOfBathrooms
+                        self.propertyType = currentProject.propertyType
+                        self.squareFootage = currentProject.squareFootage
+                        self.isFurnished = currentProject.isFurnished
+                        
+                
+//                                                    self.errorMsg = nil
                         
                         // MARK: Show image from db
                         if let imageData = currentProject.images as? Data {
