@@ -14,7 +14,7 @@ struct SettingsView: View {
     @State private var pushNotifFromUI = false
        @State private var notificationsEmail = false
        @State private var themeFromUI = "light"
-       @State private var langFromUI = "en-us"
+       @State private var langFromUI = "English"//"en-us"
        @State private var fontSizeFromUI = 14
     
     @State private var showingDeleteAlert = false
@@ -33,8 +33,8 @@ struct SettingsView: View {
                         }
                         
                         Picker("Language", selection: $langFromUI) {
-                            Text("English").tag("en_US")
-                            Text("Spanish").tag("es_ES")
+                            Text("English")//.tag("en_CA")
+                            Text("French")//.tag("fr_CA")
                             // Add more languages here as needed
                         }
                         
@@ -89,15 +89,23 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             // .onAppear here, at the root level of SettingsView
             .onAppear {
-                guard let userPref = dbHelper.userPrefrences else{
-                    return
+                dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id! ?? ""){ (userPref, error) in
+                    
+//                    guard let userPref = dbHelper.userPrefrences else{
+//                        return
+//                    }
+                    if let error = error{
+                        
+                    }else if let userPref = userPref {
+                        
+                        self.fontSizeFromUI = userPref.fontSize ?? 14
+                        self.langFromUI = userPref.language
+                        self.notificationsEmail = userPref.emailNotif
+                        self.pushNotifFromUI = userPref.pushNotif
+                        self.themeFromUI = userPref.theme
+                        
+                    }
                 }
-                self.fontSizeFromUI = userPref.fontSize ?? 14
-                self.langFromUI = userPref.language
-                self.notificationsEmail = userPref.emailNotif
-                self.pushNotifFromUI = userPref.pushNotif
-                self.themeFromUI = userPref.theme
-                
             }
         }
         .alert(isPresented: $showingDeleteAlert) {
