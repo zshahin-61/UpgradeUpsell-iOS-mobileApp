@@ -36,7 +36,11 @@ struct MakeOffers_InvestorView: View {
                     Form{
                         TextField("Amount Offered", text: $amountOffered)
                         TextField("Duration in Weeks", text: $durationWeeks)
-                        TextField("Description", text: $description)
+                        //TextField("Description", text: $description)
+                        TextEditor(text: $description)
+                                        .frame(height: 200) // Adjust the height as needed
+                                        .border(Color.gray, width: 1)
+                                        .padding()
                     }
                         //TextField("Status", text: $status)
                 }
