@@ -15,8 +15,6 @@ struct HomeView: View {
    
     @Binding var rootScreen: RootView
     
-    //let userName = "Golnaz"
-   // let userFamily = "Cherazi"
     
     var body: some View {
         

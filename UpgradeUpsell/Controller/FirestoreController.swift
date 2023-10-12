@@ -321,6 +321,7 @@ class FirestoreController: ObservableObject {
     
     // MARK: renovateProjects Collection Functions
     
+    
 
     func addProperty(_ property: RenovateProject, userID: String, completion: @escaping (Bool) -> Void) {
         var propertyToSave = property
