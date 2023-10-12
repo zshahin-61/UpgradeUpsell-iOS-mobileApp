@@ -234,99 +234,16 @@ struct CreateProjectView: View {
                         
                     }
                     Button(action: {
-                        
-                        guard let userID = dbHelper.userProfile?.id else {
-                            return
-                        }
-                        
-                        let updatedProperty = RenovateProject(
-                            projectID: selectedProject?.id ?? UUID().uuidString,
-                            title: title,
-                            description: description,
-                            location: location,
-                            lng: lng,
-                            lat: lat,
-                            images: imageData,
-                            ownerID: userID,
-                            category: selectedCategory,
-                            investmentNeeded: investmentNeeded,
-                            selectedInvestmentSuggestionID: selectedProject?.selectedInvestmentSuggestionID ?? "",
-                            status: status,
-                            startDate: startDate,
-                            endDate: endDate,
-                            numberOfBedrooms: numberOfBedrooms,
-                            numberOfBathrooms: numberOfBathrooms,
-                            propertyType: propertyType,
-                            squareFootage: squareFootage,
-                            isFurnished: isFurnished,
-                            createdDate: selectedProject?.createdDate ?? Date(),
-                            updatedDate: Date(),
-                            favoriteCount: selectedProject?.favoriteCount ?? 0,
-                            realtorID: selectedProject?.realtorID ?? ""
-                        )
-//                                                if let project = selectedProject {
-//                                                        // Update an existing project
-//                                                        dbHelper.updateProperty(updatedProperty) { success in
-//                                                            if success {
-//                                                                presentationMode.wrappedValue.dismiss()
-//                                                                resetFormFields()
-//                                                            } else {
-//                                                                // Handle error
-//                                                            }
-//                                                        }
-//                                                } else {}
-//                        if title.isEmpty || description.isEmpty || location.isEmpty || status.isEmpty {
-//                            showAlert = true
-//                            return
-//                        }
-                      
-                        //Image
-                        var imageData :Data? = nil
-                        
-                        if(selectedImage != nil )
-                        {
-                            let image = selectedImage!
-                            let imageName = "\(UUID().uuidString).jpg"
-                            print(imageName)
-                            imageData = image.jpegData(compressionQuality: 0.1)
-                        }
-                        
-                       
-                        
-//                        let newProperty = RenovateProject(
-//                            projectID: UUID().uuidString,
-//                            title: title,
-//                            description: description,
-//                            location: location,
-//                            lng: lng,
-//                            lat: lat,
-//                            images: imageData,
-//                            ownerID: userID,
-//                            category: selectedCategory,
-//                            investmentNeeded: investmentNeeded,
-//                            selectedInvestmentSuggestionID: "",
-//                            status: status,
-//                            startDate: startDate,
-//                            endDate: endDate,
-//                            numberOfBedrooms: numberOfBedrooms,
-//                            numberOfBathrooms: numberOfBathrooms,
-//                            propertyType: propertyType,
-//                            squareFootage: squareFootage,
-//                            isFurnished: isFurnished,
-//                            createdDate: Date(),
-//                            updatedDate: Date(),
-//                            favoriteCount: 0,
-//                            realtorID: ""
-//                        )
-                        
-                        dbHelper.addProperty(updatedProperty, userID: userID) { success in
-                            if success {
-                                presentationMode.wrappedValue.dismiss()
-                                resetFormFields()
-                            } else {
-                                // Handle error
-                            }
-                        }
+                if selectedProject != nil {
+                         // If selectedProject is not nil, it's an update operation
+                         updateProperty()
+                    resetFormFields()
+                    
+                     } else {
+                         // If selectedProject is nil, it's an insert operation
+                         insertProperty()
+                         resetFormFields()
+                     }
                         
                     }) {
                         Text("Save")
@@ -365,9 +282,6 @@ struct CreateProjectView: View {
                         self.squareFootage = currentProject.squareFootage
                         self.isFurnished = currentProject.isFurnished
                         
-                
-//                                                    self.errorMsg = nil
-                        
                         // MARK: Show image from db
                         if let imageData = currentProject.images as? Data {
                             self.imageData = imageData
@@ -401,8 +315,107 @@ struct CreateProjectView: View {
         isFurnished = false
     }
     
-    
-    
+    private func insertProperty() {
+        guard let userID = dbHelper.userProfile?.id else {
+            return
+        }
+        //Image
+        var imageData :Data? = nil
+        
+        if(selectedImage != nil )
+        {
+            let image = selectedImage!
+            let imageName = "\(UUID().uuidString).jpg"
+            print(imageName)
+            imageData = image.jpegData(compressionQuality: 0.1)
+        }
+        
+        // Create a new property
+        let newProperty = RenovateProject(
+           projectID: UUID().uuidString,
+           title: title,
+           description: description,
+           location: location,
+           lng: lng,
+           lat: lat,
+           images: imageData,
+           ownerID: userID,
+           category: selectedCategory,
+           investmentNeeded: investmentNeeded,
+           selectedInvestmentSuggestionID: "",
+           status: status,
+           startDate: startDate,
+           endDate: endDate,
+           numberOfBedrooms: numberOfBedrooms,
+           numberOfBathrooms: numberOfBathrooms,
+           propertyType: propertyType,
+           squareFootage: squareFootage,
+           isFurnished: isFurnished,
+           createdDate: Date(),
+           updatedDate: Date(),
+           favoriteCount: 0,
+           realtorID: ""
+       )
+                               
+        
+        dbHelper.addProperty(newProperty, userID: userID) { success in
+            if success {
+                presentationMode.wrappedValue.dismiss()
+                resetFormFields()
+            } else {
+                // Handle error
+            }
+        }
+    }
+
+    private func updateProperty() {
+        guard let userID = dbHelper.userProfile?.id else {
+            return
+        }
+        
+        // Update the imageData if a new image is selected
+        if selectedImage != nil {
+            let image = selectedImage!
+            imageData = image.jpegData(compressionQuality: 0.1)
+        }
+        
+        // Update the startDate and endDate from the DatePicker selections
+        let updatedProperty = RenovateProject(
+            projectID: selectedProject?.id ?? UUID().uuidString,
+            title: title,
+            description: description,
+            location: location,
+            lng: lng,
+            lat: lat,
+            images: imageData,
+            ownerID: userID,
+            category: selectedCategory,
+            investmentNeeded: investmentNeeded,
+            selectedInvestmentSuggestionID: selectedProject?.selectedInvestmentSuggestionID ?? "",
+            status: status,
+            startDate: startDate,
+            endDate: endDate,
+            numberOfBedrooms: numberOfBedrooms,
+            numberOfBathrooms: numberOfBedrooms,
+            propertyType: propertyType,
+            squareFootage: squareFootage,
+            isFurnished: isFurnished,
+            createdDate: selectedProject?.createdDate ?? Date(),
+            updatedDate: Date(),
+            favoriteCount: selectedProject?.favoriteCount ?? 0,
+            realtorID: selectedProject?.realtorID ?? ""
+        )
+        
+        dbHelper.updateProperty(updatedProperty) { success in
+            if success {
+                presentationMode.wrappedValue.dismiss()
+                resetFormFields()
+            } else {
+                // Handle error
+            }
+        }
+    }
+
     
 }
 
