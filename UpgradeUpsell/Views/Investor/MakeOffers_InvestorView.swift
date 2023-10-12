@@ -36,13 +36,17 @@ struct MakeOffers_InvestorView: View {
                     Form{
                         TextField("Amount Offered", text: $amountOffered)
                         TextField("Duration in Weeks", text: $durationWeeks)
-                        TextField("Description", text: $description)
+                        //TextField("Description", text: $description)
+                        TextEditor(text: $description)
+                                        .frame(height: 200) // Adjust the height as needed
+                                        .border(Color.gray, width: 1)
+                                        .padding()
                     }
                         //TextField("Status", text: $status)
                 }
                 Button("Submit") {
                     
-                    var newOffer : InvestmentSuggestion = InvestmentSuggestion(id: UUID().uuidString, investorID: self.dbHelper.userProfile?.id ?? "", ownerID: project.ownerID, projectID: project.id!, amountOffered: Double(amountOffered) ?? 0.0 , durationWeeks: Int(durationWeeks) ?? 0, description: description, status: "New")
+                    let newOffer : InvestmentSuggestion = InvestmentSuggestion(id: UUID().uuidString, investorID: self.dbHelper.userProfile?.id ?? "", ownerID: project.ownerID, projectID: project.id!, projectTitle: project.title,amountOffered: Double(amountOffered) ?? 0.0 , durationWeeks: Int(durationWeeks) ?? 0, description: description, status: "New")
                     
                     self.dbHelper.addInvestmentSuggestion(newOffer) { error in
                         if let error = error {

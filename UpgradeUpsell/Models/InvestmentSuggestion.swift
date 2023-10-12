@@ -13,6 +13,7 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
     var investorID: String
     var ownerID:String
     var projectID: String
+    var projectTitle: String
     var amountOffered: Double
     var durationWeeks: Int
     var description: String
@@ -39,6 +40,11 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
             return nil
         }
         
+        guard let myProjectTitle = dictionary["projectTitle"] as? String else {
+            print(#function, "Unable to get projectTitle from JSON")
+            return nil
+        }
+        
         guard let myAmountOffered = dictionary["amountOffered"] as? Double else {
             print(#function, "Unable to get amountOffered from JSON")
             return nil
@@ -59,14 +65,15 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
             return nil
         }
 
-        self.init(id: myID, investorID: myInvestorID, ownerID: myOwnerID, projectID:myProjectID, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus)
+        self.init(id: myID, investorID: myInvestorID, ownerID: myOwnerID, projectID:myProjectID, projectTitle: myProjectTitle, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus)
     }
     
-    init(id: String, investorID: String, ownerID: String, projectID: String, amountOffered: Double, durationWeeks: Int, description: String, status: String) {
+    init(id: String, investorID: String, ownerID: String, projectID: String, projectTitle: String, amountOffered: Double, durationWeeks: Int, description: String, status: String) {
         self.id = id
         self.investorID = investorID
         self.ownerID = ownerID
         self.projectID = projectID
+        self.projectTitle = projectTitle
         self.amountOffered = amountOffered
         self.durationWeeks = durationWeeks
         self.description = description
