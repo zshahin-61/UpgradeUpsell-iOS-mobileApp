@@ -22,20 +22,28 @@ struct ProjectOffersView: View {
                         Button(action:{
                             
                         }){
-                            Text("SALAM")
-//                            self.dbHelper.getRenovateProjectByID(suggestion.projectID) { (project, error) in
-//                                if let error = error {
-//                                    print("\(error)")
-//                                }
-//                                else if let prj = project{
-                                    Text("Investment suggestion: \(suggestion.projectID), \(suggestion.amountOffered), \(suggestion.durationWeeks)")
-//                                }
-//                                else
-//                                {
-//                                    Text("No Offers")
-//                                    print("no offers")
-//                                }
-                            //}
+                            
+                            HStack{
+                                Text("Title:").bold()
+                                Spacer()
+                                Text("\(suggestion.projectTitle)").foregroundColor(.black)
+                            }
+                            HStack{
+                                Text("Offered amount:").bold()
+                                Spacer()
+                                Text(String(format: "%.2f", suggestion.amountOffered)).foregroundColor(.black)
+                            }
+                            HStack{
+                                Text("Duration:").bold()
+                                Spacer()
+                                Text("\(suggestion.durationWeeks)").foregroundColor(.black)
+                            }
+                            HStack{
+                                Text("Description:").bold()
+                                Spacer()
+                                Text("\(suggestion.description)").foregroundColor(.black)
+                            }
+                               
                         }
                     }
                 }
