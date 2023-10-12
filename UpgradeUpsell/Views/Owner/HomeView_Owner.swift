@@ -19,9 +19,6 @@ struct HomeView: View {
     var body: some View {
         
             TabView() {
-             
-//                        EventsListView().environmentObject(locationHelper)
-
                 ProjectListView()
                 .tabItem {
                     Label("View Projects", systemImage: "list.bullet.rectangle")
