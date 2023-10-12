@@ -179,7 +179,6 @@ struct CreateProjectView: View {
                           
                         }
                         
-            
                            
                         
                         HStack {
