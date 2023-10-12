@@ -10,8 +10,8 @@ import SwiftUI
 
 struct DetailView: View {
     
-    let selectedProject: RenovateProject // Replace with your project model
-
+    let selectedProject: RenovateProject 
+    
     @State private var title = ""
     @State private var description = ""
     @State private var location = ""
@@ -27,11 +27,12 @@ struct DetailView: View {
     @State private var numberOfBathrooms = ""
     @State private var images: [Image] = []
     @State private var propertyType = ""
-    @State private var squareFootage = ""
+    @State private var squareFootage = " "
     @State private var isFurnished = false
     
     var body: some View {
         VStack {
+            
             Group{
                 Text("Titlle:").font(.subheadline).bold()
                 
@@ -39,15 +40,15 @@ struct DetailView: View {
                     .textFieldStyle(.roundedBorder)
                 
                 
-                Text("Description:").font(.subheadline).bold()
-                TextField(selectedProject.description, text: self.$description)
-                    .frame(minHeight: 100)
-                    .cornerRadius(5)
-                    .border(Color.gray, width: 0.5)
+                //                Text("Description:").font(.subheadline).bold()
+                //                TextField(selectedProject.description, text: self.$description)
+                //                    .frame(minHeight: 100)
+                //                    .cornerRadius(5)
+                //                    .border(Color.gray, width: 0.5)
             }
             Group{
                 
-                
+                Text("Description: \(selectedProject.description)")
                 Text("Location: \(selectedProject.location)")
                 Text("Category: \(selectedProject.category)")
                 Text("Number of Bedrooms: \(selectedProject.numberOfBedrooms)")
@@ -63,7 +64,7 @@ struct DetailView: View {
                         .frame(width: 150, height: 150)
                 }
             }
+            .navigationBarTitle("Project Detail")
         }
-        .navigationBarTitle("Project Detail")
     }
 }

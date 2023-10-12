@@ -18,16 +18,16 @@ struct ProjectListView: View {
     var body: some View {
         NavigationView {
                    List(userProjects) { property in
+//
+//                       NavigationLink(destination: DetailView(selectedProject: property)) {
+//                           Text(property.title)                       }
+//
 
-                       NavigationLink(destination: DetailView(selectedProject: property)) {
-                           Text(property.title)                       }
-                       
-                       
-//
-//                       NavigationLink(destination: CreateProjectView(selectedProject: property).environmentObject(authHelper).environmentObject(self.dbHelper)) {
-//                           Text(property.title)
-//                       }
-//
+
+                       NavigationLink(destination: CreateProjectView(selectedProject: property).environmentObject(authHelper).environmentObject(self.dbHelper)) {
+                           Text(property.title)
+                       }
+
                        
                        
                    }
