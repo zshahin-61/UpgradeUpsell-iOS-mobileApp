@@ -25,8 +25,6 @@ struct SettingsView: View {
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
-                        
-                        
                         Picker("Theme", selection: $themeFromUI) {
                             Text("Light").tag("light")
                             Text("Dark").tag("dark")
@@ -87,10 +85,8 @@ struct SettingsView: View {
                 }//Form
             }
             .navigationTitle("Settings")
-            // .onAppear here, at the root level of SettingsView
             .onAppear {
                 dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id! ?? ""){ (userPref, error) in
-                    
 //                    guard let userPref = dbHelper.userPrefrences else{
 //                        return
 //                    }
@@ -103,7 +99,6 @@ struct SettingsView: View {
                         self.notificationsEmail = userPref.emailNotif
                         self.pushNotifFromUI = userPref.pushNotif
                         self.themeFromUI = userPref.theme
-                        
                     }
                 }
             }
