@@ -57,7 +57,8 @@ struct ProjectOffersView: View {
                         }
                     }
                 }
-            }
+            }            .padding()
+
             .onAppear {
                 // Fetch investment suggestions when the view appears.
                 if let ownerID = dbHelper.userProfile?.id {

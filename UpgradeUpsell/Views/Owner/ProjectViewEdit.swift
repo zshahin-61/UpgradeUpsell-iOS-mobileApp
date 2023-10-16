@@ -250,7 +250,7 @@ struct ProjectViewEdit: View {
                     )
                 }
             }              //Form
-            .background(Color.green)
+//            .background(Color.green)
             .padding()
             .onAppear() {
                 if let currentProject = selectedProject {
