@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 struct InvestmentSuggestion: Codable, Hashable,Identifiable {
     @DocumentID var id = UUID().uuidString
     var investorID: String
+    var investorFullName: String
     var ownerID:String
     var projectID: String
     var projectTitle: String
@@ -29,6 +30,8 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
             print(#function, "Unable to get investorID from JSON")
             return nil
         }
+        
+        let myInvestorFullName = dictionary["investorFullName"] as? String ?? "" 
         
         guard let myOwnerID = dictionary["ownerID"] as? String else {
             print(#function, "Unable to get ownerID from JSON")
@@ -65,12 +68,13 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
             return nil
         }
 
-        self.init(id: myID, investorID: myInvestorID, ownerID: myOwnerID, projectID:myProjectID, projectTitle: myProjectTitle, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus)
+        self.init(id: myID, investorID: myInvestorID, investorFullName: myInvestorFullName, ownerID: myOwnerID, projectID:myProjectID, projectTitle: myProjectTitle, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus)
     }
     
-    init(id: String, investorID: String, ownerID: String, projectID: String, projectTitle: String, amountOffered: Double, durationWeeks: Int, description: String, status: String) {
+    init(id: String, investorID: String, investorFullName: String, ownerID: String, projectID: String, projectTitle: String, amountOffered: Double, durationWeeks: Int, description: String, status: String) {
         self.id = id
         self.investorID = investorID
+        self.investorFullName = investorFullName
         self.ownerID = ownerID
         self.projectID = projectID
         self.projectTitle = projectTitle

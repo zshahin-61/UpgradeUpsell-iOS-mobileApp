@@ -38,8 +38,9 @@ struct ProjectViewEdit: View {
     @State private var squareFootage: Double = 0.0
     @State private var isFurnished = false
     
-    @State private var showAlert = false
-    
+    @State private var isShowingSuccessAlert = false
+    @State private var isShowingErrorAlert = false
+    @State private var alertMessage = ""
     var selectedProject: RenovateProject?
     
     @EnvironmentObject var locationHelper: LocationHelper
@@ -68,26 +69,26 @@ struct ProjectViewEdit: View {
             Form {
                 Section(header: Text("")) {
                     VStack {
-                               HStack {
-                                   Text("Title")
-                                       .bold()
-                                       .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-                                   Spacer()
-                               }
+                        HStack {
+                            Text("Title")
+                                .bold()
+                                .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+                            Spacer()
+                        }
                         
                         TextEditor(text: $title)
                             .frame(minHeight: 70)
                             .cornerRadius(5)
                             .border(Color.gray, width: 0.2)
-        
-                           }
+                        
+                    }
                     VStack {
                         
                         HStack {
                             Text("Description")
                                 .bold()
                                 .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-
+                            
                             Spacer()
                         }
                         TextEditor(text: $description)
@@ -103,10 +104,10 @@ struct ProjectViewEdit: View {
                             Text("Address")
                                 .bold()
                                 .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-
+                            
                             Spacer()
                         }
-                     
+                        
                         TextEditor(text: $location)
                             .frame(minWidth: 10, minHeight: 50)
                             .cornerRadius(5)
@@ -115,7 +116,7 @@ struct ProjectViewEdit: View {
                     HStack {
                         Text("Category").bold()
                             .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-
+                        
                         Spacer()
                         Picker("", selection: $selectedCategory) {
                             ForEach(categories, id: \.self) { category in
@@ -128,10 +129,10 @@ struct ProjectViewEdit: View {
                             Text("Number of Bedrooms")
                                 .bold()
                                 .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-
+                            
                             Spacer()
                         }
-   
+                        
                         Stepper("\(numberOfBedrooms)", value: $numberOfBedrooms, in: 0...10)
                     }
                     VStack {
@@ -139,10 +140,10 @@ struct ProjectViewEdit: View {
                             Text("Number of Bathrooms")
                                 .bold()
                                 .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-
+                            
                             Spacer()
                         }
-      
+                        
                         Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
                     }
                     // Image
@@ -170,7 +171,7 @@ struct ProjectViewEdit: View {
                                     Button(action: {
                                         isShowingPicker = true
                                     }) {
-                                        Text("Change Picture")
+                                        Text("Choose Picture")
                                     }
                                 } else {
                                     Button(action: {
@@ -195,15 +196,16 @@ struct ProjectViewEdit: View {
                             Text("Square Footage")
                                 .bold()
                                 .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-
+                            
                             Spacer()
                         }
-                                        
+                        
                         TextField("", value: $squareFootage, formatter: NumberFormatter())
+                            .keyboardType(.numberPad)
                             .frame(minWidth: 10, minHeight: 50)
                             .cornerRadius(5)
                             .border(Color.gray, width: 0.2)
-
+                        
                         
                     }
                     HStack {
@@ -220,37 +222,56 @@ struct ProjectViewEdit: View {
                             .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
                             .bold()// Dark green color
                     }
-
-                } //Form
+                    
+                }//section
                 
-                Button(action: {
-                    if selectedProject != nil {
-                        // If selectedProject is not nil, it's an update operation
-                        updateProperty()
-                        resetFormFields()
-                    } else {
-                        // If selectedProject is nil, it's an insert operation
-                        insertProperty()
-                        resetFormFields()
+        
+                Section(header: Text("")){
+                    Button(action: {
+                        if selectedProject != nil {
+                            // If selectedProject is not nil, it's an update operation
+                            updateProperty()
+                            resetFormFields()
+                        } else {
+                            // If selectedProject is nil, it's an insert operation
+                            if !title.isEmpty || !description.isEmpty || !location.isEmpty {
+                                insertProperty()
+                                resetFormFields()
+                                
+                            } else {
+                                isShowingErrorAlert = true
+                            }
+                          
+                        }
+                    }) {
+                        Text("Save")
+                            .font(.headline)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 100)
+                            .background(Color(red: 0.0, green: 0.40, blue: 0.0))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
-                }) {
-                    Text("Save")
-                        .font(.headline)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 40)
-                        .background(Color.brown)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .alert(isPresented: $showAlert) {
-                    Alert(
-                        title: Text("Success"),
-                        message: Text("Property saved successfully"),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
-            }              //Form
-//            .background(Color.green)
+                    .alert(isPresented: $isShowingSuccessAlert) {
+                        print("Showing Success Alert")
+                        return Alert(
+                            title: Text("Success"),
+                            message: Text("Property saved successfully"),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
+                    .alert(isPresented: $isShowingErrorAlert) {
+                        print("Showing Error Alert")
+                        return Alert(
+                            title: Text("Error"),
+                            message: Text(alertMessage),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
+                    
+                }//section2
+            }              //Form??
+            //            .background(Color.green)
             .padding()
             .onAppear() {
                 if let currentProject = selectedProject {
@@ -353,9 +374,12 @@ struct ProjectViewEdit: View {
         
         dbHelper.addProperty(newProperty, userID: userID) { success in
             if success {
+                isShowingSuccessAlert = true
                 presentationMode.wrappedValue.dismiss()
                 resetFormFields()
             } else {
+                isShowingErrorAlert = true
+                alertMessage = "Failed to save property. Please try again."
             }
         }
     }
@@ -399,10 +423,12 @@ struct ProjectViewEdit: View {
         
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
+                isShowingSuccessAlert = true
                 presentationMode.wrappedValue.dismiss()
                 resetFormFields()
             } else {
-            }
+                isShowingErrorAlert = true
+                alertMessage = "Failed to update property. Please try again."            }
         }
     }
     

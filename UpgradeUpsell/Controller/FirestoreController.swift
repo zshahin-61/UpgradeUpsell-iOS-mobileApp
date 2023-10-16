@@ -140,6 +140,34 @@ class FirestoreController: ObservableObject {
         }
     }
     
+    func getUserProfilebyUserID(userID: String, withCompletion completion: @escaping (UserProfile?, Error?) -> Void) {
+        let document = db.collection(COLLECTION_UsersProfile).document(userID)
+
+        document.addSnapshotListener { (documentSnapshot, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+
+            guard let document = documentSnapshot else {
+                let notFoundError = NSError(domain: "YourAppErrorDomain", code: 404, userInfo: nil)
+                completion(nil, notFoundError)
+                return
+            }
+
+            do {
+                let userProfile = try document.data(as: UserProfile.self)
+                DispatchQueue.main.async {
+                    completion(userProfile, nil)
+                }
+                
+            } catch {
+                print("Error decoding user profile data: \(error.localizedDescription)")
+                completion(nil, error)
+            }
+        }
+    }
+
     func createUserProfile(newUser: UserProfile){
         print(#function, "Inserting profile Info")
         self.loggedInUserID = newUser.id!
@@ -197,7 +225,6 @@ class FirestoreController: ObservableObject {
     }
     
     func deleteUser(withCompletion completion: @escaping (Bool) -> Void) {
-        
         //get the email address of currently logged in user
         self.loggedInUserID = UserDefaults.standard.string(forKey: "KEY_ID") ?? ""
         
@@ -392,16 +419,54 @@ class FirestoreController: ObservableObject {
         }
     }
     
-    func deleteRenovateProject(_ prjToDelete: RenovateProject) {
-        db.collection(COLLECTION_RenovateProject).document(prjToDelete.id!).delete { error in
-            if let error = error {
-                print("Error deleting project from Firestore: \(error)")
-            } else {
-                print("Project deleted successfully")
+    func deleteProperty(_ property: RenovateProject, completion: @escaping (Bool) -> Void) {
+        guard let propertyID = property.id else {
+            // The property doesn't have an ID, so it can't be deleted.
+            completion(false)
+            return
+        }
+
+        do {
+            let documentReference = try self.db
+                .collection(COLLECTION_RenovateProject)
+                .document(propertyID)
+
+            documentReference.delete { error in
+                if let error = error {
+                    print("Error deleting property in Firestore: \(error)")
+                    completion(false)
+                } else {
+                    print("Property deleted successfully.")
+                    completion(true)
+                }
             }
+        } catch {
+            print("Error deleting property in Firestore: \(error)")
+            completion(false)
         }
     }
 
+    func updateProjectStatus(_ property: RenovateProject, newStatus: String, completion: @escaping (Bool) -> Void) {
+
+        
+        if let projectID = property.id {
+            let projectRef = db .collection(COLLECTION_RenovateProject)
+                .document(projectID)
+            
+            projectRef.updateData(["status": "Deleted"]) { error in
+                if let error = error {
+                    print("Error updating project status: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Project status updated successfully.")
+                    completion(true)
+                }
+            }
+        } else {
+            completion(false)
+        }
+    }
+    
     func getUserProjects(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
         self.db.collection(COLLECTION_RenovateProject)
            
@@ -425,6 +490,7 @@ class FirestoreController: ObservableObject {
     func getUserProjectsAll(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
         self.db.collection(COLLECTION_RenovateProject)
             .whereField("ownerID", isEqualTo: userID)
+        
             .getDocuments { querySnapshot, error in
                 if let error = error {
                     completion(nil, error)
