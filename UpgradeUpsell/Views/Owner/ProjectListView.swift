@@ -39,6 +39,28 @@ struct ProjectListView: View {
             }
             .navigationBarTitle("Your Properties")
             .padding()
+<<<<<<< Updated upstream
+=======
+        }
+        .background(Color.red)
+    }
+ //Add status Delete
+    private func deleteProjects(at offsets: IndexSet) {
+        for offset in offsets {
+            let project = userProjects[offset]
+         //   userProjects[offset].status = "deleted"
+                  
+
+            dbHelper.updateProjectStatus(project) { success in
+                if success {
+                    print("Project status updated to 'deleted' successfully.")
+                } else {
+                    print("Error updating project status.")
+                }
+            }
+        }
+    }
+>>>>>>> Stashed changes
 
         }//Navview
         .background(Color.green)
