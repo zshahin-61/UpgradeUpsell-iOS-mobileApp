@@ -446,14 +446,15 @@ class FirestoreController: ObservableObject {
         }
     }
 
-    func updateProjectStatus(_ property: RenovateProject, newStatus: String, completion: @escaping (Bool) -> Void) {
+    
+    func updateProjectStatus(_ property: RenovateProject ,completion: @escaping (Bool) -> Void) {
 
         
         if let projectID = property.id {
             let projectRef = db .collection(COLLECTION_RenovateProject)
                 .document(projectID)
             
-            projectRef.updateData(["status": "Deleted"]) { error in
+            projectRef.updateData(["status": "deleted"]) { error in
                 if let error = error {
                     print("Error updating project status: \(error.localizedDescription)")
                     completion(false)
@@ -467,10 +468,29 @@ class FirestoreController: ObservableObject {
         }
     }
     
+    func getUserProjectsAll(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
+        self.db.collection(COLLECTION_RenovateProject)
+            .whereField("ownerID", isEqualTo: userID)
+
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion(nil, error)
+                } else {
+                    var projects = [RenovateProject]()
+                    for document in querySnapshot!.documents {
+                        if let project = try? document.data(as: RenovateProject.self) {
+                            projects.append(project)
+                        }
+                    }
+                    completion(projects, nil)
+                }
+            }
+    }
+    
     func getUserProjects(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
         self.db.collection(COLLECTION_RenovateProject)
             .whereField("ownerID", isEqualTo: userID)
-        
+            .whereField("status", isNotEqualTo: "deleted")
             .getDocuments { querySnapshot, error in
                 if let error = error {
                     completion(nil, error)

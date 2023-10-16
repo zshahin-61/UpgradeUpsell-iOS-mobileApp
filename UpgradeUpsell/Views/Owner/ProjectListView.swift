@@ -48,10 +48,9 @@ struct ProjectListView: View {
     private func deleteProjects(at offsets: IndexSet) {
         for offset in offsets {
             let project = userProjects[offset]
-            userProjects[offset].status = "deleted"
+           // userProjects[offset].status = "deleted"
                   
-    
-            dbHelper.updateProjectStatus(project, newStatus: "deleted") { success in
+            dbHelper.updateProjectStatus(project) { success in
                 if success {
                     print("Project status updated to 'deleted' successfully.")
                 } else {
