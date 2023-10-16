@@ -140,6 +140,34 @@ class FirestoreController: ObservableObject {
         }
     }
     
+    func getUserProfilebyUserID(userID: String, withCompletion completion: @escaping (UserProfile?, Error?) -> Void) {
+        let document = db.collection(COLLECTION_UsersProfile).document(userID)
+
+        document.addSnapshotListener { (documentSnapshot, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+
+            guard let document = documentSnapshot else {
+                let notFoundError = NSError(domain: "YourAppErrorDomain", code: 404, userInfo: nil)
+                completion(nil, notFoundError)
+                return
+            }
+
+            do {
+                let userProfile = try document.data(as: UserProfile.self)
+                DispatchQueue.main.async {
+                    completion(userProfile, nil)
+                }
+                
+            } catch {
+                print("Error decoding user profile data: \(error.localizedDescription)")
+                completion(nil, error)
+            }
+        }
+    }
+
     func createUserProfile(newUser: UserProfile){
         print(#function, "Inserting profile Info")
         self.loggedInUserID = newUser.id!
@@ -197,7 +225,6 @@ class FirestoreController: ObservableObject {
     }
     
     func deleteUser(withCompletion completion: @escaping (Bool) -> Void) {
-        
         //get the email address of currently logged in user
         self.loggedInUserID = UserDefaults.standard.string(forKey: "KEY_ID") ?? ""
         

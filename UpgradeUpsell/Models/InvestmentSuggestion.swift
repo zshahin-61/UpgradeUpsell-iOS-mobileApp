@@ -31,10 +31,7 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
             return nil
         }
         
-        guard let myInvestorFullName = dictionary["investorFullName"] as? String else {
-            print(#function, "Unable to get investorFullName from JSON")
-            return nil
-        }
+        let myInvestorFullName = dictionary["investorFullName"] as? String ?? "" 
         
         guard let myOwnerID = dictionary["ownerID"] as? String else {
             print(#function, "Unable to get ownerID from JSON")

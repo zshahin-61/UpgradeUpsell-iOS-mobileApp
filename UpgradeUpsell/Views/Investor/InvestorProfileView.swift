@@ -153,20 +153,26 @@ struct InvestorProfileView: View {
                     })
         }.padding()
             .onAppear(){
+                self.dbHelper.getUserProfilebyUserID(userID: self.investorID){ (investorInfo, error)in
                 
-                if let currentUser = dbHelper.userProfile{
-                    self.emailFromUI = currentUser.email
-                    self.addressFromUI = currentUser.address
-                    self.nameFromUI = currentUser.fullName
-                    self.bioFromUI = currentUser.userBio
-                    self.contactNumberFromUI = currentUser.contactNumber
-                    self.errorMsg = nil
-                    
-                    // MARK: Show image from db
-                    if let imageData = currentUser.profilePicture as? Data {
-                        self.imageData = imageData
-                    } else {
-                        print("Invalid image data format")
+                    if let error = error {
+                        //self.errorMsg = error.localizedDescription
+                    }
+                    else if let investorInfo = investorInfo {
+                        
+                        //self.emailFromUI = investorInfo.email
+                        //self.addressFromUI = investorInfo.address
+                        self.nameFromUI = investorInfo.fullName
+                        self.bioFromUI = investorInfo.userBio
+                        //self.contactNumberFromUI = investorInfo.contactNumber
+                        self.errorMsg = nil
+                        
+                        // MARK: Show image from db
+                        if let imageData = investorInfo.profilePicture as? Data {
+                            self.imageData = imageData
+                        } else {
+                            print("Invalid image data format")
+                        }
                     }
                 }
             }
