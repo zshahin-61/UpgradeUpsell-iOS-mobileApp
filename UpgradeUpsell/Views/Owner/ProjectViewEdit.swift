@@ -66,7 +66,7 @@ struct ProjectViewEdit: View {
         NavigationView {
             //   ScrollView {
             Form {
-                Section(header: Text("Information").font(.caption)) {
+                Section(header: Text("")) {
                     VStack {
                                HStack {
                                    Text("Title")
@@ -283,6 +283,7 @@ struct ProjectViewEdit: View {
             
             //}//scroll
         }//NavigationView
+        .navigationBarTitle("Information")
         
     }//View
     

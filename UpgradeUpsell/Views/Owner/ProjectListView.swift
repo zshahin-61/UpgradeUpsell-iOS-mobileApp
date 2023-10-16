@@ -17,21 +17,14 @@ struct ProjectListView: View {
 
     var body: some View {
         NavigationView {
-                   List(userProjects) { property in
-//
-//                       NavigationLink(destination: DetailView(selectedProject: property)) {
-//                           Text(property.title)                       }
-//
 
 
-                       NavigationLink(destination: ProjectViewEdit(selectedProject: property).environmentObject(authHelper).environmentObject(self.dbHelper)) {
-                           Text(property.title)
-                       }
+            List(userProjects) { property in
+                NavigationLink(destination: ProjectViewEdit(selectedProject: property).environmentObject(authHelper).environmentObject(self.dbHelper)) {
+                    Text(property.title)
+                }
+            }
 
-                       
-                       
-                   }
-        
             .onAppear {
                 if let userID = self.dbHelper.userProfile?.id {
                     dbHelper.getUserProjects(userID: userID) { projects, error in
@@ -45,6 +38,11 @@ struct ProjectListView: View {
                 }
             }
             .navigationBarTitle("Your Properties")
-        }
+            .padding()
+
+        }//Navview
+        .background(Color.red)
+
     }
 }
+
