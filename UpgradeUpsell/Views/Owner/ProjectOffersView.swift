@@ -1,4 +1,7 @@
+
+import Foundation
 import SwiftUI
+
 
 struct ProjectOffersView: View {
     
@@ -21,21 +24,32 @@ struct ProjectOffersView: View {
                     ForEach(suggestions, id: \.id) { suggestion in
                         // Button(action:{
                         Section{
-                            //}){
+                            
                             HStack{
                                 Text("Title:").bold()
                                 Spacer()
                                 Text("\(suggestion.projectTitle)")//.foregroundColor(.black)
                             }
-                            HStack{
-                                Text("Offered amount:").bold()
-                                Spacer()
-                                Text(String(format: "%.2f", suggestion.amountOffered))//.foregroundColor(.black)
-                            }
-                            HStack{
-                                Text("Duration:").bold()
-                                Spacer()
-                                Text("\(suggestion.durationWeeks) Weeks")//.foregroundColor(.black)
+                            Group{
+                                HStack {
+                                    NavigationLink(destination: InvestorProfileView(investorID: suggestion.investorID)) {
+                                        Text("Investor:").bold()
+                                        Spacer()
+                                        Text(suggestion.investorFullName) // Link to Investor Profile
+                                    }
+                                }
+                                
+                                HStack{
+                                    Text("Offered amount:").bold()
+                                    Spacer()
+                                    Text(String(format: "%.2f", suggestion.amountOffered))//.foregroundColor(.black)
+                                }
+                                
+                                HStack{
+                                    Text("Duration:").bold()
+                                    Spacer()
+                                    Text("\(suggestion.durationWeeks) Weeks")//.foregroundColor(.black)
+                                }
                             }
                             HStack{
                                 Text("Status:").bold()
@@ -47,8 +61,8 @@ struct ProjectOffersView: View {
                             //  Spacer()
                             HStack{
                                 Text("\(suggestion.description)")
-                                   // .lineLimit(nil) // Allow it to wrap to the second line
-                                   // .fixedSize(horizontal: false, vertical: true) // Allow vertical expansion
+                                // .lineLimit(nil) // Allow it to wrap to the second line
+                                // .fixedSize(horizontal: false, vertical: true) // Allow vertical expansion
                             }
                             //.foregroundColor(.black)
                             //  }
@@ -58,21 +72,21 @@ struct ProjectOffersView: View {
                     }
                 }
             }            .padding()
-
-            .onAppear {
-                // Fetch investment suggestions when the view appears.
-                if let ownerID = dbHelper.userProfile?.id {
-                    self.isLoading = true
-                    self.dbHelper.getInveSuggByOwnerID(ownerID: ownerID) { (suggestions, error) in
-                        self.isLoading = false
-                        if let error = error {
-                            print("Error getting investment suggestions: \(error)")
-                        } else if let suggestions = suggestions {
-                            self.suggestions = suggestions
+            
+                .onAppear {
+                    // Fetch investment suggestions when the view appears.
+                    if let ownerID = dbHelper.userProfile?.id {
+                        self.isLoading = true
+                        self.dbHelper.getInveSuggByOwnerID(ownerID: ownerID) { (suggestions, error) in
+                            self.isLoading = false
+                            if let error = error {
+                                print("Error getting investment suggestions: \(error)")
+                            } else if let suggestions = suggestions {
+                                self.suggestions = suggestions
+                            }
                         }
                     }
                 }
-            }
             Spacer()
         }
     }

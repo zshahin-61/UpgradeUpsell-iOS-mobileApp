@@ -66,7 +66,6 @@ struct MakeOffers_InvestorView: View {
                         //TextField("Status", text: $status)
                 }
                 Button("Submit") {
-                    
                     let newOffer : InvestmentSuggestion = InvestmentSuggestion(id: UUID().uuidString, investorID: self.dbHelper.userProfile?.id ?? "", investorFullName: self.dbHelper.userProfile?.fullName ?? "", ownerID: project.ownerID, projectID: project.id!, projectTitle: project.title,amountOffered: Double(amountOffered) ?? 0.0 , durationWeeks: Int(durationWeeks) ?? 0, description: description, status: "New")
                     
                     self.dbHelper.addInvestmentSuggestion(newOffer) { error in
