@@ -41,8 +41,7 @@ struct ProjectListView: View {
             .padding()
 
         }//Navview
-        .background(Color.red)
-
+        .background(Color.green)
     }
 }
 
