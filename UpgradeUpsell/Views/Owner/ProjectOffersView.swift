@@ -32,7 +32,7 @@ struct ProjectOffersView: View {
                             }
                             Group{
                                 HStack {
-                                    NavigationLink(destination: InvestorProfileView(investorID: suggestion.investorID)) {
+                                    NavigationLink(destination: InvestorProfileView(investorID: suggestion.investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                                         Text("Investor:").bold()
                                         Spacer()
                                         Text(suggestion.investorFullName) // Link to Investor Profile
