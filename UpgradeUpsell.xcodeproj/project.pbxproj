@@ -48,6 +48,7 @@
 		5FD8824D2AD0A73D0034439F /* UserPreferencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8824C2AD0A73D0034439F /* UserPreferencesViewModel.swift */; };
 		5FD8824F2AD5BD570034439F /* ProjectsList_Investor_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */; };
 		5FD882512AD5BD880034439F /* MyOffersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882502AD5BD880034439F /* MyOffersView.swift */; };
+		5FF765752ADDE32E004A0C66 /* InvestorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF765742ADDE32E004A0C66 /* InvestorProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		5FD8824C2AD0A73D0034439F /* UserPreferencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesViewModel.swift; sourceTree = "<group>"; };
 		5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsList_Investor_View.swift; sourceTree = "<group>"; };
 		5FD882502AD5BD880034439F /* MyOffersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOffersView.swift; sourceTree = "<group>"; };
+		5FF765742ADDE32E004A0C66 /* InvestorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestorProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */,
 				5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */,
 				5FD882502AD5BD880034439F /* MyOffersView.swift */,
+				5FF765742ADDE32E004A0C66 /* InvestorProfileView.swift */,
 			);
 			path = Investor;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */,
 				5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */,
 				5F9466152ABB5C460006FBB5 /* FirestoreController.swift in Sources */,
+				5FF765752ADDE32E004A0C66 /* InvestorProfileView.swift in Sources */,
 				5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */,
 				5A8DAB332ABCB3B500CDCBCB /* ProjectListView.swift in Sources */,
 				5A8DAB312ABCB3A200CDCBCB /* ProjectViewEdit.swift in Sources */,
