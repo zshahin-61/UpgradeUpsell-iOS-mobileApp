@@ -64,34 +64,58 @@ struct ProjectViewEdit: View {
     
     var body: some View {
         NavigationView {
-         //   ScrollView {
+            //   ScrollView {
             Form {
-                Section(header: Text("Property Information").font(.headline)) {
+                Section(header: Text("Information").font(.caption)) {
                     VStack {
-                        Text("Title").bold()
-                        Spacer()
-                        TextField("", text: $title)
-                            .textInputAutocapitalization(.never)
-                            .textFieldStyle(.roundedBorder)
-                    }
+                               HStack {
+                                   Text("Title")
+                                       .bold()
+                                       .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+                                   Spacer()
+                               }
+                        
+                        TextEditor(text: $title)
+                            .frame(minHeight: 70)
+                            .cornerRadius(5)
+                            .border(Color.gray, width: 0.2)
+        
+                           }
                     VStack {
-                        Text("Description").bold()
-                        Spacer()
+                        
+                        HStack {
+                            Text("Description")
+                                .bold()
+                                .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+
+                            Spacer()
+                        }
                         TextEditor(text: $description)
                             .frame(minHeight: 70)
                             .cornerRadius(5)
-                            .border(Color.gray, width: 0.5)
+                            .border(Color.gray, width: 0.2)
+                        
                     }
+                    
                     VStack {
-                        Text("Address").bold()
-                        Spacer()
+                        
+                        HStack {
+                            Text("Address")
+                                .bold()
+                                .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+
+                            Spacer()
+                        }
+                     
                         TextEditor(text: $location)
                             .frame(minWidth: 10, minHeight: 50)
                             .cornerRadius(5)
-                            .border(Color.gray, width: 0.5)
+                            .border(Color.gray, width: 0.2)
                     }
                     HStack {
                         Text("Category").bold()
+                            .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+
                         Spacer()
                         Picker("", selection: $selectedCategory) {
                             ForEach(categories, id: \.self) { category in
@@ -100,13 +124,25 @@ struct ProjectViewEdit: View {
                         }
                     }
                     VStack {
-                        Text("Number of Bedrooms").bold()
-                        Spacer()
+                        HStack {
+                            Text("Number of Bedrooms")
+                                .bold()
+                                .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+
+                            Spacer()
+                        }
+   
                         Stepper("\(numberOfBedrooms)", value: $numberOfBedrooms, in: 0...10)
                     }
                     VStack {
-                        Text("Number of Bathrooms").bold()
-                        Spacer()
+                        HStack {
+                            Text("Number of Bathrooms")
+                                .bold()
+                                .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+
+                            Spacer()
+                        }
+      
                         Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
                     }
                     // Image
@@ -154,18 +190,37 @@ struct ProjectViewEdit: View {
                         }
                     }
                     VStack {
-                        Text("Square Footage").bold()
-                        Spacer()
+                        
+                        HStack {
+                            Text("Square Footage")
+                                .bold()
+                                .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+
+                            Spacer()
+                        }
+                                        
                         TextField("", value: $squareFootage, formatter: NumberFormatter())
+                            .frame(minWidth: 10, minHeight: 50)
+                            .cornerRadius(5)
+                            .border(Color.gray, width: 0.2)
+
+                        
                     }
                     HStack {
                         Toggle("Is Furnished", isOn: $isFurnished)
+                            .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+                            .bold()// Dark green color
                     }
                     VStack {
                         DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                            .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+                            .bold()// Dark green color
                         Spacer()
                         DatePicker("End Date", selection: $endDate, displayedComponents: .date)
+                            .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+                            .bold()// Dark green color
                     }
+
                 } //Form
                 
                 Button(action: {
@@ -194,7 +249,8 @@ struct ProjectViewEdit: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-            } //Form
+            }              //Form
+            .background(Color.green)
             .padding()
             .onAppear() {
                 if let currentProject = selectedProject {
@@ -224,7 +280,7 @@ struct ProjectViewEdit: View {
                     resetFormFields()
                 }
             } //onApperar
-
+            
             //}//scroll
         }//NavigationView
         
