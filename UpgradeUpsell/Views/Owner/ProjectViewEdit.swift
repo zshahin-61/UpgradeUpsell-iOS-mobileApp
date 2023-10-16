@@ -170,7 +170,7 @@ struct ProjectViewEdit: View {
                                     Button(action: {
                                         isShowingPicker = true
                                     }) {
-                                        Text("Change Picture")
+                                        Text("Choose Picture")
                                     }
                                 } else {
                                     Button(action: {
@@ -200,6 +200,7 @@ struct ProjectViewEdit: View {
                         }
                                         
                         TextField("", value: $squareFootage, formatter: NumberFormatter())
+                            .keyboardType(.numberPad)
                             .frame(minWidth: 10, minHeight: 50)
                             .cornerRadius(5)
                             .border(Color.gray, width: 0.2)
@@ -223,6 +224,10 @@ struct ProjectViewEdit: View {
 
                 } //Form
                 
+                HStack {
+                  
+                Spacer()
+                
                 Button(action: {
                     if selectedProject != nil {
                         // If selectedProject is not nil, it's an update operation
@@ -237,8 +242,8 @@ struct ProjectViewEdit: View {
                     Text("Save")
                         .font(.headline)
                         .padding(.vertical, 10)
-                        .padding(.horizontal, 40)
-                        .background(Color.brown)
+                        .padding(.horizontal, 100)
+                        .background(Color(red: 0.0, green: 0.40, blue: 0.0))
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
@@ -248,6 +253,8 @@ struct ProjectViewEdit: View {
                         message: Text("Property saved successfully"),
                         dismissButton: .default(Text("OK"))
                     )
+                }
+                    Spacer()
                 }
             }              //Form
 //            .background(Color.green)
