@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct RenovateProject: Codable, Identifiable {
+struct RenovateProject: Codable, Identifiable ,Equatable{
     @DocumentID var id: String? = UUID().uuidString
     var title: String
     var description: String
