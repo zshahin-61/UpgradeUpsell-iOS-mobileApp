@@ -24,7 +24,7 @@ struct ProjectListView: View {
 //
 
 
-                       NavigationLink(destination: CreateProjectView(selectedProject: property).environmentObject(authHelper).environmentObject(self.dbHelper)) {
+                       NavigationLink(destination: ProjectViewEdit(selectedProject: property).environmentObject(authHelper).environmentObject(self.dbHelper)) {
                            Text(property.title)
                        }
 

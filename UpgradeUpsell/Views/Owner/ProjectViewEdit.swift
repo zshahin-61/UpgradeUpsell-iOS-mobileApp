@@ -1,17 +1,25 @@
+//
+//  CreateProjectView.swift
+//  UpgradeUpsell
+//
+//  Created by Created by Zahra Shahin.
+//
 import SwiftUI
 import Firebase
 import MapKit
 
-struct CreateProjectView: View {
+struct ProjectViewEdit: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @EnvironmentObject var authHelper: FireAuthController
     @Environment(\.presentationMode) var presentationMode
-
+    
     @StateObject private var photoLibraryManager = PhotoLibraryManager()
     @State private var isShowingPicker = false
     @State private var selectedImage: UIImage?
     @State private var imageData: Data?
-
+    
+    
+    
     @State private var title = ""
     @State private var description = ""
     @State private var location = ""
@@ -29,15 +37,18 @@ struct CreateProjectView: View {
     @State private var propertyType = ""
     @State private var squareFootage: Double = 0.0
     @State private var isFurnished = false
-
+    
     @State private var showAlert = false
-
+    
     var selectedProject: RenovateProject?
-
+    
     @EnvironmentObject var locationHelper: LocationHelper
-
+    
     @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-
+    
+    
+    // status: Delete show but deactive by owner be onwer and didnot show on the list | all offer will be decline
+    
     private let categories = [
         "Residential",
         "Condo",
@@ -49,7 +60,8 @@ struct CreateProjectView: View {
         "House",
         "Other"
     ]
-
+    
+    
     var body: some View {
         NavigationView {
          //   ScrollView {
@@ -218,6 +230,7 @@ struct CreateProjectView: View {
         
     }//View
     
+    
     private func resetFormFields() {
         title = ""
         description = ""
@@ -234,20 +247,25 @@ struct CreateProjectView: View {
         propertyType = ""
         squareFootage = 0.0
         isFurnished = false
+        imageData = nil
+        
     }
     
     private func insertProperty() {
         guard let userID = dbHelper.userProfile?.id else {
             return
         }
-        // Image
-        var imageData: Data? = nil
-        if selectedImage != nil {
+        //Image
+        var imageData :Data? = nil
+        
+        if(selectedImage != nil )
+        {
             let image = selectedImage!
             let imageName = "\(UUID().uuidString).jpg"
             print(imageName)
             imageData = image.jpegData(compressionQuality: 0.1)
         }
+        
         // Create a new property
         let newProperty = RenovateProject(
             projectID: UUID().uuidString,
@@ -274,25 +292,27 @@ struct CreateProjectView: View {
             favoriteCount: 0,
             realtorID: ""
         )
+        
+        
         dbHelper.addProperty(newProperty, userID: userID) { success in
             if success {
                 presentationMode.wrappedValue.dismiss()
                 resetFormFields()
             } else {
-                // Handle error
             }
         }
     }
-
+    
     private func updateProperty() {
         guard let userID = dbHelper.userProfile?.id else {
             return
         }
-        // Update the imageData if a new image is selected
+        
         if selectedImage != nil {
             let image = selectedImage!
             imageData = image.jpegData(compressionQuality: 0.1)
         }
+        
         // Update the startDate and endDate from the DatePicker selections
         let updatedProperty = RenovateProject(
             projectID: selectedProject?.id ?? UUID().uuidString,
@@ -301,7 +321,7 @@ struct CreateProjectView: View {
             location: location,
             lng: lng,
             lat: lat,
-            images: imageData,
+            images : imageData,
             ownerID: userID,
             category: selectedCategory,
             investmentNeeded: investmentNeeded,
@@ -319,14 +339,16 @@ struct CreateProjectView: View {
             favoriteCount: selectedProject?.favoriteCount ?? 0,
             realtorID: selectedProject?.realtorID ?? ""
         )
+        
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
                 presentationMode.wrappedValue.dismiss()
                 resetFormFields()
             } else {
-                // Handle error
             }
         }
     }
+    
+    
 }
 
