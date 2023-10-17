@@ -25,8 +25,8 @@ struct SignInView: View {
         VStack{
             
             Image("login")
-                       .resizable()
-                       .aspectRatio(contentMode: .fit)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
             HStack{
                 Spacer()
                 Text("Upgrade & Upsell")
@@ -38,6 +38,7 @@ struct SignInView: View {
             }
             .padding(.top, 5)
             Text("Sell Your House for a Higher Price").bold()
+                .padding(.top, 5)
             Form{
                 //Text("Sign in")
                 TextField("Enter your email", text: self.$emailFromUI)
@@ -126,6 +127,7 @@ struct SignInView: View {
             }
             .scrollContentBackground(.hidden)
             .autocorrectionDisabled(true)
+            
         }
         .scrollContentBackground(.hidden)
     }
