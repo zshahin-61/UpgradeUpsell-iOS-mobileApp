@@ -28,16 +28,16 @@ struct NotificationDetailView: View {
             
             Text("Details: \(notification.details ?? "No details available")")
 
-            HStack{
-                Button(action: {
-                    dbHelper.markNotificationAsRead(notification) { success in
-                        presentationMode.wrappedValue.dismiss()
-                        
-                    }                }) {
-                        Text("Mark Read")
-                    }
-                
-            }
+//            HStack{
+//                Button(action: {
+//                    dbHelper.markNotificationAsRead(notification) { success in
+//                        presentationMode.wrappedValue.dismiss()
+//                        
+//                    }                }) {
+//                        Text("Mark Read")
+//                    }
+//                
+//            }
             HStack{
                 Button(action: {
                     dbHelper.deleteNotification(notification) { success in
@@ -51,6 +51,12 @@ struct NotificationDetailView: View {
                 }
             }
         }.padding()
+            .onAppear(){
+                dbHelper.markNotificationAsRead(notification) { success in
+                    presentationMode.wrappedValue.dismiss()
+                    
+                }
+            }
     }
   
 }
