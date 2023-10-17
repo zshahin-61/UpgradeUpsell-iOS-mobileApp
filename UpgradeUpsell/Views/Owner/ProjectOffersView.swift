@@ -24,6 +24,12 @@ struct ProjectOffersView: View {
                                 Spacer()
                                 Text("\(suggestions[index].projectTitle)")
                             }
+                            HStack {
+                                Text("Offer Date:").bold()
+                                Spacer()
+                                Text("\(dateFormatter.string(from: suggestions[index].date ?? Date()))")
+                                //Text("\(suggestions[index].date ?? Date())")
+                            }
                             Group {
                                 HStack {
                                     NavigationLink(destination: InvestorProfileView(investorID: suggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
@@ -104,4 +110,10 @@ struct ProjectOffersView: View {
             Spacer()
         }
     }
+    let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
+            return formatter
+        }()
 }
