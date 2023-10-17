@@ -97,7 +97,7 @@ struct SignInView: View {
                     })
                 }){
                     Text("Sign In")
-                        .font(.title2)
+                        //.font(.title2)
                         .foregroundColor(.white)
                         //.bold()
                         .padding()
@@ -116,7 +116,7 @@ struct SignInView: View {
                     self.rootScreen = .SignUp
                 }){
                     Text("Sign Up")
-                        .font(.title2)
+                        //.font(.title2)
                         .foregroundColor(.white)
                        // .bold()
                         .padding()
