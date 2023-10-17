@@ -547,7 +547,7 @@ class FirestoreController: ObservableObject {
     }
     
     // MARK: Notification
-    func markNotificationAsReadOrUnread(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
+    func markNotificationAsRead(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
         if let notificationID = notification.id {
             let notificationRef = db.collection(COLLECTION_Notifications).document(notificationID)
 
@@ -562,6 +562,34 @@ class FirestoreController: ObservableObject {
             }
         } else {
             completion(false) 
+        }
+    }
+
+    
+    func deleteNotification(_ notif: Notifications, completion: @escaping (Bool) -> Void) {
+        guard let myID = notif.id else {
+            // The property doesn't have an ID, so it can't be deleted.
+            completion(false)
+            return
+        }
+
+        do {
+            let documentReference = try self.db
+                .collection(COLLECTION_Notifications)
+                .document(myID)
+
+            documentReference.delete { error in
+                if let error = error {
+                    print("Error deleting Notifiation in Firestore: \(error)")
+                    completion(false)
+                } else {
+                    print("Notification deleted successfully.")
+                    completion(true)
+                }
+            }
+        } catch {
+            print("Error deleting property in Firestore: \(error)")
+            completion(false)
         }
     }
 

@@ -10,6 +10,7 @@ import Firebase
 
 struct NotificationDetailView: View {
     @EnvironmentObject var dbHelper: FirestoreController
+    @Environment(\.presentationMode) var presentationMode
 
     @Binding var isPresented: Bool
     
@@ -23,51 +24,34 @@ struct NotificationDetailView: View {
 //            }
             Text("The Event: \(notification.event)")
             
-            Text("Times: \(notification.timestamp, style: .relative)")
+            Text("Times: \(notification.timestamp)")
             
             Text("Details: \(notification.details ?? "No details available")")
 
             HStack{
                 Button(action: {
-                    markNotificationAsRead()
-                }) {
-                    Text(notification.isRead ? "Mark Unread" : "Mark Read")
-                }
-
-                Spacer()
+                    dbHelper.markNotificationAsRead(notification) { success in
+                        presentationMode.wrappedValue.dismiss()
+                        
+                    }                }) {
+                        Text("Mark Read")
+                    }
+                
+            }
+            HStack{
                 Button(action: {
-                 //   deleteNotification()
-                    isPresented = false
+                    dbHelper.deleteNotification(notification) { success in
+                        presentationMode.wrappedValue.dismiss()
+
+                    }
+                  isPresented = false
                 }) {
                     Text("Delete ")
-                        .padding()
                         .foregroundColor(.red)
                 }
             }
-          
-          
-
         }.padding()
     }
-
-    private func markNotificationAsRead() {
-        dbHelper.markNotificationAsReadOrUnread(notification) { success in
-            if success {
-                print("Notification marked successfully.")
-            } else {
-                print("Error marking notification")
-            }
-        }
-    }
-
-//    private func deleteNotification() {
-//        dbHelper.deleteNotification(notification) { success in
-//            if success {
-//                print("Notification deleted successfully.")
-//            } else {
-//                print("Error deleting notification.")
-//            }
-//        }
-//    }
+  
 }
 
