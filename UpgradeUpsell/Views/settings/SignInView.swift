@@ -23,10 +23,20 @@ struct SignInView: View {
     var body: some View {
         
         VStack{
-            Text("Upgrade & Upsell").bold()
+            
             Image("login")
                        .resizable()
                        .aspectRatio(contentMode: .fit)
+            HStack{
+                Spacer()
+                Text("Upgrade & Upsell")
+                    .font(.system(size: 23, weight: .heavy, design: .default))
+                    .kerning(3.0) // Adjust the letter spacing as needed
+                    .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+                    .textCase(.uppercase)
+                Spacer()
+            }
+            .padding(.top, 5)
             Text("Sell Your House for a Higher Price").bold()
             Form{
                 //Text("Sign in")

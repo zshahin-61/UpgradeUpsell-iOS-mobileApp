@@ -24,7 +24,7 @@ struct MakeOffers_InvestorView: View {
 
         var body: some View {
             VStack(alignment: .leading, spacing: 10) {
-                Group{
+                Section(header: Text("Property Information").bold()){
                     //Text("Investor ID: \(dbHelper.userProfile?.id!)")
                     HStack{
                         Text("Title: ").bold()
