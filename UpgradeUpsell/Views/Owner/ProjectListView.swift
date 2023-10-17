@@ -16,7 +16,7 @@ struct ProjectListView: View {
     @State private var selectedProject: RenovateProject?
     
     var body: some View {
-        VStack {
+        NavigationView {
             List {
                 ForEach(userProjects) { property in
                     NavigationLink(destination: ProjectViewEdit(selectedProject: property)
@@ -42,7 +42,7 @@ struct ProjectListView: View {
             .navigationBarTitle("MyProperties")
             .padding()
         }
-        //.background(Color.red)
+        .background(Color.red)
     }
  //Add status Delete
     private func deleteProjects(at offsets: IndexSet) {
