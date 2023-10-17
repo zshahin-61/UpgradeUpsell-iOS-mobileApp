@@ -16,6 +16,7 @@
 		5A8DAB402AD798A100CDCBCB /* tmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB3F2AD798A100CDCBCB /* tmp.swift */; };
 		5A8DAB462ADDFC0B00CDCBCB /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */; };
 		5A8DAB482ADE066F00CDCBCB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */; };
+		5A8DAB4A2ADE29A900CDCBCB /* NotificationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */; };
 		5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */; };
 		5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9465F62ABB33E50006FBB5 /* ContentView.swift */; };
 		5F9465F92ABB33E60006FBB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F9465F82ABB33E60006FBB5 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		5A8DAB3F2AD798A100CDCBCB /* tmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tmp.swift; sourceTree = "<group>"; };
 		5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
 		5F9465F12ABB33E50006FBB5 /* UpgradeUpsell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpgradeUpsell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeUpsellApp.swift; sourceTree = "<group>"; };
 		5F9465F62ABB33E50006FBB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */,
 				5A8DAB3F2AD798A100CDCBCB /* tmp.swift */,
 				5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */,
+				5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */,
 			);
 			path = Owner;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				5F9466132ABB55F50006FBB5 /* FireAuthController.swift in Sources */,
 				5F9466352ABC845C0006FBB5 /* ProfileView.swift in Sources */,
 				5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */,
+				5A8DAB4A2ADE29A900CDCBCB /* NotificationDetailView.swift in Sources */,
 				5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */,
 				5F9466152ABB5C460006FBB5 /* FirestoreController.swift in Sources */,
 				5FF765752ADDE32E004A0C66 /* InvestorProfileView.swift in Sources */,

@@ -547,10 +547,29 @@ class FirestoreController: ObservableObject {
     }
     
     // MARK: Notification
+    func markNotificationAsReadOrUnread(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
+        if let notificationID = notification.id {
+            let notificationRef = db.collection(COLLECTION_Notifications).document(notificationID)
 
+            notificationRef.updateData(["isRead": "true"]) { error in
+                if let error = error {
+                    print("Error marking notification ")
+                    completion(false)
+                } else {
+                    print("Notification marked  successfully.")
+                    completion(true)
+                }
+            }
+        } else {
+            completion(false) 
+        }
+    }
+
+    
     func getNotifications(forUserID userID: String, completion: @escaping ([Notifications]?, Error?) -> Void) {
-        self.db.collection("COLLECTION_Notifications")
+        self.db.collection(COLLECTION_Notifications)
             .whereField("userID", isEqualTo: userID)
+//            .whereField("isRead", isEqualTo: "false")
             .order(by: "timestamp", descending: true)
             .getDocuments { querySnapshot, error in
                 if let error = error {
