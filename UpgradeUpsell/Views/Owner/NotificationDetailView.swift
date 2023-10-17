@@ -12,7 +12,7 @@ struct NotificationDetailView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @Environment(\.presentationMode) var presentationMode
 
-    @Binding var isPresented: Bool
+//    @Binding var isPresented: Bool
     
     var notification: Notifications
 
@@ -44,7 +44,7 @@ struct NotificationDetailView: View {
                         presentationMode.wrappedValue.dismiss()
 
                     }
-                  isPresented = false
+//                  isPresented = false
                 }) {
                     Text("Delete ")
                         .foregroundColor(.red)
