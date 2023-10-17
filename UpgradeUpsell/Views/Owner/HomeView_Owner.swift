@@ -76,7 +76,7 @@ struct HomeView: View {
 //                        Label("Settings", systemImage: "gearshape.fill")
 //                    }
                     Button(action: {
-                        rootScreen = .Profile
+                        rootScreen = .Settings
                     }) {
                         Label("Settings", systemImage: "gearshape.fill")
                     }
