@@ -111,6 +111,7 @@ struct SignUpView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
             .autocorrectionDisabled(true)
             
             Button(action: {
