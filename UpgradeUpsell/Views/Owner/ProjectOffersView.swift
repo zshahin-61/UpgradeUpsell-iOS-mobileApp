@@ -1,12 +1,10 @@
-
 import Foundation
 import SwiftUI
 
-
 struct ProjectOffersView: View {
     
-    @EnvironmentObject var authHelper : FireAuthController
-    @EnvironmentObject var dbHelper : FirestoreController
+    @EnvironmentObject var authHelper: FireAuthController
+    @EnvironmentObject var dbHelper: FirestoreController
     
     @State private var suggestions: [InvestmentSuggestion] = []
     @State private var isLoading: Bool = false
@@ -17,76 +15,84 @@ struct ProjectOffersView: View {
                 if dbHelper.userProfile == nil {
                     Text("No user login")
                 } else if isLoading {
-                    // Display a loading indicator while data is being fetched.
                     ProgressView()
                 } else {
-                    // Display investment suggestions when they are available.
-                    ForEach(suggestions, id: \.id) { suggestion in
-                        // Button(action:{
-                        Section{
-                            
-                            HStack{
+                    ForEach(suggestions.indices, id: \.self) { index in
+                        Section {
+                            HStack {
                                 Text("Title:").bold()
                                 Spacer()
-                                Text("\(suggestion.projectTitle)")//.foregroundColor(.black)
+                                Text("\(suggestions[index].projectTitle)")
                             }
-                            Group{
+                            Group {
                                 HStack {
-                                    NavigationLink(destination: InvestorProfileView(investorID: suggestion.investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+                                    NavigationLink(destination: InvestorProfileView(investorID: suggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                                         Text("Investor:").bold()
                                         Spacer()
-                                        Text(suggestion.investorFullName) // Link to Investor Profile
+                                        Text(suggestions[index].investorFullName) // Link to Investor Profile
                                     }
                                 }
                                 
-                                HStack{
+                                HStack {
                                     Text("Offered amount:").bold()
                                     Spacer()
-                                    Text(String(format: "%.2f", suggestion.amountOffered))//.foregroundColor(.black)
+                                    Text(String(format: "%.2f", suggestions[index].amountOffered))
                                 }
                                 
-                                HStack{
+                                HStack {
                                     Text("Duration:").bold()
                                     Spacer()
-                                    Text("\(suggestion.durationWeeks) Weeks")//.foregroundColor(.black)
+                                    Text("\(suggestions[index].durationWeeks) Weeks")
                                 }
                             }
-                            HStack{
+                            HStack {
                                 Text("Status:").bold()
                                 Spacer()
-                                Text("\(suggestion.status)")//.foregroundColor(.black)
+                                Picker("Status", selection: $suggestions[index].status) {
+                                    Text("Pending").tag("Pending")
+                                    Text("Accept").tag("Accept")
+                                    Text("Declined").tag("Declined")
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
                             }
-                            //VStack(alignment: .leading){//HStack{
-                            //Text("Description:").bold()
-                            //  Spacer()
-                            HStack{
-                                Text("\(suggestion.description)")
-                                // .lineLimit(nil) // Allow it to wrap to the second line
-                                // .fixedSize(horizontal: false, vertical: true) // Allow vertical expansion
-                            }
-                            //.foregroundColor(.black)
-                            //  }
                             
-                            //}
-                        }
-                    }
-                }
-            }            .padding()
-            
-                .onAppear {
-                    // Fetch investment suggestions when the view appears.
-                    if let ownerID = dbHelper.userProfile?.id {
-                        self.isLoading = true
-                        self.dbHelper.getInveSuggByOwnerID(ownerID: ownerID) { (suggestions, error) in
-                            self.isLoading = false
-                            if let error = error {
-                                print("Error getting investment suggestions: \(error)")
-                            } else if let suggestions = suggestions {
-                                self.suggestions = suggestions
+                            HStack {
+                                Text("\(suggestions[index].description)")
                             }
                         }
                     }
                 }
+            }
+            .padding()
+            
+            Button(action: {
+                // Save the updated statuses to the database for each suggestion
+                for suggestion in suggestions {
+                    // Update the status in the database
+                    // You need to implement the Firestore update logic here.
+                    self.dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
+                        if let error = error {
+                            print("Error updating status for offer: \(error)")
+                        }
+                    }
+                }
+            }) {
+                Text("Save status changes")
+            }
+            
+            .onAppear {
+                if let ownerID = dbHelper.userProfile?.id {
+                    self.isLoading = true
+                    self.dbHelper.getInveSuggByOwnerID(ownerID: ownerID) { (suggestions, error) in
+                        self.isLoading = false
+                        if let error = error {
+                            print("Error getting investment suggestions: \(error)")
+                        } else if let suggestions = suggestions {
+                            self.suggestions = suggestions
+                        }
+                    }
+                }
+            }
             Spacer()
         }
     }

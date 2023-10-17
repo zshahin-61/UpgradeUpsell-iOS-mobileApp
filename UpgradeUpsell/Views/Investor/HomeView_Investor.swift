@@ -31,7 +31,7 @@ struct HomeView_Investor: View {
 //                Text("Make Offer")
 //            }
             
-            ProjectOffersView()
+            MyOffersView()
             .tabItem {
                 Label("My Offers", systemImage: "gift")
                 Text("My Offers")
