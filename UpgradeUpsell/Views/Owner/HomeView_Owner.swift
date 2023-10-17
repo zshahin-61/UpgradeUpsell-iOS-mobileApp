@@ -36,10 +36,11 @@ struct HomeView: View {
                     Label("View Offers", systemImage: "gift")
                     Text("View Offers")
                 }
-            
-                Text("Notifications")
+                NotificationView()
                     .tabItem {
                         Label("Notifications", systemImage: "bell")
+                        Text("Notifications")
+                        
                     }
 
                 

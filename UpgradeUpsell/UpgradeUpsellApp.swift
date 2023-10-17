@@ -13,6 +13,8 @@ import FirebaseFirestore
 
 @main
 struct UpgradeUpsellApp: App {
+    
+//    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
 
     let authHelper = FireAuthController()
     //private var dbHelper = FirestoreController.getInstance()

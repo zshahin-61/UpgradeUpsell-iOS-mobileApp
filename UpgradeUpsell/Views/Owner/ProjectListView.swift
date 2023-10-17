@@ -29,7 +29,7 @@ struct ProjectListView: View {
             }
             .onAppear {
                 if let userID = self.dbHelper.userProfile?.id {
-                    dbHelper.getUserProjects(userID: userID) { projects, error in
+                    dbHelper.getUserProjectsWithStatus(userID: userID) { projects, error in
                         if let projects = projects {
                             self.userProjects = projects
                         } else if let error = error {
@@ -53,6 +53,26 @@ struct ProjectListView: View {
             dbHelper.updateProjectStatus(project) { success in
                 if success {
                     print("Project status updated to 'deleted' successfully.")
+                    // Insert a notification in Firebase
+               let notification = Notifications(
+                id: UUID().uuidString,
+                   timestamp: Date(),
+                userID: project.ownerID,
+                   event: "Project Deactivated",
+                   details: "Project titled '\(project.title)' has been deleted By User.",
+                   isRead: false,
+                
+                projectID: project.id!
+               )
+
+               dbHelper.insertNotification(notification) { notificationSuccess in
+                   if notificationSuccess {
+                       print("Notification inserted successfully.")
+                   } else {
+                       print("Error inserting notification.")
+                   }
+               }
+                    
                 } else {
                     print("Error updating project status.")
                 }

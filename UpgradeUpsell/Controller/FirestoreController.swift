@@ -21,7 +21,7 @@ class FirestoreController: ObservableObject {
     /// COLLECTIONS LIST  /////////////
     private let COLLECTION_UsersProfile = "UsersProfile"
     private let COLLECTION_Prefrences = "Prefrences"
-    private let COLLECTION_Notification = "Notification"
+    private let COLLECTION_Notifications = "Notifications"
     private let COLLECTION_RenovateProject = "RenovateProject"
     private let COLLECTION_InvestmentSuggestions = "InvestmentSuggestions"
     private let COLLECTION_RealtorSuggestion = "RealtorSuggestions"
@@ -52,11 +52,7 @@ class FirestoreController: ObservableObject {
     private let FIELD_emailNotif = "emailNotif"
     private let FIELD_pushNotif = "pushNotif"
     ///
-    private let FIELD_notifID = "notifID"
-    private let FIELD_title = "title"
-    private let FIELD_message = "message"
-    private let FIELD_date = "date"
-    private let FIELD_isRead = "isRead"
+    
     //////
     private let FIELD_projectID = "projectID"
     private let FIELD_description = "description"
@@ -91,6 +87,15 @@ class FirestoreController: ObservableObject {
     private let FIELD_amountInvested = "amountInvested"
     private let FIELD_investmentDate = "investmentDate"
     //////
+    
+    private let FIELD_NOTIFICATIONID = "notifID"
+    private let FIELD_TIMESTAMP = "timestamp"
+    private let FIELD_USERID = "userID"
+    private let FIELD_EVENT = "event"
+    private let FIELD_DETAILS = "details"
+    private let FIELD_ISREAD = "isRead"
+   private let FIELS_PROJECTID = "projectID"
+    
     
     //////
     
@@ -487,7 +492,7 @@ class FirestoreController: ObservableObject {
             }
     }
     
-    func getUserProjects(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
+    func getUserProjectsWithStatus(userID: String, completion: @escaping ([RenovateProject]?, Error?) -> Void) {
         self.db.collection(COLLECTION_RenovateProject)
             .whereField("ownerID", isEqualTo: userID)
             .whereField("status", isNotEqualTo: "deleted")
@@ -541,6 +546,46 @@ class FirestoreController: ObservableObject {
             }
     }
     
+    // MARK: Notification
+
+    func getNotifications(forUserID userID: String, completion: @escaping ([Notifications]?, Error?) -> Void) {
+        self.db.collection("COLLECTION_Notifications")
+            .whereField("userID", isEqualTo: userID)
+            .order(by: "timestamp", descending: true)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    completion(nil, error)
+                } else {
+                    var notifications = [Notifications]()
+                    for document in querySnapshot!.documents {
+                        if let notification = try? document.data(as: Notifications.self) {
+                            notifications.append(notification)
+                        }
+                    }
+                    completion(notifications, nil)
+                }
+            }
+    }
+
+
+    func insertNotification(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
+        do {
+            let _ = try db.collection(COLLECTION_Notifications).addDocument(from: notification) { error in
+                if let error = error {
+                    print("Error inserting notification: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Notification inserted successfully.")
+                    completion(true)
+                }
+            }
+        } catch {
+            print("Error encoding notification: \(error.localizedDescription)")
+            completion(false)
+        }
+    }
+
+
     // MARK: functions for Collection investment Sugesstions
     func updateInvestmentStatus(suggestionID: String, newStatus: String, completion: @escaping (Error?) -> Void) {
         let collectionRef = Firestore.firestore().collection(COLLECTION_InvestmentSuggestions)
