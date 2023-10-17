@@ -86,9 +86,7 @@ struct ProjectOffersView: View {
                         self.dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
                             if let error = error {
                                 print("Error updating status for offer: \(error)")
-                            }else{
-                                //Insert Notification
-                                
+                            }else{                                
                     // Insert a notification in Firebase
                     let notification = Notifications(
                         id: UUID().uuidString,
