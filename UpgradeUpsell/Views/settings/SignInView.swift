@@ -39,8 +39,10 @@ struct SignInView: View {
             .padding(.top, 5)
             Text("Sell Your House for a Higher Price").bold()
                 .padding(.top, 5)
-            Form{
+                .padding(.bottom, 20)
+           // Form{
                 //Text("Sign in")
+            
                 TextField("Enter your email", text: self.$emailFromUI)
                     .textInputAutocapitalization(.never)
                     .padding()
@@ -122,14 +124,16 @@ struct SignInView: View {
                 }
                 .cornerRadius(8)
             }
-            .padding(.top,20)
+            .padding(.top,50)
                 
-            }
-            .scrollContentBackground(.hidden)
-            .autocorrectionDisabled(true)
-            
+            //}
+            //.scrollContentBackground(.hidden)
+           // .autocorrectionDisabled(true)
+            Spacer()
         }
         .scrollContentBackground(.hidden)
+        .padding()
+        
     }
     
     // MARK: func for check if the form is valid
