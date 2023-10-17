@@ -369,9 +369,12 @@ struct ProjectViewEdit: View {
         
         dbHelper.addProperty(newProperty, userID: userID) { success in
             if success {
+                insertNotif(newProperty, "Insert")
+
                 isShowingSuccessAlert = true
-                presentationMode.wrappedValue.dismiss()
                 resetFormFields()
+                presentationMode.wrappedValue.dismiss()
+
             } else {
                 isShowingErrorAlert = true
                 alertMessage = "Failed to save property. Please try again."
@@ -418,15 +421,36 @@ struct ProjectViewEdit: View {
         
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
+                insertNotif(updatedProperty, "Update")
                 isShowingSuccessAlert = true
-                presentationMode.wrappedValue.dismiss()
                 resetFormFields()
+                presentationMode.wrappedValue.dismiss()
+
             } else {
                 isShowingErrorAlert = true
                 alertMessage = "Failed to update property. Please try again."            }
         }
     }
     
+    func insertNotif(_ project : RenovateProject, _ a : String){
+        
+        let notification = Notifications(
+         id: UUID().uuidString,
+            timestamp: Date(),
+         userID: project.ownerID,
+            event: "Project \(a)!",
+         details: "Project titled '\(project.title)' has been \(a) By \(dbHelper.userProfile?.fullName).",
+            isRead: false,
+         projectID: project.id!
+        )
+        dbHelper.insertNotification(notification) { notificationSuccess in
+            if notificationSuccess {
+                print("Notification inserted successfully.")
+            } else {
+                print("Error inserting notification.")
+            }
+        }
+    }
     
 }
 
