@@ -62,13 +62,25 @@ struct HomeView: View {
                         Label("Signout", systemImage: "lock.shield.fill")
                     }
                     
-                    NavigationLink(destination: ProfileView().environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+//                    NavigationLink(destination: ProfileView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+//                        Label("Profile", systemImage: "person.circle.fill")
+//                    }
+                    
+                    Button(action: {
+                        rootScreen = .Profile
+                    }) {
                         Label("Profile", systemImage: "person.circle.fill")
                     }
                     
-                    NavigationLink(destination: SettingsView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+//                    NavigationLink(destination: SettingsView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+//                        Label("Settings", systemImage: "gearshape.fill")
+//                    }
+                    Button(action: {
+                        rootScreen = .Profile
+                    }) {
                         Label("Settings", systemImage: "gearshape.fill")
                     }
+                    
                 } label: {
                         Image(systemName: "ellipsis.circle.fill")
                     }

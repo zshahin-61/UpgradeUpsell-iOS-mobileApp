@@ -23,6 +23,8 @@ struct ProfileView: View {
     @State private var selectedImage: UIImage?
     @State private var imageData: Data?
     
+    @Binding var rootScreen : RootView
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
