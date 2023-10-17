@@ -66,44 +66,70 @@ class FireAuthController : ObservableObject{
         
     }
     
-    func signIn(email: String, password : String, withCompletion completion: @escaping (Bool) -> Void){
-        
-        Auth.auth().signIn(withEmail: email, password: password){authResult, error in
-            guard let result = authResult else{
-                print(#function, "Error while signing in user : \(error)")
-                return
-            }
-            
-            print(#function, "AuthResult : \(result)")
-            
-            switch(authResult){
-            case .none:
-                print(#function, "Unable to find user account")
-                
+//    func signIn(email: String, password : String, withCompletion completion: @escaping (Bool) -> Void){
+//
+//        Auth.auth().signIn(withEmail: email, password: password){authResult, error in
+//            guard let result = authResult else{
+//                print(#function, "Error while signing in user : \(error)")
+//                return
+//            }
+//
+//            print(#function, "AuthResult : \(result)")
+//
+//            switch(authResult){
+//            case .none:
+//                print(#function, "Unable to find user account")
+//
+//                DispatchQueue.main.async {
+//                    self.isLoginSuccessful = false
+//                    completion(self.isLoginSuccessful)
+//                }
+//
+//            case .some(_):
+//                print(#function, "Login Successful")
+//
+//                self.user = authResult?.user
+//                //save the email in the UserDefaults
+//                UserDefaults.standard.set(self.user?.uid, forKey: "KEY_ID")
+//
+//                print(#function, "user email : \(self.user?.email)")
+//                print(#function, "user displayName : \(self.user?.displayName)")
+//                print(#function, "user isEmailVerified : \(self.user?.isEmailVerified)")
+//                print(#function, "user phoneNumber : \(self.user?.phoneNumber)")
+//
+//                DispatchQueue.main.async {
+//                    self.isLoginSuccessful = true
+//                    completion(self.isLoginSuccessful)
+//                }
+//            }
+//        }
+//
+//    }
+    
+    func signIn(email: String, password: String, withCompletion completion: @escaping (Bool) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print(#function, "Error while signing in user: \(error)")
                 DispatchQueue.main.async {
                     self.isLoginSuccessful = false
-                    completion(self.isLoginSuccessful)
+                    completion(false)
                 }
-                
-            case .some(_):
+            } else if let user = authResult?.user {
                 print(#function, "Login Successful")
+                // Save the email in UserDefaults
+                UserDefaults.standard.set(user.uid, forKey: "KEY_ID")
                 
-                self.user = authResult?.user
-                //save the email in the UserDefaults
-                UserDefaults.standard.set(self.user?.uid, forKey: "KEY_ID")
-                
-                print(#function, "user email : \(self.user?.email)")
-                print(#function, "user displayName : \(self.user?.displayName)")
-                print(#function, "user isEmailVerified : \(self.user?.isEmailVerified)")
-                print(#function, "user phoneNumber : \(self.user?.phoneNumber)")
+                print(#function, "user email: \(user.email ?? "N/A")")
+                print(#function, "user displayName: \(user.displayName ?? "N/A")")
+                print(#function, "user isEmailVerified: \(user.isEmailVerified)")
+                print(#function, "user phoneNumber: \(user.phoneNumber ?? "N/A")")
                 
                 DispatchQueue.main.async {
                     self.isLoginSuccessful = true
-                    completion(self.isLoginSuccessful)
+                    completion(true)
                 }
             }
         }
-        
     }
     
     func signOut(){
