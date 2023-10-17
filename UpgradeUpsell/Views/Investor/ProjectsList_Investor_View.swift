@@ -14,9 +14,11 @@ struct ProjectsList_InvestorView: View {
     @State private var isLoading: Bool = false
     
     var body: some View {
-        List(prjList) { prj in
-            NavigationLink(destination: MakeOffers_InvestorView(project: prj).environmentObject(dbHelper).environmentObject(authHelper)) {
-                ProjectListItemView(project: prj)
+        VStack{
+            List(prjList) { prj in
+                NavigationLink(destination: MakeOffers_InvestorView(project: prj).environmentObject(dbHelper).environmentObject(authHelper)) {
+                    ProjectListItemView(project: prj)
+                }
             }
         }
         .navigationTitle("Renovation Projects")
