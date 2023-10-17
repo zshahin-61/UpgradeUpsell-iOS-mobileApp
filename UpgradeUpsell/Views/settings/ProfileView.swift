@@ -13,13 +13,14 @@ struct ProfileView: View {
     
     @StateObject private var photoLibraryManager = PhotoLibraryManager()
     
-    @State private var emailFromUI : String = ""
+    @State private var email : String = ""
     @State private var addressFromUI : String = ""
     @State private var contactNumberFromUI : String = ""
     @State private var nameFromUI : String = ""
     @State private var bioFromUI : String = ""
     @State private var errorMsg : String? = nil
     @State private var companyFromUI : String = ""
+    @State private var rating : Double = 4.5
     
     @State private var showAlert = false
     
@@ -31,7 +32,7 @@ struct ProfileView: View {
     
     var body: some View {
         VStack(alignment: .leading,spacing: 10){
-            //Form{
+            Form{
             
                 HStack{
                     if let data = imageData,
@@ -79,13 +80,13 @@ struct ProfileView: View {
                         }
                     }
                 }
-            Group{
+            VStack{
                 Text("Full Name:").bold()
                 TextField("Full Name:", text: self.$nameFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                 Text("eMail:").bold()
-                Text(self.emailFromUI)
+                Text(self.email)
                 Text("Bio:").bold()
                 //                TextField("Bio", text: self.$bioFromUI)
                 //                    .textInputAutocapitalization(.never)
@@ -95,7 +96,7 @@ struct ProfileView: View {
                     .border(Color.gray, width: 1)
                     .padding()
             }
-            Group{
+            VStack{
                 Text("Company:").bold()
                 TextField("Company:", text: self.$companyFromUI)
                     .textInputAutocapitalization(.never)
@@ -117,8 +118,9 @@ struct ProfileView: View {
                 if let err = errorMsg{
                     Text(err).foregroundColor(Color.red).bold()
                 }
-            //}//from
-           // .autocorrectionDisabled(true)
+            }//from
+            .scrollContentBackground(.hidden)
+            .autocorrectionDisabled(true)
             
             //HStack{
             Button(action: {
@@ -164,7 +166,9 @@ struct ProfileView: View {
             .onAppear(){
                 
                 if let currentUser = dbHelper.userProfile{
-                    self.emailFromUI = currentUser.email
+                    self.email = currentUser.email
+                    self.rating = currentUser.rating ?? 4.5
+                    self.companyFromUI = currentUser.company ?? ""
                     self.addressFromUI = currentUser.address
                     self.nameFromUI = currentUser.fullName
                     self.bioFromUI = currentUser.userBio
