@@ -30,11 +30,11 @@ struct SignInView: View {
             Text("Sell Your House for a Higher Price").bold()
             Form{
                 //Text("Sign in")
-                TextField("Enter Email", text: self.$emailFromUI)
+                TextField("Enter your email", text: self.$emailFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                 
-                SecureField("Enter Password", text: self.$passwordFromUI)
+                SecureField("Enter password", text: self.$passwordFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
             }
@@ -111,6 +111,7 @@ struct SignInView: View {
                 .cornerRadius(8)
             }
         }
+        .scrollContentBackground(.hidden)
     }
     
     // MARK: func for check if the form is valid

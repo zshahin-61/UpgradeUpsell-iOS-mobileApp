@@ -53,6 +53,7 @@
 		5FD882512AD5BD880034439F /* MyOffersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882502AD5BD880034439F /* MyOffersView.swift */; };
 		5FF765752ADDE32E004A0C66 /* InvestorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF765742ADDE32E004A0C66 /* InvestorProfileView.swift */; };
 		5FF765772ADE987D004A0C66 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF765762ADE987D004A0C66 /* RatingView.swift */; };
+		5FF765792ADEA6B6004A0C66 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF765782ADEA6B6004A0C66 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		5FD882502AD5BD880034439F /* MyOffersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOffersView.swift; sourceTree = "<group>"; };
 		5FF765742ADDE32E004A0C66 /* InvestorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestorProfileView.swift; sourceTree = "<group>"; };
 		5FF765762ADE987D004A0C66 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		5FF765782ADEA6B6004A0C66 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 				5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */,
 				5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */,
 				5FF765762ADE987D004A0C66 /* RatingView.swift */,
+				5FF765782ADEA6B6004A0C66 /* BackgroundView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				5A8DAB402AD798A100CDCBCB /* tmp.swift in Sources */,
 				5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */,
 				5F9466312ABC83F70006FBB5 /* SignInView.swift in Sources */,
+				5FF765792ADEA6B6004A0C66 /* BackgroundView.swift in Sources */,
 				5A8DAB352ABCB3C300CDCBCB /* ProjectOffersView.swift in Sources */,
 				5F9466372ABCC5940006FBB5 /* PhotoLibraryManager.swift in Sources */,
 				5FF765772ADE987D004A0C66 /* RatingView.swift in Sources */,
