@@ -16,16 +16,13 @@ struct InvestorProfileView: View {
     
     @StateObject private var photoLibraryManager = PhotoLibraryManager()
     
-    //@State private var emailFromUI : String = ""
-    //@State private var addressFromUI : String = ""
-    //@State private var contactNumberFromUI : String = ""
-    @State private var nameFromUI : String = ""
-    @State private var bioFromUI : String = ""
+    @State private var name : String = ""
+    @State private var bio : String = ""
+    @State private var rating : Double = 4.5
+    @State private var company : String = ""
     @State private var errorMsg : String? = nil
     
     @State private var showAlert = false
-    
-    //@Binding var rootScreen : RootView
     
     @State private var isShowingPicker = false
     @State private var selectedImage: UIImage?
@@ -58,30 +55,22 @@ struct InvestorProfileView: View {
                         }
                 }
             }
-            Group{
+            VStack{
                 Text("Full Name:").bold()
-                Text(self.nameFromUI)
+                Text(self.name)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
-               //Text("eMail:").bold()
-                //Text(self.$emailFromUI)
-                Text("Bio:").bold()
-                Text(self.bioFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
-//                Text("Address:").bold()
-//                TextField("Address", text: self.$addressFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
-//                Text("Phone Number:").bold()
-//                TextField("Phone Number", text: self.$contactNumberFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
+                Text("Comapny:").bold()
+                Text(self.company)
             }
+            Group{
+                RatingView(rating: rating)
+                Text("Bio:").bold()
+                Text(self.bio)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
             
-            //                else {
-            //                    //Text("No image available")
-            //                }
+            }
             
             if let err = errorMsg{
                 Text(err).foregroundColor(Color.red).bold()
@@ -113,12 +102,11 @@ struct InvestorProfileView: View {
                         self.errorMsg = error.localizedDescription
                     }
                     else if let investorInfo = investorInfo {
+                        self.name = investorInfo.fullName
+                        self.bio = investorInfo.userBio
+                        self.company = investorInfo.company ?? ""
+                        self.rating = investorInfo.rating ?? 4.5
                         
-                        //self.emailFromUI = investorInfo.email
-                        //self.addressFromUI = investorInfo.address
-                        self.nameFromUI = investorInfo.fullName
-                        self.bioFromUI = investorInfo.userBio
-                        //self.contactNumberFromUI = investorInfo.contactNumber
                         self.errorMsg = nil
                         
                         // MARK: Show image from db

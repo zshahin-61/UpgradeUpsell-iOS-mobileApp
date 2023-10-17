@@ -45,6 +45,7 @@ class FirestoreController: ObservableObject {
     private let FIELD_UP_profilePicture = "profilePicture"
     private let FIELD_UP_notifications = "notifications"
     private let FIELD_UP_favoriteProjects = "favoriteProjects"
+    private let FIELD_UP_company = "comapny"
     //////
     private let FIELD_theme = "theme"
     private let FIELD_fontSize = "fontSize"
@@ -214,6 +215,7 @@ class FirestoreController: ObservableObject {
                             FIELD_UP_contactNumber : userToUpdate.contactNumber,
                                   FIELD_UP_address : userToUpdate.address,
                                   FIELD_UP_userBio : userToUpdate.userBio,
+                                  FIELD_UP_company : userToUpdate.company,
                             FIELD_UP_profilePicture: userToUpdate.profilePicture
                                 ]){ error in
                         

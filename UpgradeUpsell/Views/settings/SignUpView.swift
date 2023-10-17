@@ -22,6 +22,7 @@ struct SignUpView: View {
     @State private var phoneFromUI : String = ""
     @State private var fullNameFromUI : String = ""
     @State private var bioFromUI : String = ""
+    @State private var companyFromUI : String = ""
     let roles = ["Owner", "Investor", "Realtor"]
     @State private var selectedRole = "Owner"
     @State private var errorMsg : String? = nil
@@ -81,6 +82,10 @@ struct SignUpView: View {
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                 
+                TextField("Company", text: self.$companyFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
+                
                 VStack{
                     Text("User Profile Picture")
                     if photoLibraryManager.isAuthorized {
@@ -136,7 +141,7 @@ struct SignUpView: View {
                                 return
                             }
                             
-                            var newUser : UserProfile = UserProfile(id: user.uid, fullName: self.fullNameFromUI, email: self.emailFromUI, role: selectedRole, userBio: self.bioFromUI, profilePicture: imageData, contactNumber: self.phoneFromUI, address: self.addressFromUI)
+                            var newUser : UserProfile = UserProfile(id: user.uid, fullName: self.fullNameFromUI, email: self.emailFromUI, role: selectedRole, userBio: self.bioFromUI, profilePicture: imageData, contactNumber: self.phoneFromUI, address: self.addressFromUI, rating: 0, company: companyFromUI)
                             
                             self.dbHelper.createUserProfile(newUser: newUser)
                             

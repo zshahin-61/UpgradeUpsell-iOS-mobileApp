@@ -52,6 +52,7 @@
 		5FD8824F2AD5BD570034439F /* ProjectsList_Investor_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */; };
 		5FD882512AD5BD880034439F /* MyOffersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882502AD5BD880034439F /* MyOffersView.swift */; };
 		5FF765752ADDE32E004A0C66 /* InvestorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF765742ADDE32E004A0C66 /* InvestorProfileView.swift */; };
+		5FF765772ADE987D004A0C66 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF765762ADE987D004A0C66 /* RatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsList_Investor_View.swift; sourceTree = "<group>"; };
 		5FD882502AD5BD880034439F /* MyOffersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOffersView.swift; sourceTree = "<group>"; };
 		5FF765742ADDE32E004A0C66 /* InvestorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestorProfileView.swift; sourceTree = "<group>"; };
+		5FF765762ADE987D004A0C66 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 			children = (
 				5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */,
 				5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */,
+				5FF765762ADE987D004A0C66 /* RatingView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				5F9466312ABC83F70006FBB5 /* SignInView.swift in Sources */,
 				5A8DAB352ABCB3C300CDCBCB /* ProjectOffersView.swift in Sources */,
 				5F9466372ABCC5940006FBB5 /* PhotoLibraryManager.swift in Sources */,
+				5FF765772ADE987D004A0C66 /* RatingView.swift in Sources */,
 				5F9466182ABB609B0006FBB5 /* UserProfile.swift in Sources */,
 				5F94661A2ABBB01D0006FBB5 /* Prefrences.swift in Sources */,
 				5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */,

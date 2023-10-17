@@ -21,6 +21,8 @@ struct UserProfile: Codable, Hashable, Identifiable {
     var idCard:Data?
     var contactNumber: String
     var address: String
+    var rating: Double?
+    var company: String?
     
     init?(dictionary: [String: Any]) {
         guard let myUserID = dictionary["id"] as? String else {
@@ -79,12 +81,15 @@ struct UserProfile: Codable, Hashable, Identifiable {
             print(#function, "Unable to get address from JSON")
             return nil
         }
+        
+        let myRating = dictionary["rating"] as? Double ?? 4.5
+        let myCompany = dictionary["company"] as? String ?? ""
 
 //        self.init(user: myName, contactNumber: myContactNumber, address: myAddress, image: myImage, friends: myFriends, numberOfEventsAttending: myNumberOfEventsAttending)
-        self.init(id:myUserID, fullName: myFullName, email: myEmail, role: myRole, userBio: myUserBio, profilePicture: myProfilePicture, contactNumber: myContactNumber, address: myAddress)
+        self.init(id:myUserID, fullName: myFullName, email: myEmail, role: myRole, userBio: myUserBio, profilePicture: myProfilePicture, contactNumber: myContactNumber, address: myAddress, rating: myRating, company: myCompany)
     }
     
-    init(id: String, fullName:String, email: String, role: String, userBio: String, profilePicture: Data?, contactNumber: String, address: String) {
+    init(id: String, fullName:String, email: String, role: String, userBio: String, profilePicture: Data?, contactNumber: String, address: String, rating: Double?, company: String?) {
         self.id = id
         //self.username = username
         self.role = role
@@ -95,6 +100,8 @@ struct UserProfile: Codable, Hashable, Identifiable {
         self.contactNumber = contactNumber
         self.address = address
         self.profilePicture = profilePicture
+        self.rating = rating
+        self.company = company
     }
     
     

@@ -19,6 +19,7 @@ struct ProfileView: View {
     @State private var nameFromUI : String = ""
     @State private var bioFromUI : String = ""
     @State private var errorMsg : String? = nil
+    @State private var companyFromUI : String = ""
     
     @State private var showAlert = false
     
@@ -86,13 +87,19 @@ struct ProfileView: View {
                 Text("eMail:").bold()
                 Text(self.emailFromUI)
                 Text("Bio:").bold()
-//                TextField("Bio", text: self.$bioFromUI)
-//                    .textInputAutocapitalization(.never)
-//                    .textFieldStyle(.roundedBorder)
+                //                TextField("Bio", text: self.$bioFromUI)
+                //                    .textInputAutocapitalization(.never)
+                //                    .textFieldStyle(.roundedBorder)
                 TextEditor(text: self.$bioFromUI)
-                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                                .border(Color.gray, width: 1)
-                                .padding()
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                    .border(Color.gray, width: 1)
+                    .padding()
+            }
+            Group{
+                Text("Company:").bold()
+                TextField("Company:", text: self.$companyFromUI)
+                    .textInputAutocapitalization(.never)
+                    .textFieldStyle(.roundedBorder)
                 Text("Address:").bold()
                 TextField("Address", text: self.$addressFromUI)
                     .textInputAutocapitalization(.never)
@@ -135,6 +142,7 @@ struct ProfileView: View {
                 self.dbHelper.userProfile!.fullName = nameFromUI
                 self.dbHelper.userProfile!.contactNumber = contactNumberFromUI
                 self.dbHelper.userProfile!.userBio = bioFromUI
+                self.dbHelper.userProfile!.company = companyFromUI
                 
                 self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
                 self.presentationMode.wrappedValue.dismiss()
