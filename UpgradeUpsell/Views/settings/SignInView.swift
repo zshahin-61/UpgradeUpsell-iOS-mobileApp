@@ -42,14 +42,18 @@ struct SignInView: View {
                 //Text("Sign in")
                 TextField("Enter your email", text: self.$emailFromUI)
                     .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                                            .frame(width: 300, height: 50)
+                                            .background(Color.black.opacity(0.05))
+                                            .cornerRadius(10)
                 
                 SecureField("Enter password", text: self.$passwordFromUI)
                     .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
-            }
-            .scrollContentBackground(.hidden)
-            .autocorrectionDisabled(true)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(10)
+            
             
             LazyVGrid(columns: self.gridItems){
                 Button(action: {
@@ -92,12 +96,9 @@ struct SignInView: View {
                     Text("Sign In")
                         .font(.title2)
                         .foregroundColor(.white)
-                        .bold()
+                        //.bold()
                         .padding()
-                    
-                    
                 }
-                //.background(Color.blue)
                 .disabled(self.emailFromUI.isEmpty || self.passwordFromUI.isEmpty || !isEmailValid() )
                 .buttonStyle(CustomButtonStyle(isEnabled: !self.emailFromUI.isEmpty && !self.passwordFromUI.isEmpty && isEmailValid()))
                 .alert(isPresented: $showAlert) {
@@ -114,12 +115,17 @@ struct SignInView: View {
                     Text("Sign Up")
                         .font(.title2)
                         .foregroundColor(.white)
-                        .bold()
+                       // .bold()
                         .padding()
                         .background(Color(red: 0.0, green: 0.40, blue: 0.0))
                 }
                 .cornerRadius(8)
             }
+            .padding(.top,20)
+                
+            }
+            .scrollContentBackground(.hidden)
+            .autocorrectionDisabled(true)
         }
         .scrollContentBackground(.hidden)
     }
