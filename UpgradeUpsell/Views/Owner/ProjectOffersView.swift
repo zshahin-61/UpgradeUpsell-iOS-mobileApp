@@ -2,13 +2,13 @@ import Foundation
 import SwiftUI
 
 struct ProjectOffersView: View {
-    
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
-    
+
     @State private var suggestions: [InvestmentSuggestion] = []
     @State private var isLoading: Bool = false
-    
+    @State private var updatedStatuses: [String] = [] // Store updated statuses
+
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             List {
@@ -28,7 +28,6 @@ struct ProjectOffersView: View {
                                 Text("Offer Date:").bold()
                                 Spacer()
                                 Text("\(dateFormatter.string(from: suggestions[index].date ?? Date()))")
-                                //Text("\(suggestions[index].date ?? Date())")
                             }
                             Group {
                                 HStack {
@@ -67,49 +66,16 @@ struct ProjectOffersView: View {
                             }
                             
                         }
-                        //.border(Color.green, width: 2)
-                        //.shadow(color: Color.gray.opacity(0.5), radius: 0.5)
-                        // .background(Color.gray.opacity(0.5) )
                         Divider()
                     }
                     
                 }
             } //List
-           // .padding()
-            HStack(alignment: .center){
+
+            HStack(alignment: .center) {
                 Spacer()
                 Button(action: {
-                    // Save the updated statuses to the database for each suggestion
-                    for suggestion in suggestions {
-                        // Update the status in the database
-                        // You need to implement the Firestore update logic here.
-                        self.dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
-                            if let error = error {
-                                print("Error updating status for offer: \(error)")
-                            }else{                                
-                    // Insert a notification in Firebase
-                    let notification = Notifications(
-                        id: UUID().uuidString,
-                        timestamp: Date(),
-                        userID: suggestion.investorID,
-                        event: "Project Status Change",
-                        details: "Project titled '\(suggestion.projectTitle)' has been Changed To \(suggestion.status).",
-                        isRead: false,
-                        projectID: suggestion.projectID
-                    )
-                    
-                    dbHelper.insertNotification(notification) { notificationSuccess in
-                        if notificationSuccess {
-                            print("Notification inserted successfully.")
-                        } else {
-                            print("Error inserting notification.")
-                        }
-                    }
-                                
-                                
-                            }
-                        }
-                    }
+                    saveUpdatedStatuses()
                 }) {
                     Text("Save status changes")
                 }.buttonStyle(.borderedProminent)
@@ -124,6 +90,7 @@ struct ProjectOffersView: View {
                             print("Error getting investment suggestions: \(error)")
                         } else if let suggestions = suggestions {
                             self.suggestions = suggestions
+                            self.updatedStatuses = suggestions.map { $0.status }
                         }
                     }
                 }
@@ -131,13 +98,45 @@ struct ProjectOffersView: View {
             Spacer()
         }
     }
+
     let dateFormatter: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .none
-            return formatter
-        }()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
     
-  
-                    
+    // Function to save updated statuses to the database
+    func saveUpdatedStatuses() {
+        for (index, suggestion) in suggestions.enumerated() {
+            // Check if the status has been updated
+            if suggestion.status != updatedStatuses[index] {
+                // Update the status in the database
+                dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
+                    if let error = error {
+                        print("Error updating status for offer: \(error)")
+                    } else {
+                        // Insert a notification in Firebase
+                        let notification = Notifications(
+                            id: UUID().uuidString,
+                            timestamp: Date(),
+                            userID: suggestion.investorID,
+                            event: "Project Status Change",
+                            details: "Project titled '\(suggestion.projectTitle)' has been changed to \(suggestion.status).",
+                            isRead: false,
+                            projectID: suggestion.projectID
+                        )
+
+                        dbHelper.insertNotification(notification) { notificationSuccess in
+                            if notificationSuccess {
+                                print("Notification inserted successfully.")
+                            } else {
+                                print("Error inserting notification.")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
