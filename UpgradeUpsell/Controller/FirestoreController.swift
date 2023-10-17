@@ -553,7 +553,7 @@ class FirestoreController: ObservableObject {
         if let notificationID = notification.id {
             let notificationRef = db.collection(COLLECTION_Notifications).document(notificationID)
 
-            notificationRef.updateData(["isRead": "true"]) { error in
+            notificationRef.updateData(["isRead": true]) { error in
                 if let error = error {
                     print("Error marking notification ")
                     completion(false)

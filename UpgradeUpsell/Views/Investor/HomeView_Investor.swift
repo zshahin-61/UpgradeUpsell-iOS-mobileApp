@@ -36,10 +36,11 @@ struct HomeView_Investor: View {
                 Label("My Offers", systemImage: "gift")
                 Text("My Offers")
             }
-        
-            Text("Notifications")
+            
+            NotificationView()
                 .tabItem {
                     Label("Notifications", systemImage: "bell")
+                    Text("Notifications")
                 }
 
             

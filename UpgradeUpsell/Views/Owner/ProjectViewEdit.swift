@@ -224,9 +224,8 @@ struct ProjectViewEdit: View {
                     }
                     
                 }//section
-                
+            }.padding(.top, 10)//form
         
-                Section(header: Text("")){
                     Button(action: {
                         if selectedProject != nil {
                             // If selectedProject is not nil, it's an update operation
@@ -269,10 +268,6 @@ struct ProjectViewEdit: View {
                         )
                     }
                     
-                }//section2
-            }              //Form??
-            //            .background(Color.green)
-            .padding()
             .onAppear() {
                 if let currentProject = selectedProject {
                     self.title = currentProject.title

@@ -86,6 +86,29 @@ struct ProjectOffersView: View {
                         self.dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
                             if let error = error {
                                 print("Error updating status for offer: \(error)")
+                            }else{
+                                //Insert Notification
+                                
+                    // Insert a notification in Firebase
+                    let notification = Notifications(
+                        id: UUID().uuidString,
+                        timestamp: Date(),
+                        userID: suggestion.investorID,
+                        event: "Project Status Change",
+                        details: "Project titled '\(suggestion.projectTitle)' has been Changed To \(suggestion.status).",
+                        isRead: false,
+                        projectID: suggestion.projectID
+                    )
+                    
+                    dbHelper.insertNotification(notification) { notificationSuccess in
+                        if notificationSuccess {
+                            print("Notification inserted successfully.")
+                        } else {
+                            print("Error inserting notification.")
+                        }
+                    }
+                                
+                                
                             }
                         }
                     }
@@ -116,4 +139,7 @@ struct ProjectOffersView: View {
             formatter.timeStyle = .none
             return formatter
         }()
+    
+  
+                    
 }

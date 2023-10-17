@@ -45,7 +45,7 @@ struct ContentView: View {
                 }
             }.padding()
         }
-        .scrollContentBackground(.hidden)
+        .scrollContentBackground(.hidden) // backcolor Gray
     }
 }
 

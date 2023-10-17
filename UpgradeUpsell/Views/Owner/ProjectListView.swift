@@ -40,9 +40,10 @@ struct ProjectListView: View {
                 }
             }
             .navigationBarTitle("MyProperties")
-            .padding()
+         .padding()
         }
-        .background(Color.red)
+//        .background(Color.red)
+        .padding()
     }
  //Add status Delete
     private func deleteProjects(at offsets: IndexSet) {
@@ -58,10 +59,9 @@ struct ProjectListView: View {
                 id: UUID().uuidString,
                    timestamp: Date(),
                 userID: project.ownerID,
-                   event: "Project Deactivated",
-                   details: "Project titled '\(project.title)' has been deleted By User.",
+                   event: "Project Deactive",
+                details: "Project titled '\(project.title)' has been deleted By \(dbHelper.userProfile?.fullName).",
                    isRead: false,
-                
                 projectID: project.id!
                )
 

@@ -58,7 +58,6 @@ struct Notifications : Codable, Identifiable ,Hashable {
         self.id = id
         self.timestamp = timestamp
         self.userID = userID
-        
         self.event = event
         self.details = details
         self.isRead = isRead
