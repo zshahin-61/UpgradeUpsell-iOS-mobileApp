@@ -94,7 +94,8 @@ class FirestoreController: ObservableObject {
     private let FIELD_EVENT = "event"
     private let FIELD_DETAILS = "details"
     private let FIELD_ISREAD = "isRead"
-   
+   private let FIELS_PROJECTID = "projectID"
+    
     
     //////
     
@@ -566,6 +567,23 @@ class FirestoreController: ObservableObject {
             }
     }
 
+
+    func insertNotification(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
+        do {
+            let _ = try db.collection(COLLECTION_Notifications).addDocument(from: notification) { error in
+                if let error = error {
+                    print("Error inserting notification: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Notification inserted successfully.")
+                    completion(true)
+                }
+            }
+        } catch {
+            print("Error encoding notification: \(error.localizedDescription)")
+            completion(false)
+        }
+    }
 
 
     // MARK: functions for Collection investment Sugesstions
