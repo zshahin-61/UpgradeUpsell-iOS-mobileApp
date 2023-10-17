@@ -17,7 +17,7 @@ struct HomeView: View {
     
     
     var body: some View {
-        NavigationView {
+      //  NavigationView {
             TabView() {
                 ProjectListView()
                     .tabItem {
@@ -51,11 +51,14 @@ struct HomeView: View {
             }
             .navigationBarTitle("Owner Dashboard", displayMode: .inline)
             .navigationBarItems(trailing: HStack {
-                Menu {
+                Menu{
                     Button(action: {
                         self.authHelper.signOut()
                         rootScreen = .Login
                     }) {
+                        //Text("Signout")
+                        //Image(systemName: "lock.circle.fill")
+                        //Image(systemName: "lock.shield.fill")
                         Label("Signout", systemImage: "lock.shield.fill")
                     }
                     
@@ -67,10 +70,10 @@ struct HomeView: View {
                         Label("Settings", systemImage: "gearshape.fill")
                     }
                 } label: {
-                    Image(systemName: "ellipsis.circle.fill")
-                }
-            })
-        }
+                        Image(systemName: "ellipsis.circle.fill")
+                    }
+                    })
+//        }
     }
 }
     
