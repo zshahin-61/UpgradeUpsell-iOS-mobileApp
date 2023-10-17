@@ -26,7 +26,7 @@ struct ProfileView: View {
     @Binding var rootScreen : RootView
     
     var body: some View {
-        ScrollView {
+        //ScrollView {
             VStack(alignment: .leading) {
                 Section(header: Text("Profile Picture").bold()) {
                     if let data = imageData, let uiImage = UIImage(data: data) {
@@ -106,7 +106,7 @@ struct ProfileView: View {
                                 }
                             }
                             .padding()
-                        }
+                       // }
         .onAppear() {
             if let currentUser = dbHelper.userProfile{
                 self.email = currentUser.email
