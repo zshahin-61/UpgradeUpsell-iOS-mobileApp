@@ -58,8 +58,8 @@ struct HomeView_Realtor: View {
                 Image(systemName: "lock.circle.fill")
             }
             
-            NavigationLink(destination: ProfileView().environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
-                Image(systemName: "person.circle.fill")
+            NavigationLink(destination: ProfileView(rootScreen: $rootScreen, backRoot: .RealtorHome).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+                Label("Profile", systemImage: "person.circle.fill")
             }
             
             NavigationLink(destination: SettingsView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {

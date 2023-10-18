@@ -23,88 +23,102 @@ struct ProfileView: View {
     @State private var selectedImage: UIImage?
     @State private var imageData: Data?
     
+    @Binding var rootScreen : RootView
+    var backRoot: RootView 
+    
     var body: some View {
-        ScrollView {
+        //ScrollView {
             VStack(alignment: .leading) {
-                Section(header: Text("Profile Picture").bold()) {
-                    if let data = imageData, let uiImage = UIImage(data: data) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .clipShape(Circle())
+                Form{
+                    Section(header: Text("Profile").bold()) {
+                        if let data = imageData, let uiImage = UIImage(data: data) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                                .clipShape(Circle())
+                        }
+                        Button(action: {
+                            isShowingPicker = true
+                        }) {
+                            Text("Change Picture")
+                        }
                     }
-                    Button(action: {
-                        isShowingPicker = true
-                    }) {
-                        Text("Change Picture")
-                    }
-                }
-                
-                FormSection(header: "Personal Details") {
-                    TextField("Full Name", text: $nameFromUI)
-                    Text("Email: \(email)")
-                    TextEditor(text: $bioFromUI)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                        .border(Color.gray, width: 1)
-                        .padding()
-                }
-                
-                FormSection(header: "Your Rating") {
-                                    RatingView(rating: rating)
-                                        .frame(maxWidth: .infinity)
-                                        .padding()
-                                        .background(Color(UIColor.systemBackground))
-                                        .cornerRadius(8)
-                                }
-
-                
-                FormSection(header: "Contact Information") {
-                    TextField("Company", text: $companyFromUI)
-                    TextField("Address", text: $addressFromUI)
-                    TextField("Phone Number", text: $contactNumberFromUI)
-                }
-                
-                if let err = errorMsg {
-                    Text(err).foregroundColor(Color.red).bold()
-                }
-                
-                Button(action: {                //Validate the data such as no mandatory inputs, password rules, etc.
-                //
-                dbHelper.userProfile!.address = addressFromUI
-                //Image
-                var imageData :Data? = nil
-                
-                if(selectedImage != nil )
-                {
-                    let image = selectedImage!
-                    let imageName = "\(UUID().uuidString).jpg"
                     
-                    imageData = image.jpegData(compressionQuality: 0.1)
-                    dbHelper.userProfile!.profilePicture = imageData
+                    FormSection(header: "Personal Details") {
+                        TextField("Full Name", text: $nameFromUI)
+                        Text("Email: \(email)")
+                        TextEditor(text: $bioFromUI)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                            .border(Color.gray, width: 1)
+                            .padding()
+                    }
+                    
+                    FormSection(header: "Your Rating") {
+                        RatingView(rating: rating)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color(UIColor.systemBackground))
+                            .cornerRadius(8)
+                    }
+                    
+                    
+                    FormSection(header: "Contact Information") {
+                        TextField("Company", text: $companyFromUI)
+                        TextField("Address", text: $addressFromUI)
+                        TextField("Phone Number", text: $contactNumberFromUI)
+                    }
+                    
+                    if let err = errorMsg {
+                        Text(err).foregroundColor(Color.red).bold()
+                    }
                 }
-                
-                ////////
-                
-                self.dbHelper.userProfile!.fullName = nameFromUI
-                self.dbHelper.userProfile!.contactNumber = contactNumberFromUI
-                self.dbHelper.userProfile!.userBio = bioFromUI
-                self.dbHelper.userProfile!.company = companyFromUI
-                
-                self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
-                self.presentationMode.wrappedValue.dismiss()
-                //rootScreen = .Home
-                }) {
-                                    Text("Update Profile")
-                                        .font(.headline)
-                                        .frame(maxWidth: .infinity)
-                                        .padding()
-                                        .background(Color.green)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(8)
-                                }
+                HStack{
+                    Button(action: {                //Validate the data such as no mandatory inputs, password rules, etc.
+                        //
+                        dbHelper.userProfile!.address = addressFromUI
+                        //Image
+                        var imageData :Data? = nil
+                        
+                        if(selectedImage != nil )
+                        {
+                            let image = selectedImage!
+                            let imageName = "\(UUID().uuidString).jpg"
+                            
+                            imageData = image.jpegData(compressionQuality: 0.1)
+                            dbHelper.userProfile!.profilePicture = imageData
+                        }
+                        
+                        ////////
+                        
+                        self.dbHelper.userProfile!.fullName = nameFromUI
+                        self.dbHelper.userProfile!.contactNumber = contactNumberFromUI
+                        self.dbHelper.userProfile!.userBio = bioFromUI
+                        self.dbHelper.userProfile!.company = companyFromUI
+                        
+                        self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
+                        //self.presentationMode.wrappedValue.dismiss()
+                        rootScreen = self.backRoot
+                    }) {
+                        Text("Update Profile")
+                            //.font(.headline)
+                            //.frame(maxWidth: .infinity)
+                            //.padding()
+                            //.background(Color.green)
+                            //.foregroundColor(.white)
+                           // .cornerRadius(8)
+                    }.buttonStyle(.borderedProminent)
+                    Spacer()
+                    Button(action:{
+                       // self.presentationMode.wrappedValue.dismiss()
+                        rootScreen = self.backRoot
+                    }){
+                        Text("Back")
+                    }.buttonStyle(.borderedProminent)
+                }
                             }
                             .padding()
-                        }
+                       // }
+                
         .onAppear() {
             if let currentUser = dbHelper.userProfile{
                 self.email = currentUser.email
