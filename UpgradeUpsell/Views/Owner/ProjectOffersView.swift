@@ -34,7 +34,7 @@ struct ProjectOffersView: View {
                                     NavigationLink(destination: InvestorProfileView(investorID: suggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                                         Text("Investor:").bold()
                                         Spacer()
-                                        Text(suggestions[index].investorFullName) // Link to Investor Profile
+                                        Text(suggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
                                     }
                                 }
                                 

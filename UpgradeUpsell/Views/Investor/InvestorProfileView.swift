@@ -72,10 +72,10 @@ struct InvestorProfileView: View {
                 Text("Back")
                     .font(.headline)
                     .frame(width: 100, height: 50)
-                    .background(Color.blue)
+                   // .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(8)
-            }
+            }.buttonStyle(.borderedProminent)
         }
         .padding()
         .onAppear(){
@@ -102,6 +102,11 @@ struct InvestorProfileView: View {
             }
         }
         .navigationBarTitle("Investor Profile", displayMode: .inline)
+        .navigationBarItems(leading: Button(action: {
+                  self.presentationMode.wrappedValue.dismiss()
+               }) {
+                   Text("Back")
+               })
     }
 }
 
