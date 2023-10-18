@@ -79,7 +79,7 @@ struct SettingsView: View {
                             
                         }) {
                             Text("Save Preferences")
-                        }
+                        }.buttonStyle(.borderedProminent)
                         Spacer()
                         Button(action:{
                             // self.presentationMode.wrappedValue.dismiss()
@@ -119,7 +119,7 @@ struct SettingsView: View {
                     }
                 }//Form
             }
-            //.navigationTitle("Settings")
+            .navigationTitle("Settings")
             .onAppear {
                 dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id! ?? ""){ (userPref, error) in
 //                    guard let userPref = dbHelper.userPrefrences else{

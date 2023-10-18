@@ -22,6 +22,7 @@ struct ProfileView: View {
     @State private var isShowingPicker = false
     @State private var selectedImage: UIImage?
     @State private var imageData: Data?
+    @State private var role: String = "Owner"
     
     @Binding var rootScreen : RootView
     //var backRoot: RootView
@@ -53,14 +54,15 @@ struct ProfileView: View {
                             .padding()
                     }
                     
-                    FormSection(header: "Your Rating") {
-                        RatingView(rating: rating)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color(UIColor.systemBackground))
-                            .cornerRadius(8)
+                    if self.role == "Investor" || self.role == "Realtor"{
+                        FormSection(header: "Your Rating") {
+                            RatingView(rating: rating)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color(UIColor.systemBackground))
+                                .cornerRadius(8)
+                        }
                     }
-                    
                     
                     FormSection(header: "Contact Information") {
                         TextField("Company", text: $companyFromUI)
@@ -145,6 +147,7 @@ struct ProfileView: View {
                 self.bioFromUI = currentUser.userBio
                 self.contactNumberFromUI = currentUser.contactNumber
                 self.errorMsg = nil
+                self.role = currentUser.role
                 
                 // MARK: Show image from db
                 if let imageData = currentUser.profilePicture as? Data {
