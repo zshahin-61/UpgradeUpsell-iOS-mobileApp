@@ -10,22 +10,22 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var authHelper: FireAuthController
     private var dbHelper = FirestoreController.getInstance()
-
+    
     @State private var root: RootView = .Login
-
+    
     var body: some View {
         ZStack { // Add a ZStack to create the background
             //LinearGradient(gradient: Gradient(colors: [Color.blue, Color.gray, Color.green]), startPoint: .top, endPoint: .bottom)
-           // Color(.systemBackground)
-           //   .ignoresSafeArea() // Ignore safe area edges for the background
-//            Color.blue
-//                                .ignoresSafeArea()
-//                            Circle()
-//                                .scale(1.7)
-//                                .foregroundColor(.white.opacity(0.15))
-//                            Circle()
-//                                .scale(1.35)
-//                                .foregroundColor(.white)
+            // Color(.systemBackground)
+            //   .ignoresSafeArea() // Ignore safe area edges for the background
+            //            Color.blue
+            //                                .ignoresSafeArea()
+            //                            Circle()
+            //                                .scale(1.7)
+            //                                .foregroundColor(.white.opacity(0.15))
+            //                            Circle()
+            //                                .scale(1.35)
+            //                                .foregroundColor(.white)
             NavigationView {
                 switch root {
                 case .Login:
@@ -50,9 +50,3 @@ struct ContentView: View {
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
