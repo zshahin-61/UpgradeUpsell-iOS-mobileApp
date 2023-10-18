@@ -16,7 +16,8 @@ struct OffersofaPropertyView: View {
     @State private var isLoading: Bool = false
     @State private var projectTitle: String = ""
     @State private var updatedStatuses: [String] = [] // Store updated statuses
-
+    @State private var noOffer : String = ""
+    
     var selectedProperty: RenovateProject
     
     var body: some View {
@@ -27,11 +28,19 @@ struct OffersofaPropertyView: View {
                 } else if isLoading {
                     ProgressView()
                 } else {
+                    
                     HStack {
                         Text("Title:").bold()
                         Spacer()
                         Text("\(projectTitle)")
                     }
+                    
+                    HStack{
+                        Spacer()
+                        Text(self.noOffer).foregroundColor(.red)
+                        Spacer()
+                    }
+                    
                     ForEach(suggestions.indices, id: \.self) { index in
                         Section {
                             HStack {
@@ -100,9 +109,19 @@ struct OffersofaPropertyView: View {
                         if let error = error {
                             print("Error getting investment suggestions: \(error)")
                         } else if let suggestions = suggestions {
-                            
-                            self.suggestions = suggestions
-                            self.updatedStatuses = suggestions.map { $0.status }
+                            if(suggestions.count>0){
+                                self.noOffer = ""
+                                self.suggestions = suggestions
+                                self.updatedStatuses = suggestions.map { $0.status }
+                            }
+                            else
+                            {
+                                self.noOffer = "NO OFFER"
+                            }
+                        }
+                        else
+                        {
+                            self.noOffer = "NO OFFER"
                         }
                     }
                 }
