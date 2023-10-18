@@ -84,22 +84,26 @@ struct InvestorProfileView: View {
             //}//from
             // .autocorrectionDisabled(true)
             
-            //HStack{
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }){
-                Text("Back")
-            }.buttonStyle(.borderedProminent)
-            
+            HStack{
+            Spacer()
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }){
+                    Text("Back")
+                }
+                .buttonStyle(.borderedProminent)
+                .frame(width: 100, height: 50)
+                Spacer()
+            }
             Spacer()
             
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(
-                    leading: Button(action: {
-                        //rootScreen = .Home
-                    }) {
-                        Text("Back")
-                    })
+//                .navigationBarItems(
+//                    leading: Button(action: {
+//                        //rootScreen = .Home
+//                    }) {
+//                        Text("Back")
+//                    })
         }.padding()
             .onAppear(){
                 self.dbHelper.getUserProfilebyUserID(userID: self.investorID){ (investorInfo, error)in
