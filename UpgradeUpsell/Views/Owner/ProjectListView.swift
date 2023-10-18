@@ -16,7 +16,7 @@ struct ProjectListView: View {
     @State private var selectedProject: RenovateProject?
     
     var body: some View {
-        NavigationView {
+        VStack {
             //Text("My Properties")
             List {
                 ForEach(userProjects) { property in
@@ -43,6 +43,7 @@ struct ProjectListView: View {
                 }
                 .onDelete(perform: deleteProjects)
             }
+           
             .onAppear {
                 if let userID = self.dbHelper.userProfile?.id {
                     dbHelper.getUserProjectsWithStatus(userID: userID) { projects, error in
@@ -55,12 +56,14 @@ struct ProjectListView: View {
                     }
                 }
             }
+           
             .navigationBarTitle("My Properties")
             .padding(.horizontal, 10)
         }
 //        .background(Color.red)
         .padding(.horizontal, 10)
     }
+    
  //Add status Delete
     private func deleteProjects(at offsets: IndexSet) {
         for offset in offsets {

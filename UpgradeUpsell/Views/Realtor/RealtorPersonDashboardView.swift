@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RealtorPersonDashboardView: View {
     var body: some View {
-        NavigationView {
+        //NavigationView {
             VStack {
                 NavigationLink(destination: PropertyListForRealtorView()) {
                     Text("View Properties for Sale")
@@ -19,7 +19,7 @@ struct RealtorPersonDashboardView: View {
                 Text("Notifications")
             }
             .navigationTitle("Realtor Person Dashboard")
-        }
+        //}//Nav View
     }
 }
 
