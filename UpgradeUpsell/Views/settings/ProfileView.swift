@@ -47,11 +47,18 @@ struct ProfileView: View {
                     
                     FormSection(header: "Personal Details") {
                         TextField("Full Name", text: $nameFromUI)
-                        Text("Email: \(email)")
-                        TextEditor(text: $bioFromUI)
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                            .padding(.horizontal, 10)
+                            .frame(width: 280, height: 30)
                             .border(Color.gray, width: 1)
-                            .padding()
+                        
+                        
+                        Text("Email: \(email)")
+                        
+                        TextEditor(text: $bioFromUI)
+//                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                            .frame(width: 280, height: 100)
+                            .border(Color.gray, width: 1)
+                            //.padding()
                     }
                     
                     if self.role == "Investor" || self.role == "Realtor"{
@@ -66,8 +73,19 @@ struct ProfileView: View {
                     
                     FormSection(header: "Contact Information") {
                         TextField("Company", text: $companyFromUI)
+                            .padding(.horizontal, 10)
+                            .frame(width: 280, height: 30)
+                            .border(Color.gray, width: 1)
+                        
                         TextField("Address", text: $addressFromUI)
+                            .padding(.horizontal, 10)
+                            .frame(width: 280, height: 30)
+                            .border(Color.gray, width: 1)
+                        
                         TextField("Phone Number", text: $contactNumberFromUI)
+                            .padding(.horizontal, 10)
+                            .frame(width: 280, height: 30)
+                            .border(Color.gray, width: 1)
                     }
                     
                     if let err = errorMsg {

@@ -40,10 +40,10 @@ struct ProjectListView: View {
                 }
             }
             .navigationBarTitle("MyProperties")
-         .padding()
+            .padding(.horizontal, 10)
         }
 //        .background(Color.red)
-        .padding()
+        .padding(.horizontal, 10)
     }
  //Add status Delete
     private func deleteProjects(at offsets: IndexSet) {
