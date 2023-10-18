@@ -24,7 +24,7 @@ struct ProfileView: View {
     @State private var imageData: Data?
     
     @Binding var rootScreen : RootView
-    var backRoot: RootView 
+    //var backRoot: RootView
     
     var body: some View {
         //ScrollView {
@@ -97,7 +97,23 @@ struct ProfileView: View {
                         
                         self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
                         //self.presentationMode.wrappedValue.dismiss()
-                        rootScreen = self.backRoot
+                        
+                        if let loginedUserRole = dbHelper.userProfile?.role{
+                            if loginedUserRole == "Owner"{
+                                self.rootScreen = .Home
+                            }
+                            else if loginedUserRole == "Investor"{
+                                self.rootScreen = .InvestorHome
+                            }
+                            else if loginedUserRole == "Realtor"{
+                                self.rootScreen = .RealtorHome
+                            }
+                        }else
+                        {
+                            self.rootScreen = .Home
+                        }
+                        
+                        //rootScreen = .Home
                     }) {
                         Text("Update Profile")
                             //.font(.headline)
@@ -110,7 +126,7 @@ struct ProfileView: View {
                     Spacer()
                     Button(action:{
                        // self.presentationMode.wrappedValue.dismiss()
-                        rootScreen = self.backRoot
+                        rootScreen = .Home
                     }){
                         Text("Back")
                     }.buttonStyle(.borderedProminent)
