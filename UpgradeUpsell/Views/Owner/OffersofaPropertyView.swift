@@ -14,6 +14,7 @@ struct OffersofaPropertyView: View {
 
     @State private var suggestions: [InvestmentSuggestion] = []
     @State private var isLoading: Bool = false
+    @State private var projectTitle: String = ""
     @State private var updatedStatuses: [String] = [] // Store updated statuses
 
     var selectedProperty: RenovateProject
@@ -29,15 +30,10 @@ struct OffersofaPropertyView: View {
                     HStack {
                         Text("Title:").bold()
                         Spacer()
-                        Text("\(suggestions[index].projectTitle)")
+                        Text("\(projectTitle)")
                     }
                     ForEach(suggestions.indices, id: \.self) { index in
                         Section {
-                            HStack {
-                                Text("Title:").bold()
-                                Spacer()
-                                Text("\(suggestions[index].projectTitle)")
-                            }
                             HStack {
                                 Text("Offer Date:").bold()
                                 Spacer()
@@ -48,7 +44,7 @@ struct OffersofaPropertyView: View {
                                     NavigationLink(destination: InvestorProfileView(investorID: suggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                                         Text("Investor:").bold()
                                         Spacer()
-                                        Text(suggestions[index].investorFullName) // Link to Investor Profile
+                                        Text(suggestions[index].investorFullName).foregroundColor(Color.blue) // Link to Investor Profile
                                     }
                                 }
                                 
@@ -97,12 +93,14 @@ struct OffersofaPropertyView: View {
             }
             .onAppear {
                 if let projectID = self.selectedProperty.id {
+                    self.projectTitle = self.selectedProperty.title
                     self.isLoading = true
                     self.dbHelper.getInveSuggByProjectID(projectID: projectID) { (suggestions, error) in
                         self.isLoading = false
                         if let error = error {
                             print("Error getting investment suggestions: \(error)")
                         } else if let suggestions = suggestions {
+                            
                             self.suggestions = suggestions
                             self.updatedStatuses = suggestions.map { $0.status }
                         }
