@@ -21,7 +21,7 @@ struct SettingsView: View {
     @Binding var rootScreen : RootView
     
     var body: some View {
-        NavigationView {
+        VStack {
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
@@ -83,7 +83,20 @@ struct SettingsView: View {
                         Spacer()
                         Button(action:{
                             // self.presentationMode.wrappedValue.dismiss()
-                            rootScreen = .Home
+                            if let loginedUserRole = dbHelper.userProfile?.role{
+                                if loginedUserRole == "Owner"{
+                                    self.rootScreen = .Home
+                                }
+                                else if loginedUserRole == "Investor"{
+                                    self.rootScreen = .InvestorHome
+                                }
+                                else if loginedUserRole == "Realtor"{
+                                    self.rootScreen = .RealtorHome
+                                }
+                            }else
+                            {
+                                self.rootScreen = .Home
+                            }
                         }){
                             Text("Back")
                         }.buttonStyle(.borderedProminent)
@@ -106,7 +119,7 @@ struct SettingsView: View {
                     }
                 }//Form
             }
-            .navigationTitle("Settings")
+            //.navigationTitle("Settings")
             .onAppear {
                 dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id! ?? ""){ (userPref, error) in
 //                    guard let userPref = dbHelper.userPrefrences else{

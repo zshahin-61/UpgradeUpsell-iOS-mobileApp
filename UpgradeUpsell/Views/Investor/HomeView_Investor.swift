@@ -62,7 +62,7 @@ struct HomeView_Investor: View {
                 Label("Profile", systemImage: "person.circle.fill")
             }
             
-            NavigationLink(destination: SettingsView(rootScreen: $rootScreen, backRoot: .InvestorHome).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+            NavigationLink(destination: SettingsView(rootScreen: $rootScreen ).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                 Image(systemName: "gearshape.fill")
             }
         })

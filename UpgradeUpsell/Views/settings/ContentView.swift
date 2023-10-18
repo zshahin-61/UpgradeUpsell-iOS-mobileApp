@@ -42,7 +42,7 @@ struct ContentView: View {
                     //switch dbHelper.userProfile?.role
                     ProfileView(rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
                 case .Settings:
-                    SettingsView(rootScreen: $root, backRoot: .Home).environmentObject(self.authHelper).environmentObject(self.dbHelper)
+                    SettingsView(rootScreen: $root ).environmentObject(self.authHelper).environmentObject(self.dbHelper)
                 }
             }.padding()
         }
