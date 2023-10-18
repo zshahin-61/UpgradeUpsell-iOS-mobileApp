@@ -17,6 +17,7 @@ struct ProjectListView: View {
     
     var body: some View {
         NavigationView {
+            //Text("My Properties")
             List {
                 ForEach(userProjects) { property in
                     //VStack{
@@ -54,7 +55,7 @@ struct ProjectListView: View {
                     }
                 }
             }
-            .navigationBarTitle("MyProperties")
+            .navigationBarTitle("My Properties")
             .padding(.horizontal, 10)
         }
 //        .background(Color.red)
