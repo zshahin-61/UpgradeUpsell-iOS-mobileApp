@@ -26,7 +26,7 @@ struct ContentView: View {
 //                            Circle()
 //                                .scale(1.35)
 //                                .foregroundColor(.white)
-            VStack {
+            NavigationView {
                 switch root {
                 case .Login:
                     SignInView(rootScreen: $root).environmentObject(authHelper).environmentObject(self.dbHelper)
@@ -46,7 +46,7 @@ struct ContentView: View {
                 }
             }.padding()
         }
-       .scrollContentBackground(.hidden) // backcolor Gray
+        .scrollContentBackground(.hidden) // backcolor Gray
     }
 }
 

@@ -15,7 +15,7 @@ struct NotificationView: View {
 //    @State private var isDetailViewPresented = false
 
     var body: some View {
-        VStack {
+        NavigationView {
             List {
                 ForEach(notifications, id: \.id) { notification in
                     NavigationLink(    destination: NotificationDetailView( notification: notification),

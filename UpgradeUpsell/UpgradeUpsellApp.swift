@@ -21,21 +21,18 @@ struct UpgradeUpsellApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                ContentView()
-                    .environmentObject(authHelper)
-                
+            ContentView()
+                .environmentObject(authHelper)
+                .accentColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+                .background(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color.green, Color.white]),
+                                        startPoint: .top,
+                                        endPoint: .bottom
+                                    )
+                                    .ignoresSafeArea()
+                                )
                 //.background(BackgroundView()) // Apply the gradient background
-                    .accentColor(Color(red: 0.0, green: 0.40, blue: 0.0))
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.green, Color.white]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .ignoresSafeArea()
-                    )
-            }
         }
     }
 }
