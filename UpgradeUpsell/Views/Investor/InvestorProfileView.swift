@@ -30,8 +30,6 @@ struct InvestorProfileView: View {
     
     var body: some View {
         VStack(alignment: .leading,spacing: 10){
-            //Form{
-            
             HStack{
                 Spacer()
                 if let data = imageData,
@@ -77,13 +75,9 @@ struct InvestorProfileView: View {
                     .textFieldStyle(.roundedBorder)
             
             }
-            
             if let err = errorMsg{
                 Text(err).foregroundColor(Color.red).bold()
             }
-            //}//from
-            // .autocorrectionDisabled(true)
-            
             HStack{
             Spacer()
                 Button(action: {
@@ -97,13 +91,7 @@ struct InvestorProfileView: View {
             }
             Spacer()
             
-                .navigationBarTitle("", displayMode: .inline)
-//                .navigationBarItems(
-//                    leading: Button(action: {
-//                        //rootScreen = .Home
-//                    }) {
-//                        Text("Back")
-//                    })
+                .navigationBarTitle("Investor Profile", displayMode: .inline)
         }.padding()
             .onAppear(){
                 self.dbHelper.getUserProfilebyUserID(userID: self.investorID){ (investorInfo, error)in
