@@ -127,6 +127,7 @@ struct OffersofaPropertyView: View {
                 }
             }
             Spacer()
+                .navigationTitle("Offers")
         }
     }
 

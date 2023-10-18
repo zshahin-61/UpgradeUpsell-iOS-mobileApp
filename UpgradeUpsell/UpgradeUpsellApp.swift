@@ -24,6 +24,8 @@ struct UpgradeUpsellApp: App {
             NavigationView {
                 ContentView()
                     .environmentObject(authHelper)
+                
+                //.background(BackgroundView()) // Apply the gradient background
                     .accentColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                     .background(
                         LinearGradient(
@@ -33,7 +35,6 @@ struct UpgradeUpsellApp: App {
                         )
                         .ignoresSafeArea()
                     )
-                //.background(BackgroundView()) // Apply the gradient background
             }
         }
     }
