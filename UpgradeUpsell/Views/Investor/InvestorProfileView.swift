@@ -33,6 +33,7 @@ struct InvestorProfileView: View {
             //Form{
             
             HStack{
+                Spacer()
                 if let data = imageData,
                    let uiImage = UIImage(data: data) {
                     if(selectedImage == nil)
@@ -46,22 +47,27 @@ struct InvestorProfileView: View {
                         //
                     }
                 }
-                VStack{
+                //VStack{
                         if let image = selectedImage {
                             Image(uiImage: image)
                                 .resizable()
                                 .frame(width: 150, height: 150)
                                 .clipShape(Circle())
                         }
-                }
+                //}
+                Spacer()
             }
             VStack{
-                Text("Full Name:").bold()
-                Text(self.name)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
-                Text("Comapny:").bold()
-                Text(self.company)
+                HStack{
+                    Text("Full Name: ").bold()
+                    Text(self.name)
+                    Spacer()
+                }
+                HStack{
+                    Text("Comapny: ").bold()
+                    Text(self.company)
+                    Spacer()
+                }
             }
             Group{
                 RatingView(rating: rating)
