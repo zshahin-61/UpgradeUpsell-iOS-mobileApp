@@ -49,7 +49,7 @@ struct HomeView: View {
                 //                .onAppear {
                 //                    UITabBar.appearance().isHidden = true // Hide the system tab bar
             }
-            .navigationBarTitle("Owner Dashboard", displayMode: .inline)
+  .navigationBarTitle("Owner Dashboard", displayMode: .inline)
             .navigationBarItems(trailing: HStack {
                 Menu {
                     Button(action: {
