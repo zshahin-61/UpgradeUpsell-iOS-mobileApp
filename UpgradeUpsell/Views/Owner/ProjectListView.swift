@@ -19,7 +19,7 @@ struct ProjectListView: View {
         NavigationView {
             List {
                 ForEach(userProjects) { property in
-                    VStack{
+                    //VStack{
                         NavigationLink(destination: ProjectViewEdit(selectedProject: property)
                             .environmentObject(authHelper)
                             .environmentObject(self.dbHelper)) {
@@ -27,16 +27,20 @@ struct ProjectListView: View {
                             }
                         HStack{
                             Spacer()
-                            
-                            NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
-                                .environmentObject(authHelper)
-                                .environmentObject(self.dbHelper)) {
-                                    Text("See Offers")
-                                        .foregroundColor(.blue)
-                                }
+                            //Button{
+                                NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
+                                    .environmentObject(authHelper)
+                                    .environmentObject(self.dbHelper)) {
+                                        Text("See Offers")
+                                            .foregroundColor(.blue)
+                                    }
+                            //}label: {
+                              //  Text("See Offers")
+                                //    .foregroundColor(.blue)
+                            //}
                             
                         }
-                    }
+                    //}
                 }
                 .onDelete(perform: deleteProjects)
             }
