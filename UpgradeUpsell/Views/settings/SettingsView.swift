@@ -19,7 +19,8 @@ struct SettingsView: View {
     
     @State private var showingDeleteAlert = false
     @Binding var rootScreen : RootView
-    
+    var backRoot: RootView
+
     var body: some View {
         NavigationView {
             VStack {
@@ -48,26 +49,33 @@ struct SettingsView: View {
                             Text("Email Notifications")
                         })
                     }
-                    
-                    Button(action: {
-                        var newPref = Prefrences(id: dbHelper.userProfile!.id!, fontSize: fontSizeFromUI, theme: themeFromUI, language: langFromUI, pushNotif: pushNotifFromUI, emailNotif: notificationsEmail)
-//
-                        self.dbHelper.saveUserPrefrences(newPref: newPref) { (prefrences, error) in
-                            if let error = error {
-                                // Handle the error
-                                print("Error saving preferences: \(error.localizedDescription)")
-                            } else if let preferences = prefrences {
-                                // Successfully saved/update the preferences
-                                print("Preferences saved/updated successfully: \(prefrences)")
-                                self.presentationMode.wrappedValue.dismiss()
+                    HStack{
+                        Button(action: {
+                            var newPref = Prefrences(id: dbHelper.userProfile!.id!, fontSize: fontSizeFromUI, theme: themeFromUI, language: langFromUI, pushNotif: pushNotifFromUI, emailNotif: notificationsEmail)
+                            //
+                            self.dbHelper.saveUserPrefrences(newPref: newPref) { (prefrences, error) in
+                                if let error = error {
+                                    // Handle the error
+                                    print("Error saving preferences: \(error.localizedDescription)")
+                                } else if let preferences = prefrences {
+                                    // Successfully saved/update the preferences
+                                    print("Preferences saved/updated successfully: \(prefrences)")
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
                             }
-                        }
-
-                    }) {
-                        Text("Save Preferences")
+                            
+                        }) {
+                            Text("Save Preferences")
+                        }.buttonStyle(.borderedProminent)
+                        Spacer()
+                        Button(action:{
+                            // self.presentationMode.wrappedValue.dismiss()
+                            rootScreen = self.backRoot
+                        }){
+                            Text("Back")
+                        }.buttonStyle(.borderedProminent)
                     }
-                
-                    Section(header: Text("Account Settings")) {
+                    Section(header: Text("Account")) {
                         Button(action:{
                             
                             showingDeleteAlert = true
@@ -77,8 +85,8 @@ struct SettingsView: View {
                             
                         }){
                             Image(systemName: "multiply.circle").foregroundColor(Color.white)
-                            Text("Delete User Account")
-                        }.padding(5).font(.title2).foregroundColor(Color.white)//
+                            Text("Delete My Account")
+                        }.padding(5).foregroundColor(Color.white)//
                             .buttonBorderShape(.roundedRectangle(radius: 15)).buttonStyle(.bordered).background(Color.red)
                         
                     }
