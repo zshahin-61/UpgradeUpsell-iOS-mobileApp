@@ -13,7 +13,8 @@ class FirestoreController: ObservableObject {
     @Published var userProfile: UserProfile?
     @Published var userPrefrences: Prefrences?
     @Published var myPropertyList: [RenovateProject] = [RenovateProject]()
-    @Published var userProperty: RenovateProject?
+    //@Published var userProperty: RenovateProject?
+    //@Published var backRoot : RootView = .SignUp
 
     private let db: Firestore
     private static var shared: FirestoreController?
@@ -773,6 +774,36 @@ class FirestoreController: ObservableObject {
 
         // Create a query to filter suggestions by the owner's ID.
         let query = suggestionsRef.whereField("ownerID", isEqualTo: ownerID)
+
+        // Perform the query.
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                // Initialize an array to store the retrieved suggestions.
+                var suggestions: [InvestmentSuggestion] = []
+
+                // Loop through the documents in the query result.
+                for document in querySnapshot!.documents {
+                    // Deserialize the document data into an InvestmentSuggestion object.
+                    if let suggestion = try? document.data(as: InvestmentSuggestion.self) {
+                        suggestions.append(suggestion)
+                    }
+                }
+
+                // Call the completion handler with the retrieved suggestions.
+                completion(suggestions, nil)
+            }
+        }
+    }
+    
+    func getInveSuggByProjectID(projectID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
+
+        // Define a reference to the "InvestmentSuggestions" collection.
+        let suggestionsRef = db.collection(COLLECTION_InvestmentSuggestions)
+
+        // Create a query to filter suggestions by the owner's ID.
+        let query = suggestionsRef.whereField(FIELD_projectID, isEqualTo: projectID)
 
         // Perform the query.
         query.getDocuments { (querySnapshot, error) in

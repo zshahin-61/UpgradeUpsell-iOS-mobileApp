@@ -22,9 +22,10 @@ struct ProfileView: View {
     @State private var isShowingPicker = false
     @State private var selectedImage: UIImage?
     @State private var imageData: Data?
+    @State private var role: String = "Owner"
     
     @Binding var rootScreen : RootView
-    var backRoot: RootView 
+    //var backRoot: RootView
     
     var body: some View {
         //ScrollView {
@@ -46,26 +47,45 @@ struct ProfileView: View {
                     
                     FormSection(header: "Personal Details") {
                         TextField("Full Name", text: $nameFromUI)
-                        Text("Email: \(email)")
-                        TextEditor(text: $bioFromUI)
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                            .padding(.horizontal, 10)
+                            .frame(width: 280, height: 30)
                             .border(Color.gray, width: 1)
-                            .padding()
+                        
+                        
+                        Text("Email: \(email)")
+                        
+                        TextEditor(text: $bioFromUI)
+//                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                            .frame(width: 280, height: 100)
+                            .border(Color.gray, width: 1)
+                            //.padding()
                     }
                     
-                    FormSection(header: "Your Rating") {
-                        RatingView(rating: rating)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color(UIColor.systemBackground))
-                            .cornerRadius(8)
+                    if self.role == "Investor" || self.role == "Realtor"{
+                        FormSection(header: "Your Rating") {
+                            RatingView(rating: rating)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color(UIColor.systemBackground))
+                                .cornerRadius(8)
+                        }
                     }
-                    
                     
                     FormSection(header: "Contact Information") {
                         TextField("Company", text: $companyFromUI)
+                            .padding(.horizontal, 10)
+                            .frame(width: 280, height: 30)
+                            .border(Color.gray, width: 1)
+                        
                         TextField("Address", text: $addressFromUI)
+                            .padding(.horizontal, 10)
+                            .frame(width: 280, height: 30)
+                            .border(Color.gray, width: 1)
+                        
                         TextField("Phone Number", text: $contactNumberFromUI)
+                            .padding(.horizontal, 10)
+                            .frame(width: 280, height: 30)
+                            .border(Color.gray, width: 1)
                     }
                     
                     if let err = errorMsg {
@@ -97,7 +117,23 @@ struct ProfileView: View {
                         
                         self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
                         //self.presentationMode.wrappedValue.dismiss()
-                        rootScreen = self.backRoot
+                        
+                        if let loginedUserRole = dbHelper.userProfile?.role{
+                            if loginedUserRole == "Owner"{
+                                self.rootScreen = .Home
+                            }
+                            else if loginedUserRole == "Investor"{
+                                self.rootScreen = .InvestorHome
+                            }
+                            else if loginedUserRole == "Realtor"{
+                                self.rootScreen = .RealtorHome
+                            }
+                        }else
+                        {
+                            self.rootScreen = .Home
+                        }
+                        
+                        //rootScreen = .Home
                     }) {
                         Text("Update Profile")
                             //.font(.headline)
@@ -110,7 +146,7 @@ struct ProfileView: View {
                     Spacer()
                     Button(action:{
                        // self.presentationMode.wrappedValue.dismiss()
-                        rootScreen = self.backRoot
+                        rootScreen = .Home
                     }){
                         Text("Back")
                     }.buttonStyle(.borderedProminent)
@@ -129,6 +165,7 @@ struct ProfileView: View {
                 self.bioFromUI = currentUser.userBio
                 self.contactNumberFromUI = currentUser.contactNumber
                 self.errorMsg = nil
+                self.role = currentUser.role
                 
                 // MARK: Show image from db
                 if let imageData = currentUser.profilePicture as? Data {

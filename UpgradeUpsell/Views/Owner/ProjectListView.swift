@@ -19,11 +19,26 @@ struct ProjectListView: View {
         NavigationView {
             List {
                 ForEach(userProjects) { property in
-                    NavigationLink(destination: ProjectViewEdit(selectedProject: property)
-                        .environmentObject(authHelper)
-                        .environmentObject(self.dbHelper)) {
-                            Text(property.title)
+                    //VStack{
+                        NavigationLink(destination: ProjectViewEdit(selectedProject: property)
+                            .environmentObject(authHelper)
+                            .environmentObject(self.dbHelper)) {
+                                Text(property.title)
+                            }
+                        HStack{
+                            Spacer()
+                           
+                                NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
+                                    .environmentObject(authHelper)
+                                    .environmentObject(self.dbHelper)) {
+                                        Text("See Offers")
+                                            .foregroundColor(.blue)
+                                    }
+                                    .padding(.leading, 100)
+                            
+                            
                         }
+                    //}
                 }
                 .onDelete(perform: deleteProjects)
             }
@@ -40,10 +55,10 @@ struct ProjectListView: View {
                 }
             }
             .navigationBarTitle("MyProperties")
-         .padding()
+            .padding(.horizontal, 10)
         }
 //        .background(Color.red)
-        .padding()
+        .padding(.horizontal, 10)
     }
  //Add status Delete
     private func deleteProjects(at offsets: IndexSet) {

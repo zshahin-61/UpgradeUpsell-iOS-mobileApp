@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
-    @Environment(\.presentationMode) var presentationMode
+    //@Environment(\.presentationMode) var presentationMode
     @State private var pushNotifFromUI = false
        @State private var notificationsEmail = false
        @State private var themeFromUI = "light"
@@ -19,10 +19,9 @@ struct SettingsView: View {
     
     @State private var showingDeleteAlert = false
     @Binding var rootScreen : RootView
-    var backRoot: RootView
-
+    
     var body: some View {
-        NavigationView {
+        VStack {
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
@@ -60,7 +59,21 @@ struct SettingsView: View {
                                 } else if let preferences = prefrences {
                                     // Successfully saved/update the preferences
                                     print("Preferences saved/updated successfully: \(prefrences)")
-                                    self.presentationMode.wrappedValue.dismiss()
+                                    //self.presentationMode.wrappedValue.dismiss()
+                                    if let loginedUserRole = dbHelper.userProfile?.role{
+                                        if loginedUserRole == "Owner"{
+                                            self.rootScreen = .Home
+                                        }
+                                        else if loginedUserRole == "Investor"{
+                                            self.rootScreen = .InvestorHome
+                                        }
+                                        else if loginedUserRole == "Realtor"{
+                                            self.rootScreen = .RealtorHome
+                                        }
+                                    }else
+                                    {
+                                        self.rootScreen = .Home
+                                    }
                                 }
                             }
                             
@@ -70,12 +83,26 @@ struct SettingsView: View {
                         Spacer()
                         Button(action:{
                             // self.presentationMode.wrappedValue.dismiss()
-                            rootScreen = self.backRoot
+                            if let loginedUserRole = dbHelper.userProfile?.role{
+                                if loginedUserRole == "Owner"{
+                                    self.rootScreen = .Home
+                                }
+                                else if loginedUserRole == "Investor"{
+                                    self.rootScreen = .InvestorHome
+                                }
+                                else if loginedUserRole == "Realtor"{
+                                    self.rootScreen = .RealtorHome
+                                }
+                            }else
+                            {
+                                self.rootScreen = .Home
+                            }
                         }){
                             Text("Back")
                         }.buttonStyle(.borderedProminent)
                     }
-                    Section(header: Text("Account")) {
+                
+                    Section(header: Text("Account Settings")) {
                         Button(action:{
                             
                             showingDeleteAlert = true
@@ -85,8 +112,8 @@ struct SettingsView: View {
                             
                         }){
                             Image(systemName: "multiply.circle").foregroundColor(Color.white)
-                            Text("Delete My Account")
-                        }.padding(5).foregroundColor(Color.white)//
+                            Text("Delete User Account")
+                        }.padding(5).font(.title2).foregroundColor(Color.white)//
                             .buttonBorderShape(.roundedRectangle(radius: 15)).buttonStyle(.bordered).background(Color.red)
                         
                     }

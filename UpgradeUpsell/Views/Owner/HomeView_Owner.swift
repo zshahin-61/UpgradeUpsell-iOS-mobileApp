@@ -17,7 +17,7 @@ struct HomeView: View {
     
     
     var body: some View {
-      //  NavigationView {
+        NavigationView {
             TabView() {
                 ProjectListView()
                     .tabItem {
@@ -85,7 +85,7 @@ struct HomeView: View {
                         Image(systemName: "ellipsis.circle.fill")
                     }
                     })
-//        }
+        }
     }
 }
     
