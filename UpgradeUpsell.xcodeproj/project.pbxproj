@@ -55,6 +55,7 @@
 		5FF765772ADE987D004A0C66 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF765762ADE987D004A0C66 /* RatingView.swift */; };
 		5FF765792ADEA6B6004A0C66 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF765782ADEA6B6004A0C66 /* BackgroundView.swift */; };
 		5FF7657D2ADED36B004A0C66 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF7657C2ADED36B004A0C66 /* Review.swift */; };
+		5FF7657F2AE028EB004A0C66 /* OffersofaPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF7657E2AE028EB004A0C66 /* OffersofaPropertyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		5FF765762ADE987D004A0C66 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		5FF765782ADEA6B6004A0C66 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		5FF7657C2ADED36B004A0C66 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		5FF7657E2AE028EB004A0C66 /* OffersofaPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersofaPropertyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				5A8DAB3F2AD798A100CDCBCB /* tmp.swift */,
 				5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */,
 				5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */,
+				5FF7657E2AE028EB004A0C66 /* OffersofaPropertyView.swift */,
 			);
 			path = Owner;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */,
 				5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */,
 				5A8DAB402AD798A100CDCBCB /* tmp.swift in Sources */,
+				5FF7657F2AE028EB004A0C66 /* OffersofaPropertyView.swift in Sources */,
 				5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */,
 				5F9466312ABC83F70006FBB5 /* SignInView.swift in Sources */,
 				5FF765792ADEA6B6004A0C66 /* BackgroundView.swift in Sources */,

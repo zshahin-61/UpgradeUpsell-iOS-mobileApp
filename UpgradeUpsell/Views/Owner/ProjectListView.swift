@@ -20,22 +20,22 @@ struct ProjectListView: View {
             List {
                 ForEach(userProjects) { property in
                     
-                        NavigationLink(destination: ProjectViewEdit(selectedProject: property)
-                            .environmentObject(authHelper)
-                            .environmentObject(self.dbHelper)) {
-                                Text(property.title)
-                            }
+                    NavigationLink(destination: ProjectViewEdit(selectedProject: property)
+                        .environmentObject(authHelper)
+                        .environmentObject(self.dbHelper)) {
+                            Text(property.title)
+                        }
                     HStack{
-                    Spacer()
+                        Spacer()
                         Button(action: {
                             // Add an action to show the offers for the selected property
                             self.selectedProject = property
+                            
                             // Call a function to show the offers or navigate to an offers view
                         }) {
                             Text("See Offers")
                                 .foregroundColor(.blue) // Customize the button appearance
                         }
-                        
                     }
                 }
                 .onDelete(perform: deleteProjects)
