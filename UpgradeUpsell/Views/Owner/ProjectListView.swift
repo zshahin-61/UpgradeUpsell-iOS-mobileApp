@@ -27,17 +27,15 @@ struct ProjectListView: View {
                             }
                         HStack{
                             Spacer()
-                            //Button{
+                           
                                 NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
                                     .environmentObject(authHelper)
                                     .environmentObject(self.dbHelper)) {
                                         Text("See Offers")
                                             .foregroundColor(.blue)
                                     }
-                            //}label: {
-                              //  Text("See Offers")
-                                //    .foregroundColor(.blue)
-                            //}
+                                    .padding(.leading, 100)
+                            
                             
                         }
                     //}
