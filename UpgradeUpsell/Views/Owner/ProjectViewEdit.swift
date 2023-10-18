@@ -64,7 +64,7 @@ struct ProjectViewEdit: View {
     
     
     var body: some View {
-        VStack {
+        NavigationView{
             //   ScrollView {
             Form {
                 Section(header: Text("")) {

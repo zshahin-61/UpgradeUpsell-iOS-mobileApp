@@ -96,7 +96,7 @@ struct ProjectOffersView: View {
                 }
             }
             Spacer()
-        }
+        }.padding(.vertical, 5)
     }
 
     let dateFormatter: DateFormatter = {
