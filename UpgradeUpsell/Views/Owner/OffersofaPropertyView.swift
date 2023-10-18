@@ -26,6 +26,11 @@ struct OffersofaPropertyView: View {
                 } else if isLoading {
                     ProgressView()
                 } else {
+                    HStack {
+                        Text("Title:").bold()
+                        Spacer()
+                        Text("\(suggestions[index].projectTitle)")
+                    }
                     ForEach(suggestions.indices, id: \.self) { index in
                         Section {
                             HStack {
