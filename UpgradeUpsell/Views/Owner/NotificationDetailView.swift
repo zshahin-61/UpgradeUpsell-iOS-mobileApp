@@ -23,13 +23,13 @@ struct NotificationDetailView: View {
             //                Text ("Name: \(currentUser.fullName)")
             //            }
             Text("The Event: \(notification.event)")
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
-            dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
-            let notificationTimestamp = Date()
-            Text("Time: \(dateFormatter.string(from: notificationTimestamp))")
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "h:mm a"
+//            dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
+//            let notificationTimestamp = Date()
+//            Text("Time: \(dateFormatter.string(from: notificationTimestamp))")
 
-//            Text("Times: \(notification.timestamp)")
+         Text("Times: \(notification.timestamp)")
             
             Text("Details: \(notification.details ?? "No details available")")
             
