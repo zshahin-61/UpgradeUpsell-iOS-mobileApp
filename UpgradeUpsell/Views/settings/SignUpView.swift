@@ -116,7 +116,7 @@ struct SignUpView: View {
                     }
                 }
             }
-            .scrollContentBackground(.hidden)
+           // .scrollContentBackground(.hidden)
             .autocorrectionDisabled(true)
             
             Button(action: {
@@ -169,7 +169,7 @@ struct SignUpView: View {
                 Text("Create Account")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.brown)
+                    .background(Color(red: 0.0, green: 0.40, blue: 0.0))
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
