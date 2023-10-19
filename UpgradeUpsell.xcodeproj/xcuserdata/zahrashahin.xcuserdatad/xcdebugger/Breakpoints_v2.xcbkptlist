@@ -14,8 +14,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "getPreferencesFromFirestore(forUserID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -62,8 +62,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "addProperty(_:userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -111,6 +111,70 @@
                   startingLineNumber = "352"
                   endingLineNumber = "352"
                   offsetFromSymbolStart = "316">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2EC08BBF-7F28-414F-94C0-E76DE9E62B71"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
+            landmarkName = "FirestoreController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B4B13497-91AB-4A10-98B4-8B6F8534DF7B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
+            landmarkName = "markNotificationAsRead(_:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B4B13497-91AB-4A10-98B4-8B6F8534DF7B - ab7a4275424fe3db"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UpgradeUpsell.FirestoreController.markNotificationAsRead(_: UpgradeUpsell.Notifications, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zahrashahin/Downloads/Upgrade&amp;upsell/UpgradeUpsell/Untitled/UpgradeUpsell/Controller/FirestoreController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "554"
+                  endingLineNumber = "554"
+                  offsetFromSymbolStart = "568">
+               </Location>
+               <Location
+                  uuid = "B4B13497-91AB-4A10-98B4-8B6F8534DF7B - f8c98301c2fb19a7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.FirestoreController.markNotificationAsRead(_: UpgradeUpsell.Notifications, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zahrashahin/Downloads/Upgrade&amp;upsell/UpgradeUpsell/Untitled/UpgradeUpsell/Controller/FirestoreController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "555"
+                  endingLineNumber = "555"
+                  offsetFromSymbolStart = "72">
                </Location>
             </Locations>
          </BreakpointContent>

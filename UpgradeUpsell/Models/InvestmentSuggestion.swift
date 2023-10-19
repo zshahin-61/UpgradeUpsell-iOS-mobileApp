@@ -19,6 +19,7 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
     var durationWeeks: Int
     var description: String
     var status: String
+    var date: Date? = Date()
     
     init?(dictionary: [String: Any]) {
         guard let myID = dictionary["id"] as? String else {
@@ -31,7 +32,7 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
             return nil
         }
         
-        let myInvestorFullName = dictionary["investorFullName"] as? String ?? "" 
+        let myInvestorFullName = dictionary["investorFullName"] as? String ?? ""
         
         guard let myOwnerID = dictionary["ownerID"] as? String else {
             print(#function, "Unable to get ownerID from JSON")
@@ -67,11 +68,17 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
             print(#function, "Unable to get status from JSON")
             return nil
         }
+        
+        let myDate = dictionary["date"] as? Date ?? Date()
+        //else {
+          //  print(#function, "Unable to get date from JSON")
+            //return nil
+       // }
 
-        self.init(id: myID, investorID: myInvestorID, investorFullName: myInvestorFullName, ownerID: myOwnerID, projectID:myProjectID, projectTitle: myProjectTitle, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus)
+        self.init(id: myID, investorID: myInvestorID, investorFullName: myInvestorFullName, ownerID: myOwnerID, projectID:myProjectID, projectTitle: myProjectTitle, amountOffered: myAmountOffered, durationWeeks: myDurationWeeks, description: myDescription, status: myStatus, date: myDate)
     }
     
-    init(id: String, investorID: String, investorFullName: String, ownerID: String, projectID: String, projectTitle: String, amountOffered: Double, durationWeeks: Int, description: String, status: String) {
+    init(id: String, investorID: String, investorFullName: String, ownerID: String, projectID: String, projectTitle: String, amountOffered: Double, durationWeeks: Int, description: String, status: String, date: Date?) {
         self.id = id
         self.investorID = investorID
         self.investorFullName = investorFullName
@@ -82,5 +89,6 @@ struct InvestmentSuggestion: Codable, Hashable,Identifiable {
         self.durationWeeks = durationWeeks
         self.description = description
         self.status = status
+        self.date = date ?? Date()
     }
 }

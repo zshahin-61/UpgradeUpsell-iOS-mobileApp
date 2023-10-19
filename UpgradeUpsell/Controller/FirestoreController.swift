@@ -13,7 +13,8 @@ class FirestoreController: ObservableObject {
     @Published var userProfile: UserProfile?
     @Published var userPrefrences: Prefrences?
     @Published var myPropertyList: [RenovateProject] = [RenovateProject]()
-    @Published var userProperty: RenovateProject?
+    //@Published var userProperty: RenovateProject?
+    //@Published var backRoot : RootView = .SignUp
 
     private let db: Firestore
     private static var shared: FirestoreController?
@@ -23,7 +24,7 @@ class FirestoreController: ObservableObject {
     private let COLLECTION_Prefrences = "Prefrences"
     private let COLLECTION_Notifications = "Notifications"
     private let COLLECTION_RenovateProject = "RenovateProject"
-    private let COLLECTION_InvestmentSuggestion = "InvestmentSuggestions"
+    private let COLLECTION_InvestmentSuggestions = "InvestmentSuggestions"
     private let COLLECTION_RealtorSuggestion = "RealtorSuggestions"
     private let COLLECTION_Investment = "Investment"
     private let COLLECTION_ProfitSharing = "ProfitSharing"
@@ -45,6 +46,7 @@ class FirestoreController: ObservableObject {
     private let FIELD_UP_profilePicture = "profilePicture"
     private let FIELD_UP_notifications = "notifications"
     private let FIELD_UP_favoriteProjects = "favoriteProjects"
+    private let FIELD_UP_company = "comapny"
     //////
     private let FIELD_theme = "theme"
     private let FIELD_fontSize = "fontSize"
@@ -94,7 +96,8 @@ class FirestoreController: ObservableObject {
     private let FIELD_EVENT = "event"
     private let FIELD_DETAILS = "details"
     private let FIELD_ISREAD = "isRead"
-   
+   private let FIELS_PROJECTID = "projectID"
+    
     
     //////
     
@@ -213,6 +216,7 @@ class FirestoreController: ObservableObject {
                             FIELD_UP_contactNumber : userToUpdate.contactNumber,
                                   FIELD_UP_address : userToUpdate.address,
                                   FIELD_UP_userBio : userToUpdate.userBio,
+                                  FIELD_UP_company : userToUpdate.company,
                             FIELD_UP_profilePicture: userToUpdate.profilePicture
                                 ]){ error in
                         
@@ -546,10 +550,57 @@ class FirestoreController: ObservableObject {
     }
     
     // MARK: Notification
+    func markNotificationAsRead(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
+        if let notificationID = notification.id {
+            let notificationRef = db.collection(COLLECTION_Notifications).document(notificationID)
 
+            notificationRef.updateData(["isRead": true]) { error in
+                if let error = error {
+                    print("Error marking notification ")
+                    completion(false)
+                } else {
+                    print("Notification marked  successfully.")
+                    completion(true)
+                }
+            }
+        } else {
+            completion(false) 
+        }
+    }
+
+    
+    func deleteNotification(_ notif: Notifications, completion: @escaping (Bool) -> Void) {
+        guard let myID = notif.id else {
+            // The property doesn't have an ID, so it can't be deleted.
+            completion(false)
+            return
+        }
+
+        do {
+            let documentReference = try self.db
+                .collection(COLLECTION_Notifications)
+                .document(myID)
+
+            documentReference.delete { error in
+                if let error = error {
+                    print("Error deleting Notifiation in Firestore: \(error)")
+                    completion(false)
+                } else {
+                    print("Notification deleted successfully.")
+                    completion(true)
+                }
+            }
+        } catch {
+            print("Error deleting property in Firestore: \(error)")
+            completion(false)
+        }
+    }
+
+    
     func getNotifications(forUserID userID: String, completion: @escaping ([Notifications]?, Error?) -> Void) {
-        self.db.collection("COLLECTION_Notifications")
+        self.db.collection(COLLECTION_Notifications)
             .whereField("userID", isEqualTo: userID)
+//            .whereField("isRead", isEqualTo: "false")
             .order(by: "timestamp", descending: true)
             .getDocuments { querySnapshot, error in
                 if let error = error {
@@ -567,11 +618,47 @@ class FirestoreController: ObservableObject {
     }
 
 
+    func insertNotification(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
+        do {
+            let _ = try db.collection(COLLECTION_Notifications).addDocument(from: notification) { error in
+                if let error = error {
+                    print("Error inserting notification: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Notification inserted successfully.")
+                    completion(true)
+                }
+            }
+        } catch {
+            print("Error encoding notification: \(error.localizedDescription)")
+            completion(false)
+        }
+    }
+
 
     // MARK: functions for Collection investment Sugesstions
+    func updateInvestmentStatus(suggestionID: String, newStatus: String, completion: @escaping (Error?) -> Void) {
+        let collectionRef = Firestore.firestore().collection(COLLECTION_InvestmentSuggestions)
+
+        // Define the data to update
+        let dataToUpdate: [String: Any] = [
+            "status": newStatus
+        ]
+
+        collectionRef.document(suggestionID).updateData(dataToUpdate) { error in
+            if let error = error {
+                print("Error updating status: \(error)")
+                completion(error)
+            } else {
+                print("Status updated successfully")
+                completion(nil)
+            }
+        }
+    }
+    
     func addInvestmentSuggestion(_ suggestion: InvestmentSuggestion, completion: @escaping (Error?) -> Void) {
         do {
-            try db.collection(COLLECTION_InvestmentSuggestion).addDocument(from: suggestion) { error in
+            try db.collection(COLLECTION_InvestmentSuggestions).addDocument(from: suggestion) { error in
                 if let error = error {
                     print("Error adding investment suggestion to Firestore: \(error)")
                     completion(error)
@@ -588,14 +675,14 @@ class FirestoreController: ObservableObject {
     
     func updateInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
         do {
-            try self.db.collection(COLLECTION_InvestmentSuggestion).document(suggestion.id!).setData(from: suggestion)
+            try self.db.collection(COLLECTION_InvestmentSuggestions).document(suggestion.id!).setData(from: suggestion)
         } catch {
             print("Error updating investment suggestion in Firestore: \(error)")
         }
     }
     
     func deleteInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
-        self.db.collection(COLLECTION_InvestmentSuggestion).document(suggestion.id!).delete { error in
+        self.db.collection(COLLECTION_InvestmentSuggestions).document(suggestion.id!).delete { error in
             if let error = error {
                 print("Error deleting investment suggestion from Firestore: \(error)")
             } else {
@@ -605,7 +692,7 @@ class FirestoreController: ObservableObject {
     }
     
     func getInvestmentSuggestions(completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
-        self.db.collection(COLLECTION_InvestmentSuggestion).getDocuments { querySnapshot, error in
+        self.db.collection(COLLECTION_InvestmentSuggestions).getDocuments { querySnapshot, error in
             if let error = error {
                 completion(nil, error)
             } else {
@@ -621,7 +708,7 @@ class FirestoreController: ObservableObject {
     }
     
     func getInvestmentSuggestionsbyInvestorID(forInvestorID investorID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
-        self.db.collection(COLLECTION_InvestmentSuggestion)
+        self.db.collection(COLLECTION_InvestmentSuggestions)
             .whereField("investorID", isEqualTo: investorID)
             .getDocuments { querySnapshot, error in
                 if let error = error {
@@ -639,7 +726,7 @@ class FirestoreController: ObservableObject {
     }
     
     func getInvestmentSuggestionsbyProjectID(forProjectID projectID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
-        self.db.collection(COLLECTION_InvestmentSuggestion)
+        self.db.collection(COLLECTION_InvestmentSuggestions)
             .whereField("projectID", isEqualTo: projectID)
             .getDocuments { querySnapshot, error in
                 if let error = error {
@@ -656,13 +743,67 @@ class FirestoreController: ObservableObject {
             }
     }
     
+    func getInveSuggByInvestorID(investorID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
+        let collection = db.collection(self.COLLECTION_InvestmentSuggestions)
+        
+        collection.whereField(self.FIELD_investorID, isEqualTo: investorID).getDocuments { querySnapshot, error in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                var suggestions: [InvestmentSuggestion] = []
+                for document in querySnapshot!.documents {
+                    do {
+                        //if
+                            let suggestion = try document.data(as: InvestmentSuggestion.self) //{
+                            suggestions.append(suggestion)
+                        //}
+                    } catch {
+                        completion(nil, error)
+                        return
+                    }
+                }
+                completion(suggestions, nil)
+            }
+        }
+    }
+    
     func getInveSuggByOwnerID(ownerID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
 
         // Define a reference to the "InvestmentSuggestions" collection.
-        let suggestionsRef = db.collection(COLLECTION_InvestmentSuggestion)
+        let suggestionsRef = db.collection(COLLECTION_InvestmentSuggestions)
 
         // Create a query to filter suggestions by the owner's ID.
         let query = suggestionsRef.whereField("ownerID", isEqualTo: ownerID)
+
+        // Perform the query.
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                // Initialize an array to store the retrieved suggestions.
+                var suggestions: [InvestmentSuggestion] = []
+
+                // Loop through the documents in the query result.
+                for document in querySnapshot!.documents {
+                    // Deserialize the document data into an InvestmentSuggestion object.
+                    if let suggestion = try? document.data(as: InvestmentSuggestion.self) {
+                        suggestions.append(suggestion)
+                    }
+                }
+
+                // Call the completion handler with the retrieved suggestions.
+                completion(suggestions, nil)
+            }
+        }
+    }
+    
+    func getInveSuggByProjectID(projectID: String, completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
+
+        // Define a reference to the "InvestmentSuggestions" collection.
+        let suggestionsRef = db.collection(COLLECTION_InvestmentSuggestions)
+
+        // Create a query to filter suggestions by the owner's ID.
+        let query = suggestionsRef.whereField(FIELD_projectID, isEqualTo: projectID)
 
         // Perform the query.
         query.getDocuments { (querySnapshot, error) in

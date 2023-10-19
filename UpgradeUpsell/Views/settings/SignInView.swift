@@ -23,22 +23,40 @@ struct SignInView: View {
     var body: some View {
         
         VStack{
-            Text("Upgrade & Upsell").bold()
+            
             Image("login")
-                       .resizable()
-                       .aspectRatio(contentMode: .fit)
-            Text("Sell Your House for a Higher Price").bold()
-            Form{
-                //Text("Sign in")
-                TextField("Enter Email", text: self.$emailFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
-                
-                SecureField("Enter Password", text: self.$passwordFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            HStack{
+                Spacer()
+                Text("Upgrade & Upsell")
+                    .font(.system(size: 23, weight: .heavy, design: .default))
+                    .kerning(3.0) // Adjust the letter spacing as needed
+                    .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+                    .textCase(.uppercase)
+                Spacer()
             }
-            .autocorrectionDisabled(true)
+            .padding(.top, 5)
+            Text("Sell Your House for a Higher Price").bold()
+                .padding(.top, 5)
+                .padding(.bottom, 20)
+           // Form{
+                //Text("Sign in")
+            
+                TextField("Enter your email", text: self.$emailFromUI)
+                    .textInputAutocapitalization(.never)
+                    .padding()
+                                            .frame(width: 300, height: 50)
+                                            .background(Color.black.opacity(0.05))
+                                            .cornerRadius(10)
+                
+                SecureField("Enter password", text: self.$passwordFromUI)
+                    .textInputAutocapitalization(.never)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(10)
+            
             
             LazyVGrid(columns: self.gridItems){
                 Button(action: {
@@ -48,7 +66,7 @@ struct SignInView: View {
                             self.dbHelper.getUserProfile(withCompletion: {isSuccessful in
                                 if( isSuccessful){
                                     
-//                                    self.dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id, completion: <#T##(Prefrences?, Error?) -> Void#>)
+//                                    self.dbHelpergetPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id, completion: <#T##(Prefrences?, Error?) -> Void#>)
                                     // MARK: check role of user and forward to their screens
                                     if let loginedUserRole = dbHelper.userProfile?.role{
                                         if loginedUserRole == "Owner"{
@@ -79,14 +97,11 @@ struct SignInView: View {
                     })
                 }){
                     Text("Sign In")
-                        .font(.title2)
+                        //.font(.title2)
                         .foregroundColor(.white)
-                        .bold()
+                        //.bold()
                         .padding()
-                    
-                    
                 }
-                //.background(Color.blue)
                 .disabled(self.emailFromUI.isEmpty || self.passwordFromUI.isEmpty || !isEmailValid() )
                 .buttonStyle(CustomButtonStyle(isEnabled: !self.emailFromUI.isEmpty && !self.passwordFromUI.isEmpty && isEmailValid()))
                 .alert(isPresented: $showAlert) {
@@ -101,15 +116,24 @@ struct SignInView: View {
                     self.rootScreen = .SignUp
                 }){
                     Text("Sign Up")
-                        .font(.title2)
+                        //.font(.title2)
                         .foregroundColor(.white)
-                        .bold()
+                       // .bold()
                         .padding()
                         .background(Color(red: 0.0, green: 0.40, blue: 0.0))
                 }
                 .cornerRadius(8)
             }
+            .padding(.top,50)
+                
+            //}
+            //.scrollContentBackground(.hidden)
+           // .autocorrectionDisabled(true)
+            Spacer()
         }
+        .scrollContentBackground(.hidden)
+        .padding()
+        
     }
     
     // MARK: func for check if the form is valid

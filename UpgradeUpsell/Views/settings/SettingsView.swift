@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
-    @Environment(\.presentationMode) var presentationMode
+    //@Environment(\.presentationMode) var presentationMode
     @State private var pushNotifFromUI = false
        @State private var notificationsEmail = false
        @State private var themeFromUI = "light"
@@ -19,9 +19,10 @@ struct SettingsView: View {
     
     @State private var showingDeleteAlert = false
     @Binding var rootScreen : RootView
+    @State private var role: String = "Owner"
     
     var body: some View {
-        NavigationView {
+        VStack {
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
@@ -48,23 +49,52 @@ struct SettingsView: View {
                             Text("Email Notifications")
                         })
                     }
-                    
-                    Button(action: {
-                        var newPref = Prefrences(id: dbHelper.userProfile!.id!, fontSize: fontSizeFromUI, theme: themeFromUI, language: langFromUI, pushNotif: pushNotifFromUI, emailNotif: notificationsEmail)
-//
-                        self.dbHelper.saveUserPrefrences(newPref: newPref) { (prefrences, error) in
-                            if let error = error {
-                                // Handle the error
-                                print("Error saving preferences: \(error.localizedDescription)")
-                            } else if let preferences = prefrences {
-                                // Successfully saved/update the preferences
-                                print("Preferences saved/updated successfully: \(prefrences)")
-                                self.presentationMode.wrappedValue.dismiss()
+                    HStack{
+                        Button(action: {
+                            var newPref = Prefrences(id: dbHelper.userProfile!.id!, fontSize: fontSizeFromUI, theme: themeFromUI, language: langFromUI, pushNotif: pushNotifFromUI, emailNotif: notificationsEmail)
+                            //
+                            self.dbHelper.saveUserPrefrences(newPref: newPref) { (prefrences, error) in
+                                if let error = error {
+                                    // Handle the error
+                                    print("Error saving preferences: \(error.localizedDescription)")
+                                } else if let preferences = prefrences {
+                                    // Successfully saved/update the preferences
+                                    print("Preferences saved/updated successfully: \(prefrences)")
+                                    //self.presentationMode.wrappedValue.dismiss()
+                                    if let loginedUserRole = dbHelper.userProfile?.role{
+                                        if loginedUserRole == "Owner"{
+                                            self.rootScreen = .Home
+                                        }
+                                        else if loginedUserRole == "Investor"{
+                                            self.rootScreen = .InvestorHome
+                                        }
+                                        else if loginedUserRole == "Realtor"{
+                                            self.rootScreen = .RealtorHome
+                                        }
+                                    }else
+                                    {
+                                        self.rootScreen = .Home
+                                    }
+                                }
                             }
-                        }
-
-                    }) {
-                        Text("Save Preferences")
+                            
+                        }) {
+                            Text("Save Preferences")
+                        }.buttonStyle(.borderedProminent)
+                        Spacer()
+                        Button(action:{
+                            // self.presentationMode.wrappedValue.dismiss()
+                            if(self.role == "Investor"){
+                                self.rootScreen = .InvestorHome
+                            }else if self.role ==  "Owner"{
+                                self.rootScreen = .Home
+                            } else if self.role == "Realtor"
+                            {
+                                self.rootScreen =  .RealtorHome
+                            }
+                        }){
+                            Text("Back")
+                        }.buttonStyle(.borderedProminent)
                     }
                 
                     Section(header: Text("Account Settings")) {
@@ -85,7 +115,24 @@ struct SettingsView: View {
                 }//Form
             }
             .navigationTitle("Settings")
+            .navigationBarItems(leading: Button(action: {
+                if(self.role == "Investor"){
+                    self.rootScreen = .InvestorHome
+                }else if self.role ==  "Owner"{
+                    self.rootScreen = .Home
+                } else if self.role == "Realtor"
+                {
+                    self.rootScreen =  .RealtorHome
+                }
+                //self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("< Back")
+            })
             .onAppear {
+                
+                if let role = self.dbHelper.userProfile?.role{
+                    self.role = role
+                }
                 dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id! ?? ""){ (userPref, error) in
 //                    guard let userPref = dbHelper.userPrefrences else{
 //                        return
@@ -146,5 +193,6 @@ struct DeleteAccountView: View {
             }
         }
         .navigationTitle("Delete Account")
+      
     }
 }

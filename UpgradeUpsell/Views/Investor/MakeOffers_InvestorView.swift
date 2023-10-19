@@ -24,7 +24,7 @@ struct MakeOffers_InvestorView: View {
 
         var body: some View {
             VStack(alignment: .leading, spacing: 10) {
-                Group{
+                Section(header: Text("Property Information").bold()){
                     //Text("Investor ID: \(dbHelper.userProfile?.id!)")
                     HStack{
                         Text("Title: ").bold()
@@ -36,6 +36,11 @@ struct MakeOffers_InvestorView: View {
                     HStack{
                         Text("Released date: ").bold()
                         Text("\(dateFormatter.string(from: project.createdDate))")
+                    }
+                    VStack{
+                        Text("need to be done between: ").bold()
+                        Text("From: \(dateFormatter.string(from: project.startDate))")
+                        Text("To: \(dateFormatter.string(from: project.endDate))")
                     }
                     HStack{
                         Text("Description: ").bold()
@@ -53,6 +58,8 @@ struct MakeOffers_InvestorView: View {
                         Text("Location: ").bold()
                         Text("\(project.location)")
                     }
+                    
+                }
                     Form{
                         TextField("Amount Offered", text: $amountOffered)
                         TextField("Duration in Weeks", text: $durationWeeks)
@@ -64,27 +71,32 @@ struct MakeOffers_InvestorView: View {
                                         .padding()
                     }
                         //TextField("Status", text: $status)
-                }
-                Button("Submit") {
-                    let newOffer : InvestmentSuggestion = InvestmentSuggestion(id: UUID().uuidString, investorID: self.dbHelper.userProfile?.id ?? "", investorFullName: self.dbHelper.userProfile?.fullName ?? "", ownerID: project.ownerID, projectID: project.id!, projectTitle: project.title,amountOffered: Double(amountOffered) ?? 0.0 , durationWeeks: Int(durationWeeks) ?? 0, description: description, status: "New")
-                    
-                    self.dbHelper.addInvestmentSuggestion(newOffer) { error in
-                        if let error = error {
-                            // Handle error if needed
-                            print("Error: \(error.localizedDescription)")
-                            alertMessage = "Error: \(error.localizedDescription)"
-                        } else {
-                            // Suggestion added successfully, you can navigate or show a confirmation message
-                            print("Suggestion added successfully")
-                            alertMessage = "Suggestion added successfully"
-                            
-                            self.presentationMode.wrappedValue.dismiss()
+                HStack{
+                    Spacer()
+                    Button("Submit") {
+                        let newOffer : InvestmentSuggestion = InvestmentSuggestion(id: UUID().uuidString, investorID: self.dbHelper.userProfile?.id ?? "", investorFullName: self.dbHelper.userProfile?.fullName ?? "", ownerID: project.ownerID, projectID: project.id!, projectTitle: project.title,amountOffered: Double(amountOffered) ?? 0.0 , durationWeeks: Int(durationWeeks) ?? 0, description: description, status: "New", date: Date())
+                        
+                        self.dbHelper.addInvestmentSuggestion(newOffer) { error in
+                            if let error = error {
+                                // Handle error if needed
+                                print("Error: \(error.localizedDescription)")
+                                alertMessage = "Error: \(error.localizedDescription)"
+                            } else {
+                                // Suggestion added successfully, you can navigate or show a confirmation message
+                                print("Suggestion added successfully")
+                                alertMessage = "Suggestion added successfully"
+                                
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                            showAlert = true
                         }
-                        showAlert = true
                     }
+                    .buttonStyle(.borderedProminent)
+                    Spacer()
                 }
-                Spacer()
+                    Spacer()
             } // VSTACK
+            .padding()
             .alert(isPresented: $showAlert) {
                         Alert(
                             title: Text("Conversion Result"),
@@ -97,8 +109,8 @@ struct MakeOffers_InvestorView: View {
     
     let dateFormatter: DateFormatter = {
             let formatter = DateFormatter()
-            formatter.dateStyle = .short
-            formatter.timeStyle = .short
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
             return formatter
         }()
     

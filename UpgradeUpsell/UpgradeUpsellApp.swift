@@ -13,20 +13,26 @@ import FirebaseFirestore
 
 @main
 struct UpgradeUpsellApp: App {
-    
-//    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-
     let authHelper = FireAuthController()
-    //private var dbHelper = FirestoreController.getInstance()
-
-    init(){
-        //configure Firebase in the project
+    
+    init() {
         FirebaseApp.configure()
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(authHelper).accentColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+            ContentView()
+                .environmentObject(authHelper)
+                .accentColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+                .background(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color.green, Color.white]),
+                                        startPoint: .top,
+                                        endPoint: .bottom
+                                    )
+                                    .ignoresSafeArea()
+                                )
+                //.background(BackgroundView()) // Apply the gradient background
         }
     }
 }

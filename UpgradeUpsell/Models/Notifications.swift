@@ -15,6 +15,7 @@ struct Notifications : Codable, Identifiable ,Hashable {
     var event: String
     var details: String?
     var isRead : Bool
+    var projectID : String?
     
     init?(dictionary: [String: Any]) {
         
@@ -46,16 +47,21 @@ struct Notifications : Codable, Identifiable ,Hashable {
             print(#function, "Unable to get isread from JSON")
             return nil
         }
-        self.init(id:myID, timestamp: myTimestamp, userID: myUserID, event: myEvent, details: myDetails , isRead: myisRead )
+        guard let myProjectID = dictionary["projectID"] as? String else {
+            print(#function, "Unable to get projectID from JSON")
+            return nil
+        }
+        self.init(id:myID, timestamp: myTimestamp, userID: myUserID, event: myEvent, details: myDetails , isRead: myisRead ,projectID: myProjectID)
     }
     
-    init(id: String, timestamp:Date, userID: String, event: String, details: String, isRead:Bool) {
+    init(id: String, timestamp:Date, userID: String, event: String, details: String, isRead:Bool , projectID:String) {
         self.id = id
         self.timestamp = timestamp
         self.userID = userID
         self.event = event
         self.details = details
         self.isRead = isRead
+        self.projectID = projectID
         
     }
    

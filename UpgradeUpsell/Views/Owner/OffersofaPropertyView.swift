@@ -1,14 +1,25 @@
+//
+//  OffersofaProperty.swift
+//  UpgradeUpsell
+//
+//  Created by Golnaz Chehrazi on 2023-10-18.
+//
+
 import Foundation
 import SwiftUI
 
-struct ProjectOffersView: View {
+struct OffersofaPropertyView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
 
     @State private var suggestions: [InvestmentSuggestion] = []
     @State private var isLoading: Bool = false
+    @State private var projectTitle: String = ""
     @State private var updatedStatuses: [String] = [] // Store updated statuses
-
+    @State private var noOffer : String = ""
+    
+    var selectedProperty: RenovateProject
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             List {
@@ -17,13 +28,21 @@ struct ProjectOffersView: View {
                 } else if isLoading {
                     ProgressView()
                 } else {
+                    
+                    HStack {
+                        Text("Title:").bold()
+                        Spacer()
+                        Text("\(projectTitle)")
+                    }
+                    
+                    HStack{
+                        Spacer()
+                        Text(self.noOffer).foregroundColor(.red)
+                        Spacer()
+                    }
+                    
                     ForEach(suggestions.indices, id: \.self) { index in
                         Section {
-                            HStack {
-                                Text("Title:").bold()
-                                Spacer()
-                                Text("\(suggestions[index].projectTitle)")
-                            }
                             HStack {
                                 Text("Offer Date:").bold()
                                 Spacer()
@@ -34,7 +53,7 @@ struct ProjectOffersView: View {
                                     NavigationLink(destination: InvestorProfileView(investorID: suggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                                         Text("Investor:").bold()
                                         Spacer()
-                                        Text(suggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
+                                        Text(suggestions[index].investorFullName).foregroundColor(Color.blue) // Link to Investor Profile
                                     }
                                 }
                                 
@@ -82,21 +101,34 @@ struct ProjectOffersView: View {
                 Spacer()
             }
             .onAppear {
-                if let ownerID = dbHelper.userProfile?.id {
+                if let projectID = self.selectedProperty.id {
+                    self.projectTitle = self.selectedProperty.title
                     self.isLoading = true
-                    self.dbHelper.getInveSuggByOwnerID(ownerID: ownerID) { (suggestions, error) in
+                    self.dbHelper.getInveSuggByProjectID(projectID: projectID) { (suggestions, error) in
                         self.isLoading = false
                         if let error = error {
                             print("Error getting investment suggestions: \(error)")
                         } else if let suggestions = suggestions {
-                            self.suggestions = suggestions
-                            self.updatedStatuses = suggestions.map { $0.status }
+                            if(suggestions.count>0){
+                                self.noOffer = ""
+                                self.suggestions = suggestions
+                                self.updatedStatuses = suggestions.map { $0.status }
+                            }
+                            else
+                            {
+                                self.noOffer = "NO OFFER"
+                            }
+                        }
+                        else
+                        {
+                            self.noOffer = "NO OFFER"
                         }
                     }
                 }
             }
             Spacer()
-        }.padding(.vertical, 5)
+                .navigationTitle("Offers")
+        }
     }
 
     let dateFormatter: DateFormatter = {
@@ -140,3 +172,4 @@ struct ProjectOffersView: View {
         }
     }
 }
+

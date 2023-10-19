@@ -16,6 +16,7 @@ struct Investment: Codable, Hashable, Identifiable {
     var investmentDate: Date
     var status: String
     
+    
     init(investmentID: String, investorID: String, projectID: String, amountInvested: Double, investmentDate: Date, status: String) {
         self.id = investmentID
         self.investorID = investorID
