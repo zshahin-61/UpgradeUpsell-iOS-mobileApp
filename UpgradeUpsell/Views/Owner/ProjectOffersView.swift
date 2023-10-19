@@ -13,7 +13,7 @@ struct ProjectOffersView: View {
         VStack(alignment: .leading, spacing: 5) {
             HStack{
                 Spacer()
-                Text("List of Offers").bold().font(.title).foregroundColor(.brown)
+                Text("Offers").bold().font(.title).foregroundColor(.brown)
                 Spacer()
             }
             List {
