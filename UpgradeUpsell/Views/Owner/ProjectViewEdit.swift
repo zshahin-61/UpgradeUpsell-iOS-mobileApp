@@ -228,11 +228,11 @@ struct ProjectViewEdit: View {
         
                     Button(action: {
                         if selectedProject != nil {
-                            // If selectedProject is not nil, it's an update operation
+                            // If selectedProject is not nil
                             updateProperty()
                             resetFormFields()
                         } else {
-                            // If selectedProject is nil, it's an insert operation
+                            // If selectedProject is nil
                             if !title.isEmpty && !description.isEmpty && !location.isEmpty  {
                                 
 //                                insertProperty()
@@ -369,6 +369,7 @@ struct ProjectViewEdit: View {
         squareFootage = 0.0
         isFurnished = false
         imageData = nil
+        selectedImage = nil
         
     }
     
