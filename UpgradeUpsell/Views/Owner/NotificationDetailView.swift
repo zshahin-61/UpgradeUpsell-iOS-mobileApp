@@ -12,8 +12,10 @@ struct NotificationDetailView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @Environment(\.presentationMode) var presentationMode
     
+    
     var notification: Notifications
     
+
     var body: some View {
         Form {
             
@@ -21,8 +23,13 @@ struct NotificationDetailView: View {
             //                Text ("Name: \(currentUser.fullName)")
             //            }
             Text("The Event: \(notification.event)")
-            
-            Text("Times: \(notification.timestamp)")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
+            let notificationTimestamp = Date()
+            Text("Time: \(dateFormatter.string(from: notificationTimestamp))")
+
+//            Text("Times: \(notification.timestamp)")
             
             Text("Details: \(notification.details ?? "No details available")")
             

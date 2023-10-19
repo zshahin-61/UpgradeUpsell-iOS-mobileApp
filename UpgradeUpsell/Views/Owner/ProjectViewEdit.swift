@@ -491,7 +491,7 @@ struct ProjectViewEdit: View {
             timestamp: Date(),
          userID: project.ownerID,
             event: "Project \(a)!",
-         details: "Project titled '\(project.title)' has been \(a) By \(dbHelper.userProfile?.fullName).",
+         details: "Project titled '\(project.title)' \n has been \(a) By \(dbHelper.userProfile?.fullName).",
             isRead: false,
          projectID: project.id!
         )
