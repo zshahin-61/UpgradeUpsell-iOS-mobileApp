@@ -24,137 +24,145 @@ struct ProfileView: View {
     @State private var imageData: Data?
     @State private var role: String = "Owner"
     
+    
+    
     @Binding var rootScreen : RootView
     //var backRoot: RootView
     
     var body: some View {
         //ScrollView {
-            VStack(alignment: .leading) {
-                Form{
-                    Section(header: Text("Profile").bold()) {
-                        if let data = imageData, let uiImage = UIImage(data: data) {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .clipShape(Circle())
-                        }
-                        Button(action: {
-                            isShowingPicker = true
-                        }) {
-                            Text("Change Picture")
-                        }
+        VStack(alignment: .leading) {
+            Form{
+                Section(header: Text("Profile").bold()) {
+                    if let data = imageData, let uiImage = UIImage(data: data) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .clipShape(Circle())
                     }
-                    
-                    FormSection(header: "Personal Details") {
-                        TextField("Full Name", text: $nameFromUI)
-                            .padding(.horizontal, 10)
-                            .frame(width: 280, height: 30)
-                            .border(Color.gray, width: 1)
-                        
-                        
-                        Text("Email: \(email)")
-                        
-                        TextEditor(text: $bioFromUI)
-//                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                            .frame(width: 280, height: 100)
-                            .border(Color.gray, width: 1)
-                            //.padding()
-                    }
-                    
-                    if self.role == "Investor" || self.role == "Realtor"{
-                        FormSection(header: "Your Rating") {
-                            RatingView(rating: rating)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color(UIColor.systemBackground))
-                                .cornerRadius(8)
-                        }
-                    }
-                    
-                    FormSection(header: "Contact Information") {
-                        TextField("Company", text: $companyFromUI)
-                            .padding(.horizontal, 10)
-                            .frame(width: 280, height: 30)
-                            .border(Color.gray, width: 1)
-                        
-                        TextField("Address", text: $addressFromUI)
-                            .padding(.horizontal, 10)
-                            .frame(width: 280, height: 30)
-                            .border(Color.gray, width: 1)
-                        
-                        TextField("Phone Number", text: $contactNumberFromUI)
-                            .padding(.horizontal, 10)
-                            .frame(width: 280, height: 30)
-                            .border(Color.gray, width: 1)
-                    }
-                    
-                    if let err = errorMsg {
-                        Text(err).foregroundColor(Color.red).bold()
+                    Button(action: {
+                        isShowingPicker = true
+                    }) {
+                        Text("Change Picture")
                     }
                 }
-                HStack{
-                    Button(action: {                //Validate the data such as no mandatory inputs, password rules, etc.
-                        //
-                        dbHelper.userProfile!.address = addressFromUI
-                        //Image
-                        var imageData :Data? = nil
+                
+                FormSection(header: "Personal Details") {
+                    TextField("Full Name", text: $nameFromUI)
+                        .padding(.horizontal, 10)
+                        .frame(width: 280, height: 30)
+                        .border(Color.gray, width: 1)
+                    
+                    
+                    Text("Email: \(email)")
+                    
+                    TextEditor(text: $bioFromUI)
+                    //                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                        .frame(width: 280, height: 100)
+                        .border(Color.gray, width: 1)
+                    //.padding()
+                }
+                
+                if self.role == "Investor" || self.role == "Realtor"{
+                    FormSection(header: "Your Rating") {
+                        RatingView(rating: rating)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color(UIColor.systemBackground))
+                            .cornerRadius(8)
+                    }
+                }
+                
+                FormSection(header: "Contact Information") {
+                    TextField("Company", text: $companyFromUI)
+                        .padding(.horizontal, 10)
+                        .frame(width: 280, height: 30)
+                        .border(Color.gray, width: 1)
+                    
+                    TextField("Address", text: $addressFromUI)
+                        .padding(.horizontal, 10)
+                        .frame(width: 280, height: 30)
+                        .border(Color.gray, width: 1)
+                    
+                    TextField("Phone Number", text: $contactNumberFromUI)
+                        .padding(.horizontal, 10)
+                        .frame(width: 280, height: 30)
+                        .border(Color.gray, width: 1)
+                }
+                
+                if let err = errorMsg {
+                    Text(err).foregroundColor(Color.red).bold()
+                }
+            }
+            HStack{
+                Button(action: {                //Validate the data such as no mandatory inputs, password rules, etc.
+                    //
+                    dbHelper.userProfile!.address = addressFromUI
+                    //Image
+                    var imageData :Data? = nil
+                    
+                    if(selectedImage != nil )
+                    {
+                        let image = selectedImage!
+                        let imageName = "\(UUID().uuidString).jpg"
                         
-                        if(selectedImage != nil )
-                        {
-                            let image = selectedImage!
-                            let imageName = "\(UUID().uuidString).jpg"
-                            
-                            imageData = image.jpegData(compressionQuality: 0.1)
-                            dbHelper.userProfile!.profilePicture = imageData
-                        }
-                        
-                        ////////
-                        
-                        self.dbHelper.userProfile!.fullName = nameFromUI
-                        self.dbHelper.userProfile!.contactNumber = contactNumberFromUI
-                        self.dbHelper.userProfile!.userBio = bioFromUI
-                        self.dbHelper.userProfile!.company = companyFromUI
-                        
-                        self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
-                        //self.presentationMode.wrappedValue.dismiss()
-                        
-                        if let loginedUserRole = dbHelper.userProfile?.role{
-                            if loginedUserRole == "Owner"{
-                                self.rootScreen = .Home
-                            }
-                            else if loginedUserRole == "Investor"{
-                                self.rootScreen = .InvestorHome
-                            }
-                            else if loginedUserRole == "Realtor"{
-                                self.rootScreen = .RealtorHome
-                            }
-                        }else
-                        {
+                        imageData = image.jpegData(compressionQuality: 0.1)
+                        dbHelper.userProfile!.profilePicture = imageData
+                    }
+                    
+                    ////////
+                    
+                    self.dbHelper.userProfile!.fullName = nameFromUI
+                    self.dbHelper.userProfile!.contactNumber = contactNumberFromUI
+                    self.dbHelper.userProfile!.userBio = bioFromUI
+                    self.dbHelper.userProfile!.company = companyFromUI
+                    
+                    self.dbHelper.updateUserProfile(userToUpdate: dbHelper.userProfile!)
+                    //self.presentationMode.wrappedValue.dismiss()
+                    
+                    if let loginedUserRole = dbHelper.userProfile?.role{
+                        if loginedUserRole == "Owner"{
                             self.rootScreen = .Home
                         }
-                        
-                        //rootScreen = .Home
-                    }) {
-                        Text("Update Profile")
-                            //.font(.headline)
-                            //.frame(maxWidth: .infinity)
-                            //.padding()
-                            //.background(Color.green)
-                            //.foregroundColor(.white)
-                           // .cornerRadius(8)
-                    }.buttonStyle(.borderedProminent)
-                    Spacer()
-                    Button(action:{
-                       // self.presentationMode.wrappedValue.dismiss()
-                        rootScreen = .Home
-                    }){
-                        Text("Back")
-                    }.buttonStyle(.borderedProminent)
-                }
-                            }
-                            .padding()
-                       // }
-                
+                        else if loginedUserRole == "Investor"{
+                            self.rootScreen = .InvestorHome
+                        }
+                        else if loginedUserRole == "Realtor"{
+                            self.rootScreen = .RealtorHome
+                        }
+                    }else
+                    {
+                        self.rootScreen = .Home
+                    }
+                    
+                    //rootScreen = .Home
+                }) {
+                    Text("Update Profile")
+                    //.font(.headline)
+                    //.frame(maxWidth: .infinity)
+                    //.padding()
+                    //.background(Color.green)
+                    //.foregroundColor(.white)
+                    // .cornerRadius(8)
+                }.buttonStyle(.borderedProminent)
+                Spacer()
+                Button(action:{
+                    if(self.role == "Investor"){
+                        self.rootScreen = .InvestorHome
+                    }else if self.role ==  "Owner"{
+                        self.rootScreen = .Home
+                    } else if self.role == "Realtor"
+                    {
+                        self.rootScreen =  .RealtorHome
+                    }
+                }){
+                    Text("Back")
+                }.buttonStyle(.borderedProminent)
+            }
+        }
+        .padding()
+        // }
+        
         .onAppear() {
             if let currentUser = dbHelper.userProfile{
                 self.email = currentUser.email
@@ -174,16 +182,30 @@ struct ProfileView: View {
                     print("Invalid image data format")
                 }
             }}
-                        .sheet(isPresented: $isShowingPicker) {
-                            // Image picker view
-                            if photoLibraryManager.isAuthorized {
-                                ImagePickerView(selectedImage: $selectedImage)
-                            } else {
-                                Text("Access to the photo library is not authorized.")
-                            }
-                        }
-                    }
-                }
+        
+        .navigationBarItems(leading: Button(action: {
+            if(self.role == "Investor"){
+                self.rootScreen = .InvestorHome
+            }else if self.role ==  "Owner"{
+                self.rootScreen = .Home
+            } else if self.role == "Realtor"
+            {
+                self.rootScreen =  .RealtorHome
+            }
+            //self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Text("Back")
+        })
+        .sheet(isPresented: $isShowingPicker) {
+            // Image picker view
+            if photoLibraryManager.isAuthorized {
+                ImagePickerView(selectedImage: $selectedImage)
+            } else {
+                Text("Access to the photo library is not authorized.")
+            }
+        }
+    }
+}
 
 struct FormSection<Content: View>: View {
     var header: String
