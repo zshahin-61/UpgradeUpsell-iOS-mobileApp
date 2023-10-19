@@ -32,14 +32,6 @@ struct MyOffersView: View {
                                     Text("\(suggestion.projectTitle)")
                                 }
                                 Group {
-//                                    HStack {
-//                                        NavigationLink(destination: InvestorProfileView(investorID: suggestion.investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
-//                                            Text("Investor:").bold()
-//                                            Spacer()
-//                                            Text(suggestion.investorFullName) // Link to Investor Profile
-//                                        }
-//                                    }
-                                    
                                     HStack {
                                         Text("Offered amount:").bold()
                                         Spacer()
@@ -62,16 +54,17 @@ struct MyOffersView: View {
                                     Text("\(suggestion.description)")
                                 }
                             }
+                            
                         }
                     }
                 }
                 .padding()
                 
                 .onAppear {
-                    print("Aryaaaaa")
+                    //print("Aryaaaaa")
                     if let investorID = dbHelper.userProfile?.id {
                         self.isLoading = true
-                        print("Golnazzzzzz")
+                       // print("Golnazzzzzz")
                         self.dbHelper.getInveSuggByInvestorID(investorID: investorID) { (suggestions, error) in
                             if let error = error {
                                 print("Error getting investment suggestions: \(error)")
