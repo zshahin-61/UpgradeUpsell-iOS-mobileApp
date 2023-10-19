@@ -4,6 +4,7 @@
 //
 //  Created by zahra SHAHIN on 2023-10-16.
 //
+//
 
 import SwiftUI
 import Firebase
@@ -13,8 +14,7 @@ struct NotificationView: View {
     @State private var notifications: [Notifications] = []
 
     var body: some View {
-        VStack {
-            Text("Notifications").bold().font(.title).foregroundColor(.brown)
+        NavigationView {
             List {
                 ForEach(notifications, id: \.id) { notification in
                     NavigationLink(destination: NotificationDetailView(notification: notification)) {
@@ -33,10 +33,7 @@ struct NotificationView: View {
                 Button(action: {
                     deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
                 }) {
-                    HStack{
-                        Image(systemName: "multiply.circle")
-                        Text("Delete All Notification")
-                    }
+                    Text("Delete All")
                 }
             )
             .onAppear {
@@ -45,13 +42,14 @@ struct NotificationView: View {
                         if let notifications = notifications {
                             self.notifications = notifications
                         } else if let error = error {
+                            // Handle the error
                             print("Error fetching notifications: \(error.localizedDescription)")
                         }
                     }
                 }
             }
-           // .navigationBarTitle("Notifications")
-            .padding(.horizontal, 10)
+            .navigationBarTitle("Notifications")
+            .padding()
         }
     }
 
@@ -84,19 +82,22 @@ struct NotificationView: View {
 }
 
 
-//
-//
+
+
+
 //import SwiftUI
 //import Firebase
-//
-//
+
+
 //struct NotificationView: View {
 //    @EnvironmentObject var dbHelper: FirestoreController
 //    @State private var notifications: [Notifications] = []
 ////    @State private var isDetailViewPresented = false
 //
 //    var body: some View {
-//        NavigationView {
+//        VStack {
+//                        Text("Notifications").bold().font(.title).foregroundColor(.brown)
+//
 //            List {
 //                ForEach(notifications, id: \.id) { notification in
 //                    NavigationLink(    destination: NotificationDetailView( notification: notification),
@@ -125,7 +126,7 @@ struct NotificationView: View {
 //                    }
 //                }
 //            }
-//            .navigationBarTitle("Notifications")
+////            .navigationBarTitle("Notifications")
 //            .padding()
 //        }
 //    }
@@ -144,4 +145,4 @@ struct NotificationView: View {
 //        }
 //    }
 //}
-//
+
