@@ -27,19 +27,19 @@ struct ProjectListView: View {
                             .environmentObject(self.dbHelper)) {
                                 Text(property.title)
                             }
-                        HStack{
-                            Spacer()
-                            
-                            NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
-                                .environmentObject(authHelper)
-                                .environmentObject(self.dbHelper)) {
-                                    Text("See Offers")
-                                        .foregroundColor(.blue)
-                                }
-                                .padding(.leading, 100)
-                            
-                            
-                        }
+//                        HStack{
+//                            Spacer()
+//                            
+//                            NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
+//                                .environmentObject(authHelper)
+//                                .environmentObject(self.dbHelper)) {
+//                                    Text("See Offers")
+//                                        .foregroundColor(.blue)
+//                                }
+//                                .padding(.leading, 100)
+//                            
+//                            
+//                        }
                         //}
                     }
                     .onDelete(perform: deleteProjects)

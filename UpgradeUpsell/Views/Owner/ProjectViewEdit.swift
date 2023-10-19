@@ -18,8 +18,6 @@ struct ProjectViewEdit: View {
     @State private var selectedImage: UIImage?
     @State private var imageData: Data?
     
-    
-    
     @State private var title = ""
     @State private var description = ""
     @State private var location = ""
