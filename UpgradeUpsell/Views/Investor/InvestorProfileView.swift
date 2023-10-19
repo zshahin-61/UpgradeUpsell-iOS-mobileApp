@@ -30,6 +30,7 @@ struct InvestorProfileView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
+            Text("Investor Profile").bold().font(.title).foregroundColor(.brown)
             if let data = imageData, let uiImage = UIImage(data: data) {
                 Image(uiImage: uiImage)
                     .resizable()
@@ -77,7 +78,7 @@ struct InvestorProfileView: View {
                     .cornerRadius(8)
             }.buttonStyle(.borderedProminent)
         }
-        .padding()
+        .padding(.horizontal, 10)
         .onAppear(){
             self.dbHelper.getUserProfilebyUserID(userID: self.investorID){ (investorInfo, error)in
                 
@@ -101,7 +102,7 @@ struct InvestorProfileView: View {
                 }
             }
         }
-        .navigationBarTitle("Investor Profile", displayMode: .inline)
+       // .navigationBarTitle("Investor Profile", displayMode: .inline)
         .navigationBarItems(leading: Button(action: {
                   self.presentationMode.wrappedValue.dismiss()
                }) {

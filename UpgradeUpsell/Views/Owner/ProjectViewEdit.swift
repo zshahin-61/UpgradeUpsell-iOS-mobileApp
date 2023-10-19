@@ -63,9 +63,12 @@ struct ProjectViewEdit: View {
     
     
     var body: some View {
-            VStack{
+        VStack{
+            Text("Property Details").bold().font(.title).foregroundColor(.brown)
+            
             Form {
-                Section(header: Text("Project Details")) {
+                //Section(header: Text("Property Details")) {
+                Section{
                     VStack {
                         HStack {
                             Text("Title")
@@ -223,92 +226,92 @@ struct ProjectViewEdit: View {
                     
                 }//section
             }//.padding(.top, 2)//form
-        
-                    Button(action: {
-                        if selectedProject != nil {
-                            // If selectedProject is not nil
-                            updateProperty()
-                            resetFormFields()
-                        } else {
-                            // If selectedProject is nil
-                            if !title.isEmpty && !description.isEmpty && !location.isEmpty  {
+            
+            Button(action: {
+                if selectedProject != nil {
+                    // If selectedProject is not nil
+                    updateProperty()
+                    resetFormFields()
+                } else {
+                    // If selectedProject is nil
+                    if !title.isEmpty && !description.isEmpty && !location.isEmpty  {
+                        
+                        //                                insertProperty()
+                        guard let userID = dbHelper.userProfile?.id else {
+                            return
+                        }
+                        //Image
+                        var imageData :Data? = nil
+                        
+                        if(selectedImage != nil )
+                        {
+                            let image = selectedImage!
+                            let imageName = "\(UUID().uuidString).jpg"
+                            print(imageName)
+                            imageData = image.jpegData(compressionQuality: 0.1)
+                        }
+                        
+                        // Create a new property
+                        let newProperty = RenovateProject(
+                            projectID: UUID().uuidString,
+                            title: title,
+                            description: description,
+                            location: location,
+                            lng: lng,
+                            lat: lat,
+                            images: imageData,
+                            ownerID: userID,
+                            category: selectedCategory,
+                            investmentNeeded: investmentNeeded,
+                            selectedInvestmentSuggestionID: "",
+                            status: status,
+                            startDate: startDate,
+                            endDate: endDate,
+                            numberOfBedrooms: numberOfBedrooms,
+                            numberOfBathrooms: numberOfBathrooms,
+                            propertyType: propertyType,
+                            squareFootage: squareFootage,
+                            isFurnished: isFurnished,
+                            createdDate: Date(),
+                            updatedDate: Date(),
+                            favoriteCount: 0,
+                            realtorID: ""
+                        )
+                        
+                        
+                        self.dbHelper.addProperty(newProperty, userID: userID)
+                        { success in
+                            if success {
+                                insertNotif(newProperty, "Insert")
+                                alertMessage = "Property added successfully"
+                                resetFormFields()
                                 
-//                                insertProperty()
-                                    guard let userID = dbHelper.userProfile?.id else {
-                                        return
-                                    }
-                                    //Image
-                                    var imageData :Data? = nil
-                                    
-                                    if(selectedImage != nil )
-                                    {
-                                        let image = selectedImage!
-                                        let imageName = "\(UUID().uuidString).jpg"
-                                        print(imageName)
-                                        imageData = image.jpegData(compressionQuality: 0.1)
-                                    }
-                                    
-                                    // Create a new property
-                                    let newProperty = RenovateProject(
-                                        projectID: UUID().uuidString,
-                                        title: title,
-                                        description: description,
-                                        location: location,
-                                        lng: lng,
-                                        lat: lat,
-                                        images: imageData,
-                                        ownerID: userID,
-                                        category: selectedCategory,
-                                        investmentNeeded: investmentNeeded,
-                                        selectedInvestmentSuggestionID: "",
-                                        status: status,
-                                        startDate: startDate,
-                                        endDate: endDate,
-                                        numberOfBedrooms: numberOfBedrooms,
-                                        numberOfBathrooms: numberOfBathrooms,
-                                        propertyType: propertyType,
-                                        squareFootage: squareFootage,
-                                        isFurnished: isFurnished,
-                                        createdDate: Date(),
-                                        updatedDate: Date(),
-                                        favoriteCount: 0,
-                                        realtorID: ""
-                                    )
-                                    
-                                    
-                                    self.dbHelper.addProperty(newProperty, userID: userID)
-                                    { success in
-                                        if success {
-                                            insertNotif(newProperty, "Insert")
-                                            alertMessage = "Property added successfully"
-                                            resetFormFields()
-
-                                        } else {
-                                            alertMessage = "Failed to save property. Please try again."
-                                        }
-                                        showAlert = true
-
-                                    }
-                                
-                              
-
                             } else {
-                                alertMessage = "Please Enter Title $ Desciption & Address and ScoreFootage!"
+                                alertMessage = "Failed to save property. Please try again."
                             }
                             showAlert = true
-                          
+                            
                         }
-                    }) {
-                        Text("Save")
-                            .font(.headline)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 100)
-                            .background(Color(red: 0.0, green: 0.40, blue: 0.0))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                        
+                        
+                        
+                    } else {
+                        alertMessage = "Please Enter Title $ Desciption & Address and ScoreFootage!"
                     }
-
+                    showAlert = true
                     
+                }
+            }) {
+                Text("Save")
+                    .font(.headline)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 100)
+                    .background(Color(red: 0.0, green: 0.40, blue: 0.0))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            
+            
             .onAppear() {
                 if let currentProject = selectedProject {
                     self.title = currentProject.title
@@ -344,9 +347,9 @@ struct ProjectViewEdit: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            }
-//            .padding()
-            .navigationBarTitle("Update a Property")//VStack
+        }
+        //            .padding()
+        //.navigationBarTitle("Update a Property")//VStack
     }//View
     
     
@@ -371,63 +374,63 @@ struct ProjectViewEdit: View {
         
     }
     
-//    private func insertProperty() {
-//        guard let userID = dbHelper.userProfile?.id else {
-//            return
-//        }
-//        //Image
-//        var imageData :Data? = nil
-//
-//        if(selectedImage != nil )
-//        {
-//            let image = selectedImage!
-//            let imageName = "\(UUID().uuidString).jpg"
-//            print(imageName)
-//            imageData = image.jpegData(compressionQuality: 0.1)
-//        }
-//
-//        // Create a new property
-//        let newProperty = RenovateProject(
-//            projectID: UUID().uuidString,
-//            title: title,
-//            description: description,
-//            location: location,
-//            lng: lng,
-//            lat: lat,
-//            images: imageData,
-//            ownerID: userID,
-//            category: selectedCategory,
-//            investmentNeeded: investmentNeeded,
-//            selectedInvestmentSuggestionID: "",
-//            status: status,
-//            startDate: startDate,
-//            endDate: endDate,
-//            numberOfBedrooms: numberOfBedrooms,
-//            numberOfBathrooms: numberOfBathrooms,
-//            propertyType: propertyType,
-//            squareFootage: squareFootage,
-//            isFurnished: isFurnished,
-//            createdDate: Date(),
-//            updatedDate: Date(),
-//            favoriteCount: 0,
-//            realtorID: ""
-//        )
-//
-//
-//        self.dbHelper.addProperty(newProperty, userID: userID)
-//        { success in
-//            if success {
-//                insertNotif(newProperty, "Insert")
-//                alertMessage = "Property added successfully"
-//                resetFormFields()
-//
-//            } else {
-//                alertMessage = "Failed to save property. Please try again."
-//            }
-//            showAlert = true
-//
-//        }
-//    }
+    //    private func insertProperty() {
+    //        guard let userID = dbHelper.userProfile?.id else {
+    //            return
+    //        }
+    //        //Image
+    //        var imageData :Data? = nil
+    //
+    //        if(selectedImage != nil )
+    //        {
+    //            let image = selectedImage!
+    //            let imageName = "\(UUID().uuidString).jpg"
+    //            print(imageName)
+    //            imageData = image.jpegData(compressionQuality: 0.1)
+    //        }
+    //
+    //        // Create a new property
+    //        let newProperty = RenovateProject(
+    //            projectID: UUID().uuidString,
+    //            title: title,
+    //            description: description,
+    //            location: location,
+    //            lng: lng,
+    //            lat: lat,
+    //            images: imageData,
+    //            ownerID: userID,
+    //            category: selectedCategory,
+    //            investmentNeeded: investmentNeeded,
+    //            selectedInvestmentSuggestionID: "",
+    //            status: status,
+    //            startDate: startDate,
+    //            endDate: endDate,
+    //            numberOfBedrooms: numberOfBedrooms,
+    //            numberOfBathrooms: numberOfBathrooms,
+    //            propertyType: propertyType,
+    //            squareFootage: squareFootage,
+    //            isFurnished: isFurnished,
+    //            createdDate: Date(),
+    //            updatedDate: Date(),
+    //            favoriteCount: 0,
+    //            realtorID: ""
+    //        )
+    //
+    //
+    //        self.dbHelper.addProperty(newProperty, userID: userID)
+    //        { success in
+    //            if success {
+    //                insertNotif(newProperty, "Insert")
+    //                alertMessage = "Property added successfully"
+    //                resetFormFields()
+    //
+    //            } else {
+    //                alertMessage = "Failed to save property. Please try again."
+    //            }
+    //            showAlert = true
+    //
+    //        }
+    //    }
     
     private func updateProperty() {
         guard let userID = dbHelper.userProfile?.id else {
@@ -469,29 +472,29 @@ struct ProjectViewEdit: View {
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
                 
-               insertNotif(updatedProperty, "Update")
+                insertNotif(updatedProperty, "Update")
                 alertMessage = "Property Update successfully"
                 resetFormFields()
                 presentationMode.wrappedValue.dismiss()
-
+                
             } else {
                 alertMessage = "Failed to Update property. Please try again."
             }
             showAlert = true
-               
+            
         }
     }
     
     func insertNotif(_ project : RenovateProject, _ a : String){
         
         let notification = Notifications(
-         id: UUID().uuidString,
+            id: UUID().uuidString,
             timestamp: Date(),
-         userID: project.ownerID,
+            userID: project.ownerID,
             event: "Project \(a)!",
-         details: "Project titled '\(project.title)' has been \(a) By \(dbHelper.userProfile?.fullName).",
+            details: "Project titled '\(project.title)' has been \(a) By \(dbHelper.userProfile?.fullName).",
             isRead: false,
-         projectID: project.id!
+            projectID: project.id!
         )
         dbHelper.insertNotification(notification) { notificationSuccess in
             if notificationSuccess {

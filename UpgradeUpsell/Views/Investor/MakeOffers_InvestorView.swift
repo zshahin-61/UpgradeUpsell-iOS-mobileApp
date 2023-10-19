@@ -22,6 +22,7 @@ struct MakeOffers_InvestorView: View {
 
     var body: some View {
         VStack{
+            Text("Make an Offer").bold().font(.title).foregroundColor(.brown)
             Form {
                 Section(header: Text("Property Information").font(.headline)) {
                     HStack{

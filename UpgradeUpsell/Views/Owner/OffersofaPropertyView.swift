@@ -22,6 +22,7 @@ struct OffersofaPropertyView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
+            Text("Offers").bold().font(.title).foregroundColor(.brown)
             List {
                 if dbHelper.userProfile == nil {
                     Text("No user login")
