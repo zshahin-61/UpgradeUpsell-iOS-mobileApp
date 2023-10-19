@@ -127,7 +127,7 @@ struct MakeOffers_InvestorView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        .navigationBarTitle("Add an Offer")
+        //.navigationBarTitle("Add an Offer")
     }
 
     func formattedDate(from date: Date) -> String {
