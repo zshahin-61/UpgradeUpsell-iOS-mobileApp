@@ -287,7 +287,7 @@ struct ProjectViewEdit: View {
             .padding()
             .alert(isPresented: $showAlert) {
                 Alert(
-                    title: Text(" Alert! "),
+                    title: Text(" "),
                     message: Text(alertMessage),
                     dismissButton: .default(Text("OK"))
                 )
