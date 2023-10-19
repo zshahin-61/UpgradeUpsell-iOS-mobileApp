@@ -44,7 +44,6 @@ struct NotificationDetailView: View {
                         presentationMode.wrappedValue.dismiss()
 
                     }
-//                  isPresented = false
                 }) {
                     Text("Delete ")
                         .foregroundColor(.red)
@@ -53,7 +52,6 @@ struct NotificationDetailView: View {
         }.padding()
             .onAppear(){
                 dbHelper.markNotificationAsRead(notification) { success in
-//                    presentationMode.wrappedValue.dismiss()
                     
                 }
             }
