@@ -2,7 +2,7 @@
 //  ProjectOffersView.swift
 //  UpgradeUpsell
 //
-//  Created by Created by Zahra Shahin.
+//  Created by Created by Zahra Shahin on 2023-10-10.
 //
 
 import SwiftUI
@@ -16,7 +16,7 @@ struct ProjectListView: View {
     @State private var selectedProject: RenovateProject?
     
     var body: some View {
-        NavigationView {
+        VStack {
             List {
                 ForEach(userProjects) { property in
                     //VStack{
