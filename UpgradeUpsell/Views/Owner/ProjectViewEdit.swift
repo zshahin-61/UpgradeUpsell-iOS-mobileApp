@@ -347,9 +347,11 @@ struct ProjectViewEdit: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
+            //Spacer()
         }
         //            .padding()
         //.navigationBarTitle("Update a Property")//VStack
+//    Spacer()
     }//View
     
     
