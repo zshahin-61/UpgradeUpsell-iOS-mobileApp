@@ -97,7 +97,7 @@ struct SettingsView: View {
                         }.buttonStyle(.borderedProminent)
                     }
                 
-                    Section(header: Text("Account Settings")) {
+                    Section(header: Text("Account")) {
                         Button(action:{
                             
                             showingDeleteAlert = true
@@ -107,7 +107,8 @@ struct SettingsView: View {
                             
                         }){
                             Image(systemName: "multiply.circle").foregroundColor(Color.white)
-                            Text("Delete User Account")
+                            Text("Delete My Account")
+                            Spacer()
                         }.padding(5).font(.title2).foregroundColor(Color.white)//
                             .buttonBorderShape(.roundedRectangle(radius: 15)).buttonStyle(.bordered).background(Color.red)
                         

@@ -17,9 +17,11 @@ struct ProjectListView: View {
     
     var body: some View {
         VStack {
-            List {
-                ForEach(userProjects) { property in
-                    //VStack{
+        
+            Text("List of My Properties").bold().font(.title)
+                List {
+                    ForEach(userProjects) { property in
+                        //VStack{
                         NavigationLink(destination: ProjectViewEdit(selectedProject: property)
                             .environmentObject(authHelper)
                             .environmentObject(self.dbHelper)) {
@@ -27,38 +29,38 @@ struct ProjectListView: View {
                             }
                         HStack{
                             Spacer()
-                           
-                                NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
-                                    .environmentObject(authHelper)
-                                    .environmentObject(self.dbHelper)) {
-                                        Text("See Offers")
-                                            .foregroundColor(.blue)
-                                    }
-                                    .padding(.leading, 100)
+                            
+                            NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
+                                .environmentObject(authHelper)
+                                .environmentObject(self.dbHelper)) {
+                                    Text("See Offers")
+                                        .foregroundColor(.blue)
+                                }
+                                .padding(.leading, 100)
                             
                             
                         }
-                    //}
+                        //}
+                    }
+                    .onDelete(perform: deleteProjects)
                 }
-                .onDelete(perform: deleteProjects)
-            }
-            .onAppear {
-                if let userID = self.dbHelper.userProfile?.id {
-                    dbHelper.getUserProjectsWithStatus(userID: userID) { projects, error in
-                        if let projects = projects {
-                            self.userProjects = projects
-                        } else if let error = error {
-                            // Handle the error
-                            print("Error fetching user projects: \(error.localizedDescription)")
+                .onAppear {
+                    if let userID = self.dbHelper.userProfile?.id {
+                        dbHelper.getUserProjectsWithStatus(userID: userID) { projects, error in
+                            if let projects = projects {
+                                self.userProjects = projects
+                            } else if let error = error {
+                                // Handle the error
+                                print("Error fetching user projects: \(error.localizedDescription)")
+                            }
                         }
                     }
                 }
-            }
-            .navigationBarTitle("MyProperties")
-            .padding(.horizontal, 10)
+                //            .padding(.horizontal, 10)
+            
         }
-//        .background(Color.red)
-        .padding(.horizontal, 10)
+        .padding(.top, 10)
+//        .navigationBarTitle("List My Properties")//VStack
     }
  //Add status Delete
     private func deleteProjects(at offsets: IndexSet) {

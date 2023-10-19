@@ -287,12 +287,12 @@ struct ProjectViewEdit: View {
             .padding()
             .alert(isPresented: $showAlert) {
                 Alert(
-                    title: Text("Conversion Result"),
+                    title: Text(" Alert! "),
                     message: Text(alertMessage),
                     dismissButton: .default(Text("OK"))
                 )
             }
-            .navigationBarTitle("Add an Offer")//VStack
+            .navigationBarTitle("Update a Property")//VStack
     }//View
     
     
