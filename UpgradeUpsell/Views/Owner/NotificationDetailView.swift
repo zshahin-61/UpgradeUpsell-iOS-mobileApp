@@ -53,7 +53,7 @@ struct NotificationDetailView: View {
         }.padding()
             .onAppear(){
                 dbHelper.markNotificationAsRead(notification) { success in
-                    presentationMode.wrappedValue.dismiss()
+//                    presentationMode.wrappedValue.dismiss()
                     
                 }
             }
