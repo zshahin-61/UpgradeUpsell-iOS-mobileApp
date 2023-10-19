@@ -38,9 +38,9 @@ struct ProjectViewEdit: View {
     @State private var squareFootage: Double = 0.0
     @State private var isFurnished = false
     
-    @State private var isShowingSuccessAlert = false
-    @State private var isShowingErrorAlert = false
     @State private var alertMessage = ""
+    @State private var showAlert = false
+    
     var selectedProject: RenovateProject?
     
     @EnvironmentObject var locationHelper: LocationHelper
@@ -53,12 +53,13 @@ struct ProjectViewEdit: View {
     private let categories = [
         "Residential",
         "Condo",
-        "Townhouse",
+        "Bungalow",
         "Apartment",
         "Office Space",
-        "Retail Space",
-        "Warehouse",
+        "Cottage or Cabin",
+        "Beach House",
         "House",
+        "Townhouse",
         "Other"
     ]
     
@@ -66,7 +67,7 @@ struct ProjectViewEdit: View {
     var body: some View {
             VStack{
             Form {
-                Section(header: Text("")) {
+                Section(header: Text("Project Details")) {
                     VStack {
                         HStack {
                             Text("Title")
@@ -237,8 +238,9 @@ struct ProjectViewEdit: View {
                                 resetFormFields()
                                 
                             } else {
-                                isShowingErrorAlert = true
+                                alertMessage = "Please Enter Title $ Desciption & Address!"
                             }
+                            showAlert = true
                           
                         }
                     }) {
@@ -250,20 +252,7 @@ struct ProjectViewEdit: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .alert(isPresented: $isShowingSuccessAlert) {
-                        Alert(
-                            title: Text("Success"),
-                            message: Text("Property saved successfully"),
-                            dismissButton: .default(Text("OK"))
-                        )
-                    }
-                    .alert(isPresented: $isShowingErrorAlert) {
-                        Alert(
-                            title: Text("Error"),
-                            message: Text(alertMessage),
-                            dismissButton: .default(Text("OK"))
-                        )
-                    }
+
                     
             .onAppear() {
                 if let currentProject = selectedProject {
@@ -294,7 +283,16 @@ struct ProjectViewEdit: View {
                 }
             } //onApperar
             
-            }//VStack
+            }
+            .padding()
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Conversion Result"),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+            .navigationBarTitle("Add an Offer")//VStack
     }//View
     
     
@@ -361,18 +359,19 @@ struct ProjectViewEdit: View {
         )
         
         
-        dbHelper.addProperty(newProperty, userID: userID) { success in
+        self.dbHelper.addProperty(newProperty, userID: userID)
+        { success in
             if success {
                 insertNotif(newProperty, "Insert")
-
-                isShowingSuccessAlert = true
+                alertMessage = "Property added successfully"
                 resetFormFields()
                 presentationMode.wrappedValue.dismiss()
 
             } else {
-                isShowingErrorAlert = true
                 alertMessage = "Failed to save property. Please try again."
             }
+            showAlert = true
+
         }
     }
     
@@ -415,14 +414,17 @@ struct ProjectViewEdit: View {
         
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
-                insertNotif(updatedProperty, "Update")
-                isShowingSuccessAlert = true
+                
+               insertNotif(updatedProperty, "Update")
+                alertMessage = "Property Update successfully"
                 resetFormFields()
                 presentationMode.wrappedValue.dismiss()
 
             } else {
-                isShowingErrorAlert = true
-                alertMessage = "Failed to update property. Please try again."            }
+                alertMessage = "Failed to Update property. Please try again."
+            }
+            showAlert = true
+               
         }
     }
     
