@@ -2,7 +2,7 @@
 //  SettingsView.swift
 //  UpgradeUpsell
 //
-//  Created by Golnaz Chehrazi - Zahra Shahin on 2023-10-04.
+//  Created by Golnaz Chehrazi on 2023-10-04.
 //
 
 import SwiftUI
