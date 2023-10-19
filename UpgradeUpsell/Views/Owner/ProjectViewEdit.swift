@@ -64,8 +64,6 @@ struct ProjectViewEdit: View {
     
     
     var body: some View {
-        NavigationView{
-            //   ScrollView {
             VStack{
             Form {
                 Section(header: Text("")) {
@@ -253,16 +251,14 @@ struct ProjectViewEdit: View {
                             .cornerRadius(10)
                     }
                     .alert(isPresented: $isShowingSuccessAlert) {
-                        print("Showing Success Alert")
-                        return Alert(
+                        Alert(
                             title: Text("Success"),
                             message: Text("Property saved successfully"),
                             dismissButton: .default(Text("OK"))
                         )
                     }
                     .alert(isPresented: $isShowingErrorAlert) {
-                        print("Showing Error Alert")
-                        return Alert(
+                        Alert(
                             title: Text("Error"),
                             message: Text(alertMessage),
                             dismissButton: .default(Text("OK"))
@@ -298,10 +294,7 @@ struct ProjectViewEdit: View {
                 }
             } //onApperar
             
-            }//scroll
-        }//NavigationView
-        .navigationBarTitle("Information")
-        
+            }//VStack
     }//View
     
     
