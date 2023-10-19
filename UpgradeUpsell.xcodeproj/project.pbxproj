@@ -13,7 +13,6 @@
 		5A8DAB332ABCB3B500CDCBCB /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */; };
 		5A8DAB352ABCB3C300CDCBCB /* ProjectOffersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */; };
 		5A8DAB3E2AD4A48B00CDCBCB /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */; };
-		5A8DAB402AD798A100CDCBCB /* tmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB3F2AD798A100CDCBCB /* tmp.swift */; };
 		5A8DAB462ADDFC0B00CDCBCB /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */; };
 		5A8DAB482ADE066F00CDCBCB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */; };
 		5A8DAB4A2ADE29A900CDCBCB /* NotificationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */; };
@@ -64,7 +63,6 @@
 		5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectOffersView.swift; sourceTree = "<group>"; };
 		5A8DAB3D2AD4A48B00CDCBCB /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationHelper.swift; path = UpgradeUpsell/Helper/LocationHelper.swift; sourceTree = SOURCE_ROOT; };
-		5A8DAB3F2AD798A100CDCBCB /* tmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tmp.swift; sourceTree = "<group>"; };
 		5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 				5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */,
 				5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */,
 				5A8DAB342ABCB3C300CDCBCB /* ProjectOffersView.swift */,
-				5A8DAB3F2AD798A100CDCBCB /* tmp.swift */,
 				5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */,
 				5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */,
 				5FF7657E2AE028EB004A0C66 /* OffersofaPropertyView.swift */,
@@ -350,7 +347,6 @@
 				5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */,
 				5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */,
 				5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */,
-				5A8DAB402AD798A100CDCBCB /* tmp.swift in Sources */,
 				5FF7657F2AE028EB004A0C66 /* OffersofaPropertyView.swift in Sources */,
 				5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */,
 				5F9466312ABC83F70006FBB5 /* SignInView.swift in Sources */,
