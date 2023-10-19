@@ -194,7 +194,7 @@ struct ProfileView: View {
             }
             //self.presentationMode.wrappedValue.dismiss()
         }) {
-            Text("Back")
+            Text("< Back")
         })
         .sheet(isPresented: $isShowingPicker) {
             // Image picker view

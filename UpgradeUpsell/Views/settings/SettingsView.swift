@@ -19,6 +19,7 @@ struct SettingsView: View {
     
     @State private var showingDeleteAlert = false
     @Binding var rootScreen : RootView
+    @State private var role: String = "Owner"
     
     var body: some View {
         VStack {
@@ -83,19 +84,13 @@ struct SettingsView: View {
                         Spacer()
                         Button(action:{
                             // self.presentationMode.wrappedValue.dismiss()
-                            if let loginedUserRole = dbHelper.userProfile?.role{
-                                if loginedUserRole == "Owner"{
-                                    self.rootScreen = .Home
-                                }
-                                else if loginedUserRole == "Investor"{
-                                    self.rootScreen = .InvestorHome
-                                }
-                                else if loginedUserRole == "Realtor"{
-                                    self.rootScreen = .RealtorHome
-                                }
-                            }else
-                            {
+                            if(self.role == "Investor"){
+                                self.rootScreen = .InvestorHome
+                            }else if self.role ==  "Owner"{
                                 self.rootScreen = .Home
+                            } else if self.role == "Realtor"
+                            {
+                                self.rootScreen =  .RealtorHome
                             }
                         }){
                             Text("Back")
@@ -120,7 +115,24 @@ struct SettingsView: View {
                 }//Form
             }
             .navigationTitle("Settings")
+            .navigationBarItems(leading: Button(action: {
+                if(self.role == "Investor"){
+                    self.rootScreen = .InvestorHome
+                }else if self.role ==  "Owner"{
+                    self.rootScreen = .Home
+                } else if self.role == "Realtor"
+                {
+                    self.rootScreen =  .RealtorHome
+                }
+                //self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("< Back")
+            })
             .onAppear {
+                
+                if let role = self.dbHelper.userProfile?.role{
+                    self.role = role
+                }
                 dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id! ?? ""){ (userPref, error) in
 //                    guard let userPref = dbHelper.userPrefrences else{
 //                        return
@@ -181,5 +193,6 @@ struct DeleteAccountView: View {
             }
         }
         .navigationTitle("Delete Account")
+      
     }
 }
