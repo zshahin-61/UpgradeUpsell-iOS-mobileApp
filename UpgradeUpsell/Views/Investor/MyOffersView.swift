@@ -9,74 +9,73 @@ import Foundation
 import SwiftUI
 
 struct MyOffersView: View {
-        
-        @EnvironmentObject var authHelper: FireAuthController
-        @EnvironmentObject var dbHelper: FirestoreController
-        
-        @State private var suggestions: [InvestmentSuggestion] = []
-        @State private var isLoading: Bool = false
-        
-        var body: some View {
-            VStack(alignment: .leading, spacing: 10) {
-                List {
-                    if dbHelper.userProfile == nil {
-                        Text("No user login")
-                    } else if isLoading {
+    @EnvironmentObject var authHelper: FireAuthController
+    @EnvironmentObject var dbHelper: FirestoreController
+
+    @State private var suggestions: [InvestmentSuggestion] = []
+    @State private var isLoading: Bool = false
+
+    var body: some View {
+        //NavigationView {
+            VStack {
+                if dbHelper.userProfile == nil {
+                    Text("No user logged in")
+                } else {
+                    if isLoading {
                         ProgressView()
                     } else {
-                        ForEach(suggestions, id: \.id) { suggestion in
-                            Section {
-                                HStack {
-                                    Text("Title:").bold()
-                                    Spacer()
-                                    Text("\(suggestion.projectTitle)")
-                                }
-                                Group {
-                                    HStack {
-                                        Text("Offered amount:").bold()
-                                        Spacer()
-                                        Text(String(format: "%.2f", suggestion.amountOffered))
-                                    }
+                        List {
+                            ForEach(suggestions, id: \.id) { suggestion in
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text(suggestion.projectTitle)
+                                        .font(.title)
+                                        .bold()
+                                        .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                                     
                                     HStack {
-                                        Text("Duration:").bold()
+                                        Text("Offered Amount:")
+                                        Spacer()
+                                        Text(String(format: "$%.2f", suggestion.amountOffered))
+                                    }
+
+                                    HStack {
+                                        Text("Duration:")
                                         Spacer()
                                         Text("\(suggestion.durationWeeks) Weeks")
                                     }
+
+                                    HStack {
+                                        Text("Status:")
+                                        Spacer()
+                                        Text(suggestion.status)
+                                    }
+
+                                    Text(suggestion.description)
                                 }
-                                HStack {
-                                    Text("Status:").bold()
-                                    Spacer()
-                                    Text(suggestion.status)
-                                }
-                                
-                                HStack {
-                                    Text("\(suggestion.description)")
-                                }
-                            }
-                            
-                        }
-                    }
-                }
-                .padding()
-                
-                .onAppear {
-                    //print("Aryaaaaa")
-                    if let investorID = dbHelper.userProfile?.id {
-                        self.isLoading = true
-                       // print("Golnazzzzzz")
-                        self.dbHelper.getInveSuggByInvestorID(investorID: investorID) { (suggestions, error) in
-                            if let error = error {
-                                print("Error getting investment suggestions: \(error)")
-                            } else if let suggestions = suggestions {
-                                self.suggestions = suggestions
-                                print("Received \(suggestions.count) suggestions")
-                                self.isLoading = false
+                                .padding(10)
+                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
+                                .padding(.horizontal)
+                                .listRowBackground(Color.clear)
                             }
                         }
+                        .padding(.vertical, 10)
                     }
                 }
-                Spacer()
             }
-        }
+            .navigationBarTitle("My Offers", displayMode: .inline)
+            .onAppear {
+                if let investorID = dbHelper.userProfile?.id {
+                    isLoading = true
+                    dbHelper.getInveSuggByInvestorID(investorID: investorID) { (suggestions, error) in
+                        if let error = error {
+                            print("Error getting investment suggestions: \(error)")
+                        } else if let suggestions = suggestions {
+                            self.suggestions = suggestions
+                            isLoading = false
+                        }
+                    }
+                }
+            }
+        //}//nav view
     }
+}

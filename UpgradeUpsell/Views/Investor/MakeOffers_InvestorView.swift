@@ -36,13 +36,20 @@ struct MakeOffers_InvestorView: View {
                         Text("\(formattedDate(from: project.createdDate))")
                     }
                     VStack{
-                        Text("need to be done between: ").bold()
-                        HStack{ Text(" \(formattedDate(from: project.startDate))")
+                        HStack{
+                            Text("Need to be done between: ").bold()
+                            Spacer()
+                        }
+                        HStack{ 
+                            Text(" \(formattedDate(from: project.startDate))")
                             Text("   to    \(formattedDate(from: project.endDate))")
                         }
                     }
                     VStack{
-                        Text("Description: ").bold()
+                        HStack{
+                            Text("Description: ").bold()
+                            Spacer()
+                        }
                         Text("\(project.description)")
                     }
                     HStack{
