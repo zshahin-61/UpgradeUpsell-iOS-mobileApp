@@ -18,7 +18,7 @@ struct ProjectListView: View {
     var body: some View {
         VStack {
         
-            Text("List of My Properties").bold().font(.title)
+            Text("List of My Properties").bold().font(.title).foregroundColor(.brown)
                 List {
                     ForEach(userProjects) { property in
                         //VStack{

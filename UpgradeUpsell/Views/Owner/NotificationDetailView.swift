@@ -11,38 +11,36 @@ import Firebase
 struct NotificationDetailView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @Environment(\.presentationMode) var presentationMode
-
-//    @Binding var isPresented: Bool
     
     var notification: Notifications
-
+    
     var body: some View {
         Form {
-    
-//            if let currentUser = dbHelper.userProfile{
-//                Text ("Name: \(currentUser.fullName)")
-//            }
+            
+            //            if let currentUser = dbHelper.userProfile{
+            //                Text ("Name: \(currentUser.fullName)")
+            //            }
             Text("The Event: \(notification.event)")
             
             Text("Times: \(notification.timestamp)")
             
             Text("Details: \(notification.details ?? "No details available")")
-
-//            HStack{
-//                Button(action: {
-//                    dbHelper.markNotificationAsRead(notification) { success in
-//                        presentationMode.wrappedValue.dismiss()
-//                        
-//                    }                }) {
-//                        Text("Mark Read")
-//                    }
-//                
-//            }
+            
+            //            HStack{
+            //                Button(action: {
+            //                    dbHelper.markNotificationAsRead(notification) { success in
+            //                        presentationMode.wrappedValue.dismiss()
+            //                        
+            //                    }                }) {
+            //                        Text("Mark Read")
+            //                    }
+            //                
+            //            }
             HStack{
                 Button(action: {
                     dbHelper.deleteNotification(notification) { success in
                         presentationMode.wrappedValue.dismiss()
-
+                        
                     }
                 }) {
                     Text("Delete ")
@@ -56,6 +54,6 @@ struct NotificationDetailView: View {
                 }
             }
     }
-  
+    
 }
 

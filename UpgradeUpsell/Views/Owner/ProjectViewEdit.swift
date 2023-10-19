@@ -224,7 +224,7 @@ struct ProjectViewEdit: View {
                     }
                     
                 }//section
-            }.padding(.top, 10)//form
+            }//.padding(.top, 2)//form
         
                     Button(action: {
                         if selectedProject != nil {
@@ -233,12 +233,69 @@ struct ProjectViewEdit: View {
                             resetFormFields()
                         } else {
                             // If selectedProject is nil, it's an insert operation
-                            if !title.isEmpty || !description.isEmpty || !location.isEmpty {
-                                insertProperty()
-                                resetFormFields()
+                            if !title.isEmpty && !description.isEmpty && !location.isEmpty  {
                                 
+//                                insertProperty()
+                                    guard let userID = dbHelper.userProfile?.id else {
+                                        return
+                                    }
+                                    //Image
+                                    var imageData :Data? = nil
+                                    
+                                    if(selectedImage != nil )
+                                    {
+                                        let image = selectedImage!
+                                        let imageName = "\(UUID().uuidString).jpg"
+                                        print(imageName)
+                                        imageData = image.jpegData(compressionQuality: 0.1)
+                                    }
+                                    
+                                    // Create a new property
+                                    let newProperty = RenovateProject(
+                                        projectID: UUID().uuidString,
+                                        title: title,
+                                        description: description,
+                                        location: location,
+                                        lng: lng,
+                                        lat: lat,
+                                        images: imageData,
+                                        ownerID: userID,
+                                        category: selectedCategory,
+                                        investmentNeeded: investmentNeeded,
+                                        selectedInvestmentSuggestionID: "",
+                                        status: status,
+                                        startDate: startDate,
+                                        endDate: endDate,
+                                        numberOfBedrooms: numberOfBedrooms,
+                                        numberOfBathrooms: numberOfBathrooms,
+                                        propertyType: propertyType,
+                                        squareFootage: squareFootage,
+                                        isFurnished: isFurnished,
+                                        createdDate: Date(),
+                                        updatedDate: Date(),
+                                        favoriteCount: 0,
+                                        realtorID: ""
+                                    )
+                                    
+                                    
+                                    self.dbHelper.addProperty(newProperty, userID: userID)
+                                    { success in
+                                        if success {
+                                            insertNotif(newProperty, "Insert")
+                                            alertMessage = "Property added successfully"
+                                            resetFormFields()
+
+                                        } else {
+                                            alertMessage = "Failed to save property. Please try again."
+                                        }
+                                        showAlert = true
+
+                                    }
+                                
+                              
+
                             } else {
-                                alertMessage = "Please Enter Title $ Desciption & Address!"
+                                alertMessage = "Please Enter Title $ Desciption & Address and ScoreFootage!"
                             }
                             showAlert = true
                           
@@ -282,16 +339,15 @@ struct ProjectViewEdit: View {
                     resetFormFields()
                 }
             } //onApperar
-            
-            }
-            .padding()
             .alert(isPresented: $showAlert) {
                 Alert(
-                    title: Text(" "),
+                    title: Text("Message! "),
                     message: Text(alertMessage),
                     dismissButton: .default(Text("OK"))
                 )
             }
+            }
+//            .padding()
             .navigationBarTitle("Update a Property")//VStack
     }//View
     
@@ -316,64 +372,63 @@ struct ProjectViewEdit: View {
         
     }
     
-    private func insertProperty() {
-        guard let userID = dbHelper.userProfile?.id else {
-            return
-        }
-        //Image
-        var imageData :Data? = nil
-        
-        if(selectedImage != nil )
-        {
-            let image = selectedImage!
-            let imageName = "\(UUID().uuidString).jpg"
-            print(imageName)
-            imageData = image.jpegData(compressionQuality: 0.1)
-        }
-        
-        // Create a new property
-        let newProperty = RenovateProject(
-            projectID: UUID().uuidString,
-            title: title,
-            description: description,
-            location: location,
-            lng: lng,
-            lat: lat,
-            images: imageData,
-            ownerID: userID,
-            category: selectedCategory,
-            investmentNeeded: investmentNeeded,
-            selectedInvestmentSuggestionID: "",
-            status: status,
-            startDate: startDate,
-            endDate: endDate,
-            numberOfBedrooms: numberOfBedrooms,
-            numberOfBathrooms: numberOfBathrooms,
-            propertyType: propertyType,
-            squareFootage: squareFootage,
-            isFurnished: isFurnished,
-            createdDate: Date(),
-            updatedDate: Date(),
-            favoriteCount: 0,
-            realtorID: ""
-        )
-        
-        
-        self.dbHelper.addProperty(newProperty, userID: userID)
-        { success in
-            if success {
-                insertNotif(newProperty, "Insert")
-                alertMessage = "Property added successfully"
-                resetFormFields()
-                presentationMode.wrappedValue.dismiss()
-
-            } else {
-                alertMessage = "Failed to save property. Please try again."
-            }
-            showAlert = true
-
-        }
-    }
+//    private func insertProperty() {
+//        guard let userID = dbHelper.userProfile?.id else {
+//            return
+//        }
+//        //Image
+//        var imageData :Data? = nil
+//
+//        if(selectedImage != nil )
+//        {
+//            let image = selectedImage!
+//            let imageName = "\(UUID().uuidString).jpg"
+//            print(imageName)
+//            imageData = image.jpegData(compressionQuality: 0.1)
+//        }
+//
+//        // Create a new property
+//        let newProperty = RenovateProject(
+//            projectID: UUID().uuidString,
+//            title: title,
+//            description: description,
+//            location: location,
+//            lng: lng,
+//            lat: lat,
+//            images: imageData,
+//            ownerID: userID,
+//            category: selectedCategory,
+//            investmentNeeded: investmentNeeded,
+//            selectedInvestmentSuggestionID: "",
+//            status: status,
+//            startDate: startDate,
+//            endDate: endDate,
+//            numberOfBedrooms: numberOfBedrooms,
+//            numberOfBathrooms: numberOfBathrooms,
+//            propertyType: propertyType,
+//            squareFootage: squareFootage,
+//            isFurnished: isFurnished,
+//            createdDate: Date(),
+//            updatedDate: Date(),
+//            favoriteCount: 0,
+//            realtorID: ""
+//        )
+//
+//
+//        self.dbHelper.addProperty(newProperty, userID: userID)
+//        { success in
+//            if success {
+//                insertNotif(newProperty, "Insert")
+//                alertMessage = "Property added successfully"
+//                resetFormFields()
+//
+//            } else {
+//                alertMessage = "Failed to save property. Please try again."
+//            }
+//            showAlert = true
+//
+//        }
+//    }
     
     private func updateProperty() {
         guard let userID = dbHelper.userProfile?.id else {

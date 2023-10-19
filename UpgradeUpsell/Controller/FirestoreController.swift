@@ -636,6 +636,42 @@ class FirestoreController: ObservableObject {
     }
 
 
+    func deleteAllNotifications(forUserID userID: String, completion: @escaping (Bool) -> Void) {
+        let db = Firestore.firestore()
+        
+        // Reference to the notifications collection for the user
+        let notificationsRef = db.collection(COLLECTION_Notifications).whereField("userID", isEqualTo: userID)
+        
+        // Delete all notifications in the collection
+        notificationsRef.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error deleting notifications: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                // Delete each notification document
+                let batch = db.batch()
+                for document in querySnapshot?.documents ?? [] {
+                    batch.deleteDocument(document.reference)
+                }
+                
+                // Commit the batch
+                batch.commit { error in
+                    if let error = error {
+                        print("Error deleting notifications: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        print("All notifications deleted successfully.")
+                        completion(true)
+                    }
+                }
+            }
+        }
+    }
+    
+
+    
+
+
     // MARK: functions for Collection investment Sugesstions
     func updateInvestmentStatus(suggestionID: String, newStatus: String, completion: @escaping (Error?) -> Void) {
         let collectionRef = Firestore.firestore().collection(COLLECTION_InvestmentSuggestions)
