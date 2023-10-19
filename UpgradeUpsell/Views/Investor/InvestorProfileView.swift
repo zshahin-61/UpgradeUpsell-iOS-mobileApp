@@ -105,7 +105,7 @@ struct InvestorProfileView: View {
         .navigationBarItems(leading: Button(action: {
                   self.presentationMode.wrappedValue.dismiss()
                }) {
-                   Text("Back")
+                   Text(" < Back ").font(.headline)
                })
     }
 }
