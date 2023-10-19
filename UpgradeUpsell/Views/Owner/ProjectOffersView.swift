@@ -11,6 +11,11 @@ struct ProjectOffersView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
+            HStack{
+                Spacer()
+                Text("List of Offers").bold().font(.title).foregroundColor(.brown)
+                Spacer()
+            }
             List {
                 if dbHelper.userProfile == nil {
                     Text("No user login")

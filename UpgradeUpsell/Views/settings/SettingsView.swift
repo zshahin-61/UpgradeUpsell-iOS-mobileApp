@@ -23,6 +23,7 @@ struct SettingsView: View {
     
     var body: some View {
         VStack {
+            Text("Settings").bold().font(.title).foregroundColor(.brown)
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
@@ -115,7 +116,7 @@ struct SettingsView: View {
                     }
                 }//Form
             }
-            .navigationTitle("Settings")
+            //.navigationTitle("Settings")
             .navigationBarItems(leading: Button(action: {
                 if(self.role == "Investor"){
                     self.rootScreen = .InvestorHome

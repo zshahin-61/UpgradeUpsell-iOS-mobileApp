@@ -32,8 +32,14 @@ struct ProfileView: View {
     var body: some View {
         //ScrollView {
         VStack(alignment: .leading) {
+            HStack{
+                Spacer()
+                Text("Profile").bold().font(.title).foregroundColor(.brown)
+                Spacer()
+            }
             Form{
-                Section(header: Text("Profile").bold()) {
+                //Section(header: Text("Profile").bold()) {
+                VStack{
                     if let data = imageData, let uiImage = UIImage(data: data) {
                         Image(uiImage: uiImage)
                             .resizable()
@@ -46,6 +52,7 @@ struct ProfileView: View {
                         Text("Change Picture")
                     }
                 }
+                //}
                 
                 FormSection(header: "Personal Details") {
                     TextField("Full Name", text: $nameFromUI)
@@ -159,8 +166,10 @@ struct ProfileView: View {
                     Text("Back")
                 }.buttonStyle(.borderedProminent)
             }
+            Spacer()
         }
-        .padding()
+        
+        .padding(.horizontal, 10)
         // }
         
         .onAppear() {
@@ -204,6 +213,7 @@ struct ProfileView: View {
                 Text("Access to the photo library is not authorized.")
             }
         }
+    Spacer()
     }
 }
 

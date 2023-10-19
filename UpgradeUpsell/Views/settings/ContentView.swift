@@ -44,7 +44,8 @@ struct ContentView: View {
                 case .Settings:
                     SettingsView(rootScreen: $root ).environmentObject(self.authHelper).environmentObject(self.dbHelper)
                 }
-            }.padding()
+            }
+            .padding()
         }
         .scrollContentBackground(.hidden) // backcolor Gray
     }

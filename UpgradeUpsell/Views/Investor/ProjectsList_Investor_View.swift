@@ -15,6 +15,7 @@ struct ProjectsList_InvestorView: View {
     
     var body: some View {
         VStack{
+            Text("List of Properties").bold().font(.title).foregroundColor(.brown)
             List(prjList) { prj in
                 NavigationLink(destination: MakeOffers_InvestorView(project: prj).environmentObject(dbHelper).environmentObject(authHelper)) {
                     ProjectListItemView(project: prj)

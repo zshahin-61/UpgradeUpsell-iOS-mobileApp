@@ -35,10 +35,7 @@ struct SignUpView: View {
     var body: some View {
         
         VStack{
-            //            Text("Sign Up")
-            //                .font(.largeTitle)
-            //                .fontWeight(.bold)
-            //                .foregroundColor(.blue)
+            Text("Sign up").bold().font(.title).foregroundColor(.brown)
             Form{
                 TextField("Enter Email", text: self.$emailFromUI)
                     .textInputAutocapitalization(.never)
@@ -52,13 +49,9 @@ struct SignUpView: View {
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                 
-                //                VStack(alignment: .leading, spacing: 10) {
-                //                    Text("Full Name")
-                //                        .font(.headline)
                 TextField("Enter Full Name", text: $fullNameFromUI)
                     .textFieldStyle(.roundedBorder)
                     .autocapitalization(.words)
-                //}
                 
                 VStack(alignment: .leading, spacing: 10) {
                     Text("I am ...")
@@ -70,6 +63,7 @@ struct SignUpView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
+                
                 TextField("Bio", text: self.$bioFromUI)
                     .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
@@ -116,7 +110,6 @@ struct SignUpView: View {
                     }
                 }
             }
-           // .scrollContentBackground(.hidden)
             .autocorrectionDisabled(true)
             
             Button(action: {
@@ -176,7 +169,7 @@ struct SignUpView: View {
             .buttonStyle(.borderedProminent)
             .disabled(self.passwordFromUI != self.confirmPasswordFromUI || self.emailFromUI.isEmpty || self.passwordFromUI.isEmpty || self.confirmPasswordFromUI.isEmpty || !isEmailValid())
             
-            .navigationBarTitle("Sign Up", displayMode: .inline)
+            //.navigationBarTitle("Sign Up", displayMode: .inline)
             .navigationBarItems(
                 trailing: Button(action: {
                     rootScreen = .Login
@@ -199,6 +192,3 @@ struct SignUpView: View {
         return !emailFromUI.isEmpty && isEmailValid() && !passwordFromUI.isEmpty && passwordFromUI == confirmPasswordFromUI
     }
 }
-
-
-

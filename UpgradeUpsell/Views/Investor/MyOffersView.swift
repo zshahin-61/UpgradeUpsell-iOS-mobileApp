@@ -18,6 +18,8 @@ struct MyOffersView: View {
     var body: some View {
         //NavigationView {
             VStack {
+                Text("My Offers").bold().font(.title).foregroundColor(.brown)
+                    .padding(.horizontal,10)
                 if dbHelper.userProfile == nil {
                     Text("No user logged in")
                 } else {
