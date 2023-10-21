@@ -16,11 +16,11 @@
 		5A8DAB462ADDFC0B00CDCBCB /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */; };
 		5A8DAB482ADE066F00CDCBCB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */; };
 		5A8DAB4A2ADE29A900CDCBCB /* NotificationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */; };
+		5F1BA5142AE3F6E000BCE947 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */; };
 		5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */; };
 		5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9465F62ABB33E50006FBB5 /* ContentView.swift */; };
 		5F9465F92ABB33E60006FBB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F9465F82ABB33E60006FBB5 /* Assets.xcassets */; };
 		5F9465FC2ABB33E60006FBB5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F9465FB2ABB33E60006FBB5 /* Preview Assets.xcassets */; };
-		5F9466062ABB36170006FBB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F9466052ABB36170006FBB5 /* GoogleService-Info.plist */; };
 		5F9466092ABB43830006FBB5 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5F9466082ABB43830006FBB5 /* FirebaseAnalytics */; };
 		5F94660B2ABB43830006FBB5 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 5F94660A2ABB43830006FBB5 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		5F94660D2ABB43830006FBB5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5F94660C2ABB43830006FBB5 /* FirebaseAuth */; };
@@ -66,12 +66,12 @@
 		5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
+		5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "UpgradeUpsell/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F9465F12ABB33E50006FBB5 /* UpgradeUpsell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpgradeUpsell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeUpsellApp.swift; sourceTree = "<group>"; };
 		5F9465F62ABB33E50006FBB5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5F9465F82ABB33E60006FBB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F9465FB2ABB33E60006FBB5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5F9466052ABB36170006FBB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "UpgradeUpsell/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F9466122ABB55F50006FBB5 /* FireAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireAuthController.swift; sourceTree = "<group>"; };
 		5F9466142ABB5C460006FBB5 /* FirestoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreController.swift; sourceTree = "<group>"; };
 		5F9466172ABB609B0006FBB5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		5F9465E82ABB33E50006FBB5 = {
 			isa = PBXGroup;
 			children = (
-				5F9466052ABB36170006FBB5 /* GoogleService-Info.plist */,
+				5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */,
 				5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */,
 				5F9465F22ABB33E50006FBB5 /* Products */,
 			);
@@ -325,7 +325,7 @@
 			files = (
 				5F9465FC2ABB33E60006FBB5 /* Preview Assets.xcassets in Resources */,
 				5F9465F92ABB33E60006FBB5 /* Assets.xcassets in Resources */,
-				5F9466062ABB36170006FBB5 /* GoogleService-Info.plist in Resources */,
+				5F1BA5142AE3F6E000BCE947 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
