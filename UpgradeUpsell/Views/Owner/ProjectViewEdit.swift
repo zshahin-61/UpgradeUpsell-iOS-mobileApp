@@ -173,7 +173,7 @@ struct ProjectViewEdit: View {
                                         isShowingPicker = true
                                     }) {
                                         Text("Choose Picture")
-                                    }
+                                    }.buttonStyle(.borderedProminent)
                                 } else {
                                     Button(action: {
                                         photoLibraryManager.requestPermission()
