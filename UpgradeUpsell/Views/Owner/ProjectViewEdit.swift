@@ -161,7 +161,8 @@ struct ProjectViewEdit: View {
                                 }
                             }
                             VStack {
-                                Text("Upload Images").font(.subheadline)
+                                Text("Upload Images").bold()
+                                    .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
                                 if photoLibraryManager.isAuthorized {
                                     if let image = selectedImage {
                                         Image(uiImage: image)
