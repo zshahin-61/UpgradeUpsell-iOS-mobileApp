@@ -8,6 +8,8 @@
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestoreSwift
+import PhotosUI
+import AVFoundation
 
 struct SignUpView: View {
     @EnvironmentObject var authHelper : FireAuthController
@@ -31,6 +33,13 @@ struct SignUpView: View {
     
     @State private var isShowingPicker = false
     @State private var selectedImage: UIImage?
+    
+    //@State private var isShowingPicker = false
+    @State private var isShowingCamera = false
+        //@State private var selectedImage: UIImage?
+    @State private var isCameraPermissionDenied = false
+    
+    
     
     var body: some View {
         
@@ -88,6 +97,12 @@ struct SignUpView: View {
                         }) {
                             Text("Select Image")
                         }
+                        Button(action: {
+                            isShowingCamera = true
+                            checkCameraPermissions()
+                        }) {
+                            Text("Capture Photo")
+                        }
                         if let image = selectedImage {
                             Image(uiImage: image)
                                 .resizable()
@@ -110,6 +125,14 @@ struct SignUpView: View {
                     }
                 }
             }
+            .sheet(isPresented: $isShowingPicker) {
+                if photoLibraryManager.isAuthorized {
+                    ImagePickerView(selectedImage: $selectedImage)
+                } else {
+                    Text("Access to photo library is not authorized.")
+                }
+            }
+            //}
             .autocorrectionDisabled(true)
             
             Button(action: {
@@ -180,6 +203,32 @@ struct SignUpView: View {
         }
     }
     
+// Function to check camera permissions
+    func checkCameraPermissions() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            // Camera access is already granted.
+            break
+        case .notDetermined:
+            // Camera access is not determined yet. Request permission.
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted {
+                    // Permission granted
+                    self.isCameraPermissionDenied = false
+                } else {
+                    // Permission denied
+                    self.isCameraPermissionDenied = true
+                }
+            }
+        case .denied, .restricted:
+            // Camera access is denied or restricted by the user or parental controls.
+            self.isCameraPermissionDenied = true
+        @unknown default:
+            // Handle unknown cases if necessary.
+            break
+        }
+    }
+
     // MARK: func for check if the form is valid
     func isEmailValid()-> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"

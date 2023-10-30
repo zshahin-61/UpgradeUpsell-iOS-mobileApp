@@ -505,6 +505,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"UpgradeUpsell/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Upgrade Upsell to access your device's camera for capturing photos.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -534,6 +535,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"UpgradeUpsell/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Upgrade Upsell to access your device's camera for capturing photos.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
