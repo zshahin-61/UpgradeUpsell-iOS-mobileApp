@@ -238,18 +238,45 @@ struct ProjectViewEdit: View {
                                     .clipShape(Rectangle())
                             } else {
                                 // Display selected images in a horizontal stack
+//                                ScrollView(.horizontal) {
+//                                    HStack {
+//                                        ForEach(selectedImages.indices, id: \.self) { index in
+//                                            if let image = selectedImages[index] {
+//                                                Image(uiImage: image)
+//                                                    .resizable()
+//                                                    .frame(width: 150, height: 150)
+//                                                    .clipShape(Rectangle())
+//                                            }
+//                                        }
+//                                    }
+//                                }
                                 ScrollView(.horizontal) {
                                     HStack {
                                         ForEach(selectedImages.indices, id: \.self) { index in
                                             if let image = selectedImages[index] {
-                                                Image(uiImage: image)
-                                                    .resizable()
-                                                    .frame(width: 150, height: 150)
-                                                    .clipShape(Rectangle())
+                                                ZStack {
+                                                    Image(uiImage: image)
+                                                        .resizable()
+                                                        .frame(width: 150, height: 150)
+                                                        .clipShape(Rectangle())
+                                                    
+                                                    Button(action: {
+                                                        // Remove the selected image at the given index
+                                                        selectedImages.remove(at: index)
+                                                    }) {
+                                                        Image(systemName: "trash")
+                                                            .foregroundColor(.red)
+                                                    }
+                                                    .padding(5)
+                                                    .background(Color.white)
+                                                    .clipShape(Circle())
+                                                    .offset(x: 50, y: -50) // Adjust the offset for the trash icon position
+                                                }
                                             }
                                         }
                                     }
                                 }
+
                             }
                         }
                         VStack {
