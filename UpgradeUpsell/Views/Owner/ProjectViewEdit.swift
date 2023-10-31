@@ -561,7 +561,7 @@ struct ProjectViewEdit: View {
                 insertNotif(updatedProperty, "Update")
                 alertMessage = "Property Update successfully"
                 resetFormFields()
-                presentationMode.wrappedValue.dismiss()
+//                presentationMode.wrappedValue.dismiss()
             } else {
                 alertMessage = "Failed to Update property. Please try again."
             }
