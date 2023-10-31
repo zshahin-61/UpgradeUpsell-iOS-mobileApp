@@ -87,6 +87,8 @@ struct SettingsView: View {
                             // self.presentationMode.wrappedValue.dismiss()
                             if(self.role == "Investor"){
                                 self.rootScreen = .InvestorHome
+                            }else if self.role == "Admin" {
+                                self.rootScreen = .Admin
                             }else if self.role ==  "Owner"{
                                 self.rootScreen = .Home
                             } else if self.role == "Realtor"

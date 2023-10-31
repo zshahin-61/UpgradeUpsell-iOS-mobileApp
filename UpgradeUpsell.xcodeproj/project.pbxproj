@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A47D9462AF0A36A0064AF0E /* MultiImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9452AF0A36A0064AF0E /* MultiImagePickerView.swift */; };
 		5A47D94A2AF15A870064AF0E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9492AF15A870064AF0E /* MapView.swift */; };
+		5A47D94D2AF16C6B0064AF0E /* HomeView_Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */; };
 		5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */; };
 		5A8DAB2E2ABCAB6100CDCBCB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */; };
 		5A8DAB312ABCB3A200CDCBCB /* ProjectViewEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */; };
@@ -61,6 +62,7 @@
 /* Begin PBXFileReference section */
 		5A47D9452AF0A36A0064AF0E /* MultiImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePickerView.swift; sourceTree = "<group>"; };
 		5A47D9492AF15A870064AF0E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Admin.swift; sourceTree = "<group>"; };
 		5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtorPersonDashboardView.swift; sourceTree = "<group>"; };
 		5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewEdit.swift; sourceTree = "<group>"; };
@@ -122,6 +124,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A47D94B2AF16C190064AF0E /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
 		5A8DAB2F2ABCB39500CDCBCB /* Owner */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +263,7 @@
 		5F9466292ABC82D90006FBB5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5A47D94B2AF16C190064AF0E /* Admin */,
 				5A8DAB382ABCB54100CDCBCB /* settings */,
 				5A8DAB372ABCB51100CDCBCB /* Investor */,
 				5A8DAB362ABCB50500CDCBCB /* Realtor */,
@@ -375,6 +386,7 @@
 				5F9466132ABB55F50006FBB5 /* FireAuthController.swift in Sources */,
 				5F9466352ABC845C0006FBB5 /* ProfileView.swift in Sources */,
 				5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */,
+				5A47D94D2AF16C6B0064AF0E /* HomeView_Admin.swift in Sources */,
 				5A8DAB4A2ADE29A900CDCBCB /* NotificationDetailView.swift in Sources */,
 				5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */,
 				5F9466152ABB5C460006FBB5 /* FirestoreController.swift in Sources */,

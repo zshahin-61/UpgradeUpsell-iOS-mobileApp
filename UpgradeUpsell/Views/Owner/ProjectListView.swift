@@ -14,6 +14,7 @@ struct ProjectListView: View {
     
     @State private var userProjects: [RenovateProject] = []
     @State private var selectedProject: RenovateProject?
+    @State private var isShowingPicker = false
     
     var body: some View {
         VStack {

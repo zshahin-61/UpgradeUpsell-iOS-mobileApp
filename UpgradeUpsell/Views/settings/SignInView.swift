@@ -78,6 +78,9 @@ struct SignInView: View {
                                         else if loginedUserRole == "Realtor"{
                                             self.rootScreen = .RealtorHome
                                         }
+                                        else if loginedUserRole == "Admin"{
+                                            self.rootScreen = .Admin
+                                        }
                                         
                                         
                                     }
