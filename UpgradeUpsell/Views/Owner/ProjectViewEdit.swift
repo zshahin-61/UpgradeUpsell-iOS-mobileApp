@@ -25,7 +25,8 @@ struct ProjectViewEdit: View {
     
     @State private var title = ""
     @State private var description = ""
-    @State private var location = ""
+    @State private var address = ""
+//    @State private var location = ""
     @State private var lng: Double = 0.0
     @State private var lat: Double = 0.0
     @State private var category = ""
@@ -114,11 +115,27 @@ struct ProjectViewEdit: View {
                             Spacer()
                         }
                         
-                        TextEditor(text: $location)
-                            .frame(minWidth: 10, minHeight: 50)
-                            .cornerRadius(5)
-                            .border(Color.gray, width: 0.2)
-                    }
+//                        TextEditor(text: $location)
+//                            .frame(minWidth: 10, minHeight: 50)
+//                            .cornerRadius(5)
+//                            .border(Color.gray, width: 0.2)
+//                    }
+//                    VStack {
+                           TextField("Enter your address", text: $address)
+                               .padding()
+                               .border(Color.gray, width: 0.2)
+
+                           Button(action: {
+                               // Convert the address to coordinates and update the latitude and longitude
+                               self.convertAddressToCoordinates()
+                           }) {
+                               Text("Find Location")
+                           }
+
+                           MapView(latitude: lat, longitude: lng)
+                       } .frame(height: 300)
+                        .border(Color.gray)
+                    
                     HStack {
                         Text("Category").bold()
                             .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
@@ -286,7 +303,7 @@ struct ProjectViewEdit: View {
                     resetFormFields()
                 } else {
                     // If selectedProject is nil
-                    if !title.isEmpty && !description.isEmpty && !location.isEmpty {
+                    if !title.isEmpty && !description.isEmpty && !address.isEmpty {
                         guard let userID = dbHelper.userProfile?.id else {
                             return
                         }
@@ -308,7 +325,7 @@ struct ProjectViewEdit: View {
                             projectID: UUID().uuidString,
                             title: title,
                             description: description,
-                            location: location,
+                            location: address,
                             lng: lng,
                             lat: lat,
                             images: imageDatas, // Use the array of image data here
@@ -381,7 +398,7 @@ struct ProjectViewEdit: View {
 
             .sheet(isPresented: $isShowingPicker) {
                 if photoLibraryManager.isAuthorized {
-                    NavigationView { 
+                    NavigationView {
                         MultiImagePickerView(selectedImages: $selectedImages)
                         .navigationBarItems(trailing: Button("Cancel") {
                             $isShowingPicker.wrappedValue = false // Close the sheet when the "Cancel" button is tapped
@@ -399,7 +416,7 @@ struct ProjectViewEdit: View {
                     self.title = currentProject.title
                     self.description = currentProject.description
                     self.selectedCategory = currentProject.category
-                    self.location = currentProject.location
+                    self.address = currentProject.location
                     self.lng = currentProject.lng
                     self.lat = currentProject.lat
                     self.investmentNeeded = currentProject.investmentNeeded
@@ -456,7 +473,7 @@ struct ProjectViewEdit: View {
     private func resetFormFields() {
         title = ""
         description = ""
-        location = ""
+        address = ""
         lng = 0.0
         lat = 0.0
         selectedCategory = "Residential"
@@ -554,7 +571,7 @@ struct ProjectViewEdit: View {
             projectID: selectedProject?.id ?? UUID().uuidString,
             title: title,
             description: description,
-            location: location,
+            location: address,
             lng: lng,
             lat: lat,
             images: imageDatas,
@@ -610,6 +627,21 @@ struct ProjectViewEdit: View {
             }
         }
     }
+    func convertAddressToCoordinates() {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
+            if let error = error {
+                print("Geocoding error: \(error.localizedDescription)")
+            } else if let placemark = placemarks?.first {
+                self.lat = placemark.location?.coordinate.latitude ?? 0.0
+                self.lng = placemark.location?.coordinate.longitude ?? 0.0
+
+                // Optionally, save the coordinates to Firebase
+//                self.saveCoordinatesToFirebase()
+            }
+        }
+    }
+
     
 }
 
