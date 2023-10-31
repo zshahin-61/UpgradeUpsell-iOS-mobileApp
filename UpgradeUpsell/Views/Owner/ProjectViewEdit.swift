@@ -354,23 +354,43 @@ struct ProjectViewEdit: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+//            .sheet(isPresented: $isShowingPicker) {
+//                if photoLibraryManager.isAuthorized {
+//                 //   NavigationView {
+//                        MultiImagePickerView(sourceType: .photoLibrary) { pickedImages in
+//                            // Handle the picked images here and append them to your 'selectedImages' array
+//                            for image in pickedImages {
+//                                selectedImages.append(image)
+//                            }
+//                            // Dismiss the sheet
+//                            $isShowingPicker.wrappedValue = false
+//                        }
+//                  //  }
+//                } else {
+//                    Text("Access to the photo library is not authorized.")
+//                }
+//            }
+//            .sheet(isPresented: $isShowingPicker) {
+//                if photoLibraryManager.isAuthorized {
+//                        MultiImagePickerView(selectedImages: $selectedImages)
+//                    
+//                } else {
+//                    Text("Access to the photo library is not authorized.")
+//                }
+//            }
+
             .sheet(isPresented: $isShowingPicker) {
                 if photoLibraryManager.isAuthorized {
-                    NavigationView {
-                        MultiImagePickerView(sourceType: .photoLibrary) { pickedImages in
-                            // Handle the picked images here and append them to your 'selectedImages' array
-                            for image in pickedImages {
-                                selectedImages.append(image)
-                            }
-                            // Dismiss the sheet
-                            $isShowingPicker.wrappedValue = false
-                        }
+                    NavigationView { 
+                        MultiImagePickerView(selectedImages: $selectedImages)
+                        .navigationBarItems(trailing: Button("Cancel") {
+                            $isShowingPicker.wrappedValue = false // Close the sheet when the "Cancel" button is tapped
+                        })
                     }
                 } else {
                     Text("Access to the photo library is not authorized.")
                 }
             }
-
 
 
 
@@ -561,6 +581,7 @@ struct ProjectViewEdit: View {
                 insertNotif(updatedProperty, "Update")
                 alertMessage = "Property Update successfully"
                 resetFormFields()
+//                Find a solution
 //                presentationMode.wrappedValue.dismiss()
             } else {
                 alertMessage = "Failed to Update property. Please try again."
