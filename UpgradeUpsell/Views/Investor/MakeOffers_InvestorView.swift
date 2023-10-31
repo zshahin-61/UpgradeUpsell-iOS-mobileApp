@@ -68,24 +68,7 @@ struct MakeOffers_InvestorView: View {
                     }
                     MapView(latitude: propertyLatitude, longitude: propertyLongitude)
                     .frame(height: 200)
-                    //.mapPin(coordinate: CLLocationCoordinate2D(latitude: propertyLatitude, longitude: propertyLongitude), tint: .red)
-
                     
-                    //                Text("Title: \(project.title)")
-                    //                Text("Category: \(project.category)")
-                    //                Text("Released Date: \(formattedDate(from: project.createdDate))")
-                    //                VStack{
-                    //                    Text("Need to be done between:")
-                    //                    Text("From: \(formattedDate(from: project.startDate))")
-                    //                    Text("To: \(formattedDate(from: project.endDate))")
-                    //                }
-                    //                Text("Description: \(project.description)")
-                    //                HStack{
-                    //                    Text("Likes: \(project.favoriteCount)")
-                    //                    Spacer()
-                    //                    Text("Status: \(project.status)")
-                    //                }
-                    //                Text("Location: \(project.location)")
                 }
                 
                 Section(header: Text("Make an Offer").font(.headline)) {

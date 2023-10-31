@@ -106,7 +106,7 @@ struct ProjectOffersView: View {
         }
         .alert(isPresented: $isShowingAlert) {
                     Alert(
-                        title: Text("Status Updated"),
+                        title: Text("Alert Message"),
                         message: Text(alertMessage),
                         dismissButton: .default(Text("OK"))
                     )
