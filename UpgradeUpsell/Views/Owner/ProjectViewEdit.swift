@@ -11,8 +11,11 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct ProjectViewEdit: View {
+    
     @EnvironmentObject var dbHelper: FirestoreController
     @EnvironmentObject var authHelper: FireAuthController
+    @EnvironmentObject var locationHelper: LocationHelper
+    
     @Environment(\.presentationMode) var presentationMode
     
     @StateObject private var photoLibraryManager = PhotoLibraryManager()
@@ -47,11 +50,10 @@ struct ProjectViewEdit: View {
     
     var selectedProject: RenovateProject?
     
-    @EnvironmentObject var locationHelper: LocationHelper
     
-    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64732, longitude: -79.38279), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
     
-    
+
     // status: Delete show but deactive by owner be onwer and didnot show on the list | all offer will be decline
     
     private let categories = [
@@ -114,6 +116,7 @@ struct ProjectViewEdit: View {
                             
                             Spacer()
                         }
+                       
                         
 //                        TextEditor(text: $location)
 //                            .frame(minWidth: 10, minHeight: 50)
@@ -126,6 +129,7 @@ struct ProjectViewEdit: View {
                                .border(Color.gray, width: 0.2)
 
                            Button(action: {
+                            
                                // Convert the address to coordinates and update the latitude and longitude
                                self.convertAddressToCoordinates()
                            }) {
@@ -135,6 +139,8 @@ struct ProjectViewEdit: View {
                            MapView(latitude: lat, longitude: lng)
                        } .frame(height: 300)
                         .border(Color.gray)
+                   // locationHelper.checkPermission()
+
                     
                     HStack {
                         Text("Category").bold()
@@ -417,6 +423,7 @@ struct ProjectViewEdit: View {
                     self.description = currentProject.description
                     self.selectedCategory = currentProject.category
                     self.address = currentProject.location
+                
                     self.lng = currentProject.lng
                     self.lat = currentProject.lat
                     self.investmentNeeded = currentProject.investmentNeeded
