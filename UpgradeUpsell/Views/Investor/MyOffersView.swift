@@ -53,6 +53,13 @@ struct MyOffersView: View {
                                     }
 
                                     Text(suggestion.description)
+                                    
+                                    Button(action: {
+                                                                   deleteSuggestion(suggestion) // Call the function to delete the offer
+                                                               }) {
+                                                                   Text("Delete")
+                                                                       .foregroundColor(.red)
+                                                               }
                                 }
                                 .padding(10)
                                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
@@ -80,4 +87,18 @@ struct MyOffersView: View {
             }
         //}//nav view
     }
+    // Function to delete an offer
+        func deleteSuggestion(_ suggestion: InvestmentSuggestion) {
+            // Implement the logic to delete the offer from your data source (e.g., Firestore)
+            self.dbHelper.deleteSuggestion(suggestion) { (success, error) in
+                 if success {
+                     // Delete was successful
+                     if let index = suggestions.firstIndex(where: { $0.id == suggestion.id }) {
+                         suggestions.remove(at: index)
+                     }
+                 } else if let error = error {
+                     print("Error deleting suggestion: \(error)")
+                 }
+             }
+        }
 }
