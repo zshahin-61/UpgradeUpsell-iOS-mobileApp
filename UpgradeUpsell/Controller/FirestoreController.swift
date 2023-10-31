@@ -573,6 +573,24 @@ class FirestoreController: ObservableObject {
             }
     }
     
+    func updatePropertyStatus(propertyID: String, newStatus: String, completion: @escaping (Error?) -> Void) {
+        // Assuming you have a reference to your database, update the property status here.
+        // This code is a placeholder and should be adapted to your database setup.
+
+        // For example, if you're using Firebase Firestore, you might do something like this:
+        let propertyRef = self.db.collection(COLLECTION_RenovateProject).document(propertyID)
+
+        propertyRef.updateData(["status": newStatus]) { error in
+            if let error = error {
+                print("Error updating property status: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                print("Property status updated successfully.")
+                completion(nil)
+            }
+        }
+    }
+    
     // MARK: Notification
     func markNotificationAsRead(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
         if let notificationID = notification.id {

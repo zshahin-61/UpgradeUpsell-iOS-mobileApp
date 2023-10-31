@@ -8,6 +8,8 @@ struct ProjectOffersView: View {
     @State private var suggestions: [InvestmentSuggestion] = []
     @State private var isLoading: Bool = false
     @State private var updatedStatuses: [String] = [] // Store updated statuses
+    @State private var isShowingAlert = false
+    @State private var alertMessage = ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -80,7 +82,7 @@ struct ProjectOffersView: View {
             HStack(alignment: .center) {
                 Spacer()
                 Button(action: {
-                    saveUpdatedStatuses()
+                    updateOfferStatuses()
                 }) {
                     Text("Save status changes")
                 }.buttonStyle(.borderedProminent)
@@ -101,7 +103,15 @@ struct ProjectOffersView: View {
                 }
             }
             Spacer()
-        }.padding(.vertical, 5)
+        }
+        .alert(isPresented: $isShowingAlert) {
+                    Alert(
+                        title: Text("Alert Message"),
+                        message: Text(alertMessage),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
+        .padding(.vertical, 5)
     }
 
     let dateFormatter: DateFormatter = {
@@ -112,15 +122,25 @@ struct ProjectOffersView: View {
     }()
     
     // Function to save updated statuses to the database
-    func saveUpdatedStatuses() {
+    func updateOfferStatuses() {
         for (index, suggestion) in suggestions.enumerated() {
             // Check if the status has been updated
             if suggestion.status != updatedStatuses[index] {
                 // Update the status in the database
                 dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
+                    
                     if let error = error {
                         print("Error updating status for offer: \(error)")
                     } else {
+                        if suggestion.status == "Accept" { // Check if the status is "Accept"
+                            updatePropertyStatus(propertyID: suggestion.projectID, status: "In Progress")
+                                            }
+                        else if suggestion.status == "Pending" { // Check if the status is "Accept"
+                            updatePropertyStatus(propertyID: suggestion.projectID, status: "Released")
+                                            }
+                        else if suggestion.status == "Declined" { // Check if the status is "Accept"
+                            updatePropertyStatus(propertyID: suggestion.projectID, status: "Released")
+                                            }
                         // Insert a notification in Firebase
                         let notification = Notifications(
                             id: UUID().uuidString,
@@ -139,8 +159,24 @@ struct ProjectOffersView: View {
                                 print("Error inserting notification.")
                             }
                         }
+                        
+                        // Set the alert message
+                                               alertMessage = "Status updated successfully."
+                                               isShowingAlert = true
                     }
                 }
+            }
+        }
+    }
+    
+    // Function to update the property status to "InProgress"
+    func updatePropertyStatus(propertyID: String, status: String) {
+        // Update the property status to "InProgress" in the database
+        dbHelper.updatePropertyStatus(propertyID: propertyID, newStatus: status) { error in
+            if let error = error {
+                print("Error updating property status to InProgress: \(error)")
+            } else {
+                print("Property status updated to InProgress.")
             }
         }
     }
