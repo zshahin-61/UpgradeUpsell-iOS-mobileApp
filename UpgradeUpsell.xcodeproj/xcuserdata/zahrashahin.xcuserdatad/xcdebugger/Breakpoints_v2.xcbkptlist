@@ -14,8 +14,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "getPreferencesFromFirestore(forUserID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -62,8 +62,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
             landmarkName = "addProperty(_:userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -125,8 +125,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
+            startingLineNumber = "552"
+            endingLineNumber = "552"
             landmarkName = "FirestoreController"
             landmarkType = "3">
          </BreakpointContent>
@@ -141,8 +141,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "554"
-            endingLineNumber = "554"
+            startingLineNumber = "555"
+            endingLineNumber = "555"
             landmarkName = "markNotificationAsRead(_:completion:)"
             landmarkType = "7">
             <Locations>
@@ -177,6 +177,70 @@
                   offsetFromSymbolStart = "72">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3D8C24C7-0620-42FD-88E4-319649A092FB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/OffersofaPropertyView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "OffersofaPropertyView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "3D8C24C7-0620-42FD-88E4-319649A092FB - 3325bce369ab3183"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of UpgradeUpsell.OffersofaPropertyView.noOffer : Swift.String"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zahrashahin/Downloads/Upgrade&amp;upsell/UpgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/OffersofaPropertyView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "3D8C24C7-0620-42FD-88E4-319649A092FB - 8fbf7175b423a494"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UpgradeUpsell.OffersofaPropertyView.init(authHelper: SwiftUI.EnvironmentObject&lt;UpgradeUpsell.FireAuthController&gt;, dbHelper: SwiftUI.EnvironmentObject&lt;UpgradeUpsell.FirestoreController&gt;, selectedProperty: UpgradeUpsell.RenovateProject) -&gt; UpgradeUpsell.OffersofaPropertyView"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zahrashahin/Downloads/Upgrade&amp;upsell/UpgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/OffersofaPropertyView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "220">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A80E627D-CF6D-4880-B6D9-7B246F07ABB9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "518"
+            endingLineNumber = "518"
+            landmarkName = "getRenovateProjectByID(_:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
