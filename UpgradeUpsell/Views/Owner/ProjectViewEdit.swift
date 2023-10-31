@@ -222,9 +222,15 @@ struct ProjectViewEdit: View {
 //                    }
                    
                     // Image
-                    // Inside the VStack where you display images
+                    if selectedImages.count >= 3 {
+                        Text("Count Of Images: \(selectedImages.count)\nScroll right for more Images").padding().bold()
+                    } else {
+                        Text("Count Of Images: \(selectedImages.count)").padding().bold()
+                    }
+
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
+
                             if selectedImages.isEmpty {
                                 Image(systemName: "photo")
                                     .resizable()
@@ -334,7 +340,7 @@ struct ProjectViewEdit: View {
                             location: address,
                             lng: lng,
                             lat: lat,
-                            images: imageDatas, 
+                            images: imageDatas,
                             ownerID: userID,
                             category: selectedCategory,
                             investmentNeeded: investmentNeeded,
