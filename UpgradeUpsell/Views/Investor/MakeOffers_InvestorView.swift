@@ -110,7 +110,8 @@ struct MakeOffers_InvestorView: View {
                         if let error = error {
                             alertMessage = "Error: \(error.localizedDescription)"
                         } else {
-                            alertMessage = "Suggestion added successfully"
+                            insertNotif(newOffer, "Insert")
+                            alertMessage = "Your offer added successfully"
                             self.presentationMode.wrappedValue.dismiss()
                         }
                         showAlert = true
@@ -122,7 +123,7 @@ struct MakeOffers_InvestorView: View {
         .padding()
         .alert(isPresented: $showAlert) {
             Alert(
-                title: Text("Conversion Result"),
+                title: Text("Result"),
                 message: Text(alertMessage),
                 dismissButton: .default(Text("OK"))
             )
@@ -130,6 +131,28 @@ struct MakeOffers_InvestorView: View {
         //.navigationBarTitle("Add an Offer")
     }
 
+    //insert in notifications
+    func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){
+        
+        let notification = Notifications(
+            id: UUID().uuidString,
+            timestamp: Date(),
+            userID: myOffer.ownerID,
+            event: "Offer \(a)!",
+            details: "Offer $\(myOffer.amountOffered) for project titled \(myOffer.projectTitle) has been \(a) By \(dbHelper.userProfile?.fullName).",
+            isRead: false,
+            projectID: myOffer.projectID
+        )
+        dbHelper.insertNotification(notification) { notificationSuccess in
+            if notificationSuccess {
+                print("Notification inserted successfully.")
+            } else {
+                print("Error inserting notification.")
+            }
+        }
+    }
+    
+    
     func formattedDate(from date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
