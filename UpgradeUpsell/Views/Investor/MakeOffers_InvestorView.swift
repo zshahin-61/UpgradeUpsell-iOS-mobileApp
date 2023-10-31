@@ -5,10 +5,10 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct MakeOffers_InvestorView: View {
     @Environment(\.presentationMode) var presentationMode
-
     @EnvironmentObject var dbHelper: FirestoreController
 
     let project: RenovateProject
@@ -19,6 +19,8 @@ struct MakeOffers_InvestorView: View {
 
     @State private var alertMessage = ""
     @State private var showAlert = false
+    @State private var propertyLatitude: Double = 0.0
+    @State private var propertyLongitude: Double = 0.0
 
     var body: some View {
         VStack{
@@ -41,7 +43,7 @@ struct MakeOffers_InvestorView: View {
                             Text("Need to be done between: ").bold()
                             Spacer()
                         }
-                        HStack{ 
+                        HStack{
                             Text(" \(formattedDate(from: project.startDate))")
                             Text("   to    \(formattedDate(from: project.endDate))")
                         }
@@ -64,6 +66,11 @@ struct MakeOffers_InvestorView: View {
                         Text("Location: ").bold()
                         Text("\(project.location)")
                     }
+                    MapView(latitude: propertyLatitude, longitude: propertyLongitude)
+                    .frame(height: 200)
+                    //.mapPin(coordinate: CLLocationCoordinate2D(latitude: propertyLatitude, longitude: propertyLongitude), tint: .red)
+
+                    
                     //                Text("Title: \(project.title)")
                     //                Text("Category: \(project.category)")
                     //                Text("Released Date: \(formattedDate(from: project.createdDate))")
@@ -119,7 +126,29 @@ struct MakeOffers_InvestorView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }
+        
+            .onAppear {
+                        // Retrieve the latitude and longitude values from your database for the property
+                        // For example, if you have a property object with lat and lng properties:
+                         propertyLatitude = project.lat
+                         propertyLongitude = project.lng
+
+                if propertyLatitude == 0.0 && propertyLongitude == 0.0 {
+                        let geocoder = CLGeocoder()
+                        geocoder.geocodeAddressString(project.location) { placemarks, error in
+                            if let placemark = placemarks?.first, let location = placemark.location {
+                                propertyLatitude = location.coordinate.latitude
+                                propertyLongitude = location.coordinate.longitude
+                            }
+                        }
+                    }
+                        // For testing, you can set sample coordinates like this:
+                        //propertyLatitude = 37.7749 // Replace with the actual latitude
+                        //propertyLongitude = -122.4194 // Replace with the actual longitude
+                    }
+
         }
+        
         .padding()
         .alert(isPresented: $showAlert) {
             Alert(
