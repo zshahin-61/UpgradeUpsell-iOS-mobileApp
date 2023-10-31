@@ -7,6 +7,8 @@
 import SwiftUI
 import Firebase
 import MapKit
+import Foundation
+import FirebaseFirestoreSwift
 
 struct ProjectViewEdit: View {
     @EnvironmentObject var dbHelper: FirestoreController
@@ -14,9 +16,12 @@ struct ProjectViewEdit: View {
     @Environment(\.presentationMode) var presentationMode
     
     @StateObject private var photoLibraryManager = PhotoLibraryManager()
+    
     @State private var isShowingPicker = false
-    @State private var selectedImage: UIImage?
-    @State private var imageData: Data?
+//    @State private var selectedImage: UIImage?
+//    @State private var imageData: Data?
+    @State private var selectedImages: [UIImage?] = []
+
     
     @State private var title = ""
     @State private var description = ""
@@ -67,8 +72,8 @@ struct ProjectViewEdit: View {
             Text("Property Details").bold().font(.title).foregroundColor(.brown)
             
             Form {
-                //Section(header: Text("Property Details")) {
-                Section{
+                Section(header: Text("Property Details")) {
+//                Section{
                     VStack {
                         HStack {
                             Text("Title")
@@ -148,50 +153,97 @@ struct ProjectViewEdit: View {
                         Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
                     }
                     // Image
+//                    VStack(alignment: .leading, spacing: 10) {
+//                        HStack {
+//                            if let data = imageData, let uiImage = UIImage(data: data) {
+//                                if selectedImage == nil {
+//                                    Image(uiImage: uiImage)
+//                                        .resizable()
+//                                        .frame(width: 150, height: 150)
+//                                        .clipShape(Rectangle())
+//                                } else {
+//                                    //
+//                                }
+//                            }
+//                            VStack {
+//                                Text("Upload Images").bold()
+//                                    .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+//                                if photoLibraryManager.isAuthorized {
+//                                    if let image = selectedImage {
+//                                        Image(uiImage: image)
+//                                            .resizable()
+//                                            .frame(width: 150, height: 150)
+//                                            .clipShape(Rectangle())
+//                                    }
+//                                    Button(action: {
+//                                        isShowingPicker = true
+//                                    }) {
+//                                        Text("Choose Picture")
+//                                    }.buttonStyle(.borderedProminent)
+//                                } else {
+//                                    Button(action: {
+//                                        photoLibraryManager.requestPermission()
+//                                    }) {
+//                                        Text("Request Access For Photo Library")
+//                                    }
+//                                }
+//                            }
+//                            .sheet(isPresented: $isShowingPicker) {
+//                                if photoLibraryManager.isAuthorized {
+//                                    ImagePickerView(selectedImage: $selectedImage)
+//                                } else {
+//                                    Text("Access to photo library is not authorized.")
+//                                }
+//                            }
+//                        }
+//                    }
+                   
+                    // Image
+                    // Inside the VStack where you display images
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
-                            if let data = imageData, let uiImage = UIImage(data: data) {
-                                if selectedImage == nil {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .frame(width: 150, height: 150)
-                                        .clipShape(Rectangle())
-                                } else {
-                                    //
-                                }
-                            }
-                            VStack {
-                                Text("Upload Images").bold()
-                                    .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-                                if photoLibraryManager.isAuthorized {
-                                    if let image = selectedImage {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .frame(width: 150, height: 150)
-                                            .clipShape(Rectangle())
-                                    }
-                                    Button(action: {
-                                        isShowingPicker = true
-                                    }) {
-                                        Text("Choose Picture")
-                                    }.buttonStyle(.borderedProminent)
-                                } else {
-                                    Button(action: {
-                                        photoLibraryManager.requestPermission()
-                                    }) {
-                                        Text("Request Access For Photo Library")
+                            if selectedImages.isEmpty {
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Rectangle())
+                            } else {
+                                // Display selected images in a horizontal stack
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        ForEach(selectedImages.indices, id: \.self) { index in
+                                            if let image = selectedImages[index] {
+                                                Image(uiImage: image)
+                                                    .resizable()
+                                                    .frame(width: 150, height: 150)
+                                                    .clipShape(Rectangle())
+                                            }
+                                        }
                                     }
                                 }
                             }
-                            .sheet(isPresented: $isShowingPicker) {
-                                if photoLibraryManager.isAuthorized {
-                                    ImagePickerView(selectedImage: $selectedImage)
-                                } else {
-                                    Text("Access to photo library is not authorized.")
+                        }
+                        VStack {
+                            Text("Upload Images").bold()
+                                .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
+                            if photoLibraryManager.isAuthorized {
+                                Button(action: {
+                                    isShowingPicker = true
+                                }) {
+                                    Text("Choose Pictures")
+                                }.buttonStyle(.borderedProminent)
+                            } else {
+                                Button(action: {
+                                  photoLibraryManager.requestPermission()
+                                }) {
+                                    Text("Request Access For Photo Library")
                                 }
                             }
                         }
                     }
+
+
+
                     VStack {
                         
                         HStack {
@@ -227,7 +279,6 @@ struct ProjectViewEdit: View {
                     
                 }//section
             }//.padding(.top, 2)//form
-            
             Button(action: {
                 if selectedProject != nil {
                     // If selectedProject is not nil
@@ -235,24 +286,24 @@ struct ProjectViewEdit: View {
                     resetFormFields()
                 } else {
                     // If selectedProject is nil
-                    if !title.isEmpty && !description.isEmpty && !location.isEmpty  {
-                        
-                        //                                insertProperty()
+                    if !title.isEmpty && !description.isEmpty && !location.isEmpty {
                         guard let userID = dbHelper.userProfile?.id else {
                             return
                         }
-                        //Image
-                        var imageData :Data? = nil
-                        
-                        if(selectedImage != nil )
-                        {
-                            let image = selectedImage!
-                            let imageName = "\(UUID().uuidString).jpg"
-                            print(imageName)
-                            imageData = image.jpegData(compressionQuality: 0.1)
+
+                        // Create an array to store image data for all selected images
+                        var imageDatas: [Data] = []
+
+                        // Check if any images are selected
+                        if !selectedImages.isEmpty {
+                            for image in selectedImages {
+                                if let imageData = image?.jpegData(compressionQuality: 0.1) {
+                                    imageDatas.append(imageData)
+                                }
+                            }
                         }
-                        
-                        // Create a new property
+
+                        // Create a new property with an array of image data
                         let newProperty = RenovateProject(
                             projectID: UUID().uuidString,
                             title: title,
@@ -260,7 +311,7 @@ struct ProjectViewEdit: View {
                             location: location,
                             lng: lng,
                             lat: lat,
-                            images: imageData,
+                            images: imageDatas, // Use the array of image data here
                             ownerID: userID,
                             category: selectedCategory,
                             investmentNeeded: investmentNeeded,
@@ -278,29 +329,21 @@ struct ProjectViewEdit: View {
                             favoriteCount: 0,
                             realtorID: ""
                         )
-                        
-                        
-                        self.dbHelper.addProperty(newProperty, userID: userID)
-                        { success in
+
+                        self.dbHelper.addProperty(newProperty, userID: userID) { success in
                             if success {
                                 insertNotif(newProperty, "Insert")
                                 alertMessage = "Property added successfully"
                                 resetFormFields()
-                                
                             } else {
                                 alertMessage = "Failed to save property. Please try again."
                             }
                             showAlert = true
-                            
                         }
-                        
-                        
-                        
                     } else {
-                        alertMessage = "Please Enter Title $ Desciption & Address and ScoreFootage!"
+                        alertMessage = "Please Enter Title, Description, Address, and Square Footage!"
+                        showAlert = true
                     }
-                    showAlert = true
-                    
                 }
             }) {
                 Text("Save")
@@ -311,8 +354,26 @@ struct ProjectViewEdit: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            
-            
+            .sheet(isPresented: $isShowingPicker) {
+                if photoLibraryManager.isAuthorized {
+                    NavigationView {
+                        MultiImagePickerView(sourceType: .photoLibrary) { pickedImages in
+                            // Handle the picked images here and append them to your 'selectedImages' array
+                            for image in pickedImages {
+                                selectedImages.append(image)
+                            }
+                            // Dismiss the sheet
+                            $isShowingPicker.wrappedValue = false
+                        }
+                    }
+                } else {
+                    Text("Access to the photo library is not authorized.")
+                }
+            }
+
+
+
+
             .onAppear() {
                 if let currentProject = selectedProject {
                     self.title = currentProject.title
@@ -332,11 +393,26 @@ struct ProjectViewEdit: View {
                     self.isFurnished = currentProject.isFurnished
                     
                     // MARK: Show image from db
-                    if let imageData = currentProject.images as? Data {
-                        self.imageData = imageData
-                    } else {
-                        print("Invalid image data format")
-                    }
+//                    if let imageData = currentProject.images as? Data {
+//                        self.imageData = imageData
+//                    } else {
+//                        print("Invalid image data format")
+//                    }
+                    // MARK: Show images from db
+                      if let imageDatas = currentProject.images, !imageDatas.isEmpty {
+                          var loadedImages: [UIImage] = []
+
+                          for imageData in imageDatas {
+                              if let uiImage = UIImage(data: imageData) {
+                                  loadedImages.append(uiImage)
+                              } else {
+                                  print("Failed to convert image data to UIImage")
+                              }
+                          }
+
+                          // Now, you have an array of loaded images
+                          self.selectedImages = loadedImages
+                      }
                 } else {
                     resetFormFields()
                 }
@@ -348,6 +424,7 @@ struct ProjectViewEdit: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
+          
             //Spacer()
         }
         //            .padding()
@@ -372,8 +449,8 @@ struct ProjectViewEdit: View {
         propertyType = ""
         squareFootage = 0.0
         isFurnished = false
-        imageData = nil
-        selectedImage = nil
+       // imageData = nil
+       selectedImages = []
         
     }
     
@@ -439,13 +516,20 @@ struct ProjectViewEdit: View {
         guard let userID = dbHelper.userProfile?.id else {
             return
         }
-        
-        if selectedImage != nil {
-            let image = selectedImage!
-            imageData = image.jpegData(compressionQuality: 0.1)
+
+        // Create an array to store image data for all selected images
+        var imageDatas: [Data] = []
+
+        // Check if any images are selected
+        if !selectedImages.isEmpty {
+            for image in selectedImages {
+                if let imageData = image?.jpegData(compressionQuality: 0.1) {
+                    imageDatas.append(imageData)
+                }
+            }
         }
-        
-        // Update the startDate and endDate from the DatePicker selections
+
+        // Create a new property with an array of image data
         let updatedProperty = RenovateProject(
             projectID: selectedProject?.id ?? UUID().uuidString,
             title: title,
@@ -453,7 +537,7 @@ struct ProjectViewEdit: View {
             location: location,
             lng: lng,
             lat: lat,
-            images : imageData,
+            images: imageDatas,
             ownerID: userID,
             category: selectedCategory,
             investmentNeeded: investmentNeeded,
@@ -462,7 +546,7 @@ struct ProjectViewEdit: View {
             startDate: startDate,
             endDate: endDate,
             numberOfBedrooms: numberOfBedrooms,
-            numberOfBathrooms: numberOfBedrooms,
+            numberOfBathrooms: numberOfBathrooms,
             propertyType: propertyType,
             squareFootage: squareFootage,
             isFurnished: isFurnished,
@@ -471,22 +555,20 @@ struct ProjectViewEdit: View {
             favoriteCount: selectedProject?.favoriteCount ?? 0,
             realtorID: selectedProject?.realtorID ?? ""
         )
-        
+
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
-                
                 insertNotif(updatedProperty, "Update")
                 alertMessage = "Property Update successfully"
                 resetFormFields()
                 presentationMode.wrappedValue.dismiss()
-                
             } else {
                 alertMessage = "Failed to Update property. Please try again."
             }
             showAlert = true
-            
         }
     }
+
     
     func insertNotif(_ project : RenovateProject, _ a : String){
         

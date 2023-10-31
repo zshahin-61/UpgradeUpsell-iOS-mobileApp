@@ -15,7 +15,7 @@ struct RenovateProject: Codable, Identifiable ,Equatable{
     var location: String
     var lng: Double
     var lat: Double
-    var images: Data?
+    var images: [Data]?
     var ownerID: String
     var category: String
     var investmentNeeded: Double
@@ -64,7 +64,7 @@ struct RenovateProject: Codable, Identifiable ,Equatable{
             return nil
         }
 
-        guard let myImages = dictionary["images"] as? Data else {
+        guard let myImages = dictionary["images"] as? [Data] else {
             print(#function, "Unable to get images from JSON")
             return nil
         }
@@ -152,7 +152,7 @@ struct RenovateProject: Codable, Identifiable ,Equatable{
         self.init(projectID: myID, title: myTitle, description: myDescription, location: myLocation, lng: myLng, lat: myLat, images: myImages, ownerID: myOwnerID, category: myCategory, investmentNeeded: myInvestmentNeeded, selectedInvestmentSuggestionID: mySelectedInvestmentSuggestionID, status: myStatus, startDate: myStartDate, endDate: myEndDate, numberOfBedrooms: myNumberOfBedrooms, numberOfBathrooms: myNumberOfBathrooms, propertyType: myPropertyType, squareFootage: mySquareFootage, isFurnished: myIsFurnished, createdDate: myCreatedDate, updatedDate: myUpdatedDate, favoriteCount: myFavoriteCount, realtorID: myRealtorID)
     }
 
-    init(projectID: String, title: String, description: String, location: String, lng: Double, lat: Double, images: Data?, ownerID: String, category: String, investmentNeeded: Double, selectedInvestmentSuggestionID: String?, status: String, startDate: Date, endDate: Date, numberOfBedrooms: Int, numberOfBathrooms: Int, propertyType: String, squareFootage: Double, isFurnished: Bool, createdDate: Date, updatedDate: Date, favoriteCount: Int, realtorID: String) {
+    init(projectID: String, title: String, description: String, location: String, lng: Double, lat: Double, images: [Data]?, ownerID: String, category: String, investmentNeeded: Double, selectedInvestmentSuggestionID: String?, status: String, startDate: Date, endDate: Date, numberOfBedrooms: Int, numberOfBathrooms: Int, propertyType: String, squareFootage: Double, isFurnished: Bool, createdDate: Date, updatedDate: Date, favoriteCount: Int, realtorID: String) {
         self.id = projectID
         self.title = title
         self.description = description
