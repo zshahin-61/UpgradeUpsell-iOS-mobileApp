@@ -118,9 +118,13 @@ struct ProjectOffersView: View {
             if suggestion.status != updatedStatuses[index] {
                 // Update the status in the database
                 dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
+                    
                     if let error = error {
                         print("Error updating status for offer: \(error)")
                     } else {
+                        if suggestion.status == "Accept" { // Check if the status is "Accept"
+                                                updatePropertyStatusToInProgress(propertyID: suggestion.projectID)
+                                            }
                         // Insert a notification in Firebase
                         let notification = Notifications(
                             id: UUID().uuidString,
@@ -141,6 +145,18 @@ struct ProjectOffersView: View {
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    // Function to update the property status to "InProgress"
+    func updatePropertyStatusToInProgress(propertyID: String) {
+        // Update the property status to "InProgress" in the database
+        dbHelper.updatePropertyStatus(propertyID: propertyID, newStatus: "InProgress") { error in
+            if let error = error {
+                print("Error updating property status to InProgress: \(error)")
+            } else {
+                print("Property status updated to InProgress.")
             }
         }
     }
