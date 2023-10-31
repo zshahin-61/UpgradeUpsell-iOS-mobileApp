@@ -27,7 +27,7 @@ struct MyOffersView: View {
                         ProgressView()
                     } else {
                         List {
-                            ForEach(suggestions, id: \.id) { suggestion in
+                            ForEach(suggestions) { suggestion in
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(suggestion.projectTitle)
                                         .font(.title)
@@ -53,12 +53,20 @@ struct MyOffersView: View {
                                     }
 
                                     Text(suggestion.description)
+                                    
+                                    Button(action: {
+                                                                   deleteSuggestion(suggestion) // Call the function to delete the offer
+                                                               }) {
+                                                                   Text("Delete")
+                                                                       .foregroundColor(.red)
+                                                               }
                                 }
                                 .padding(10)
                                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
                                 .padding(.horizontal)
                                 .listRowBackground(Color.clear)
                             }
+                            .onDelete(perform: deleteSuggestion2)
                         }
                         .padding(.vertical, 10)
                     }
@@ -80,4 +88,57 @@ struct MyOffersView: View {
             }
         //}//nav view
     }
+    
+    //insert in notifications
+    func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){
+        
+        let notification = Notifications(
+            id: UUID().uuidString,
+            timestamp: Date(),
+            userID: myOffer.ownerID,
+            event: "Offer \(a)!",
+            details: "Offer $\(myOffer.amountOffered) for project titled \(myOffer.projectTitle) has been \(a) By \(dbHelper.userProfile?.fullName).",
+            isRead: false,
+            projectID: myOffer.projectID
+        )
+        dbHelper.insertNotification(notification) { notificationSuccess in
+            if notificationSuccess {
+                print("Notification inserted successfully.")
+            } else {
+                print("Error inserting notification.")
+            }
+        }
+    }
+    
+    // Function to delete an offer
+    func deleteSuggestion2(at offsets: IndexSet) {
+            for index in offsets {
+                let suggestion = suggestions[index]
+                // Implement the logic to delete the offer from your data source (e.g., Firestore)
+                 dbHelper.deleteSuggestion(suggestion) { (success, error) in
+                     if success {
+                         // Delete was successful
+                         suggestions.remove(at: index)
+                         insertNotif(suggestion, "Delete")
+                     } else if let error = error {
+                         print("Error deleting suggestion: \(error)")
+                     }
+                 }
+            }
+        }
+    
+        func deleteSuggestion(_ suggestion: InvestmentSuggestion) {
+            // Implement the logic to delete the offer from your data source (e.g., Firestore)
+            self.dbHelper.deleteSuggestion(suggestion) { (success, error) in
+                 if success {
+                     // Delete was successful
+                     insertNotif(suggestion, "Delete")
+                     if let index = suggestions.firstIndex(where: { $0.id == suggestion.id }) {
+                         suggestions.remove(at: index)
+                     }
+                 } else if let error = error {
+                     print("Error deleting suggestion: \(error)")
+                 }
+             }
+        }
 }

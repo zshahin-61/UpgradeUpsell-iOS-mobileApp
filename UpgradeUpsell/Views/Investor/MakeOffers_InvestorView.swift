@@ -5,10 +5,10 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct MakeOffers_InvestorView: View {
     @Environment(\.presentationMode) var presentationMode
-
     @EnvironmentObject var dbHelper: FirestoreController
 
     let project: RenovateProject
@@ -19,6 +19,8 @@ struct MakeOffers_InvestorView: View {
 
     @State private var alertMessage = ""
     @State private var showAlert = false
+    @State private var propertyLatitude: Double = 0.0
+    @State private var propertyLongitude: Double = 0.0
 
     var body: some View {
         VStack{
@@ -41,7 +43,7 @@ struct MakeOffers_InvestorView: View {
                             Text("Need to be done between: ").bold()
                             Spacer()
                         }
-                        HStack{ 
+                        HStack{
                             Text(" \(formattedDate(from: project.startDate))")
                             Text("   to    \(formattedDate(from: project.endDate))")
                         }
@@ -64,6 +66,11 @@ struct MakeOffers_InvestorView: View {
                         Text("Location: ").bold()
                         Text("\(project.location)")
                     }
+                    MapView(latitude: propertyLatitude, longitude: propertyLongitude)
+                    .frame(height: 200)
+                    //.mapPin(coordinate: CLLocationCoordinate2D(latitude: propertyLatitude, longitude: propertyLongitude), tint: .red)
+
+                    
                     //                Text("Title: \(project.title)")
                     //                Text("Category: \(project.category)")
                     //                Text("Released Date: \(formattedDate(from: project.createdDate))")
@@ -110,7 +117,8 @@ struct MakeOffers_InvestorView: View {
                         if let error = error {
                             alertMessage = "Error: \(error.localizedDescription)"
                         } else {
-                            alertMessage = "Suggestion added successfully"
+                            insertNotif(newOffer, "Insert")
+                            alertMessage = "Your offer added successfully"
                             self.presentationMode.wrappedValue.dismiss()
                         }
                         showAlert = true
@@ -118,11 +126,33 @@ struct MakeOffers_InvestorView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }
+        
+            .onAppear {
+                        // Retrieve the latitude and longitude values from your database for the property
+                        // For example, if you have a property object with lat and lng properties:
+                         propertyLatitude = project.lat
+                         propertyLongitude = project.lng
+
+                if propertyLatitude == 0.0 && propertyLongitude == 0.0 {
+                        let geocoder = CLGeocoder()
+                        geocoder.geocodeAddressString(project.location) { placemarks, error in
+                            if let placemark = placemarks?.first, let location = placemark.location {
+                                propertyLatitude = location.coordinate.latitude
+                                propertyLongitude = location.coordinate.longitude
+                            }
+                        }
+                    }
+                        // For testing, you can set sample coordinates like this:
+                        //propertyLatitude = 37.7749 // Replace with the actual latitude
+                        //propertyLongitude = -122.4194 // Replace with the actual longitude
+                    }
+
         }
+        
         .padding()
         .alert(isPresented: $showAlert) {
             Alert(
-                title: Text("Conversion Result"),
+                title: Text("Result"),
                 message: Text(alertMessage),
                 dismissButton: .default(Text("OK"))
             )
@@ -130,6 +160,28 @@ struct MakeOffers_InvestorView: View {
         //.navigationBarTitle("Add an Offer")
     }
 
+    //insert in notifications
+    func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){
+        
+        let notification = Notifications(
+            id: UUID().uuidString,
+            timestamp: Date(),
+            userID: myOffer.ownerID,
+            event: "Offer \(a)!",
+            details: "Offer $\(myOffer.amountOffered) for project titled \(myOffer.projectTitle) has been \(a) By \(dbHelper.userProfile?.fullName).",
+            isRead: false,
+            projectID: myOffer.projectID
+        )
+        dbHelper.insertNotification(notification) { notificationSuccess in
+            if notificationSuccess {
+                print("Notification inserted successfully.")
+            } else {
+                print("Error inserting notification.")
+            }
+        }
+    }
+    
+    
     func formattedDate(from date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium

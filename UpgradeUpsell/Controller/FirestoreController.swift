@@ -567,7 +567,6 @@ class FirestoreController: ObservableObject {
             completion(false) 
         }
     }
-
     
     func deleteNotification(_ notif: Notifications, completion: @escaping (Bool) -> Void) {
         guard let myID = notif.id else {
@@ -596,7 +595,6 @@ class FirestoreController: ObservableObject {
         }
     }
 
-    
     func getNotifications(forUserID userID: String, completion: @escaping ([Notifications]?, Error?) -> Void) {
         self.db.collection(COLLECTION_Notifications)
             .whereField("userID", isEqualTo: userID)
@@ -617,7 +615,6 @@ class FirestoreController: ObservableObject {
             }
     }
 
-
     func insertNotification(_ notification: Notifications, completion: @escaping (Bool) -> Void) {
         do {
             let _ = try db.collection(COLLECTION_Notifications).addDocument(from: notification) { error in
@@ -634,7 +631,6 @@ class FirestoreController: ObservableObject {
             completion(false)
         }
     }
-
 
     func deleteAllNotifications(forUserID userID: String, completion: @escaping (Bool) -> Void) {
         let db = Firestore.firestore()
@@ -668,10 +664,6 @@ class FirestoreController: ObservableObject {
         }
     }
     
-
-    
-
-
     // MARK: functions for Collection investment Sugesstions
     func updateInvestmentStatus(suggestionID: String, newStatus: String, completion: @escaping (Error?) -> Void) {
         let collectionRef = Firestore.firestore().collection(COLLECTION_InvestmentSuggestions)
@@ -726,6 +718,20 @@ class FirestoreController: ObservableObject {
             }
         }
     }
+    
+    func deleteSuggestion(_ suggestion: InvestmentSuggestion, completion: @escaping (Bool, Error?) -> Void) {
+            // Assuming you have a Firestore collection named "investmentSuggestions"
+            let collection = db.collection(COLLECTION_InvestmentSuggestions)
+            
+            // Delete the document with the corresponding ID
+        collection.document(suggestion.id!).delete { error in
+                if let error = error {
+                    completion(false, error)
+                } else {
+                    completion(true, nil)
+                }
+            }
+        }
     
     func getInvestmentSuggestions(completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
         self.db.collection(COLLECTION_InvestmentSuggestions).getDocuments { querySnapshot, error in
