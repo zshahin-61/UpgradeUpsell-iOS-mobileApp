@@ -14,8 +14,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
             landmarkName = "getPreferencesFromFirestore(forUserID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -62,8 +62,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "addProperty(_:userID:completion:)"
             landmarkType = "7">
             <Locations>
@@ -125,8 +125,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
             landmarkName = "FirestoreController"
             landmarkType = "3">
          </BreakpointContent>
@@ -141,8 +141,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "555"
-            endingLineNumber = "555"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
             landmarkName = "markNotificationAsRead(_:completion:)"
             landmarkType = "7">
             <Locations>
@@ -237,8 +237,8 @@
             filePath = "UpgradeUpsell/Controller/FirestoreController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
+            startingLineNumber = "542"
+            endingLineNumber = "542"
             landmarkName = "getRenovateProjectByID(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>

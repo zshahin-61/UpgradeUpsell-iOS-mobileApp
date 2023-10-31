@@ -18,29 +18,23 @@ struct HomeView_Admin: View {
     var body: some View {
         TabView() {
          
-//                        EventsListView().environmentObject(locationHelper)
+            UsersView() 
+                  .tabItem {
+                      Label("View Users", systemImage: "person.2.fill")
+                      Text("View Users")
+                  }
+            ReportView()
+                .tabItem {
+                    Label("View Report", systemImage: "chart.bar.fill")
+                    Text("View Report")
+                }
 
-            ProjectListView()
-            .tabItem {
-                Label("View Projects", systemImage: "list.bullet.rectangle")
-                Text("View Projects")
-            }
-            
-            ProjectViewEdit()
-            .tabItem {
-                Label("Add Property", systemImage: "plus.circle")
-                Text("Add Property")
-            }
-            
-            ProjectOffersView()
-            .tabItem {
-                Label("View Offers", systemImage: "gift")
-                Text("View Offers")
-            }
         
-            Text("Notifications")
+            NotificationView()
                 .tabItem {
                     Label("Notifications", systemImage: "bell")
+                    Text("Notifications")
+                    
                 }
 
             
@@ -48,7 +42,7 @@ struct HomeView_Admin: View {
             //                .onAppear {
             //                    UITabBar.appearance().isHidden = true // Hide the system tab bar
         }
-        .navigationBarTitle("Realtor Dashboard", displayMode: .inline)
+        .navigationBarTitle("Admin Dashboard", displayMode: .inline)
         .navigationBarItems(trailing: HStack {
             Menu{
                 Button(action: {
@@ -61,19 +55,14 @@ struct HomeView_Admin: View {
                     Label("Signout", systemImage: "lock.shield.fill")
                 }
                 
-//                    NavigationLink(destination: ProfileView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
-//                        Label("Profile", systemImage: "person.circle.fill")
-//                    }
+
                 
                 Button(action: {
                     rootScreen = .Profile
                 }) {
                     Label("Profile", systemImage: "person.circle.fill")
                 }
-                
-//                    NavigationLink(destination: SettingsView(rootScreen: $rootScreen).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
-//                        Label("Settings", systemImage: "gearshape.fill")
-//                    }
+
                 Button(action: {
                     rootScreen = .Settings
                 }) {

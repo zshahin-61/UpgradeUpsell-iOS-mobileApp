@@ -113,7 +113,31 @@ class FirestoreController: ObservableObject {
         }
         return self.shared!
     }
-    
+    //MARK: ADMIN
+    func getAcceptedInvestmentSuggestions(completion: @escaping ([InvestmentSuggestion]?, Error?) -> Void) {
+        let collection = db.collection(self.COLLECTION_InvestmentSuggestions)
+
+        collection.whereField(self.FIELD_status, isEqualTo: "Accept").getDocuments { querySnapshot, error in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                var suggestions: [InvestmentSuggestion] = []
+                for document in querySnapshot!.documents {
+                    do {
+                        let suggestion = try document.data(as: InvestmentSuggestion.self)
+                        suggestions.append(suggestion)
+                    } catch {
+                        completion(nil, error)
+                        return
+                    }
+                }
+                completion(suggestions, nil)
+                print("Received \(suggestions.count) suggestions.")
+            }
+        }
+    }
+
+
     // MARK: User profile functions
     func getUserProfile(withCompletion completion: @escaping (Bool) -> Void) {
         self.loggedInUserID = UserDefaults.standard.string(forKey: "KEY_ID") ?? ""

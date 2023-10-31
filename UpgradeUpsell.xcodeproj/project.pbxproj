@@ -10,6 +10,8 @@
 		5A47D9462AF0A36A0064AF0E /* MultiImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9452AF0A36A0064AF0E /* MultiImagePickerView.swift */; };
 		5A47D94A2AF15A870064AF0E /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9492AF15A870064AF0E /* MapView.swift */; };
 		5A47D94D2AF16C6B0064AF0E /* HomeView_Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */; };
+		5A47D94F2AF1A6610064AF0E /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D94E2AF1A6610064AF0E /* ReportView.swift */; };
+		5A47D9512AF1A6700064AF0E /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9502AF1A6700064AF0E /* UsersView.swift */; };
 		5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */; };
 		5A8DAB2E2ABCAB6100CDCBCB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */; };
 		5A8DAB312ABCB3A200CDCBCB /* ProjectViewEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */; };
@@ -63,6 +65,8 @@
 		5A47D9452AF0A36A0064AF0E /* MultiImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePickerView.swift; sourceTree = "<group>"; };
 		5A47D9492AF15A870064AF0E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Admin.swift; sourceTree = "<group>"; };
+		5A47D94E2AF1A6610064AF0E /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		5A47D9502AF1A6700064AF0E /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
 		5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtorPersonDashboardView.swift; sourceTree = "<group>"; };
 		5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewEdit.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */,
+				5A47D94E2AF1A6610064AF0E /* ReportView.swift */,
+				5A47D9502AF1A6700064AF0E /* UsersView.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -376,6 +382,7 @@
 				5F9466182ABB609B0006FBB5 /* UserProfile.swift in Sources */,
 				5F94661A2ABBB01D0006FBB5 /* Prefrences.swift in Sources */,
 				5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */,
+				5A47D9512AF1A6700064AF0E /* UsersView.swift in Sources */,
 				5FD882512AD5BD880034439F /* MyOffersView.swift in Sources */,
 				5F9466282ABBD10F0006FBB5 /* InvestmentSuggestion.swift in Sources */,
 				5FD8824F2AD5BD570034439F /* ProjectsList_Investor_View.swift in Sources */,
@@ -393,6 +400,7 @@
 				5FF765752ADDE32E004A0C66 /* InvestorProfileView.swift in Sources */,
 				5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */,
 				5A8DAB332ABCB3B500CDCBCB /* ProjectListView.swift in Sources */,
+				5A47D94F2AF1A6610064AF0E /* ReportView.swift in Sources */,
 				5A8DAB312ABCB3A200CDCBCB /* ProjectViewEdit.swift in Sources */,
 				5A8DAB482ADE066F00CDCBCB /* NotificationView.swift in Sources */,
 			);
