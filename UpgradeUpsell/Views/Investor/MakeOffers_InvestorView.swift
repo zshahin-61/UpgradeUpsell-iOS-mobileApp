@@ -48,6 +48,25 @@ struct MakeOffers_InvestorView: View {
                             Text("   to    \(formattedDate(from: project.endDate))")
                         }
                     }
+                    Section(header: Text("Images").font(.headline)) {
+                        if let images = project.images{
+                            if !images.isEmpty {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack {
+                                        ForEach(images, id: \.self) { image in
+                                            if let uiImage = UIImage(data: image){
+                                                Image(uiImage:  uiImage)
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 200, height: 200)
+                                            }}
+                                    }
+                                }
+                            } else {
+                                Text("No images available")
+                            }
+                        }
+                               }
                     VStack{
                         HStack{
                             Text("Description: ").bold()
