@@ -60,6 +60,7 @@
 		5FF7657D2ADED36B004A0C66 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF7657C2ADED36B004A0C66 /* Review.swift */; };
 		5FF7657F2AE028EB004A0C66 /* OffersofaPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF7657E2AE028EB004A0C66 /* OffersofaPropertyView.swift */; };
 		5FFE00E32AF1B314002F9B64 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5FFE00E22AF1B314002F9B64 /* SDWebImageSwiftUI */; };
+		5FFE00E52AF1E469002F9B64 /* EditOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E42AF1E469002F9B64 /* EditOfferView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		5FF765782ADEA6B6004A0C66 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		5FF7657C2ADED36B004A0C66 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		5FF7657E2AE028EB004A0C66 /* OffersofaPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersofaPropertyView.swift; sourceTree = "<group>"; };
+		5FFE00E42AF1E469002F9B64 /* EditOfferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOfferView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				5FD8824E2AD5BD570034439F /* ProjectsList_Investor_View.swift */,
 				5FD882502AD5BD880034439F /* MyOffersView.swift */,
 				5FF765742ADDE32E004A0C66 /* InvestorProfileView.swift */,
+				5FFE00E42AF1E469002F9B64 /* EditOfferView.swift */,
 			);
 			path = Investor;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				5FF765772ADE987D004A0C66 /* RatingView.swift in Sources */,
 				5F9466182ABB609B0006FBB5 /* UserProfile.swift in Sources */,
 				5F94661A2ABBB01D0006FBB5 /* Prefrences.swift in Sources */,
+				5FFE00E52AF1E469002F9B64 /* EditOfferView.swift in Sources */,
 				5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */,
 				5A47D9512AF1A6700064AF0E /* UsersView.swift in Sources */,
 				5FD882512AD5BD880034439F /* MyOffersView.swift in Sources */,

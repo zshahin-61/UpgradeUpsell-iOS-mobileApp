@@ -14,7 +14,7 @@ struct MyOffersView: View {
 
     @State private var suggestions: [InvestmentSuggestion] = []
     @State private var isLoading: Bool = false
-
+    
     var body: some View {
         //NavigationView {
             VStack {
