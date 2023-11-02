@@ -112,7 +112,7 @@ struct MakeOffers_InvestorView: View {
                         amountOffered: Double(amountOffered) ?? 0.0,
                         durationWeeks: Int(durationWeeks) ?? 0,
                         description: description,
-                        status: "New",
+                        status: "Pending",
                         date: Date()
                     )
                     
