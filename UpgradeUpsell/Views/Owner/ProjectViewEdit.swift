@@ -518,7 +518,7 @@ struct ProjectViewEdit: View {
         lat = 0.0
         selectedCategory = "Residential"
         investmentNeeded = 0.0
-        status = ""
+        status = "Released"
         startDate = Date()
         endDate = Date()
         numberOfBedrooms = 0
