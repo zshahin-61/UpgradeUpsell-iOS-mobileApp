@@ -11,7 +11,11 @@ struct UsersView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var selectedRole: String = "Owner"
     @State private var filteredUsers: [UserProfile] = []
+    
     let roles = ["Owner", "Investor", "Realtor", "Admin"]
+    
+
+    @State private var isShowingUserList: Bool = false
     
 
     var body: some View {
@@ -29,11 +33,13 @@ struct UsersView: View {
             
             List(filteredUsers) { user in
                 VStack(alignment: .leading, spacing: 10) {
-                   
-//                        NavigationLink(destination: UserProfileView(UserID: [index].userID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
-//    
-//                        }
                     
+                    NavigationLink(destination: UserProfileView(UserID: user.id!)) {
+                              Text(user.fullName)
+                                  .font(.title)
+                                  .bold()
+                                  .foregroundColor(Color.blue)
+                          }
                     
                     Text("Role: \(user.role)")
                     
