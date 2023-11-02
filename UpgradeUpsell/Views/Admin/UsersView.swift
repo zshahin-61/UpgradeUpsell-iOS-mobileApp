@@ -35,11 +35,23 @@ struct UsersView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     
                     NavigationLink(destination: UserProfileView(UserID: user.id!)) {
-                              Text(user.fullName)
-                                  .font(.title)
-                                  .bold()
-                                  .foregroundColor(Color.blue)
-                          }
+                        HStack {
+                                                 if let imageData = user.profilePicture, let uiImage = UIImage(data: imageData) {
+                                                     Image(uiImage: uiImage)
+                                                         .resizable()
+                                                         .frame(width: 40, height: 40)
+                                                         .clipShape(Circle())
+                                                 } else {
+                                                     Image(systemName: "person.circle")
+                                                         .resizable()
+                                                         .frame(width: 40, height: 40)
+                                                 }
+                                                 Text(user.fullName)
+                                                     .font(.title)
+                                                     .bold()
+                                                     .foregroundColor(Color.blue)
+                                             }
+                                         }
                     
                     Text("Role: \(user.role)")
                     
