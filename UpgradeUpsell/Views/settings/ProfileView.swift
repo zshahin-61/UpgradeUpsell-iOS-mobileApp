@@ -25,7 +25,6 @@ struct ProfileView: View {
     @State private var role: String = "Owner"
     
     
-    
     @Binding var rootScreen : RootView
     //var backRoot: RootView
     
@@ -137,6 +136,9 @@ struct ProfileView: View {
                         else if loginedUserRole == "Realtor"{
                             self.rootScreen = .RealtorHome
                         }
+                        else if loginedUserRole == "Admin"{
+                            self.rootScreen = .Admin
+                        }
                     }else
                     {
                         self.rootScreen = .Home
@@ -161,6 +163,9 @@ struct ProfileView: View {
                     } else if self.role == "Realtor"
                     {
                         self.rootScreen =  .RealtorHome
+                    
+                    } else if self.role ==  "Admin"{
+                        self.rootScreen =  .Admin
                     }
                 }){
                     Text("Back")

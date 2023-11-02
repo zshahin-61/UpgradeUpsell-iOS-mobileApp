@@ -91,7 +91,11 @@ struct SettingsView: View {
                                 self.rootScreen = .Admin
                             }else if self.role ==  "Owner"{
                                 self.rootScreen = .Home
+                            }  else if self.role == "Admin"{
+                                    self.rootScreen = .Admin
+                                
                             } else if self.role == "Realtor"
+                                        
                             {
                                 self.rootScreen =  .RealtorHome
                             }
@@ -127,7 +131,11 @@ struct SettingsView: View {
                 } else if self.role == "Realtor"
                 {
                     self.rootScreen =  .RealtorHome
+                
+                } else if self.role ==  "Admin"{
+                    self.rootScreen =  .Admin
                 }
+            
                 //self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text("< Back")

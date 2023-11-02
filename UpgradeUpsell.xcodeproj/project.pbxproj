@@ -12,6 +12,7 @@
 		5A47D94D2AF16C6B0064AF0E /* HomeView_Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */; };
 		5A47D94F2AF1A6610064AF0E /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D94E2AF1A6610064AF0E /* ReportView.swift */; };
 		5A47D9512AF1A6700064AF0E /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9502AF1A6700064AF0E /* UsersView.swift */; };
+		5A47D9532AF437820064AF0E /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9522AF437820064AF0E /* UserProfileView.swift */; };
 		5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */; };
 		5A8DAB2E2ABCAB6100CDCBCB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */; };
 		5A8DAB312ABCB3A200CDCBCB /* ProjectViewEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */; };
@@ -69,6 +70,7 @@
 		5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Admin.swift; sourceTree = "<group>"; };
 		5A47D94E2AF1A6610064AF0E /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		5A47D9502AF1A6700064AF0E /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
+		5A47D9522AF437820064AF0E /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtorPersonDashboardView.swift; sourceTree = "<group>"; };
 		5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewEdit.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				5A47D94C2AF16C6B0064AF0E /* HomeView_Admin.swift */,
 				5A47D94E2AF1A6610064AF0E /* ReportView.swift */,
 				5A47D9502AF1A6700064AF0E /* UsersView.swift */,
+				5A47D9522AF437820064AF0E /* UserProfileView.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */,
 				5A47D94D2AF16C6B0064AF0E /* HomeView_Admin.swift in Sources */,
 				5A8DAB4A2ADE29A900CDCBCB /* NotificationDetailView.swift in Sources */,
+				5A47D9532AF437820064AF0E /* UserProfileView.swift in Sources */,
 				5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */,
 				5F9466152ABB5C460006FBB5 /* FirestoreController.swift in Sources */,
 				5FF765752ADDE32E004A0C66 /* InvestorProfileView.swift in Sources */,

@@ -54,20 +54,22 @@
                                     }
 
                                     Text(suggestion.description)
-                                    
-                                    Button(action: {
-                                               deleteSuggestion(suggestion)
-                                    }) {
-                                        Text("Delete")
-                                            .foregroundColor(.red)
+                                    HStack{
+                                                                             
+                                        Button(action: {
+                                            //  deleteSuggestion(suggestion)
+                                        }) {
+                                            Text("Enable Chat")
+                                                                               }
                                     }
+                                    
                                 }
                                 .padding(10)
                                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
                                 .padding(.horizontal)
                                 .listRowBackground(Color.clear)
                             }
-                            .onDelete(perform: deleteSuggestion2)
+                            
                         }
                         .padding(.vertical, 10)
                     }
@@ -109,34 +111,5 @@
                 }
             }
         }
-        // Function to delete an offer
-        func deleteSuggestion2(at offsets: IndexSet) {
-                for index in offsets {
-                    let suggestion = suggestions[index]
-                    // Implement the logic to delete the offer from your data source (e.g., Firestore)
-                     dbHelper.deleteSuggestion(suggestion) { (success, error) in
-                         if success {
-                             // Delete was successful
-                             suggestions.remove(at: index)
-                             insertNotif(suggestion, "Delete")
-                         } else if let error = error {
-                             print("Error deleting suggestion: \(error)")
-                         }
-                     }
-                }
-            }
-        func deleteSuggestion(_ suggestion: InvestmentSuggestion) {
-            // Implement the logic to delete the offer from your data source (e.g., Firestore)
-            self.dbHelper.deleteSuggestion(suggestion) { (success, error) in
-                 if success {
-                     // Delete was successful
-                     insertNotif(suggestion, "Delete")
-                     if let index = suggestions.firstIndex(where: { $0.id == suggestion.id }) {
-                         suggestions.remove(at: index)
-                     }
-                 } else if let error = error {
-                     print("Error deleting suggestion: \(error)")
-                 }
-             }
-        }
+     
     }
