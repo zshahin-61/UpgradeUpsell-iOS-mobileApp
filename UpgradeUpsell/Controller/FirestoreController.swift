@@ -171,6 +171,29 @@ class FirestoreController: ObservableObject {
         }
     }
     
+    func getUsersByRole(role: String, completion: @escaping ([UserProfile]?, Error?) -> Void) {
+   
+        let collection = db.collection(COLLECTION_UsersProfile)
+
+        collection.whereField("role", isEqualTo: role).getDocuments { querySnapshot, error in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                var users: [UserProfile] = []
+                for document in querySnapshot!.documents {
+                    do {
+                        let user = try document.data(as: UserProfile.self)
+                        users.append(user)
+                    } catch {
+                        completion(nil, error)
+                        return
+                    }
+                }
+                completion(users, nil)
+            }
+        }
+    }
+    
     func getUserProfilebyUserID(userID: String, withCompletion completion: @escaping (UserProfile?, Error?) -> Void) {
         let document = db.collection(COLLECTION_UsersProfile).document(userID)
 
