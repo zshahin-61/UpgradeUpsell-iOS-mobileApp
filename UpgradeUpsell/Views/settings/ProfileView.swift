@@ -206,6 +206,10 @@ struct ProfileView: View {
             {
                 self.rootScreen =  .RealtorHome
             }
+            else if self.role == "Admin"
+            {
+                self.rootScreen =  .Admin
+            }
             //self.presentationMode.wrappedValue.dismiss()
         }) {
             Text("< Back")
