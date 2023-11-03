@@ -43,6 +43,9 @@ struct ContentView: View {
                 case .Profile:
                     //switch dbHelper.userProfile?.role
                     ProfileView(rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
+                case .ChangePassword:
+                    //switch dbHelper.userProfile?.role
+                    ChangePasswordView(rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
                 case .Settings:
                     SettingsView(rootScreen: $root ).environmentObject(self.authHelper).environmentObject(self.dbHelper)
                 }

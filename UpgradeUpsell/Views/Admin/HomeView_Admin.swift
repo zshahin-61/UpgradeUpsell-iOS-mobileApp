@@ -45,34 +45,35 @@ struct HomeView_Admin: View {
         .navigationBarTitle("Admin Dashboard", displayMode: .inline)
         .navigationBarItems(trailing: HStack {
             Menu{
-                Button(action: {
-                    self.authHelper.signOut()
-                    rootScreen = .Login
-                }) {
-                    //Text("Signout")
-                    //Image(systemName: "lock.circle.fill")
-                    //Image(systemName: "lock.shield.fill")
-                    Label("Signout", systemImage: "lock.shield.fill")
-                }
-                
-
                 
                 Button(action: {
                     rootScreen = .Profile
                 }) {
                     Label("Profile", systemImage: "person.circle.fill")
                 }
-
+                
                 Button(action: {
                     rootScreen = .Settings
                 }) {
                     Label("Settings", systemImage: "gearshape.fill")
                 }
                 
-            } label: {
-                    Image(systemName: "ellipsis.circle.fill")
+                Button(action: {
+                    rootScreen = .ChangePassword
+                }) {
+                    Label("Change password", systemImage: "key.fill")
                 }
-                })
+                
+                Button(action: {
+                    self.authHelper.signOut()
+                    rootScreen = .Login
+                }) {
+                    Label("Signout", systemImage: "lock.shield.fill")
+                }
+            } label: {
+                Image(systemName: "ellipsis.circle.fill")
+            }//Menu
+        })//navigationBarItems
     }
 }
 
