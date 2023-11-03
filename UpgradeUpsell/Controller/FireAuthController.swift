@@ -158,6 +158,21 @@ class FireAuthController : ObservableObject{
         }
     }
 
+//    func reauthenticateUser(currentPassword: String, completion: @escaping (Error?) -> Void) {
+//        let user = Auth.auth().currentUser
+//        guard let user = user, let email = user.email else {
+//            // Handle the case where the user is not authenticated or doesn't have an email
+//            return
+//        }
+//
+//        let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
+//
+//        user.reauthenticate(with: credential) { result, error in
+//            completion(error)
+//        }
+//    }
+
+    
     func changePassword(newPassword: String, completion: @escaping (Error?) -> Void) {
         guard let user = Auth.auth().currentUser else {
             // Handle the case where the user is not authenticated.

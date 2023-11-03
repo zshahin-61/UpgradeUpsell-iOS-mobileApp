@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ChangePasswordView: View {
-    
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     
+    //@State private var currentPassword = ""
     @State private var newPassword = ""
     @State private var confirmPassword = ""
     @State private var errorMessage: String?
@@ -23,7 +23,8 @@ struct ChangePasswordView: View {
         VStack{
             Form {
                 Section {
-                    TextField("New Password", text: $newPassword)
+                    //SecureField("Current Password", text: $currentPassword)
+                    SecureField("New Password", text: $newPassword)
                     SecureField("Confirm Password", text: $confirmPassword)
                 }
                 
@@ -31,19 +32,18 @@ struct ChangePasswordView: View {
                 HStack {
                     Button("Change Password") {
                         if newPassword == confirmPassword {
-                            authHelper.changePassword(newPassword: newPassword) { error in
+                            self.authHelper.changePassword(newPassword: newPassword) { error in
                                 if let error = error {
                                     errorMessage = error.localizedDescription
                                 } else {
                                     // Password changed successfully
                                     showAlert = true
-                                    
                                 }
                             }
                         } else {
                             errorMessage = "Passwords do not match."
                         }
-                    }
+                    }.buttonStyle(.borderedProminent)
                     Spacer()
                     Button(action:{
                         if(self.role == "Investor"){
