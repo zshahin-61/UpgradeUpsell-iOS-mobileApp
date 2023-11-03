@@ -158,6 +158,23 @@ class FireAuthController : ObservableObject{
         }
     }
 
+    func changePassword(newPassword: String, completion: @escaping (Error?) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            // Handle the case where the user is not authenticated.
+            return
+        }
+
+        // Call the updatePassword method to change the password.
+        user.updatePassword(to: newPassword) { error in
+            if let error = error {
+                // Handle the error
+                completion(error)
+            } else {
+                // Password updated successfully.
+                completion(nil)
+            }
+        }
+    }
     
     
 }
