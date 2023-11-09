@@ -82,4 +82,4 @@ struct HomeView_Realtor: View {
         })//navigationBarItems
     }
 }
-
+ 
