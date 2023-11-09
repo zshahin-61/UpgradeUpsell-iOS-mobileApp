@@ -41,7 +41,7 @@ jobs:
 
       - name: Build archive
         run: |
-          xcodebuild -scheme "UpgradeUpsell" \
+          xcodebuild 
           -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
         
           clean archive
