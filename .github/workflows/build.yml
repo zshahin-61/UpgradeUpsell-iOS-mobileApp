@@ -33,9 +33,6 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
- 
-  - name: List IPA File
-   run: ls -l $RUNNER_TEMP
 
       - name: Export IPA
         env:
