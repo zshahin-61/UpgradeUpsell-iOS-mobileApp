@@ -6,6 +6,7 @@ on:
     branches:
       - main
 
+
 jobs:
   build_with_signing:
     runs-on: macos-latest
