@@ -44,6 +44,6 @@ jobs:
       - name: Upload application
         uses: actions/upload-artifact@v3
         with:
-           name: UpgradeUpsell
-        path: build/UpgradeUpsell.ipa
+          name: app
+          path: ${{ runner.temp }}/build/UpgradeUpsell.ipa
           retention-days: 3
