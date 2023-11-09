@@ -41,7 +41,7 @@ jobs:
 
       - name: build archive
         run: |
-          xcodebuild -scheme "We are Golnaz $ Zahra" \
+          xcodebuild -scheme "UpgradeUpsell" \
           -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
           -sdk iphoneos \
           -configuration Debug \
