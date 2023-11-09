@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>ad-hoc</string> <!-- or 'app-store', 'ad-hoc', 'enterprise' -->
+    <key>teamID</key>
+    <string>zahra shahin</string> <!-- Your Apple Developer Team ID -->
+    <key>signingCertificate</key>
+    <string>0BB3CB2A1044DB3250F479A023225FAE90220B47</string> <!-- Signing certificate, usually 'iPhone Developer' for development -->
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>ca.zahra.golnaz.UpgradeUpsell</key> <!-- Your app's bundle identifier -->
+        <string>58c34003-fae9-4533-88d2-ae75bb05bc0e</string>
+    </dict>
+</dict>
+</plist>
