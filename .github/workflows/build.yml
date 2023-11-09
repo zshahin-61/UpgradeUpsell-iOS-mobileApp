@@ -13,13 +13,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Xcode
-      uses: actions/setup-xcode@v2
-      with:
-        xcode-version: 13.0  # Adjust the Xcode version
-
     - name: Install CocoaPods
       run: pod install  # If you use CocoaPods for dependency management
+
+    - name: Select Xcode version
+      run: sudo xcode-select -switch /Applications/Xcode_15.0.app  # Adjust the Xcode path to match your Xcode version
 
     - name: Build and Archive
       run: xcodebuild -workspace UpgradeUpsell.xcworkspace -scheme UpgradeUpsell -archivePath build/UpgradeUpsell.xcarchive archive
