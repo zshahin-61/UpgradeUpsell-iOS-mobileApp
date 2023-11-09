@@ -13,9 +13,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Select Xcode version
-      run: sudo xcode-select -switch /Applications/Xcode_15.0.app  # Adjust the Xcode path to match your Xcode version
-
+    - name: List available Xcode installations
+      run: xcode-select -p -l  # Add this step to list available Xcode installations
 
     - name: Select Xcode version
       run: sudo xcode-select -switch /Applications/Xcode_15.0.app  # Adjust the Xcode path to match your Xcode version
