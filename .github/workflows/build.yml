@@ -1,3 +1,4 @@
+
 name: "Build iOS app"
 
 on:
@@ -38,11 +39,11 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-   
+     
 
       - name: Update iOS Deployment Target
         run: |
-          plutil -replace IPHONEOS_DEPLOYMENT_TARGET -string "16.0" UpgradeUpsell.xcodeproj/project.pbxproj
+          plutil -replace IPHONEOS_DEPLOYMENT_TARGET -string "15.0" UpgradeUpsell.xcodeproj
 
       - name: Export IPA
         env:
