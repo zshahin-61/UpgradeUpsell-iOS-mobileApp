@@ -16,6 +16,10 @@ jobs:
     - name: Select Xcode version
       run: sudo xcode-select -switch /Applications/Xcode_15.0.app  # Adjust the Xcode path to match your Xcode version
 
+
+    - name: Select Xcode version
+      run: sudo xcode-select -switch /Applications/Xcode_15.0.app  # Adjust the Xcode path to match your Xcode version
+
     - name: Build and Archive
       run: xcodebuild -workspace UpgradeUpsell.xcworkspace -scheme UpgradeUpsell -archivePath build/UpgradeUpsell.xcarchive archive
 
