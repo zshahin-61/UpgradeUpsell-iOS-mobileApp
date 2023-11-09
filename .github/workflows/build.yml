@@ -2,9 +2,10 @@ name: "Build and Distribute UpgradeUpsell"
 
 on:
   # Trigger the workflow manually or on a specific branch (e.g., main)
-  workflow_dispatch:
+  push:
     branches:
-      - main
+      - main  # Adjust this to the branch you want to trigger the workflow on
+
 
 jobs:
   build:
