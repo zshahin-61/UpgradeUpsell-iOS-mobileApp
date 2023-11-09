@@ -41,7 +41,6 @@ jobs:
 
       - name: Build archive
         run: |
-          xcodebuild -scheme "UpgradeUpsell" \
           -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
           clean archive
 
@@ -61,5 +60,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: app
-          path: ${{ runner.temp }}/build/UpgradeUpsell.ipa
+          path: ${{ runner.temp }}/UpgradeUpsell.ipa
           retention-days: 3
