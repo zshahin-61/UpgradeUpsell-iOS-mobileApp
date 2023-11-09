@@ -42,7 +42,7 @@ jobs:
 
       - name: Update iOS Deployment Target
         run: |
-          plutil -replace IPHONEOS_DEPLOYMENT_TARGET -string "16.0" UpgradeUpsell.xcodeproj/project.pbxproj
+          plutil -replace IPHONEOS_DEPLOYMENT_TARGET -string "16.0" UpgradeUpsell.xcodeproj/UpgradeUpsell.pbxproj
 
       - name: Export IPA
         env:
