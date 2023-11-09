@@ -1,10 +1,9 @@
-
-name: Build and Distribute iOS App
+name: Build and Distribute UpgradeUpsell
 
 on:
   push:
     branches:
-      - main
+      - main  # Adjust this to the branch you want to trigger the workflow on
 
 jobs:
   build:
@@ -17,16 +16,16 @@ jobs:
     - name: Set up Xcode
       uses: actions/setup-xcode@v2
       with:
-        xcode-version: 13.0
+        xcode-version: 13.0  # Adjust the Xcode version
 
-    - name: Install dependencies (e.g., CocoaPods)
-      run: pod install
+    - name: Install CocoaPods
+      run: pod install  # If you use CocoaPods for dependency management
 
     - name: Build and Archive
-      run: xcodebuild -workspace UpgradeUpsell.xcworkspace -scheme YourScheme -archivePath build/UpgradeUpsell.xcarchive archive
+      run: xcodebuild -workspace UpgradeUpsell.xcworkspace -scheme UpgradeUpsell -archivePath build/UpgradeUpsell.xcarchive archive
 
     - name: Create IPA
-      run: xcodebuild -exportArchive -archivePath build/UpgradeUpsell.xcarchive -exportPath build -exportOptionsPlist ExportOptions.plist
+      run: xcodebuild -exportArchive -archivePath build/UpgradeUpsell.xcarchive -exportPath build -exportOptionsPlist ExportOptions.plist  # Adjust the options as needed
 
     - name: Upload IPA as artifact
       uses: actions/upload-artifact@v2
