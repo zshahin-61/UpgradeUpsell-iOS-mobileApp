@@ -16,7 +16,7 @@ jobs:
     - name: Set up Xcode
       uses: actions/setup-xcode@v2
       with:
-        xcode-version: 13.0  # Adjust the Xcode version
+        xcode-version: 15.0  # Adjust the Xcode version
 
     - name: Install CocoaPods
       run: pod install  # If you use CocoaPods for dependency management
