@@ -72,10 +72,6 @@
 		5A47D94E2AF1A6610064AF0E /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		5A47D9502AF1A6700064AF0E /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
 		5A47D9522AF437820064AF0E /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
-		5A47D95A2AFAC1F00064AF0E /* Upgrade_UpsellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade_UpsellApp.swift; sourceTree = "<group>"; };
-		5A47D95C2AFAC1F00064AF0E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		5A47D95E2AFAC1F20064AF0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5A47D9612AFAC1F20064AF0E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtorPersonDashboardView.swift; sourceTree = "<group>"; };
 		5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewEdit.swift; sourceTree = "<group>"; };
@@ -151,25 +147,6 @@
 			path = Admin;
 			sourceTree = "<group>";
 		};
-		5A47D9592AFAC1F00064AF0E /* Upgrade&Upsell */ = {
-			isa = PBXGroup;
-			children = (
-				5A47D95A2AFAC1F00064AF0E /* Upgrade_UpsellApp.swift */,
-				5A47D95C2AFAC1F00064AF0E /* ContentView.swift */,
-				5A47D95E2AFAC1F20064AF0E /* Assets.xcassets */,
-				5A47D9602AFAC1F20064AF0E /* Preview Content */,
-			);
-			path = "Upgrade&Upsell";
-			sourceTree = "<group>";
-		};
-		5A47D9602AFAC1F20064AF0E /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				5A47D9612AFAC1F20064AF0E /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		5A8DAB2F2ABCB39500CDCBCB /* Owner */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,7 +205,6 @@
 			children = (
 				5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */,
 				5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */,
-				5A47D9592AFAC1F00064AF0E /* Upgrade&Upsell */,
 				5F9465F22ABB33E50006FBB5 /* Products */,
 			);
 			sourceTree = "<group>";
