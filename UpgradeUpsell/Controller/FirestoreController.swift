@@ -994,17 +994,22 @@ class FirestoreController: ObservableObject {
         }
     }
 
-    func sendMessage(newMessage: ChatMessage) {
-        guard let currentUserId = userProfile?.id else { return }
-
+    func sendMessage(newMessage: ChatMessage, completion: @escaping (Error?) -> Void) {
         // Send a new message to Firestore
         db.collection(COLLECTION_ChatMessages).addDocument(data: [
-                    "senderId": currentUserId,
-                    "receiverId": newMessage.receiverId,
-                    "text": newMessage.text,
-                    "timestamp": Date()
-                ])
-
+            "senderId": newMessage.senderId,
+            "receiverId": newMessage.receiverId,
+            "text": newMessage.text,
+            "timestamp": Date()
+        ]) { error in
+            if let error = error {
+                print("Error sending message: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                completion(nil)
+            }
+        }
     }
+
 }
 

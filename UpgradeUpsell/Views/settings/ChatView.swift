@@ -18,6 +18,8 @@ struct ChatView: View {
     @State private var messages: [ChatMessage] = []
     @State private var newMessageText: String = ""
 
+    var reciverUserId : String
+    
     var body: some View {
         VStack {
             List(messages) { message in
@@ -45,17 +47,33 @@ struct ChatView: View {
         //            .addSnapshotListener { (snapshot, error) in
         //                // Handle snapshot and update 'messages'
         //            }
-        //dbHelper.fetchMessagesbySenderIDReciverID(: cu)
+        dbHelper.fetchMessages(between: currentUserId, and: self.reciverUserId) { messages, error in
+            if let error = error {
+                print("Error fetching messages: \(error.localizedDescription)")
+                return
+            }
+
+            if let messages = messages {
+                // Handle fetched messages
+                print("Fetched messages: \(messages)")
+                self.messages = messages
+            }
+        }
     }
 
     func sendMessage() {
+        
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        var msgToSend = ChatMessage(id:nil, senderId: currentUserId, receiverId: "", text: newMessageText, timestamp: Date())
-        dbHelper.sendMessage(newMessage: msgToSend)
         
-        
-        // Clear the input field after sending the message
-        newMessageText = ""
+        let newMessage = ChatMessage(id: nil, senderId: currentUserId, receiverId: reciverUserId, text: "Hello!", timestamp: Date())
+
+        dbHelper.sendMessage(newMessage: newMessage) { error in
+            if let error = error {
+                print("Failed to send message: \(error.localizedDescription)")
+            } else {
+                print("Message sent successfully.")
+            }
+        }
     }
 }
 
