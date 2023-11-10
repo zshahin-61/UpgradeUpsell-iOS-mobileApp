@@ -8,13 +8,12 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct ChatParticipants {
+struct ChatParticipants: Hashable, Codable, Identifiable {
+    @DocumentID var id = UUID().uuidString
     let ownerID: String
     let investorID: String
 
     init(ownerID: String, investorID: String) {
-        // Ensure the IDs are sorted alphabetically
-        //let sortedIDs = [user1, user2].sorted()
         self.ownerID = ownerID
         self.investorID = investorID
     }
