@@ -59,20 +59,43 @@ struct ProjectOffersView: View {
                                     Text("\(suggestions[index].durationWeeks) Weeks")
                                 }
                             }
-                            HStack {
-                                Text("Status:").bold()
-                                Spacer()
-                                if suggestions[index].status == "Pending" {
-                                        Picker("Status", selection: $suggestions[index].status) {
-                                            Text("Pending").tag("Pending")
-                                            Text("Accept").tag("Accept")
-                                            Text("Declined").tag("Declined")
+                            
+                           if !isStatusUpdated[index]  {
+                           // if suggestions[index].status == "Pending" {
+                                HStack {
+                                            Text("Status:").bold()
+                                            Spacer()
+                                            Picker("Status", selection: $suggestions[index].status) {
+                                                Text("Pending").tag("Pending")
+                                                Text("Accept").tag("Accept")
+                                                Text("Declined").tag("Declined")
+                                            }
+                                            .pickerStyle(SegmentedPickerStyle())
                                         }
-                                        .pickerStyle(SegmentedPickerStyle())
                                     } else {
-                                        Text(suggestions[index].status)
+                                        HStack {
+                                            Text("Status:").bold()
+                                            Spacer()
+                                    
+                                            Text(suggestions[index].status)
+                                                        .foregroundColor(statusColor(for: suggestions[index].status))
+                                        }
                                     }
-                            }//hstack
+                            
+//                            HStack {
+//                                Text("Status:").bold()
+//                                Spacer()
+//                                if suggestions[index].status == "Pending" {
+//                                        Picker("Status", selection: $suggestions[index].status) {
+//                                            Text("Pending").tag("Pending")
+//                                            Text("Accept").tag("Accept")
+//                                            Text("Declined").tag("Declined")
+//                                        }
+//                                        .pickerStyle(SegmentedPickerStyle())
+//                                    } else {
+//                                        Text(suggestions[index].status)
+//                                    }
+//                            }//hstack
                             
                             HStack {
                                 Text("\(suggestions[index].description)")
@@ -104,7 +127,9 @@ struct ProjectOffersView: View {
                         } else if let suggestions = suggestions {
                             self.suggestions = suggestions
                             self.updatedStatuses = suggestions.map { $0.status }
-                            isStatusUpdated = Array(repeating: false, count: suggestions.count)
+                           // isStatusUpdated = Array(repeating: false, count: suggestions.count)
+                            self.isStatusUpdated = suggestions.map { $0.status == "Pending" ? false : true }
+                                    
                         }
                     }
                 }
@@ -187,4 +212,18 @@ struct ProjectOffersView: View {
             }
         }
     }
+    
+    func statusColor(for status: String) -> Color {
+        switch status {
+        case "Pending":
+            return .yellow
+        case "Accept":
+            return .green
+        case "Declined":
+            return .red
+        default:
+            return .black
+        }
+    }
+
 }
