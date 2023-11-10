@@ -1010,6 +1010,35 @@ class FirestoreController: ObservableObject {
             }
         }
     }
+    
+    // chat participants
+    func addChatParticipants(ownerID: String, investorID: String, completion: @escaping (Error?) -> Void) {
+            let chatId = [ownerID, investorID].sorted().joined(separator: "_")
+        let chatParticipants = ChatParticipants(ownerID: ownerID, investorID: investorID)
+
+            db.collection("ChatParticipants").document(chatId).setData(chatParticipants.toDictionary) { error in
+                completion(error)
+            }
+        }
+
+        func getChatParticipants(ownerID: String, investorID: String, completion: @escaping (ChatParticipants?, Error?) -> Void) {
+            let chatId = [ownerID, investorID].sorted().joined(separator: "_")
+
+            db.collection("ChatParticipants").document(chatId).getDocument { document, error in
+                if let document = document, document.exists {
+                    if let chatParticipantsDict = document.data(),
+                       let user1 = chatParticipantsDict["ownerID"] as? String,
+                       let user2 = chatParticipantsDict["investorID"] as? String {
+                        let chatParticipants = ChatParticipants(ownerID: user1, investorID: user2)
+                        completion(chatParticipants, nil)
+                    } else {
+                        completion(nil, NSError(domain: "YourAppErrorDomain", code: 0, userInfo: [NSLocalizedDescriptionKey: "Data parsing error"]))
+                    }
+                } else {
+                    completion(nil, error)
+                }
+            }
+        }
 
 }
 
