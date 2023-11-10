@@ -945,11 +945,12 @@ class FirestoreController: ObservableObject {
                     }
     }
     
-    func fetchMessages(between user1Id: String, and user2Id: String) {
+    func fetchMessages(between user1Id: String, and user2Id: String, completion: @escaping ([ChatMessage]?, Error?) -> Void) {
 //        let currentUserId = Auth.auth().currentUser?.uid
 //
 //        guard let currentUid = currentUserId else {
 //            print("Current user not available.")
+//            completion(nil, NSError(domain: "Authentication", code: 401, userInfo: ["description": "Current user not available."]))
 //            return
 //        }
 
@@ -959,29 +960,37 @@ class FirestoreController: ObservableObject {
             .whereField("receiverId", in: [user1Id, user2Id])
             .order(by: "timestamp")
 
-        query.addSnapshotListener { (snapshot, error) in
-            guard let documents = snapshot?.documents else {
-                print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+        query.getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching documents: \(error.localizedDescription)")
+                completion(nil, error)
                 return
             }
 
-            // Clear previous messages
-            messages.removeAll()
+            guard let documents = snapshot?.documents else {
+                print("No documents available.")
+                completion(nil, nil)
+                return
+            }
+
+            var fetchedMessages: [ChatMessage] = []
 
             for document in documents {
                 if let senderId = document["senderId"] as? String,
                    let receiverId = document["receiverId"] as? String,
                    let text = document["text"] as? String,
-                   let timestamp = document["timestamp"] as? Timestamp {
+                   let timestamp = document["timestamp"] as? Date {
 
                     let message = ChatMessage(id: document.documentID,
                                               senderId: senderId,
                                               receiverId: receiverId,
                                               text: text,
                                               timestamp: timestamp)
-                    messages.append(message)
+                    fetchedMessages.append(message)
                 }
             }
+
+            completion(fetchedMessages, nil)
         }
     }
 

@@ -50,7 +50,7 @@ struct ChatView: View {
 
     func sendMessage() {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-       var msgToSend = ChatMessage(senderId: currentUserId, receiverId: "", text: newMessageText, timestamp: Date())
+        var msgToSend = ChatMessage(id:nil, senderId: currentUserId, receiverId: "", text: newMessageText, timestamp: Date())
         dbHelper.sendMessage(newMessage: msgToSend)
         
         

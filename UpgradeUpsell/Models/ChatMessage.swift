@@ -15,7 +15,10 @@ struct ChatMessage: Codable, Hashable, Identifiable{
     var text: String
     var timestamp: Date
     
-    init(senderId: String, receiverId: String, text: String, timestamp: Date) {
+    init(id : String?, senderId: String, receiverId: String, text: String, timestamp: Date) {
+        if let id = id {
+            self.id = id
+        }
         self.senderId = senderId
         self.receiverId = receiverId
         self.text = text
