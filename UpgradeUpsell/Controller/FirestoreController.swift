@@ -934,5 +934,28 @@ class FirestoreController: ObservableObject {
         }
     }
     
+    // Chat Message
+    func fetchMessages() {
+        // Fetch messages from Firestore based on your data model
+        // Update the 'messages' array
+        // Example: 
+        db.collection(COLLECTION_ChatMessages).whereField("receiverId", isEqualTo: "currentUserId")
+                    .addSnapshotListener { (snapshot, error) in
+                        // Handle snapshot and update 'messages'
+                    }
+    }
+
+    func sendMessage(newMessage: ChatMessage) {
+        guard let currentUserId = userProfile?.id else { return }
+
+        // Send a new message to Firestore
+        db.collection(COLLECTION_ChatMessages).addDocument(data: [
+                    "senderId": currentUserId,
+                    "receiverId": newMessage.receiverId,
+                    "text": newMessage.text,
+                    "timestamp": Date()
+                ])
+
+    }
 }
 

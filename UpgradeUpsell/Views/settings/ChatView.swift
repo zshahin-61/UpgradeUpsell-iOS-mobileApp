@@ -6,45 +6,62 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 
-
-class ChatViewModel: ObservableObject {
-    @Published var messages: [Message] = []
-
-    func sendMessage(sender: String, text: String) {
-        let newMessage = Message(sender: sender, text: text, timestamp: Date())
-        messages.append(newMessage)
-    }
-}
 
 struct ChatView: View {
-    @State private var newMessageText = ""
-    @ObservedObject private var viewModel = ChatViewModel()
+    @State private var messages: [ChatMessage] = []
+    @State private var newMessageText: String = ""
 
     var body: some View {
         VStack {
-            List(viewModel.messages) { message in
-                Text("\(message.sender): \(message.text)")
+            List(messages) { message in
+                Text("\(message.senderId): \(message.text)")
             }
+
             HStack {
-                TextField("Type your message", text: $newMessageText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("Type a message", text: $newMessageText)
                 Button("Send") {
-                    viewModel.sendMessage(sender: "User", text: newMessageText)
-                    newMessageText = ""
+                    sendMessage()
                 }
             }
             .padding()
         }
-        .navigationTitle("Chat")
+        .onAppear {
+            fetchMessages()
+        }
+    }
+
+    func fetchMessages() {
+        // Fetch messages from Firestore based on your data model
+        // Update the 'messages' array
+        // Example: db.collection("messages").whereField("receiverId", isEqualTo: "currentUserId")
+        //            .addSnapshotListener { (snapshot, error) in
+        //                // Handle snapshot and update 'messages'
+        //            }
+    }
+
+    func sendMessage() {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+
+        // Send a new message to Firestore
+        // Example: db.collection("messages").addDocument(data: [
+        //            "senderId": currentUserId,
+        //            "receiverId": "otherUserId",
+        //            "text": newMessageText,
+        //            "timestamp": Timestamp()
+        //        ])
+        
+        // Clear the input field after sending the message
+        newMessageText = ""
     }
 }
 
-struct ChatView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            ChatView()
-        }
+        ChatView()
     }
 }
+
