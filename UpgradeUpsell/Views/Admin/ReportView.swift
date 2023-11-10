@@ -15,6 +15,8 @@
         @State private var suggestions: [InvestmentSuggestion] = []
         @State private var isLoading: Bool = false
 
+        @State private var isShowingAlert = false
+        @State private var alertMessage = ""
         
         var body: some View {
             VStack {
@@ -57,7 +59,20 @@
                                     HStack{
                                                                              
                                         Button(action: {
-                                            //  deleteSuggestion(suggestion)
+                                            
+                                            dbHelper.createChatPermission(user1: suggestion.ownerID, user2: suggestion.investorID, canChat: true) { error in
+                                                if let error = error {
+                                                    print("Error creating ChatPermission: \(error)")
+                                                    alertMessage = "Error creating ChatPermission: \(error)"
+                                                } else {
+                                                    alertMessage = "ChatPermission created successfully"
+                                                    print("ChatPermission created successfully")
+                                                }
+                                                
+                                                isShowingAlert = true
+                                                
+                                            }
+                                            
                                         }) {
                                             Text("Enable Chat")
                                                                                }
@@ -75,6 +90,13 @@
                     }
                 }
             }
+            .alert(isPresented: $isShowingAlert) {
+                        Alert(
+                            title: Text("Alert Message"),
+                            message: Text(alertMessage),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
             .onAppear {
                if let investorID = dbHelper.userProfile?.id {
                     isLoading = true
