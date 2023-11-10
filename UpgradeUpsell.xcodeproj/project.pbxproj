@@ -65,6 +65,7 @@
 		5FFE00E52AF1E469002F9B64 /* EditOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E42AF1E469002F9B64 /* EditOfferView.swift */; };
 		5FFE00E72AF54E14002F9B64 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */; };
 		5FFE00E92AFE88F6002F9B64 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E82AFE88F6002F9B64 /* ChatView.swift */; };
+		5FFE00EB2AFEB0A8002F9B64 /* ChatParticipants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +122,7 @@
 		5FFE00E42AF1E469002F9B64 /* EditOfferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOfferView.swift; sourceTree = "<group>"; };
 		5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		5FFE00E82AFE88F6002F9B64 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatParticipants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +281,7 @@
 				5F9466272ABBD10F0006FBB5 /* InvestmentSuggestion.swift */,
 				5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */,
 				5FF7657C2ADED36B004A0C66 /* Review.swift */,
+				5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FFE00E72AF54E14002F9B64 /* ChangePasswordView.swift in Sources */,
+				5FFE00EB2AFEB0A8002F9B64 /* ChatParticipants.swift in Sources */,
 				5F9466242ABBC4B30006FBB5 /* Investment.swift in Sources */,
 				5A8DAB2E2ABCAB6100CDCBCB /* SettingsView.swift in Sources */,
 				5A8DAB462ADDFC0B00CDCBCB /* Notifications.swift in Sources */,
