@@ -11,7 +11,7 @@ struct ProjectOffersView: View {
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
     
-    @State private var statusUpdated: [Bool] = []
+    @State private var isStatusUpdated: [Bool] = []
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -104,6 +104,7 @@ struct ProjectOffersView: View {
                         } else if let suggestions = suggestions {
                             self.suggestions = suggestions
                             self.updatedStatuses = suggestions.map { $0.status }
+                            isStatusUpdated = Array(repeating: false, count: suggestions.count)
                         }
                     }
                 }
@@ -134,10 +135,10 @@ struct ProjectOffersView: View {
             if suggestion.status != updatedStatuses[index] {
                 // Update the status in the database
                 dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
-                    
                     if let error = error {
                         print("Error updating status for offer: \(error)")
                     } else {
+                        isStatusUpdated[index] = true
                         if suggestion.status == "Accept" { // Check if the status is "Accept"
                             updatePropertyStatus(propertyID: suggestion.projectID, status: "In Progress")
                                             }
