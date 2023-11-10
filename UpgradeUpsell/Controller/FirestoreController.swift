@@ -30,6 +30,7 @@ class FirestoreController: ObservableObject {
     private let COLLECTION_ProfitSharing = "ProfitSharing"
     private let COLLECTION_Financial = "Financial"
     private let COLLECTION_ChatMessages = "ChatMessage"
+    private let COLLECTION_ChatPermissions = "ChatPermissions"
     /// END COLLECTIONS LIST //////
     
     /// Fields //////
@@ -1011,34 +1012,36 @@ class FirestoreController: ObservableObject {
         }
     }
     
-    // chat participants
-    func addChatParticipants(ownerID: String, investorID: String, completion: @escaping (Error?) -> Void) {
-            let chatId = [ownerID, investorID].sorted().joined(separator: "_")
-        let chatParticipants = ChatParticipants(ownerID: ownerID, investorID: investorID)
+    // ChatPermissions
+    func createChatPermission(user1: String, user2: String, canChat: Bool, completion: @escaping (Error?) -> Void) {
+            let documentID = "\(user1)_\(user2)"
+            let data: [String: Any] = [
+                "user1": user1,
+                "user2": user2,
+                "canChat": canChat
+            ]
 
-            db.collection("ChatParticipants").document(chatId).setData(chatParticipants.toDictionary) { error in
+            db.collection("ChatPermissions").document(documentID).setData(data) { error in
                 completion(error)
             }
         }
 
-        func getChatParticipants(ownerID: String, investorID: String, completion: @escaping (ChatParticipants?, Error?) -> Void) {
-            let chatId = [ownerID, investorID].sorted().joined(separator: "_")
+        func fetchChatPermission(user1: String, user2: String, completion: @escaping (ChatPermission?, Error?) -> Void) {
+            let documentID = "\(user1)_\(user2)"
 
-            db.collection("ChatParticipants").document(chatId).getDocument { document, error in
+            db.collection("ChatPermissions").document(documentID).getDocument { document, error in
                 if let document = document, document.exists {
-                    if let chatParticipantsDict = document.data(),
-                       let user1 = chatParticipantsDict["ownerID"] as? String,
-                       let user2 = chatParticipantsDict["investorID"] as? String {
-                        let chatParticipants = ChatParticipants(ownerID: user1, investorID: user2)
-                        completion(chatParticipants, nil)
-                    } else {
-                        completion(nil, NSError(domain: "YourAppErrorDomain", code: 0, userInfo: [NSLocalizedDescriptionKey: "Data parsing error"]))
-                    }
+                    let data = document.data()
+                    let chatPermission = ChatPermission(
+                        user1: data?["user1"] as? String ?? "",
+                        user2: data?["user2"] as? String ?? "",
+                        canChat: data?["canChat"] as? Bool ?? false
+                    )
+                    completion(chatPermission, nil)
                 } else {
                     completion(nil, error)
                 }
             }
         }
-
 }
 
