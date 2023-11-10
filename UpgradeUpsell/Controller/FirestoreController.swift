@@ -944,6 +944,46 @@ class FirestoreController: ObservableObject {
                         // Handle snapshot and update 'messages'
                     }
     }
+    
+    func fetchMessages(between user1Id: String, and user2Id: String) {
+//        let currentUserId = Auth.auth().currentUser?.uid
+//
+//        guard let currentUid = currentUserId else {
+//            print("Current user not available.")
+//            return
+//        }
+
+        // Example query to fetch messages between two users
+        let query = db.collection("messages")
+            .whereField("senderId", in: [user1Id, user2Id])
+            .whereField("receiverId", in: [user1Id, user2Id])
+            .order(by: "timestamp")
+
+        query.addSnapshotListener { (snapshot, error) in
+            guard let documents = snapshot?.documents else {
+                print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            // Clear previous messages
+            messages.removeAll()
+
+            for document in documents {
+                if let senderId = document["senderId"] as? String,
+                   let receiverId = document["receiverId"] as? String,
+                   let text = document["text"] as? String,
+                   let timestamp = document["timestamp"] as? Timestamp {
+
+                    let message = ChatMessage(id: document.documentID,
+                                              senderId: senderId,
+                                              receiverId: receiverId,
+                                              text: text,
+                                              timestamp: timestamp)
+                    messages.append(message)
+                }
+            }
+        }
+    }
 
     func sendMessage(newMessage: ChatMessage) {
         guard let currentUserId = userProfile?.id else { return }
