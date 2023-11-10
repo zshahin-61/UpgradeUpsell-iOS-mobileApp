@@ -12,6 +12,9 @@ import FirebaseFirestore
 
 
 struct ChatView: View {
+    @EnvironmentObject var authHelper: FireAuthController
+    @EnvironmentObject var dbHelper: FirestoreController
+    
     @State private var messages: [ChatMessage] = []
     @State private var newMessageText: String = ""
 
@@ -35,33 +38,24 @@ struct ChatView: View {
     }
 
     func fetchMessages() {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         // Fetch messages from Firestore based on your data model
         // Update the 'messages' array
         // Example: db.collection("messages").whereField("receiverId", isEqualTo: "currentUserId")
         //            .addSnapshotListener { (snapshot, error) in
         //                // Handle snapshot and update 'messages'
         //            }
+        //dbHelper.fetchMessagesbySenderIDReciverID(: cu)
     }
 
     func sendMessage() {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-
-        // Send a new message to Firestore
-        // Example: db.collection("messages").addDocument(data: [
-        //            "senderId": currentUserId,
-        //            "receiverId": "otherUserId",
-        //            "text": newMessageText,
-        //            "timestamp": Timestamp()
-        //        ])
+       var msgToSend = ChatMessage(senderId: currentUserId, receiverId: "", text: newMessageText, timestamp: Date())
+        dbHelper.sendMessage(newMessage: msgToSend)
+        
         
         // Clear the input field after sending the message
         newMessageText = ""
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatView()
     }
 }
 
