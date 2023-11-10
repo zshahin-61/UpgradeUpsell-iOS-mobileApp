@@ -64,6 +64,7 @@
 		5FFE00E32AF1B314002F9B64 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5FFE00E22AF1B314002F9B64 /* SDWebImageSwiftUI */; };
 		5FFE00E52AF1E469002F9B64 /* EditOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E42AF1E469002F9B64 /* EditOfferView.swift */; };
 		5FFE00E72AF54E14002F9B64 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */; };
+		5FFE00E92AFE88F6002F9B64 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E82AFE88F6002F9B64 /* ChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +120,7 @@
 		5FF7657E2AE028EB004A0C66 /* OffersofaPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersofaPropertyView.swift; sourceTree = "<group>"; };
 		5FFE00E42AF1E469002F9B64 /* EditOfferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOfferView.swift; sourceTree = "<group>"; };
 		5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		5FFE00E82AFE88F6002F9B64 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */,
 				5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */,
 				5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */,
+				5FFE00E82AFE88F6002F9B64 /* ChatView.swift */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				5F94662D2ABC838C0006FBB5 /* HomeView_Owner.swift in Sources */,
 				5A8DAB3E2AD4A48B00CDCBCB /* LocationHelper.swift in Sources */,
 				5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */,
+				5FFE00E92AFE88F6002F9B64 /* ChatView.swift in Sources */,
 				5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */,
 				5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */,
 				5FF7657F2AE028EB004A0C66 /* OffersofaPropertyView.swift in Sources */,
