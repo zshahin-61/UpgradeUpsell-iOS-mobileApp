@@ -1021,27 +1021,27 @@ class FirestoreController: ObservableObject {
                 "canChat": canChat
             ]
 
-            db.collection("ChatPermissions").document(documentID).setData(data) { error in
+            db.collection(COLLECTION_ChatPermissions).document(documentID).setData(data) { error in
                 completion(error)
             }
         }
 
-        func fetchChatPermission(user1: String, user2: String, completion: @escaping (ChatPermission?, Error?) -> Void) {
-            let documentID = "\(user1)_\(user2)"
+    func fetchChatPermission(user1: String, user2: String, completion: @escaping (ChatPermission?, Error?) -> Void) {
+        let documentID = "\(user1)_\(user2)"
 
-            db.collection("ChatPermissions").document(documentID).getDocument { document, error in
-                if let document = document, document.exists {
-                    let data = document.data()
-                    let chatPermission = ChatPermission(
-                        user1: data?["user1"] as? String ?? "",
-                        user2: data?["user2"] as? String ?? "",
-                        canChat: data?["canChat"] as? Bool ?? false
-                    )
-                    completion(chatPermission, nil)
-                } else {
-                    completion(nil, error)
-                }
+        db.collection(COLLECTION_ChatPermissions).document(documentID).getDocument { document, error in
+            if let document = document, document.exists {
+                let data = document.data()
+                let chatPermission = ChatPermission(
+                    user1: data?["user1"] as? String ?? "",
+                    user2: data?["user2"] as? String ?? "",
+                    canChat: data?["canChat"] as? Bool ?? false
+                )
+                completion(chatPermission, nil)
+            } else {
+                completion(nil, error)
             }
         }
+    }
 }
 
