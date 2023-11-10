@@ -10,6 +10,8 @@ struct ProjectOffersView: View {
     @State private var updatedStatuses: [String] = [] // Store updated statuses
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
+    
+    @State private var statusUpdated: [Bool] = []
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -60,13 +62,17 @@ struct ProjectOffersView: View {
                             HStack {
                                 Text("Status:").bold()
                                 Spacer()
-                                Picker("Status", selection: $suggestions[index].status) {
-                                    Text("Pending").tag("Pending")
-                                    Text("Accept").tag("Accept")
-                                    Text("Declined").tag("Declined")
-                                }
-                                .pickerStyle(SegmentedPickerStyle())
-                            }
+                                if suggestions[index].status == "Pending" {
+                                        Picker("Status", selection: $suggestions[index].status) {
+                                            Text("Pending").tag("Pending")
+                                            Text("Accept").tag("Accept")
+                                            Text("Declined").tag("Declined")
+                                        }
+                                        .pickerStyle(SegmentedPickerStyle())
+                                    } else {
+                                        Text(suggestions[index].status)
+                                    }
+                            }//hstack
                             
                             HStack {
                                 Text("\(suggestions[index].description)")
