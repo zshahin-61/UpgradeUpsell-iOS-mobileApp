@@ -80,6 +80,12 @@ struct ProjectOffersView: View {
                                             Text(suggestions[index].status)
                                                         .foregroundColor(statusColor(for: suggestions[index].status))
                                         }
+                                        HStack{
+                                            Text("You can chat with user after aproved by administrator ")
+                                            Button(action: {}){
+                                                Text("Chat")
+                                            }
+                                        }
                                     }
                             
 //                            HStack {
@@ -212,6 +218,15 @@ struct ProjectOffersView: View {
             }
         }
     }
+
+    
+    // Function to fetch chat permission status for the current user
+        private func fetchChatPermissionStatus() {
+            // Implement logic to fetch chat permission status from ChatPermissions collection
+            // Update the value of isChatEnabled accordingly
+            // For example:
+            // isChatEnabled = // Logic to check whether chat permission is granted for the current user
+        }
     
     func statusColor(for status: String) -> Color {
         switch status {
