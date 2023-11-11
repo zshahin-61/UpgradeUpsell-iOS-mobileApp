@@ -72,9 +72,9 @@ struct InvestorProfileView: View {
                 if(isChatEnabled){
                                                       // HStack {
                                                          //  Text("You can chat with the user after approved by the administrator")
-                                                           NavigationLink(destination: ChatView(reciverUserId: investorID)) {
+                    NavigationLink(destination: ChatView(reciverUserId: investorID).environmentObject(dbHelper)) {
                                                                Text("Chat with Investor")
-                                                           }
+                    }
                                                    //        .disabled(!isStatusUpdated[index] || !hasChatPermission[index])
                                                       // }
                                                    } //if

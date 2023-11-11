@@ -12,7 +12,7 @@ import FirebaseFirestore
 
 
 struct ChatView: View {
-    @EnvironmentObject var authHelper: FireAuthController
+   // @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     
     @State private var messages: [ChatMessage] = []
