@@ -28,6 +28,8 @@ struct InvestorProfileView: View {
     @State private var selectedImage: UIImage?
     @State private var imageData: Data?
     
+    @State private var isChatEnabled: Bool = false
+    
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             Text("Investor Profile").bold().font(.title).foregroundColor(.brown)
@@ -66,17 +68,28 @@ struct InvestorProfileView: View {
                     .foregroundColor(.red)
                     .font(.callout)
             }
-            
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Back")
-                    .font(.headline)
-                    .frame(width: 100, height: 50)
-                   // .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-            }.buttonStyle(.borderedProminent)
+            HStack{
+                if(isChatEnabled){
+                                                      // HStack {
+                                                         //  Text("You can chat with the user after approved by the administrator")
+                                                           NavigationLink(destination: ChatView(reciverUserId: investorID)) {
+                                                               Text("Chat with Investor")
+                                                           }
+                                                   //        .disabled(!isStatusUpdated[index] || !hasChatPermission[index])
+                                                      // }
+                                                   } //if
+                Spacer()
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Back")
+                        .font(.headline)
+                        .frame(width: 100, height: 50)
+                    // .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }.buttonStyle(.borderedProminent)
+            }
         }
         .padding(.horizontal, 10)
         .onAppear(){
@@ -99,6 +112,9 @@ struct InvestorProfileView: View {
                     } else {
                         print("Invalid image data format")
                     }
+                    
+                    fetchChatPermissionStatus()
+                    
                 }
             }
         }
@@ -108,6 +124,24 @@ struct InvestorProfileView: View {
                }) {
                    Text(" Back ").font(.headline)
                })
+    }
+    
+    private func fetchChatPermissionStatus()  {
+        if let currentUser = dbHelper.userProfile?.id {
+            dbHelper.fetchChatPermission(user1: currentUser, user2: investorID) { (permission, error) in
+                if let error = error {
+                    print("Error fetching chat permission: \(error)")
+                    isChatEnabled =  false
+                }
+                
+                if let permission = permission {
+                    isChatEnabled = permission.canChat
+                }
+            }
+        }
+        else{
+            isChatEnabled = false
+        }
     }
 }
 

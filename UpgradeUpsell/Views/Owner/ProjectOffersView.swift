@@ -60,8 +60,7 @@ struct ProjectOffersView: View {
                                         Spacer()
                                         Text("\(suggestions[index].durationWeeks) Weeks")
                                     }
-                                }
-                                
+                                }//Group
                                 HStack {
                                     Text("\(suggestions[index].description)")
                                 }
@@ -86,22 +85,15 @@ struct ProjectOffersView: View {
                                         Text(suggestions[index].status)
                                             .foregroundColor(statusColor(for: suggestions[index].status))
                                     } //hstack
-                                    if(suggestions[index].status == "Accept"){
-                                        //                                    HStack{
-                                        //                                        //Text("You can chat with user after aproved by administrator ")
-                                        //                                        Button(action: {}){
-                                        //                                            Text("Chat with Investor")
-                                        //                                        }
-                                        //                                        .disabled(hasChatPermission[index])
-                                        //                                    }
-                                        HStack {
-                                            Text("You can chat with the user after approved by the administrator")
-                                            NavigationLink(destination: ChatView(reciverUserId: suggestions[index].investorID)) {
-                                                Text("Chat with Investor")
-                                            }
-                                            .disabled(!isStatusUpdated[index] || !hasChatPermission[index])
-                                        }
-                                    } //if
+//                                    if(suggestions[index].status == "Accept"){
+//                                        HStack {
+//                                            Text("You can chat with the user after approved by the administrator")
+//                                            NavigationLink(destination: ChatView(reciverUserId: suggestions[index].investorID)) {
+//                                                Text("Chat with Investor")
+//                                            }
+//                                            .disabled(!isStatusUpdated[index] || !hasChatPermission[index])
+//                                        }
+//                                    } //if 
                                 } // esle
                                 
                             }
