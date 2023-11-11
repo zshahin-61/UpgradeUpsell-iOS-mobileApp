@@ -43,8 +43,7 @@ jobs:
       - name: Update iOS Deployment Target
         run: |
           echo "Updating iOS Deployment Target..."
-          plutil -replace IPHONEOS_DEPLOYMENT_TARGET -string "16.0" UpgradeUpsell.xcodeproj/project.pbxproj
-          echo "iOS Deployment Target updated."
+          plutil -replace IPHONEOS_DEPLOYMENT_TARGET -string "16.0" UpgradeUpsell.xcodeproj/project.pbxproj          echo "iOS Deployment Target updated."
 
       - name: Export IPA
         env:
