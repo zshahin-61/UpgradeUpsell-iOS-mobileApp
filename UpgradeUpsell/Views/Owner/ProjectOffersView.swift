@@ -29,88 +29,83 @@ struct ProjectOffersView: View {
                 } else {
                     ForEach(suggestions.indices, id: \.self) { index in
                         Section {
-                            HStack {
-                                Text("Title:").bold()
-                                Spacer()
-                                Text("\(suggestions[index].projectTitle)")
-                            }
-                            HStack {
-                                Text("Offer Date:").bold()
-                                Spacer()
-                                Text("\(dateFormatter.string(from: suggestions[index].date ?? Date()))")
-                            }
-                            Group {
+                            VStack{
                                 HStack {
-                                    NavigationLink(destination: InvestorProfileView(investorID: suggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
-                                        Text("Investor:").bold()
+                                    Text("Title:").bold()
+                                    Spacer()
+                                    Text("\(suggestions[index].projectTitle)")
+                                }
+                                HStack {
+                                    Text("Offer Date:").bold()
+                                    Spacer()
+                                    Text("\(dateFormatter.string(from: suggestions[index].date ?? Date()))")
+                                }
+                                Group {
+                                    HStack {
+                                        NavigationLink(destination: InvestorProfileView(investorID: suggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+                                            Text("Investor:").bold()
+                                            Spacer()
+                                            Text(suggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
+                                        }
+                                    }
+                                    
+                                    HStack {
+                                        Text("Offered amount:").bold()
                                         Spacer()
-                                        Text(suggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
+                                        Text(String(format: "%.2f", suggestions[index].amountOffered))
+                                    }
+                                    
+                                    HStack {
+                                        Text("Duration:").bold()
+                                        Spacer()
+                                        Text("\(suggestions[index].durationWeeks) Weeks")
                                     }
                                 }
                                 
                                 HStack {
-                                    Text("Offered amount:").bold()
-                                    Spacer()
-                                    Text(String(format: "%.2f", suggestions[index].amountOffered))
+                                    Text("\(suggestions[index].description)")
                                 }
                                 
-                                HStack {
-                                    Text("Duration:").bold()
-                                    Spacer()
-                                    Text("\(suggestions[index].durationWeeks) Weeks")
-                                }
-                            }
-                            
-                           if !isStatusUpdated[index]  {
-                           // if suggestions[index].status == "Pending" {
-                                HStack {
-                                            Text("Status:").bold()
-                                            Spacer()
-                                            Picker("Status", selection: $suggestions[index].status) {
-                                                Text("Pending").tag("Pending")
-                                                Text("Accept").tag("Accept")
-                                                Text("Declined").tag("Declined")
-                                            }
-                                            .pickerStyle(SegmentedPickerStyle())
+                                if !isStatusUpdated[index]  {
+                                    // if suggestions[index].status == "Pending" {
+                                    HStack {
+                                        Text("Status:").bold()
+                                        Spacer()
+                                        Picker("Status", selection: $suggestions[index].status) {
+                                            Text("Pending").tag("Pending")
+                                            Text("Accept").tag("Accept")
+                                            Text("Declined").tag("Declined")
                                         }
-                           } else {
-                               HStack {
-                                   Text("Status:").bold()
-                                   Spacer()
-                                   
-                                   Text(suggestions[index].status)
-                                       .foregroundColor(statusColor(for: suggestions[index].status))
-                               } //hstack
-                              if(suggestions[index].status == "Accept"){
-                                   HStack{
-                                       //Text("You can chat with user after aproved by administrator ")
-                                       Button(action: {}){
-                                           Text("Chat with Investor")
-                                       }.disabled(hasChatPermission[index])
-                                   }
-                               } //if
-                           } // esle
-                            
-//                            HStack {
-//                                Text("Status:").bold()
-//                                Spacer()
-//                                if suggestions[index].status == "Pending" {
-//                                        Picker("Status", selection: $suggestions[index].status) {
-//                                            Text("Pending").tag("Pending")
-//                                            Text("Accept").tag("Accept")
-//                                            Text("Declined").tag("Declined")
-//                                        }
-//                                        .pickerStyle(SegmentedPickerStyle())
-//                                    } else {
-//                                        Text(suggestions[index].status)
-//                                    }
-//                            }//hstack
-                            
-                            HStack {
-                                Text("\(suggestions[index].description)")
+                                        .pickerStyle(SegmentedPickerStyle())
+                                    }
+                                } else {
+                                    HStack {
+                                        Text("Status:").bold()
+                                        Spacer()
+                                        
+                                        Text(suggestions[index].status)
+                                            .foregroundColor(statusColor(for: suggestions[index].status))
+                                    } //hstack
+                                    if(suggestions[index].status == "Accept"){
+                                        //                                    HStack{
+                                        //                                        //Text("You can chat with user after aproved by administrator ")
+                                        //                                        Button(action: {}){
+                                        //                                            Text("Chat with Investor")
+                                        //                                        }
+                                        //                                        .disabled(hasChatPermission[index])
+                                        //                                    }
+                                        HStack {
+                                            Text("You can chat with the user after approved by the administrator")
+                                            NavigationLink(destination: ChatView(reciverUserId: suggestions[index].investorID)) {
+                                                Text("Chat with Investor")
+                                            }
+                                            .disabled(!isStatusUpdated[index] || !hasChatPermission[index])
+                                        }
+                                    } //if
+                                } // esle
+                                
                             }
-                            
-                        }
+                        }//Section
                         Divider()
                     }
                     
