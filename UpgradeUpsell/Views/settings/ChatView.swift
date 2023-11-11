@@ -11,7 +11,7 @@ import SwiftUI
 struct ChatView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var messageText = ""
-    @State private var messages: [ChatMessage] = []
+    //@State private var messages: [ChatMessage] = []
     //@EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     
@@ -20,7 +20,7 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            List(messages, id: \.id) { message in
+            List(dbHelper.messages, id: \.id) { message in
                 ChatMessageView(message: message, isSender: message.senderId == senderUserID)
             }
             .onAppear(perform: {
@@ -51,7 +51,7 @@ struct ChatView: View {
     private func listenForMessages() {
         if let currnetUser = dbHelper.userProfile?.id {
             dbHelper.listenForMessages(user1: currnetUser, user2: receiverUserID){ (messages ) in
-                self.messages = messages
+                dbHelper.messages = messages
             }
         }
             
