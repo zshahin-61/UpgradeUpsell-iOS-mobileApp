@@ -81,12 +81,12 @@ struct ProjectOffersView: View {
                                    Text(suggestions[index].status)
                                        .foregroundColor(statusColor(for: suggestions[index].status))
                                } //hstack
-                               if(suggestions[index].status == "Accept"){
+                              if(suggestions[index].status == "Accept"){
                                    HStack{
                                        //Text("You can chat with user after aproved by administrator ")
                                        Button(action: {}){
                                            Text("Chat with Investor")
-                                       }.disabled(!hasChatPermission[index])
+                                       }.disabled(hasChatPermission[index])
                                    }
                                } //if
                            } // esle
