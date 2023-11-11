@@ -45,12 +45,13 @@ jobs:
           echo "Updating iOS Deployment Target..."
           PROJECT_FILE=$(find . -name '*.xcodeproj' -type d -maxdepth 1)
           INFO_PLIST=$(find . -name 'Info.plist' -type f -maxdepth 2)
-
+          
           # Add the MinimumOSVersion key if it doesn't exist
           /usr/libexec/PlistBuddy -c "Add :MinimumOSVersion string 16.0" "$INFO_PLIST"
+          
+          # Add the IPHONEOS_DEPLOYMENT_TARGET key if it doesn't exist
+          /usr/libexec/PlistBuddy -c "Add :IPHONEOS_DEPLOYMENT_TARGET string 16.0" "$INFO_PLIST"
 
-          # Update IPHONEOS_DEPLOYMENT_TARGET
-          /usr/libexec/PlistBuddy -c "Set :IPHONEOS_DEPLOYMENT_TARGET 16.0" "$PROJECT_FILE/project.pbxproj"
           echo "iOS Deployment Target updated."
 
       - name: Export IPA
