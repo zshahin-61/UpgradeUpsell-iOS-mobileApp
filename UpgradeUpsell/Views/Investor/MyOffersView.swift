@@ -70,7 +70,7 @@ struct MyOffersView: View {
                                     if(isChatEnabled[index]){
                                         
                                         NavigationLink(destination: ChatView(receiverUserID: suggestions[index].ownerID).environmentObject(dbHelper)) {
-                                            Text("Chat with Investor")
+                                            Text("Chat with Owner")
                                         }
                                     } //if
                                 }//else
@@ -95,7 +95,20 @@ struct MyOffersView: View {
                         print("Error getting investment suggestions: \(error)")
                     } else if let suggestions = suggestions {
                         self.suggestions = suggestions
-                        self.isChatEnabled = suggestions.map{$0.status != "Accept"  ? false : fetchChatPermissionStatus(sugg: $0)  }
+                        self.isChatEnabled = Array(repeating: false, count: suggestions.count)
+//                        self.isChatEnabled = suggestions.map{$0.status != "Accept"  ? false : fetchChatPermissionStatus(sugg: $0)  }
+                        DispatchQueue.global().async {
+                                            let chatPermissions = suggestions.map { suggestion in
+                                                fetchChatPermissionStatus(sugg: suggestion) { canChat in
+                                                    // This closure is called when the asynchronous call is completed
+                                                    DispatchQueue.main.async {
+                                                        self.isChatEnabled.append(canChat)
+                                                    }
+                                                }
+                                            }
+
+                                            // No need to update UI here
+                                        }
                         isLoading = false
                     }
                 }
@@ -170,22 +183,41 @@ struct MyOffersView: View {
         }
     }
     
-    // Function to fetch chat permission status for the current user
-    private  func fetchChatPermissionStatus(sugg: InvestmentSuggestion) -> Bool {
-        var result = false
+    // Function to fetch chat permission status for the current user\
+    private func fetchChatPermissionStatus(sugg: InvestmentSuggestion, completion: @escaping (Bool) -> Void) {
         dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in
             if let error = error {
-               result = false
+                print("Error fetching chat permission: \(error)")
+                completion(false)
                 return
             }
 
             if let permission = permission {
-               result = permission.canChat
+                print("Chat permission fetched successfully. canChat: \(permission.canChat)")
+                completion(permission.canChat)
             } else {
-                result = false
+                completion(false)
             }
         }
-        return result
     }
+//    private  func fetchChatPermissionStatus(sugg: InvestmentSuggestion) -> Bool {
+//        var result = false
+//        dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in
+//            if let error = error {
+//               result = false
+//                print("errorrrrr:\(error)")
+//                return
+//            }
+//
+//            if let permission = permission {
+//               result = permission.canChat
+//                print("permission.canChat:\(permission.canChat)")
+//            } else {
+//                result = false
+//            }
+//        }
+//        print("resultttttttt:\(result)")
+//        return result
+//    }
     
 }
