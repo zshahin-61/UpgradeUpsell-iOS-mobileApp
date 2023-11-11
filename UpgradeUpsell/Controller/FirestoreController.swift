@@ -941,7 +941,7 @@ class FirestoreController: ObservableObject {
     // Function to send a chat message
        func sendMessage(message: ChatMessage, completion: @escaping (Error?) -> Void) {
            do {
-               _ = try db.collection("messages").addDocument(from: message) { error in
+               _ = try db.collection(COLLECTION_ChatMessages).addDocument(from: message) { error in
                    completion(error)
                }
            } catch {
@@ -951,7 +951,7 @@ class FirestoreController: ObservableObject {
 
        // Function to listen for incoming chat messages
        func listenForMessages(user1: String, user2: String, completion: @escaping ([ChatMessage]) -> Void) {
-           db.collection("messages")
+           db.collection(COLLECTION_ChatMessages)
                .whereField("senderId", in: [user1, user2])
                .whereField("receiverId", in: [user1, user2])
                .order(by: "timestamp")
