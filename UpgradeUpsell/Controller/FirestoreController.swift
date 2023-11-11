@@ -964,6 +964,7 @@ class FirestoreController: ObservableObject {
                    let messages = documents.compactMap { queryDocumentSnapshot in
                        do {
                            let message = try queryDocumentSnapshot.data(as: ChatMessage.self)
+                           self.messages.append(message)
                            return message
                        } catch {
                            print("Error decoding message: \(error.localizedDescription)")
