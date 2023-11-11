@@ -66,13 +66,20 @@ struct MyOffersView: View {
                                     }
                                 }
                         else{
+                            HStack {
+                                NavigationLink(destination: OwnerProfileView(ownerID: suggestions[index].ownerID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+                                    Text("Owner:").bold()
+                                    Spacer()
+                                    Text("Owner Profile") .foregroundColor(.blue)// Link to Investor Profile
+                                }
+                            }
                                     //fetchChatPermissionStatus(user1: suggestion.ownerID)
-                                    if(isChatEnabled[index]){
+                                    //if(isChatEnabled[index]){
                                         
-                                        NavigationLink(destination: ChatView(receiverUserID: suggestions[index].ownerID).environmentObject(dbHelper)) {
-                                            Text("Chat with Owner")
-                                        }
-                                    } //if
+                                       // NavigationLink(destination: ChatView(receiverUserID: suggestions[index].ownerID).environmentObject(dbHelper)) {
+                                          //  Text("Chat with Owner")
+                                        //}
+                                    //} //if
                                 }//else
                             }//VStack
                             .padding(10)
