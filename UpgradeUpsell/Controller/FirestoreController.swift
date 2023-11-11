@@ -943,6 +943,7 @@ class FirestoreController: ObservableObject {
            do {
                _ = try db.collection(COLLECTION_ChatMessages).addDocument(from: message) { error in
                    completion(error)
+                   self.messages.append(message)
                }
            } catch {
                completion(error)
@@ -964,7 +965,6 @@ class FirestoreController: ObservableObject {
                    let messages = documents.compactMap { queryDocumentSnapshot in
                        do {
                            let message = try queryDocumentSnapshot.data(as: ChatMessage.self)
-                           self.messages.append(message)
                            return message
                        } catch {
                            print("Error decoding message: \(error.localizedDescription)")
@@ -985,6 +985,7 @@ class FirestoreController: ObservableObject {
                 "canChat": canChat
             ]
 
+        
             db.collection(COLLECTION_ChatPermissions).document(documentID).setData(data) { error in
                 completion(error)
             }
