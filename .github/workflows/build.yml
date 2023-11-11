@@ -40,14 +40,13 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-     - name: Update iOS Deployment Target
-      run: |
-        echo "Updating iOS Deployment Target..."
-        PROJECT_FILE=$(find . -name '*.xcodeproj' -type d -maxdepth 1)
-        INFO_PLIST=$(find . -name 'Info.plist' -type f -maxdepth 2)
-        /usr/libexec/PlistBuddy -c "Set :MinimumOSVersion 16.0" "$INFO_PLIST"
-        /usr/libexec/PlistBuddy -c "Set :IPHONEOS_DEPLOYMENT_TARGET 16.0" "$PROJECT_FILE/project.pbxproj"
-        echo "iOS Deployment Target updated."
+      - name: Update iOS Deployment Target
+        run: |
+          echo "Updating iOS Deployment Target..."
+          PROJECT_FILE=$(find . -name '*.xcodeproj' -type d -maxdepth 1)
+          INFO_PLIST=$(find . -name 'Info.plist' -type f -maxdepth 2)
+          /usr/libexec/PlistBuddy -c "Set :MinimumOSVersion 16.0" "$INFO_PLIST"
+          /usr/libexec/PlistBuddy -c "Set :IPHONEOS_DEPLOYMENT_TARGET 16.0" "$PROJECT_FILE/project.pbxproj"
           echo "iOS Deployment Target updated."
 
       - name: Export IPA
