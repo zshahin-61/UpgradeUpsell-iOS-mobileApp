@@ -16,6 +16,8 @@ class FirestoreController: ObservableObject {
     //@Published var userProperty: RenovateProject?
     //@Published var backRoot : RootView = .SignUp
 
+    @Published var messages: [ChatMessage] = []
+    
     private let db: Firestore
     private static var shared: FirestoreController?
     
@@ -936,81 +938,42 @@ class FirestoreController: ObservableObject {
     }
     
     // Chat Message
-    func fetchMessages() {
-        // Fetch messages from Firestore based on your data model
-        // Update the 'messages' array
-        // Example: 
-        db.collection(COLLECTION_ChatMessages).whereField("receiverId", isEqualTo: "currentUserId")
-                    .addSnapshotListener { (snapshot, error) in
-                        // Handle snapshot and update 'messages'
-                    }
-    }
-    
-    func fetchMessages(between user1Id: String, and user2Id: String, completion: @escaping ([ChatMessage]?, Error?) -> Void) {
-//        let currentUserId = Auth.auth().currentUser?.uid
-//
-//        guard let currentUid = currentUserId else {
-//            print("Current user not available.")
-//            completion(nil, NSError(domain: "Authentication", code: 401, userInfo: ["description": "Current user not available."]))
-//            return
-//        }
+    // Function to send a chat message
+       func sendMessage(message: ChatMessage, completion: @escaping (Error?) -> Void) {
+           do {
+               _ = try db.collection("messages").addDocument(from: message) { error in
+                   completion(error)
+               }
+           } catch {
+               completion(error)
+           }
+       }
 
-        // Example query to fetch messages between two users
-        let query = db.collection("messages")
-            .whereField("senderId", in: [user1Id, user2Id])
-            .whereField("receiverId", in: [user1Id, user2Id])
-            .order(by: "timestamp")
+       // Function to listen for incoming chat messages
+       func listenForMessages(user1: String, user2: String, completion: @escaping ([ChatMessage]) -> Void) {
+           db.collection("messages")
+               .whereField("senderId", in: [user1, user2])
+               .whereField("receiverId", in: [user1, user2])
+               .order(by: "timestamp")
+               .addSnapshotListener { querySnapshot, error in
+                   guard let documents = querySnapshot?.documents else {
+                       print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                       return
+                   }
 
-        query.getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error fetching documents: \(error.localizedDescription)")
-                completion(nil, error)
-                return
-            }
+                   let messages = documents.compactMap { queryDocumentSnapshot in
+                       do {
+                           let message = try queryDocumentSnapshot.data(as: ChatMessage.self)
+                           return message
+                       } catch {
+                           print("Error decoding message: \(error.localizedDescription)")
+                           return nil
+                       }
+                   }
 
-            guard let documents = snapshot?.documents else {
-                print("No documents available.")
-                completion(nil, nil)
-                return
-            }
-
-            var fetchedMessages: [ChatMessage] = []
-
-            for document in documents {
-                if let senderId = document["senderId"] as? String,
-                   let receiverId = document["receiverId"] as? String,
-                   let text = document["text"] as? String,
-                   let timestamp = document["timestamp"] as? Date {
-
-                    let message = ChatMessage(id: document.documentID,
-                                              senderId: senderId,
-                                              receiverId: receiverId,
-                                              text: text,
-                                              timestamp: timestamp)
-                    fetchedMessages.append(message)
-                }
-            }
-
-            completion(fetchedMessages, nil)
-        }
-    }
-
-    func sendMessage(newMessage: ChatMessage, completion: @escaping (Error?) -> Void) {
-        // Send a new message to Firestore
-        db.collection(COLLECTION_ChatMessages).addDocument(data: [
-            "senderId": newMessage.senderId,
-            "receiverId": newMessage.receiverId,
-            "text": newMessage.text,
-            "timestamp": Date()
-        ]) { error in
-            if let error = error {
-                print("Error sending message: \(error.localizedDescription)")
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        }
-    }
+                   completion(messages)
+               }
+       }
     
     // ChatPermissions
     func createChatPermission(user1: String, user2: String, canChat: Bool, completion: @escaping (Error?) -> Void) {

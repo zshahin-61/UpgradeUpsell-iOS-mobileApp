@@ -12,16 +12,16 @@ struct ChatMessage: Codable, Hashable, Identifiable{
     @DocumentID var id = UUID().uuidString
     var senderId: String
     var receiverId: String
-    var text: String
+    var content: String
     var timestamp: Date
     
-    init(id : String?, senderId: String, receiverId: String, text: String, timestamp: Date) {
+    init(id : String?, senderId: String, receiverId: String, content: String, timestamp: Date) {
         if let id = id {
             self.id = id
         }
         self.senderId = senderId
         self.receiverId = receiverId
-        self.text = text
+        self.content = content
         self.timestamp = timestamp
     }
 }

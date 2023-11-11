@@ -6,74 +6,105 @@
 //
 
 import SwiftUI
-import Firebase
-import FirebaseFirestore
-
-
+//import Firebase
 
 struct ChatView: View {
-   // @EnvironmentObject var authHelper: FireAuthController
+    @Environment(\.presentationMode) var presentationMode
+    @State private var messageText = ""
+    @State private var messages: [ChatMessage] = []
+    //@EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     
-    @State private var messages: [ChatMessage] = []
-    @State private var newMessageText: String = ""
+    @State private var senderUserID: String = "" // Current user's ID
+    var receiverUserID: String // ID of the user you're chatting with
 
-    var reciverUserId : String
-    
     var body: some View {
         VStack {
-            List(messages) { message in
-                Text("\(message.senderId): \(message.text)")
+            List(messages, id: \.id) { message in
+                ChatMessageView(message: message, isSender: message.senderId == senderUserID)
             }
-
+            .onAppear(perform: {
+                listenForMessages()
+            })
+            
             HStack {
-                TextField("Type a message", text: $newMessageText)
+                TextField("Type a message", text: $messageText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+                
                 Button("Send") {
                     sendMessage()
                 }
+                .padding(.trailing)
             }
             .padding()
-        }
-        .onAppear {
-            fetchMessages()
+            
+            .onAppear(){
+                if let sender = dbHelper.userProfile?.id {
+                    self.senderUserID = sender
+                }
+            }
+            .navigationBarTitle("Chat", displayMode: .inline)
         }
     }
-
-    func fetchMessages() {
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        // Fetch messages from Firestore based on your data model
-        // Update the 'messages' array
-        // Example: db.collection("messages").whereField("receiverId", isEqualTo: "currentUserId")
-        //            .addSnapshotListener { (snapshot, error) in
-        //                // Handle snapshot and update 'messages'
-        //            }
-        dbHelper.fetchMessages(between: currentUserId, and: self.reciverUserId) { messages, error in
-            if let error = error {
-                print("Error fetching messages: \(error.localizedDescription)")
-                return
-            }
-
-            if let messages = messages {
-                // Handle fetched messages
-                print("Fetched messages: \(messages)")
+    
+    private func listenForMessages() {
+        if let currnetUser = dbHelper.userProfile?.id {
+            dbHelper.listenForMessages(user1: currnetUser, user2: receiverUserID){ (messages ) in
                 self.messages = messages
             }
         }
+            
     }
 
-    func sendMessage() {
-        
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        
-        let newMessage = ChatMessage(id: nil, senderId: currentUserId, receiverId: reciverUserId, text: "Hello!", timestamp: Date())
+    private func sendMessage() {
+        guard !messageText.isEmpty else { return }
 
-        dbHelper.sendMessage(newMessage: newMessage) { error in
+        guard let sender = dbHelper.userProfile?.id else {return}
+        
+        let messageData = ChatMessage(id: nil, senderId: sender, receiverId: receiverUserID, content: messageText, timestamp: Date())
+
+        dbHelper.sendMessage(message: messageData){(error) in
             if let error = error {
-                print("Failed to send message: \(error.localizedDescription)")
+                print("Error adding document: \(error.localizedDescription)")
             } else {
-                print("Message sent successfully.")
+                messageText = ""
             }
         }
+        
     }
 }
+
+struct ChatMessageView: View {
+    let message: ChatMessage
+    let isSender: Bool
+
+    var body: some View {
+        HStack {
+            if isSender {
+                Spacer()
+            }
+
+            Text(message.content)
+                .padding(10)
+                .background(isSender ? Color.blue : Color.gray)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+
+            if !isSender {
+                Spacer()
+            }
+        }
+        .padding(.horizontal)
+    }
+}
+
+//struct ChatMessage: Identifiable {
+//    let id: String
+//    let content: String
+//    let senderID: String
+//    let timestamp: Date
+//}
+
+
 
