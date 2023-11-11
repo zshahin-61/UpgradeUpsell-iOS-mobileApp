@@ -66,6 +66,7 @@
 		5FFE00E72AF54E14002F9B64 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */; };
 		5FFE00E92AFE88F6002F9B64 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E82AFE88F6002F9B64 /* ChatView.swift */; };
 		5FFE00EB2AFEB0A8002F9B64 /* ChatParticipants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */; };
+		5FFE00ED2B0024D8002F9B64 /* OwnerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +124,7 @@
 		5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		5FFE00E82AFE88F6002F9B64 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatParticipants.swift; sourceTree = "<group>"; };
+		5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 				5FF7657E2AE028EB004A0C66 /* OffersofaPropertyView.swift */,
 				5A47D9452AF0A36A0064AF0E /* MultiImagePickerView.swift */,
 				5A47D9492AF15A870064AF0E /* MapView.swift */,
+				5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */,
 			);
 			path = Owner;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */,
 				5FFE00E92AFE88F6002F9B64 /* ChatView.swift in Sources */,
 				5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */,
+				5FFE00ED2B0024D8002F9B64 /* OwnerProfileView.swift in Sources */,
 				5F94662B2ABC836A0006FBB5 /* RootView.swift in Sources */,
 				5FF7657F2AE028EB004A0C66 /* OffersofaPropertyView.swift in Sources */,
 				5A47D9462AF0A36A0064AF0E /* MultiImagePickerView.swift in Sources */,
