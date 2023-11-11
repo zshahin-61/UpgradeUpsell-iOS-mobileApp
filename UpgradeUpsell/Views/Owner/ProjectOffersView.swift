@@ -12,6 +12,7 @@ struct ProjectOffersView: View {
     @State private var alertMessage = ""
     
     @State private var isStatusUpdated: [Bool] = []
+    @State private var hasChatPermission: [Bool] = []
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -72,21 +73,23 @@ struct ProjectOffersView: View {
                                             }
                                             .pickerStyle(SegmentedPickerStyle())
                                         }
-                                    } else {
-                                        HStack {
-                                            Text("Status:").bold()
-                                            Spacer()
-                                    
-                                            Text(suggestions[index].status)
-                                                        .foregroundColor(statusColor(for: suggestions[index].status))
-                                        }
-                                        HStack{
-                                            Text("You can chat with user after aproved by administrator ")
-                                            Button(action: {}){
-                                                Text("Chat")
-                                            }
-                                        }
-                                    }
+                           } else {
+                               HStack {
+                                   Text("Status:").bold()
+                                   Spacer()
+                                   
+                                   Text(suggestions[index].status)
+                                       .foregroundColor(statusColor(for: suggestions[index].status))
+                               } //hstack
+                               if(suggestions[index].status == "Accept"){
+                                   HStack{
+                                       //Text("You can chat with user after aproved by administrator ")
+                                       Button(action: {}){
+                                           Text("Chat with Investor")
+                                       }.disabled(!hasChatPermission[index])
+                                   }
+                               } //if
+                           } // esle
                             
 //                            HStack {
 //                                Text("Status:").bold()
@@ -135,7 +138,9 @@ struct ProjectOffersView: View {
                             self.updatedStatuses = suggestions.map { $0.status }
                            // isStatusUpdated = Array(repeating: false, count: suggestions.count)
                             self.isStatusUpdated = suggestions.map { $0.status == "Pending" ? false : true }
-                                    
+//                            self.fetchChatPermissionStatus(sugg: <#T##InvestmentSuggestion#>, completion: <#T##(Bool) -> Void#>)
+//                            self.hasChatPermission =
+                            self.hasChatPermission = suggestions.map{$0.status != "Accept"  ? false : fetchChatPermissionStatus(sugg: $0)  }
                         }
                     }
                 }
@@ -219,14 +224,24 @@ struct ProjectOffersView: View {
         }
     }
 
-    
     // Function to fetch chat permission status for the current user
-        private func fetchChatPermissionStatus() {
-            // Implement logic to fetch chat permission status from ChatPermissions collection
-            // Update the value of isChatEnabled accordingly
-            // For example:
-            // isChatEnabled = // Logic to check whether chat permission is granted for the current user
+    private  func fetchChatPermissionStatus(sugg: InvestmentSuggestion) -> Bool {
+        var result = false
+        dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in
+            if let error = error {
+               result = false
+                return
+            }
+
+            if let permission = permission {
+               result = permission.canChat
+            } else {
+                result = false
+            }
         }
+        return result
+    }
+    
     
     func statusColor(for status: String) -> Color {
         switch status {
