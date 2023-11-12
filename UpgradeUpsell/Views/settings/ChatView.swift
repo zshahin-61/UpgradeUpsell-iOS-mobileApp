@@ -47,11 +47,21 @@ struct ChatView: View {
             .navigationBarTitle("Chat", displayMode: .inline)
         }
     }
+  
+//    private func scrollToLastMessage(scrollView: ScrollViewProxy? = nil) {
+//            // Scroll to the last message
+//            withAnimation {
+//                scrollView?.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
+//            }
+//        }
     
     private func listenForMessages() {
         if let currnetUser = dbHelper.userProfile?.id {
             dbHelper.listenForMessages(user1: currnetUser, user2: receiverUserID){ (messages ) in
                 dbHelper.messages = messages
+                
+                // Scroll to the last message whenever new messages are added
+               // scrollToLastMessage()
             }
         }
             
