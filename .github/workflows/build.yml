@@ -21,21 +21,6 @@ jobs:
         run: ls -R $RUNNER_TEMP
 
 
-      - name: Build archive
-        run: |
-          echo "Building archive..."
-          xcodebuild -scheme "UpgradeUpsell" \
-          -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
-          -sdk iphoneos \
-          -configuration Debug \
-          clean archive \
-          -allowProvisioningUpdates
-          echo "Archive built successfully."
-
-      - name: Debug content of $RUNNER_TEMP
-        run: |
-          ls -R $RUNNER_TEMP
-
       - name: Upload archive
         uses: actions/upload-artifact@v3
         with:
