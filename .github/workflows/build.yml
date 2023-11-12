@@ -38,6 +38,14 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
+      - name: Debug Decoded Secrets
+        run: |
+          echo "Decoded Certificate Content:"
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode
+          echo "Decoded Provision Profile Content:"
+          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode
+
+
       - name: Clean Xcode project
         run: xcodebuild clean -scheme UpgradeUpsell
       - name: Build archive
