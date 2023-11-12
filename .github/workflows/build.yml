@@ -38,8 +38,8 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      - name: Debug content of build directory
-        run: ls -R $RUNNER_TEMP
+      - name: Clean Xcode project
+        run: xcodebuild clean -scheme UpgradeUpsell
 
       - name: Build archive
         run: |
@@ -48,9 +48,9 @@ jobs:
           -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
           -sdk iphoneos \
           -configuration Debug \
+          -destination generic/platform=iOS \
           clean archive \
           -allowProvisioningUpdates
-           -destination generic/platform=iOS \
           echo "Archive built successfully."
 
       - name: Update iOS Deployment Target
