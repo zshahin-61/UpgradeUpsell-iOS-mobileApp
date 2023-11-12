@@ -17,6 +17,9 @@ jobs:
       - name: Clean Xcode project
         run: xcodebuild clean  -scheme UpgradeUpsell
 
+      - name: Debug content of build directory
+        run: ls -R $RUNNER_TEMP
+
 
       - name: Build archive
         run: |
