@@ -40,7 +40,6 @@ jobs:
 
       - name: Clean Xcode project
         run: xcodebuild clean -scheme UpgradeUpsell
-
       - name: Build archive
         run: |
           echo "Building archive..."
@@ -52,6 +51,8 @@ jobs:
           clean archive \
           -allowProvisioningUpdates
           echo "Archive built successfully."
+
+
 
       - name: Update iOS Deployment Target
         run: |
