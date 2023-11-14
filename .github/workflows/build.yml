@@ -46,6 +46,13 @@ jobs:
           -configuration Debug \
           -destination generic/platform=iOS \
           clean archive
+          
+      - name: Print Certificates and Provisioning Profiles
+        run: |
+          echo "$BUILD_CERTIFICATE_BASE64" | base64 --decode
+          echo "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode
+          cat $CERTIFICATE_PATH
+          cat $PP_PATH
 
       - name: Update iOS Deployment Target
         run: |
