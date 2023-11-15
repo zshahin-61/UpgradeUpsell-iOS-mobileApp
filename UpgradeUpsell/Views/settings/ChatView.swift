@@ -33,9 +33,9 @@ struct ChatView: View {
                             List(dbHelper.messages, id: \.id) { message in
                                 ChatMessageView(message: message, isSender: message.senderId == senderUserID)
                             }
-//                            .onAppear(perform: {
-//                                listenForMessages()
-//                            })
+                                        .onAppear {
+                                            scrollToLastMessage()
+                                        }
                         }
             
             HStack {
@@ -69,6 +69,17 @@ struct ChatView: View {
 //                scrollView?.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
 //            }
 //        }
+    
+    @State private var scrollView: ScrollViewProxy? // Declare scrollView
+    
+    private func scrollToLastMessage() {
+            if let lastMessage = dbHelper.messages.last {
+                withAnimation {
+                    scrollView?.scrollTo(lastMessage.id, anchor: .bottom)
+                }
+            }
+        }
+
     
     private func listenForMessages() {
         if let currentUser = dbHelper.userProfile?.id {
