@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct ChatView: View {
-    @Environment(\.presentationMode) var presentationMode
+    //@Environment(\.presentationMode) var presentationMode
     @State private var messageText = ""
-    //@State private var messages: [ChatMessage] = []
-    //@EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
     
     @State private var senderUserID: String = "" // Current user's ID
@@ -20,39 +18,40 @@ struct ChatView: View {
     var body: some View {
         VStack {
             if dbHelper.messages.isEmpty {
-                            if dbHelper.isLoadingMessages {
-                                // Loading indicator
-                                ProgressView("Loading messages...")
-                            } else {
-                                // Placeholder for no messages
-                                Text("No messages yet.")
-                                    .foregroundColor(.secondary)
-                                    .italic()
+                if dbHelper.isLoadingMessages {
+                    // Loading indicator
+                    ProgressView("Loading messages...")
+                } else {
+                    // Placeholder for no messages
+                    Text("No messages yet.")
+                        .foregroundColor(.secondary)
+                        .italic()
+                }
+                
+            }else {
+                // Use ScrollViewReader to initialize scrollView
+                ScrollViewReader { scrollView in
+                    List(dbHelper.messages, id: \.id) { message in
+                        ChatMessageView(message: message, isSender: message.senderId == senderUserID)
+                    }
+                    .onAppear {
+                        // Initialize scrollView when the List appears
+                        DispatchQueue.main.async {
+                            withAnimation {
+                                scrollView.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
                             }
-                        } else {
-                            // Use ScrollViewReader to initialize scrollView
-                                           ScrollViewReader { scrollView in
-                                               List(dbHelper.messages, id: \.id) { message in
-                                                   ChatMessageView(message: message, isSender: message.senderId == senderUserID)
-                                               }
-                                               .onAppear {
-                                                   // Initialize scrollView when the List appears
-                                                   DispatchQueue.main.async {
-                                                       withAnimation {
-                                                           scrollView.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
-                                                       }
-                                                   }
-                                               }
-                                               .onChange(of: dbHelper.messages) { _ in
-                                                   // Scroll to the last message whenever new messages are added
-                                                   DispatchQueue.main.async {
-                                                       withAnimation {
-                                                           scrollView.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
-                                                       }
-                                                   }
-                                               }
-                                           }
                         }
+                    }
+                    .onChange(of: dbHelper.messages) { _ in
+                        // Scroll to the last message whenever new messages are added
+                        DispatchQueue.main.async {
+                            withAnimation {
+                                scrollView.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
+                            }
+                        }
+                    }
+                }
+            }
             
             HStack {
                 TextField("Type a message", text: $messageText)
@@ -74,28 +73,8 @@ struct ChatView: View {
                 }
             }
             .navigationBarTitle("Chat", displayMode: .inline)
-            //.keyboardAdaptive() // Apply the keyboardAdaptive modifier
-            
         }
     }
-  
-//    private func scrollToLastMessage(scrollView: ScrollViewProxy? = nil) {
-//            // Scroll to the last message
-//            withAnimation {
-//                scrollView?.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
-//            }
-//        }
-    
-//    @State private var scrollView: ScrollViewProxy? // Declare scrollView
-//    
-//    private func scrollToLastMessage() {
-//            if let lastMessage = dbHelper.messages.last {
-//                withAnimation {
-//                    scrollView?.scrollTo(lastMessage.id, anchor: .bottom)
-//                }
-//            }
-//        }
-
     
     private func listenForMessages() {
         if let currentUser = dbHelper.userProfile?.id {
@@ -114,7 +93,7 @@ struct ChatView: View {
         
         let messageData = ChatMessage(id: UUID().uuidString, senderId: sender, receiverId: self.receiverUserID, content: messageText, timestamp: Date())
 
-        dbHelper.sendMessage(message: messageData){(error) in
+        self.dbHelper.sendMessage(message: messageData){(error) in
             if let error = error {
                 print("Error adding document: \(error.localizedDescription)")
             } else {
@@ -136,19 +115,19 @@ private let dateFormatter: DateFormatter = {
 struct ChatMessageView: View {
     let message: ChatMessage
     let isSender: Bool
-
+    
     var body: some View {
         HStack {
             if isSender {
                 Spacer()
             }
-
+            
             Text("\(message.content) - \(message.timestamp, formatter: dateFormatter)")
                 .padding(10)
                 .background(isSender ? Color.blue : Color.gray)
                 .foregroundColor(.white)
                 .cornerRadius(10)
-
+            
             if !isSender {
                 Spacer()
             }
@@ -156,6 +135,3 @@ struct ChatMessageView: View {
         .padding(.horizontal)
     }
 }
-
-
-
