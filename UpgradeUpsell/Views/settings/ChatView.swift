@@ -33,9 +33,22 @@ struct ChatView: View {
                             List(dbHelper.messages, id: \.id) { message in
                                 ChatMessageView(message: message, isSender: message.senderId == senderUserID)
                             }
-                                        .onAppear {
-                                            scrollToLastMessage()
-                                        }
+                            .onAppear {
+                                // Initialize scrollView when the List appears
+                                DispatchQueue.main.async {
+                                    withAnimation {
+                                        scrollView?.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
+                                    }
+                                }
+                            }
+                            .onChange(of: dbHelper.messages) { _ in
+                                // Scroll to the last message whenever new messages are added
+                                DispatchQueue.main.async {
+                                    withAnimation {
+                                        scrollView?.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
+                                    }
+                                }
+                            }
                         }
             
             HStack {
