@@ -14,6 +14,8 @@ struct ChatView: View {
     
     @State private var senderUserID: String = "" // Current user's ID
     var receiverUserID: String // ID of the user you're chatting with
+    @State private var prevMsg: ChatMessage? = nil // Change from let to var
+
 
     var body: some View {
         VStack {
@@ -31,9 +33,19 @@ struct ChatView: View {
             }else {
                 // Use ScrollViewReader to initialize scrollView
                 ScrollViewReader { scrollView in
-                    List(dbHelper.messages, id: \.id) { message in
-                        ChatMessageView(message: message, isSender: message.senderId == senderUserID)
-                    }//List
+                    List {
+                                    ForEach(Array(dbHelper.messages.enumerated()), id: \.element.id) { index, message in
+                                        ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: prevMsg)
+                                            .onAppear {
+                                                // Update prevMsg before going to the next element
+                                                if index - 1 >= 0 {
+                                                    prevMsg = dbHelper.messages[index - 1]
+                                                } else {
+                                                    prevMsg = nil
+                                                }
+                                            }
+                                    }
+                                }//List
                     .onAppear {
                         // Initialize scrollView when the List appears
                         DispatchQueue.main.async {
@@ -115,7 +127,7 @@ private let dateFormatter: DateFormatter = {
 struct ChatMessageView: View {
     let message: ChatMessage
     let isSender: Bool
-    
+    let prvMsg: ChatMessage?
     var body: some View {
         HStack {
             if isSender {
