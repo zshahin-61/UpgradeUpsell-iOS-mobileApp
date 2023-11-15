@@ -67,6 +67,7 @@
 		5FFE00E92AFE88F6002F9B64 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00E82AFE88F6002F9B64 /* ChatView.swift */; };
 		5FFE00EB2AFEB0A8002F9B64 /* ChatParticipants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */; };
 		5FFE00ED2B0024D8002F9B64 /* OwnerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */; };
+		5FFE00F32B053856002F9B64 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00F22B053856002F9B64 /* ThemeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +126,7 @@
 		5FFE00E82AFE88F6002F9B64 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatParticipants.swift; sourceTree = "<group>"; };
 		5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerProfileView.swift; sourceTree = "<group>"; };
+		5FFE00F22B053856002F9B64 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 				5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */,
 				5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */,
 				5FFE00E82AFE88F6002F9B64 /* ChatView.swift */,
+				5FFE00F22B053856002F9B64 /* ThemeManager.swift */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				5FF7657F2AE028EB004A0C66 /* OffersofaPropertyView.swift in Sources */,
 				5A47D9462AF0A36A0064AF0E /* MultiImagePickerView.swift in Sources */,
 				5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */,
+				5FFE00F32B053856002F9B64 /* ThemeManager.swift in Sources */,
 				5F9466312ABC83F70006FBB5 /* SignInView.swift in Sources */,
 				5FF765792ADEA6B6004A0C66 /* BackgroundView.swift in Sources */,
 				5A8DAB352ABCB3C300CDCBCB /* ProjectOffersView.swift in Sources */,
