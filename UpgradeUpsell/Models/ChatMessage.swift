@@ -11,7 +11,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct ChatMessage: Codable, Hashable, Identifiable{
-    @DocumentID var id = UUID().uuidString
+    @DocumentID var id : String?  = UUID().uuidString
     var senderId: String
     var receiverId: String
     var content: String

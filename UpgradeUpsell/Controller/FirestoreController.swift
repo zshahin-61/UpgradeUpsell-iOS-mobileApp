@@ -950,7 +950,7 @@ class FirestoreController: ObservableObject {
                         completion(error)
                     } else {
                         print("msg added successfully")
-                        self.messages.append(message)
+                        //self.messages.append(message)
                         completion(nil) // Signal success by passing nil for the error
                     }
                 }
@@ -977,16 +977,16 @@ class FirestoreController: ObservableObject {
                     return
                 }
                 
-                let messages = documents.compactMap { queryDocumentSnapshot in
-                    do {
-                        let message = try queryDocumentSnapshot.data(as: ChatMessage.self)
-                        return message
-                    } catch {
-                        print("Error decoding message: \(error.localizedDescription)")
-                        //self.isLoadingMessages = false
-                        return nil
-                    }
-                }
+//                let messages = documents.compactMap { queryDocumentSnapshot in
+//                    do {
+//                        let message = try queryDocumentSnapshot.data(as: ChatMessage.self)
+//                        return message
+//                    } catch {
+//                        print("Error decoding message: \(error.localizedDescription)")
+//                        //self.isLoadingMessages = false
+//                        return nil
+//                    }
+//                }
                 
                 self.messages = [ChatMessage]()
                 for document in documents {
@@ -994,7 +994,7 @@ class FirestoreController: ObservableObject {
                         self.messages.append(msg)
                     }
                 }
-                completion(messages)
+                completion(self.messages)
                 
                 
                 
