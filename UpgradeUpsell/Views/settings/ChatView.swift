@@ -134,7 +134,7 @@ struct ChatMessageView: View {
         VStack{
             if let prvMsg =  prvMsg {
                 if(formatDate(prvMsg.timestamp) != formatDate(message.timestamp)){
-                    Text(formatDate(prvMsg.timestamp)).foregroundColor(.red)
+                    //Text(formatDate(prvMsg.timestamp)).foregroundColor(.red)
                     Text(formatDate(message.timestamp))
                 }
                 
