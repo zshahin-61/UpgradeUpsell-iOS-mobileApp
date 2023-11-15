@@ -35,15 +35,12 @@ struct ChatView: View {
                 ScrollViewReader { scrollView in
                     List {
                                     ForEach(Array(dbHelper.messages.enumerated()), id: \.element.id) { index, message in
-                                        ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: dbHelper.messages[index - 1])
-//                                            .onChange {
-//                                                // Update prevMsg before going to the next element
-//                                                if index - 1 >= 0 {
-//                                                    prevMsg = dbHelper.messages[index - 1]
-//                                                } else {
-//                                                    prevMsg = nil
-//                                                }
-//                                            }
+                                        if index>0{
+                                            ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: dbHelper.messages[index - 1])
+                                        }
+                                        else{
+                                            ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: nil)
+                                        }
                                     }
                                 }//List
                     .onAppear {
