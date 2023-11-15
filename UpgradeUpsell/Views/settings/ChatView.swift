@@ -35,15 +35,15 @@ struct ChatView: View {
                 ScrollViewReader { scrollView in
                     List {
                                     ForEach(Array(dbHelper.messages.enumerated()), id: \.element.id) { index, message in
-                                        ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: prevMsg)
-                                            .onAppear {
-                                                // Update prevMsg before going to the next element
-                                                if index - 1 >= 0 {
-                                                    prevMsg = dbHelper.messages[index - 1]
-                                                } else {
-                                                    prevMsg = nil
-                                                }
-                                            }
+                                        ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: dbHelper.messages[index - 1])
+//                                            .onChange {
+//                                                // Update prevMsg before going to the next element
+//                                                if index - 1 >= 0 {
+//                                                    prevMsg = dbHelper.messages[index - 1]
+//                                                } else {
+//                                                    prevMsg = nil
+//                                                }
+//                                            }
                                     }
                                 }//List
                     .onAppear {
@@ -118,33 +118,50 @@ struct ChatView: View {
 
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateStyle = .short
+    formatter.dateStyle = .none
     formatter.timeStyle = .short
     return formatter
 }()
 
+private func formatDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
 
 struct ChatMessageView: View {
     let message: ChatMessage
     let isSender: Bool
     let prvMsg: ChatMessage?
     var body: some View {
-        HStack {
-            if isSender {
-                Spacer()
+        VStack{
+            if let prvMsg =  prvMsg {
+                if(formatDate(prvMsg.timestamp) != formatDate(message.timestamp)){
+                    Text(formatDate(prvMsg.timestamp)).foregroundColor(.red)
+                    Text(formatDate(message.timestamp))
+                }
+                
             }
-            
-            Text("\(message.content) - \(message.timestamp, formatter: dateFormatter)")
-                .padding(10)
-                .background(isSender ? Color.blue : Color.gray)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            
-            
-            if !isSender {
-                Spacer()
+            else{
+                Text(formatDate(message.timestamp))
             }
+            HStack {
+                if isSender {
+                    Spacer()
+                }
+               
+                Text("\(message.content) - \(message.timestamp, formatter: dateFormatter)")
+                    .padding(10)
+                    .background(isSender ? Color.blue : Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                
+                
+                if !isSender {
+                    Spacer()
+                }
+            }
+            .padding(.horizontal)
         }
-        .padding(.horizontal)
     }
 }
