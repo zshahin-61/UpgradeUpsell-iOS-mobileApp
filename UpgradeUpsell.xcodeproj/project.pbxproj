@@ -640,7 +640,7 @@
 				5F9465FE2ABB33E60006FBB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5F9465FF2ABB33E60006FBB5 /* Build configuration list for PBXNativeTarget "UpgradeUpsell" */ = {
 			isa = XCConfigurationList;
@@ -649,7 +649,7 @@
 				5F9466012ABB33E60006FBB5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
