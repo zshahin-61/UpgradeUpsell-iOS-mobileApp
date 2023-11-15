@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var authHelper: FireAuthController
     private var dbHelper = FirestoreController.getInstance()
+    @EnvironmentObject var themeManager : ThemeManager
     
     @State private var root: RootView = .Login
     
@@ -47,7 +48,7 @@ struct ContentView: View {
                     //switch dbHelper.userProfile?.role
                     ChangePasswordView(rootScreen: $root).environmentObject(self.authHelper).environmentObject(self.dbHelper)
                 case .Settings:
-                    SettingsView(rootScreen: $root ).environmentObject(self.authHelper).environmentObject(self.dbHelper)
+                    SettingsView(rootScreen: $root ).environmentObject(self.authHelper).environmentObject(self.dbHelper).environmentObject(self.themeManager)
                 }
             }
             .padding()
