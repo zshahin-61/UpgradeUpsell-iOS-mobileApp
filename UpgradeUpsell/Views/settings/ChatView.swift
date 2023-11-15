@@ -30,25 +30,28 @@ struct ChatView: View {
                                     .italic()
                             }
                         } else {
-                            List(dbHelper.messages, id: \.id) { message in
-                                ChatMessageView(message: message, isSender: message.senderId == senderUserID)
-                            }
-                            .onAppear {
-                                // Initialize scrollView when the List appears
-                                DispatchQueue.main.async {
-                                    withAnimation {
-                                        scrollView?.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
-                                    }
-                                }
-                            }
-                            .onChange(of: dbHelper.messages) { _ in
-                                // Scroll to the last message whenever new messages are added
-                                DispatchQueue.main.async {
-                                    withAnimation {
-                                        scrollView?.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
-                                    }
-                                }
-                            }
+                            // Use ScrollViewReader to initialize scrollView
+                                           ScrollViewReader { scrollView in
+                                               List(dbHelper.messages, id: \.id) { message in
+                                                   ChatMessageView(message: message, isSender: message.senderId == senderUserID)
+                                               }
+                                               .onAppear {
+                                                   // Initialize scrollView when the List appears
+                                                   DispatchQueue.main.async {
+                                                       withAnimation {
+                                                           scrollView.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
+                                                       }
+                                                   }
+                                               }
+                                               .onChange(of: dbHelper.messages) { _ in
+                                                   // Scroll to the last message whenever new messages are added
+                                                   DispatchQueue.main.async {
+                                                       withAnimation {
+                                                           scrollView.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
+                                                       }
+                                                   }
+                                               }
+                                           }
                         }
             
             HStack {
@@ -83,15 +86,15 @@ struct ChatView: View {
 //            }
 //        }
     
-    @State private var scrollView: ScrollViewProxy? // Declare scrollView
-    
-    private func scrollToLastMessage() {
-            if let lastMessage = dbHelper.messages.last {
-                withAnimation {
-                    scrollView?.scrollTo(lastMessage.id, anchor: .bottom)
-                }
-            }
-        }
+//    @State private var scrollView: ScrollViewProxy? // Declare scrollView
+//    
+//    private func scrollToLastMessage() {
+//            if let lastMessage = dbHelper.messages.last {
+//                withAnimation {
+//                    scrollView?.scrollTo(lastMessage.id, anchor: .bottom)
+//                }
+//            }
+//        }
 
     
     private func listenForMessages() {
