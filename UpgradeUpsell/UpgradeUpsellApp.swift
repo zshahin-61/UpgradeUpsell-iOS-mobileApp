@@ -14,6 +14,7 @@ import FirebaseFirestore
 @main
 struct UpgradeUpsellApp: App {
     let authHelper = FireAuthController()
+    @StateObject private var themeManager = ThemeManager()
     
     init() {
         FirebaseApp.configure()
@@ -32,6 +33,8 @@ struct UpgradeUpsellApp: App {
                                     )
                                     .ignoresSafeArea()
                                 )
+                .preferredColorScheme(themeManager.currentTheme)
+                                .environmentObject(themeManager)
                 //.background(BackgroundView()) // Apply the gradient background
         }
     }

@@ -10,6 +10,8 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
+    @EnvironmentObject var themeManager: ThemeManager
+    
     //@Environment(\.presentationMode) var presentationMode
     @State private var pushNotifFromUI = false
        @State private var notificationsEmail = false
@@ -27,10 +29,16 @@ struct SettingsView: View {
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
-                        Picker("Theme", selection: $themeFromUI) {
-                            Text("Light").tag("light")
-                            Text("Dark").tag("dark")
-                        }
+//                        Picker("Theme", selection: $themeFromUI) {
+//                            Text("Light").tag("light")
+//                            Text("Dark").tag("dark")
+//                        }
+                        
+                        Toggle("Dark Mode", isOn: Binding(
+                                       get: { themeManager.selectedTheme == "dark" },
+                                       set: { _ in themeManager.toggleTheme() }
+                                   ))
+                                   .padding()
                         
                         Picker("Language", selection: $langFromUI) {
                             Text("English")//.tag("en_CA")
