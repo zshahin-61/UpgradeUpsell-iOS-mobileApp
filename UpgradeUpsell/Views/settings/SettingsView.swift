@@ -29,10 +29,10 @@ struct SettingsView: View {
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
-                        Picker("Theme", selection: $themeFromUI) {
-                            Text("Light").tag("light")
-                            Text("Dark").tag("dark")
-                        }
+//                        Picker("Theme", selection: $themeFromUI) {
+//                            Text("Light").tag("light")
+//                            Text("Dark").tag("dark")
+//                        }
                         
                         Toggle("Dark Mode", isOn: Binding(
                                        get: { themeManager.selectedTheme == "dark" },
