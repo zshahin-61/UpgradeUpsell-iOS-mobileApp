@@ -42,7 +42,7 @@ jobs:
         run: |
           xcodebuild -scheme "UpgradeUpsell" \
           -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
-          -sdk iphoneos \
+          -sdk iphonesimulator \
           -configuration Debug \
           -destination generic/platform=iOS \
           clean archive
