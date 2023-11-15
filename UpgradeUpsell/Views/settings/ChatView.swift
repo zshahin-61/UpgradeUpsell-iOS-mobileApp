@@ -58,7 +58,7 @@ struct ChatView: View {
                 }
             }
             .navigationBarTitle("Chat", displayMode: .inline)
-            .keyboardAdaptive() // Apply the keyboardAdaptive modifier
+            //.keyboardAdaptive() // Apply the keyboardAdaptive modifier
             
         }
     }
@@ -85,7 +85,7 @@ struct ChatView: View {
 
         guard let sender = dbHelper.userProfile?.id else {return}
         
-        let messageData = ChatMessage(id: nil, senderId: sender, receiverId: self.receiverUserID, content: messageText, timestamp: Date())
+        let messageData = ChatMessage(id: UUID().uuidString, senderId: sender, receiverId: self.receiverUserID, content: messageText, timestamp: Date())
 
         dbHelper.sendMessage(message: messageData){(error) in
             if let error = error {

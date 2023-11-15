@@ -942,22 +942,29 @@ class FirestoreController: ObservableObject {
     // Function to send a chat message
     func sendMessage(message: ChatMessage, completion: @escaping (Error?) -> Void) {
         do {
-            _ = try db.collection(COLLECTION_ChatMessages).addDocument(from: message) { error in
-                if let error = error {
-                    print("Error sending message: \(error.localizedDescription)")
+            
+           // do {
+                try db.collection(COLLECTION_ChatMessages).addDocument(from: message) { error in
+                    if let error = error {
+                        print("Error adding investment suggestion to Firestore: \(error)")
+                        completion(error)
+                    } else {
+                        print("msg added successfully")
+                        self.messages.append(message)
+                        completion(nil) // Signal success by passing nil for the error
+                    }
                 }
-                completion(error)
-                self.messages.append(message)
+            } catch {
+                print("Error preparing data for Firestore: \(error)")
+                completion(error) // Pass the error to the completion handler
             }
-        } catch {
-            print("Error encoding message: \(error.localizedDescription)")
-            completion(error)
-        }
+            
+           
     }
 
        // Function to listen for incoming chat messages
     func listenForMessages(user1: String, user2: String, completion: @escaping ([ChatMessage]) -> Void) {
-        isLoadingMessages = true
+        //self.isLoadingMessages = true
         db.collection(COLLECTION_ChatMessages)
             .whereField("senderId", in: [user1, user2])
             .whereField("receiverId", in: [user1, user2])
@@ -965,6 +972,7 @@ class FirestoreController: ObservableObject {
             .addSnapshotListener { querySnapshot, error in
                 // Handle the snapshot changes here
                 guard let documents = querySnapshot?.documents else {
+                    //self.isLoadingMessages = false
                     print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
                     return
                 }
@@ -975,16 +983,27 @@ class FirestoreController: ObservableObject {
                         return message
                     } catch {
                         print("Error decoding message: \(error.localizedDescription)")
+                        //self.isLoadingMessages = false
                         return nil
                     }
                 }
                 
-                // Update your local array and trigger UI updates
-                self.messages = messages
-                self.isLoadingMessages = false
-                DispatchQueue.main.async {
-                    completion(messages)
+                self.messages = [ChatMessage]()
+                for document in documents {
+                    if let msg = try? document.data(as: ChatMessage.self) {
+                        self.messages.append(msg)
+                    }
                 }
+                completion(messages)
+                
+                
+                
+                // Update your local array and trigger UI updates
+                //self.messages = messages
+               // self.isLoadingMessages = false
+                //DispatchQueue.main.async {
+                 //   completion(messages)
+                //}
             }
     }
 
