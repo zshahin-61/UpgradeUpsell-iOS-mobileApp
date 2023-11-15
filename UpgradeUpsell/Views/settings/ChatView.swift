@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-//import Firebase
 
 struct ChatView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -20,17 +19,30 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            List(dbHelper.messages, id: \.id) { message in
-                ChatMessageView(message: message, isSender: message.senderId == senderUserID)
-            }
-            .onAppear(perform: {
-                listenForMessages()
-            })
+            if dbHelper.messages.isEmpty {
+                            if dbHelper.isLoadingMessages {
+                                // Loading indicator
+                                ProgressView("Loading messages...")
+                            } else {
+                                // Placeholder for no messages
+                                Text("No messages yet.")
+                                    .foregroundColor(.secondary)
+                                    .italic()
+                            }
+                        } else {
+                            List(dbHelper.messages, id: \.id) { message in
+                                ChatMessageView(message: message, isSender: message.senderId == senderUserID)
+                            }
+//                            .onAppear(perform: {
+//                                listenForMessages()
+//                            })
+                        }
             
             HStack {
                 TextField("Type a message", text: $messageText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
+                    .padding(.bottom, 8) // Add padding to the bottom of the text field
                 
                 Button("Send") {
                     sendMessage()
@@ -40,11 +52,14 @@ struct ChatView: View {
             .padding()
             
             .onAppear(){
-                if let sender = dbHelper.userProfile?.id {
-                    self.senderUserID = sender
+                if let currentUser = dbHelper.userProfile?.id {
+                    self.senderUserID = currentUser
+                    self.listenForMessages()
                 }
             }
             .navigationBarTitle("Chat", displayMode: .inline)
+            .keyboardAdaptive() // Apply the keyboardAdaptive modifier
+            
         }
     }
   
@@ -56,15 +71,13 @@ struct ChatView: View {
 //        }
     
     private func listenForMessages() {
-        if let currnetUser = dbHelper.userProfile?.id {
-            dbHelper.listenForMessages(user1: currnetUser, user2: receiverUserID){ (messages ) in
+        if let currentUser = dbHelper.userProfile?.id {
+            dbHelper.listenForMessages(user1: currentUser, user2: receiverUserID) { messages in
                 dbHelper.messages = messages
-                
                 // Scroll to the last message whenever new messages are added
-               // scrollToLastMessage()
+                // scrollToLastMessage()
             }
         }
-            
     }
 
     private func sendMessage() {
@@ -72,7 +85,7 @@ struct ChatView: View {
 
         guard let sender = dbHelper.userProfile?.id else {return}
         
-        let messageData = ChatMessage(id: nil, senderId: sender, receiverId: receiverUserID, content: messageText, timestamp: Date())
+        let messageData = ChatMessage(id: nil, senderId: sender, receiverId: self.receiverUserID, content: messageText, timestamp: Date())
 
         dbHelper.sendMessage(message: messageData){(error) in
             if let error = error {
@@ -85,6 +98,14 @@ struct ChatView: View {
     }
 }
 
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    formatter.timeStyle = .short
+    return formatter
+}()
+
+
 struct ChatMessageView: View {
     let message: ChatMessage
     let isSender: Bool
@@ -95,7 +116,7 @@ struct ChatMessageView: View {
                 Spacer()
             }
 
-            Text(message.content)
+            Text("\(message.content) - \(message.timestamp, formatter: dateFormatter)")
                 .padding(10)
                 .background(isSender ? Color.blue : Color.gray)
                 .foregroundColor(.white)
@@ -108,13 +129,6 @@ struct ChatMessageView: View {
         .padding(.horizontal)
     }
 }
-
-//struct ChatMessage: Identifiable {
-//    let id: String
-//    let content: String
-//    let senderID: String
-//    let timestamp: Date
-//}
 
 
 

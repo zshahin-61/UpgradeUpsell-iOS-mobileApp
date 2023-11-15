@@ -17,6 +17,7 @@ class FirestoreController: ObservableObject {
     //@Published var backRoot : RootView = .SignUp
 
     @Published var messages: [ChatMessage] = []
+    @Published var isLoadingMessages = false
     
     private let db: Firestore
     private static var shared: FirestoreController?
@@ -939,43 +940,54 @@ class FirestoreController: ObservableObject {
     
     // Chat Message
     // Function to send a chat message
-       func sendMessage(message: ChatMessage, completion: @escaping (Error?) -> Void) {
-           do {
-               _ = try db.collection(COLLECTION_ChatMessages).addDocument(from: message) { error in
-                   completion(error)
-                   self.messages.append(message)
-               }
-           } catch {
-               completion(error)
-           }
-       }
+    func sendMessage(message: ChatMessage, completion: @escaping (Error?) -> Void) {
+        do {
+            _ = try db.collection(COLLECTION_ChatMessages).addDocument(from: message) { error in
+                if let error = error {
+                    print("Error sending message: \(error.localizedDescription)")
+                }
+                completion(error)
+                self.messages.append(message)
+            }
+        } catch {
+            print("Error encoding message: \(error.localizedDescription)")
+            completion(error)
+        }
+    }
 
        // Function to listen for incoming chat messages
-       func listenForMessages(user1: String, user2: String, completion: @escaping ([ChatMessage]) -> Void) {
-           db.collection(COLLECTION_ChatMessages)
-               .whereField("senderId", in: [user1, user2])
-               .whereField("receiverId", in: [user1, user2])
-               .order(by: "timestamp")
-               .addSnapshotListener { querySnapshot, error in
-                   guard let documents = querySnapshot?.documents else {
-                       print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
-                       return
-                   }
+    func listenForMessages(user1: String, user2: String, completion: @escaping ([ChatMessage]) -> Void) {
+        isLoadingMessages = true
+        db.collection(COLLECTION_ChatMessages)
+            .whereField("senderId", in: [user1, user2])
+            .whereField("receiverId", in: [user1, user2])
+            .order(by: "timestamp")
+            .addSnapshotListener { querySnapshot, error in
+                // Handle the snapshot changes here
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                
+                let messages = documents.compactMap { queryDocumentSnapshot in
+                    do {
+                        let message = try queryDocumentSnapshot.data(as: ChatMessage.self)
+                        return message
+                    } catch {
+                        print("Error decoding message: \(error.localizedDescription)")
+                        return nil
+                    }
+                }
+                
+                // Update your local array and trigger UI updates
+                self.messages = messages
+                self.isLoadingMessages = false
+                DispatchQueue.main.async {
+                    completion(messages)
+                }
+            }
+    }
 
-                   let messages = documents.compactMap { queryDocumentSnapshot in
-                       do {
-                           let message = try queryDocumentSnapshot.data(as: ChatMessage.self)
-                           return message
-                       } catch {
-                           print("Error decoding message: \(error.localizedDescription)")
-                           return nil
-                       }
-                   }
-
-                   completion(messages)
-               }
-       }
-    
     // ChatPermissions
     func createChatPermission(user1: String, user2: String, canChat: Bool, completion: @escaping (Error?) -> Void) {
             let documentID = "\(user1)_\(user2)"
@@ -995,6 +1007,12 @@ class FirestoreController: ObservableObject {
         let documentID = "\(user1)_\(user2)"
 
         db.collection(COLLECTION_ChatPermissions).document(documentID).getDocument { document, error in
+            if let error = error {
+                print("Error fetching chat permission: \(error.localizedDescription)")
+                completion(nil, error)
+                return
+            }
+
             if let document = document, document.exists {
                 let data = document.data()
                 let chatPermission = ChatPermission(
@@ -1004,7 +1022,7 @@ class FirestoreController: ObservableObject {
                 )
                 completion(chatPermission, nil)
             } else {
-                completion(nil, error)
+                completion(nil, nil) // Document doesn't exist
             }
         }
     }
