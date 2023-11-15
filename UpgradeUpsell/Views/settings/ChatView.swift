@@ -33,7 +33,7 @@ struct ChatView: View {
                 ScrollViewReader { scrollView in
                     List(dbHelper.messages, id: \.id) { message in
                         ChatMessageView(message: message, isSender: message.senderId == senderUserID)
-                    }
+                    }//List
                     .onAppear {
                         // Initialize scrollView when the List appears
                         DispatchQueue.main.async {
@@ -127,6 +127,7 @@ struct ChatMessageView: View {
                 .background(isSender ? Color.blue : Color.gray)
                 .foregroundColor(.white)
                 .cornerRadius(10)
+            
             
             if !isSender {
                 Spacer()
