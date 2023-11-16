@@ -11,11 +11,6 @@ jobs:
       - name: Check Xcode version
         run: /usr/bin/xcodebuild -version
 
-      - name: Set Xcode version
-        uses: actions/setup-xcode@v3
-        with:
-          xcode-version: 15.0.1
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
