@@ -3,19 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>method</key>
-	<string>simulator</string>
+	<string>development</string>
 	<key>teamID</key>
 	<string>Zahra Shahin</string>
+	<key>distribution</key>
+	<string>export</string>
 	<key>signingStyle</key>
 	<string>automatic</string>
+	<key>ca.zahra.golnaz.UpgradeUpsell</key>
+	<string>XCode Managed Profile</string>
 	<key>provisioningProfiles</key>
-	<dict>
-		<key>ca.zahra.golnaz.UpgradeUpsell</key>
-		<string>F946D86F-78C5-4BB0-BFCD-C01E8AA8131E
-F946D86F-78C5-4BB0-BFCD-C01E8AA8131E
-</string>
-		<key>Zahra</key>
-		<string>00008101-000955643408001E</string>
-	</dict>
+	<dict/>
 </dict>
 </plist>
