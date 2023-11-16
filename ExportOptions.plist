@@ -12,6 +12,8 @@
 	<string>automatic</string>
 	<key>ca.zahra.golnaz.UpgradeUpsell</key>
 	<string>XCode Managed Profile</string>
+	<key>iOS Team Provisioning Profile: ca.zahra.golnaz.UpgradeUpsell</key>
+	<string>00008103-0002186A1147C01E</string>
 	<key>provisioningProfiles</key>
 	<dict/>
 </dict>
