@@ -43,7 +43,9 @@ struct NotificationView: View {
                             self.notifications = notifications
                         } else if let error = error {
                             // Handle the error
+#if DEBUG
                             print("Error fetching notifications: \(error.localizedDescription)")
+                            #endif
                         }
                     }
                 }
@@ -60,7 +62,9 @@ struct NotificationView: View {
                 if success {
                     notifications.remove(at: offset)
                 } else {
+#if DEBUG
                     print("Error deleting notification.")
+                    #endif
                 }
             }
         }
@@ -72,11 +76,15 @@ struct NotificationView: View {
                 if success {
                     notifications.removeAll()
                 } else {
+#if DEBUG
                     print("Error deleting notifications.")
+#endif
                 }
             }
         } else {
+#if DEBUG
             print("User ID is nil. Unable to delete notifications.")
+            #endif
         }
     }
 }

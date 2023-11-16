@@ -51,7 +51,9 @@ struct ProjectListView: View {
                                 self.userProjects = projects
                             } else if let error = error {
                                 // Handle the error
+#if DEBUG
                                 print("Error fetching user projects: \(error.localizedDescription)")
+                                #endif
                             }
                         }
                     }
@@ -70,7 +72,9 @@ struct ProjectListView: View {
                   
             dbHelper.updateProjectStatus(project) { success in
                 if success {
+#if DEBUG
                     print("Project status updated to 'deleted' successfully.")
+                    #endif
                     // Insert a notification in Firebase
                let notification = Notifications(
                 id: UUID().uuidString,
@@ -84,14 +88,20 @@ struct ProjectListView: View {
 
                dbHelper.insertNotification(notification) { notificationSuccess in
                    if notificationSuccess {
+#if DEBUG
                        print("Notification inserted successfully.")
+                       #endif
                    } else {
+#if DEBUG
                        print("Error inserting notification.")
+                       #endif
                    }
                }
                     
                 } else {
+#if DEBUG
                     print("Error updating project status.")
+                    #endif
                 }
             }
         }

@@ -119,7 +119,9 @@ struct ProjectOffersView: View {
                     self.dbHelper.getInveSuggByOwnerID(ownerID: ownerID) { (suggestions, error) in
                         self.isLoading = false
                         if let error = error {
+#if DEBUG
                             print("Error getting investment suggestions: \(error)")
+                            #endif
                         } else if let suggestions = suggestions {
                             self.suggestions = suggestions
                             self.updatedStatuses = suggestions.map { $0.status }
@@ -159,7 +161,9 @@ struct ProjectOffersView: View {
                 // Update the status in the database
                 dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
                     if let error = error {
+#if DEBUG
                         print("Error updating status for offer: \(error)")
+                        #endif
                     } else {
                         isStatusUpdated[index] = true
                         if suggestion.status == "Accept" { // Check if the status is "Accept"
@@ -184,9 +188,13 @@ struct ProjectOffersView: View {
 
                         dbHelper.insertNotification(notification) { notificationSuccess in
                             if notificationSuccess {
+#if DEBUG
                                 print("Notification inserted successfully.")
+                                #endif
                             } else {
+#if DEBUG
                                 print("Error inserting notification.")
+                                #endif
                             }
                         }
                         
@@ -204,9 +212,13 @@ struct ProjectOffersView: View {
         // Update the property status to "InProgress" in the database
         dbHelper.updatePropertyStatus(propertyID: propertyID, newStatus: status) { error in
             if let error = error {
+#if DEBUG
                 print("Error updating property status to InProgress: \(error)")
+                #endif
             } else {
+#if DEBUG
                 print("Property status updated to InProgress.")
+                #endif
             }
         }
     }
