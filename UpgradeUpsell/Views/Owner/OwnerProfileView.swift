@@ -110,7 +110,9 @@ struct OwnerProfileView: View {
                     if let imageData = investorInfo.profilePicture as? Data {
                         self.imageData = imageData
                     } else {
+#if DEBUG
                         print("Invalid image data format")
+                        #endif
                     }
                     
                     fetchChatPermissionStatus()
@@ -130,7 +132,9 @@ struct OwnerProfileView: View {
         if let currentUser = dbHelper.userProfile?.id {
             dbHelper.fetchChatPermission(user1: ownerID, user2: currentUser) { (permission, error) in
                 if let error = error {
+#if DEBUG
                     print("Error fetching chat permission: \(error)")
+                    #endif
                     isChatEnabled =  false
                 }
                 

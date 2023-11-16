@@ -108,7 +108,9 @@ struct OffersofaPropertyView: View {
                     self.dbHelper.getInveSuggByProjectID(projectID: projectID) { (suggestions, error) in
                         self.isLoading = false
                         if let error = error {
+#if DEBUG
                             print("Error getting investment suggestions: \(error)")
+                            #endif
                         } else if let suggestions = suggestions {
                             if(suggestions.count>0){
                                 self.noOffer = ""
@@ -147,7 +149,9 @@ struct OffersofaPropertyView: View {
                 // Update the status in the database
                 dbHelper.updateInvestmentStatus(suggestionID: suggestion.id!, newStatus: suggestion.status) { error in
                     if let error = error {
+#if DEBUG
                         print("Error updating status for offer: \(error)")
+                        #endif
                     } else {
                         // Insert a notification in Firebase
                         let notification = Notifications(
@@ -162,9 +166,13 @@ struct OffersofaPropertyView: View {
 
                         dbHelper.insertNotification(notification) { notificationSuccess in
                             if notificationSuccess {
+#if DEBUG
                                 print("Notification inserted successfully.")
+                                #endif
                             } else {
+#if DEBUG
                                 print("Error inserting notification.")
+                                #endif
                             }
                         }
                     }
