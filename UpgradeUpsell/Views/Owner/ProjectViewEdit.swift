@@ -483,7 +483,9 @@ struct ProjectViewEdit: View {
                             if let uiImage = UIImage(data: imageData) {
                                 loadedImages.append(uiImage)
                             } else {
+#if DEBUG
                                 print("Failed to convert image data to UIImage")
+                                #endif
                             }
                         }
                         
@@ -658,9 +660,13 @@ struct ProjectViewEdit: View {
         )
         dbHelper.insertNotification(notification) { notificationSuccess in
             if notificationSuccess {
+#if DEBUG
                 print("Notification inserted successfully.")
+                #endif
             } else {
+#if DEBUG
                 print("Error inserting notification.")
+                #endif
             }
         }
     }
@@ -668,7 +674,9 @@ struct ProjectViewEdit: View {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             if let error = error {
+#if DEBUG
                 print("Geocoding error: \(error.localizedDescription)")
+                #endif
             } else if let placemark = placemarks?.first {
                 self.lat = placemark.location?.coordinate.latitude ?? 0.0
                 self.lng = placemark.location?.coordinate.longitude ?? 0.0
