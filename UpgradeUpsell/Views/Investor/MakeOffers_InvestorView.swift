@@ -177,9 +177,13 @@ struct MakeOffers_InvestorView: View {
         )
         dbHelper.insertNotification(notification) { notificationSuccess in
             if notificationSuccess {
+#if DEBUG
                 print("Notification inserted successfully.")
+                #endif
             } else {
+#if DEBUG
                 print("Error inserting notification.")
+                #endif
             }
         }
     }
