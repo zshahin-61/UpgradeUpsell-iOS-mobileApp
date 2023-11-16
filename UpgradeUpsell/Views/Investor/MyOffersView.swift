@@ -99,7 +99,9 @@ struct MyOffersView: View {
                 isLoading = true
                 dbHelper.getInveSuggByInvestorID(investorID: investorID) { (suggestions, error) in
                     if let error = error {
+#if DEBUG
                         print("Error getting investment suggestions: \(error)")
+                        #endif
                     } else if let suggestions = suggestions {
                         self.suggestions = suggestions
                         self.isChatEnabled = Array(repeating: false, count: suggestions.count)
@@ -138,9 +140,13 @@ struct MyOffersView: View {
         )
         dbHelper.insertNotification(notification) { notificationSuccess in
             if notificationSuccess {
+#if DEBUG
                 print("Notification inserted successfully.")
+                #endif
             } else {
+#if DEBUG
                 print("Error inserting notification.")
+#endif
             }
         }
     }
@@ -156,7 +162,9 @@ struct MyOffersView: View {
                     suggestions.remove(at: index)
                     insertNotif(suggestion, "Delete")
                 } else if let error = error {
+#if DEBUG
                     print("Error deleting suggestion: \(error)")
+                    #endif
                 }
             }
         }
@@ -172,7 +180,9 @@ struct MyOffersView: View {
                     suggestions.remove(at: index)
                 }
             } else if let error = error {
+#if DEBUG
                 print("Error deleting suggestion: \(error)")
+                #endif
             }
         }
     }
@@ -194,13 +204,17 @@ struct MyOffersView: View {
     private func fetchChatPermissionStatus(sugg: InvestmentSuggestion, completion: @escaping (Bool) -> Void) {
         dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in
             if let error = error {
+#if DEBUG
                 print("Error fetching chat permission: \(error)")
+                #endif
                 completion(false)
                 return
             }
 
             if let permission = permission {
+#if DEBUG
                 print("Chat permission fetched successfully. canChat: \(permission.canChat)")
+#endif
                 completion(permission.canChat)
             } else {
                 completion(false)
