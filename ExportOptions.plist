@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   ExportOptions.plist
-   UpgradeUpsell
-
-   Created by zahra SHAHIN on 2023-11-15.
-   Copyright (c) 2023 ___ORGANIZATIONNAME___. All rights reserved.
-    <key>signingCertificate</key>
-    <string>0BB3CB2A1044DB3250F479A023225FAE90220B47</string>
--->
 <plist version="1.0">
-
 <dict>
-    <key>method</key>
-    <string>development</string> <!-- or 'app-store', 'ad-hoc', 'enterprise' -->
-    <key>teamID</key>
-    <string>zahra shahin</string> <!-- Your Apple Developer Team ID -->
-    <!-- Signing certificate, usually 'iPhone Developer' for development -->
-    <key>signingStyle</key>
-<string>automatic</string>
-
-    <key>provisioningProfiles</key>
-    <dict>
-        <key>ca.zahra.golnaz.UpgradeUpsell</key> <!-- Your app's bundle identifier -->
-        <string>58c34003-fae9-4533-88d2-ae75bb05bc0e</string>
-    </dict>
+	<key>method</key>
+	<string>development</string>
+	<key>teamID</key>
+	<string>Zahra Shahin</string>
+	<key>signingStyle</key>
+	<string>automatic</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>ca.zahra.golnaz.UpgradeUpsell</key>
+		<string>58c34003-fae9-4533-88d2-ae75bb05bc0e</string>
+	</dict>
 </dict>
 </plist>
