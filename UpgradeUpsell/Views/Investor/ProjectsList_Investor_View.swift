@@ -31,7 +31,9 @@ struct ProjectsList_InvestorView: View {
                     self.dbHelper.getRenovateProjectByStatus(status: "Released") { (renovateProjects, error) in
                         self.isLoading = false
                         if let error = error {
+#if DEBUG
                             print("Error getting investment suggestions: \(error)")
+                            #endif
                         } else if let projectList = renovateProjects {
                             self.prjList = projectList
                         }
