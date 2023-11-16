@@ -44,7 +44,7 @@ jobs:
           -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
           -sdk iphonesimulator \
           -configuration Debug \
-          -destination generic/platform=iOS \
+          -destination platform=iOS Simulator,name=iPhone 15,OS=16.3' \
           clean archive
           
       - name: Print Certificates and Provisioning Profiles
