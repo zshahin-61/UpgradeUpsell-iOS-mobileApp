@@ -12,9 +12,14 @@
 	<string>automatic</string>
 	<key>ca.zahra.golnaz.UpgradeUpsell</key>
 	<string>XCode Managed Profile</string>
+	<key>SigningIdentity</key>
+	<string>Apple Development: zshahin.61@gmail.com (53NDS9XTKT)</string>
 	<key>iOS Team Provisioning Profile: ca.zahra.golnaz.UpgradeUpsell</key>
 	<string>00008103-0002186A1147C01E</string>
 	<key>provisioningProfiles</key>
-	<dict/>
+	<dict>
+		<key>iOS Team Provisioning Profile</key>
+		<string>00008103-0002186A1147C01E</string>
+	</dict>
 </dict>
 </plist>
