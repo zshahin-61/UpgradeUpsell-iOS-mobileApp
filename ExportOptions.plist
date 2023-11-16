@@ -10,7 +10,7 @@
 	<string>automatic</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>Zahra</key>
+		<key>ca.zahra.golnaz.UpgradeUpsell</key>
 		<string>zshahin.61@gmail.com (53NDS9XTKT)</string>
 	</dict>
 </dict>
