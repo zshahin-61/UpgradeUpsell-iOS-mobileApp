@@ -87,7 +87,9 @@ struct SignInView: View {
                                 }
                                 else{
                                     self.showAlert = true
+#if DEBUG
                                     print(#function, "User does not exist in user profile collection")
+                                    #endif
                                 }
                             })
 

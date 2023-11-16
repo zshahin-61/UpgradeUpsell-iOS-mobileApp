@@ -104,7 +104,9 @@ struct ChatView: View {
 
         self.dbHelper.sendMessage(message: messageData){(error) in
             if let error = error {
+#if DEBUG
                 print("Error adding document: \(error.localizedDescription)")
+                #endif
             } else {
                 messageText = ""
             }

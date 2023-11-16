@@ -177,7 +177,9 @@ struct SignUpView: View {
                             }
                         }else{
                             //show the alert with invalid username/password prompt
+#if DEBUG
                             print(#function, "unable to create user")
+                            #endif
                         }
                     })
                 }

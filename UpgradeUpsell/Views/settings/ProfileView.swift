@@ -193,7 +193,9 @@ struct ProfileView: View {
                 if let imageData = currentUser.profilePicture as? Data {
                     self.imageData = imageData
                 } else {
+#if DEBUG
                     print("Invalid image data format")
+                    #endif
                 }
             }}
         
