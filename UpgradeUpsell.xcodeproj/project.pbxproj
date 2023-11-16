@@ -23,6 +23,7 @@
 		5A8DAB462ADDFC0B00CDCBCB /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */; };
 		5A8DAB482ADE066F00CDCBCB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */; };
 		5A8DAB4A2ADE29A900CDCBCB /* NotificationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */; };
+		5AAC1E7F2B059BFD003C9C64 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */; };
 		5F1BA5142AE3F6E000BCE947 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */; };
 		5F9465F52ABB33E50006FBB5 /* UpgradeUpsellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */; };
 		5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9465F62ABB33E50006FBB5 /* ContentView.swift */; };
@@ -87,6 +88,7 @@
 		5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
+		5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "UpgradeUpsell/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F9465F12ABB33E50006FBB5 /* UpgradeUpsell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpgradeUpsell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeUpsellApp.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		5F9465E82ABB33E50006FBB5 = {
 			isa = PBXGroup;
 			children = (
+				5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */,
 				5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */,
 				5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */,
 				5F9465F22ABB33E50006FBB5 /* Products */,
@@ -380,6 +383,7 @@
 				5F9465FC2ABB33E60006FBB5 /* Preview Assets.xcassets in Resources */,
 				5F9465F92ABB33E60006FBB5 /* Assets.xcassets in Resources */,
 				5F1BA5142AE3F6E000BCE947 /* GoogleService-Info.plist in Resources */,
+				5AAC1E7F2B059BFD003C9C64 /* ExportOptions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
