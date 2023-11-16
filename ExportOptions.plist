@@ -23,7 +23,7 @@
     <key>provisioningProfiles</key>
     <dict>
         <key>ca.zahra.golnaz.UpgradeUpsell</key> <!-- Your app's bundle identifier -->
-        <string>00008103-0002186A1147C01E</string>
+        <string>58c34003-fae9-4533-88d2-ae75bb05bc0e</string>
     </dict>
 </dict>
 </plist>
