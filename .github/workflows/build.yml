@@ -42,9 +42,9 @@ jobs:
         run: |
           xcodebuild -scheme "UpgradeUpsell" \
           -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
-          -sdk iphonesimulator \
+          -sdk iphoneos \
           -configuration Debug \
-          -destination platform=iOS Simulator,name=iPhone 15,OS=16.3' \
+          -destination generic/platform=iOS \
           clean archive
           
       - name: Print Certificates and Provisioning Profiles
