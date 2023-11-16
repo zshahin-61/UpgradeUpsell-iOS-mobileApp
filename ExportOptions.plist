@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>method</key>
-	<string>development</string>
+	<string>simulator</string>
 	<key>teamID</key>
 	<string>Zahra Shahin</string>
 	<key>signingStyle</key>
 	<string>automatic</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>ca.zahra.golnaz.UpgradeUpsell</key>
+		<key>Zahra</key>
 		<string>zshahin.61@gmail.com (53NDS9XTKT)</string>
 	</dict>
 </dict>
