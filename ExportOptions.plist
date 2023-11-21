@@ -6,13 +6,14 @@
 	<string>development</string>
 	<key>teamID</key>
 	<string>Priteshkumar Patel</string>
-	<key>distribution</key>
-	<string>export</string>
 	<key>signingStyle</key>
-	<string>automatic</string>
-	<key>com.moxdroid.UpgradeUpsell</key>
-	<string>XCode Managed Profile</string>
+	<string>manual</string>
+	<key>signingCertificate</key>
+	<string>iOS Distribution: POSSIBLE Mobile</string>
 	<key>provisioningProfiles</key>
-	<dict/>
+	<dict>
+		<key>com.moxdroid.UpgradeUpsell</key>
+		<string>628de97a-7d1e-43e8-909e-e3ef3e782021</string>
+	</dict>
 </dict>
 </plist>
