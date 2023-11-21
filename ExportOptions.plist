@@ -8,12 +8,9 @@
 	<string>Priteshkumar Patel</string>
 	<key>signingStyle</key>
 	<string>manual</string>
-	<key>signingCertificate</key>
-	<string>iOS Distribution: POSSIBLE Mobile</string>
 	<key>provisioningProfiles</key>
-	<dict>
-		<key>com.moxdroid.UpgradeUpsell</key>
-		<string>628de97a-7d1e-43e8-909e-e3ef3e782021</string>
-	</dict>
+	<dict/>
+	<key>com.moxdroid.UpgradeUpsell</key>
+	<string>Xcode Managed Profile</string>
 </dict>
 </plist>
