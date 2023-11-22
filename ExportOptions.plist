@@ -6,14 +6,9 @@
 	<string>development</string>
 	<key>teamID</key>
 	<string>Priteshkumar Patel</string>
-	<key>signingStyle</key>
-	<string>manual</string>
 	<key>com.moxdroid.UpgradeUpsell</key>
 	<string>Xcode Managed Profile</string>
 	<key>provisioningProfiles</key>
-	<dict>
-		<key>com.moxdroid.UpgradeUpsell</key>
-		<string>d8d0baff-143d-49f3-9434-da7995abfee7</string>
-	</dict>
+	<dict/>
 </dict>
 </plist>
