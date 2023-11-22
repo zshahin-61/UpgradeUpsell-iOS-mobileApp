@@ -28,7 +28,8 @@ struct SignUpView: View {
     let roles = ["Owner", "Investor", "Realtor"]
     @State private var selectedRole = "Owner"
     @State private var errorMsg : String? = nil
-    
+    // track whether the alert should be shown
+    @State private var showAlert = false
     @Binding var rootScreen : RootView
     
     @State private var isShowingPicker = false
@@ -39,24 +40,48 @@ struct SignUpView: View {
         //@State private var selectedImage: UIImage?
     @State private var isCameraPermissionDenied = false
     
-    
-    
     var body: some View {
         
         VStack{
             Text("Sign up").bold().font(.title).foregroundColor(.brown)
             Form{
-                TextField("Enter Email", text: self.$emailFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+                ZStack(alignment: .topLeading) {
+                    TextField("Enter your email", text: self.$emailFromUI)
+                        .textInputAutocapitalization(.never)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(isEmailValid() ? Color.clear : Color.red, lineWidth: 1)
+                                .background(Color.black.opacity(0.05))
+                        )
+                        .cornerRadius(10)
+                    
+                    if !isEmailValid() {
+                        Text("Invalid email format")
+                            .foregroundColor(.red)
+                            .padding(.top, 60) // Adjust the spacing based on your layout
+                            .padding(.leading, 5) // Adjust the spacing based on your layout
+                    }
+                }
                 
-                SecureField("Enter Password", text: self.$passwordFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
-                
-                SecureField("Confirm Password", text: self.$confirmPasswordFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+                    SecureField("Enter Password", text: self.$passwordFromUI)
+                                        .textInputAutocapitalization(.never)
+                                        .textFieldStyle(.roundedBorder)
+
+                                    SecureField("Confirm Password", text: self.$confirmPasswordFromUI)
+                                        .textInputAutocapitalization(.never)
+                                        .textFieldStyle(.roundedBorder)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(( self.passwordFromUI == "" && self.confirmPasswordFromUI == "" && self.passwordFromUI == self.confirmPasswordFromUI) ? Color.clear : Color.red, lineWidth: 1)
+                                        )
+
+                if (self.passwordFromUI != "" && self.confirmPasswordFromUI != "" && self.passwordFromUI != self.confirmPasswordFromUI) {
+                                        Text("Passwords do not match")
+                                            .foregroundColor(.red)
+                                            .padding(.top, 5)
+                                    }
                 
                 TextField("Enter Full Name", text: $fullNameFromUI)
                     .textFieldStyle(.roundedBorder)
@@ -176,10 +201,13 @@ struct SignUpView: View {
                                 
                             }
                         }else{
-                            //show the alert with invalid username/password prompt
+                            // Unable to create user, show alert
+                            self.errorMsg = "Unable to create user. Please try again."
+                            self.showAlert = true // Set showAlert to true to trigger the alert
+                            
 #if DEBUG
                             print(#function, "unable to create user")
-                            #endif
+#endif
                         }
                     })
                 }
@@ -187,22 +215,37 @@ struct SignUpView: View {
                 Text("Create Account")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color(red: 0.0, green: 0.40, blue: 0.0))
+                    .background(self.isFormValid() ? Color.green : Color.gray)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            .buttonStyle(.borderedProminent)
-            .disabled(self.passwordFromUI != self.confirmPasswordFromUI || self.emailFromUI.isEmpty || self.passwordFromUI.isEmpty || self.confirmPasswordFromUI.isEmpty || !isEmailValid())
-            
-            //.navigationBarTitle("Sign Up", displayMode: .inline)
-            .navigationBarItems(
-                trailing: Button(action: {
-                    rootScreen = .Login
-                }) {
-                    Image(systemName: "chevron.left")
-                    Text("Back")
-                })
+            .buttonStyle(BorderedProminentButtonStyle())
+            .disabled(!isFormValid())
+            .alert(isPresented: $showAlert) {
+                // Use the $errorMsg binding in the Alert content
+                Alert(
+                    title: Text("Error"),
+                    message: Text(errorMsg ?? ""), // Use nil coalescing to handle possible nil errorMsg
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+            .alert(isPresented: $isCameraPermissionDenied) {
+                Alert(
+                    title: Text("Camera Permission Denied"),
+                    message: Text("Please enable camera access in your device settings to capture a photo."),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
+        .navigationBarItems(
+                        trailing: Button(action: {
+                            rootScreen = .Login
+                        }) {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                    )
+        
     }
     
 // Function to check camera permissions
@@ -233,6 +276,10 @@ struct SignUpView: View {
 
     // MARK: func for check if the form is valid
     func isEmailValid()-> Bool {
+        if(emailFromUI.isEmpty)
+        {
+            return true
+        }
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: emailFromUI)
@@ -241,5 +288,17 @@ struct SignUpView: View {
     func isFormValid() -> Bool {
         // Add more validation checks if needed
         return !emailFromUI.isEmpty && isEmailValid() && !passwordFromUI.isEmpty && passwordFromUI == confirmPasswordFromUI
+    }
+}
+
+struct BorderedProminentButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .foregroundColor(.white)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(configuration.isPressed ? Color.green.opacity(0.8) : Color.green, lineWidth: 2)
+            )
     }
 }
