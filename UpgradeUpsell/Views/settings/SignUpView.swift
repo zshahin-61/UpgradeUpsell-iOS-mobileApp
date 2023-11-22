@@ -236,18 +236,19 @@ struct SignUpView: View {
             }){
                 Text("Create Account")
                     .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(self.isFormValid() ? Color.green : Color.gray)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                            .padding()
+                            .background(self.isFormValid() ? Color.green : Color.gray)
+                            .foregroundColor(.white)
+                            .cornerRadius(15) // Adjust the corner radius as needed
+                            .shadow(radius: 5) // Add a shadow for a raised effect
             }
-            .buttonStyle(BorderedProminentButtonStyle())
+            //.buttonStyle(BorderedProminentButtonStyle())
+            .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove the default button style
             .disabled(!isFormValid())
             .alert(isPresented: $showAlert) {
-                // Use the $errorMsg binding in the Alert content
                 Alert(
                     title: Text("Error"),
-                    message: Text(errorMsg ?? ""), // Use nil coalescing to handle possible nil errorMsg
+                    message: Text(errorMsg ?? ""),
                     dismissButton: .default(Text("OK"))
                 )
             }
@@ -320,7 +321,7 @@ struct BorderedProminentButtonStyle: ButtonStyle {
             .foregroundColor(.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(configuration.isPressed ? Color.green.opacity(0.8) : Color.green, lineWidth: 2)
+                    .stroke(configuration.isPressed ? Color.green.opacity(0.8) : Color(red: 0.0, green: 0.40, blue: 0.0), lineWidth: 2)
             )
     }
 }
