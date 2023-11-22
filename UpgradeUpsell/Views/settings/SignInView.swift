@@ -66,7 +66,7 @@ struct SignInView: View {
                     .cornerRadius(10)
             
             
-            LazyVGrid(columns: self.gridItems){
+                LazyVGrid(columns: self.gridItems) {
                 Button(action: {
                     self.authHelper.signIn(email: self.emailFromUI, password: self.passwordFromUI, withCompletion: { isSuccessful in
                         if (isSuccessful){
