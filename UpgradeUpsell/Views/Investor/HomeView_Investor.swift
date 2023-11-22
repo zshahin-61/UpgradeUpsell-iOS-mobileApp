@@ -77,7 +77,9 @@ struct HomeView_Investor: View {
                     Label("Signout", systemImage: "lock.shield.fill")
                 }
             } label: {
-                Image(systemName: "ellipsis.circle.fill")
+                //Image(systemName: "ellipsis.circle.fill")
+                //Image(systemName: "list.bullet.rectangle.portrait.fill")
+                Image(systemName: "filemenu.and.cursorarrow")
             }//Menu
         })//navigationBarItems
     }
