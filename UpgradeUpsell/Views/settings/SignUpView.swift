@@ -67,14 +67,21 @@ struct SignUpView: View {
                 
                     SecureField("Enter Password", text: self.$passwordFromUI)
                                         .textInputAutocapitalization(.never)
-                                        .textFieldStyle(.roundedBorder)
+                                        //.textFieldStyle(.roundedBorder)
+                                        .padding()
+                                        .frame(width: 300, height: 50)
+                                        .background(Color.black.opacity(0.05))
+                                        .cornerRadius(10)
 
                                     SecureField("Confirm Password", text: self.$confirmPasswordFromUI)
                                         .textInputAutocapitalization(.never)
-                                        .textFieldStyle(.roundedBorder)
+                                        .padding()
+                                        .frame(width: 300, height: 50)
+                                        .background(Color.black.opacity(0.05))
+                                        .cornerRadius(10)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 10)
-                                                .stroke(( self.passwordFromUI == "" && self.confirmPasswordFromUI == "" && self.passwordFromUI == self.confirmPasswordFromUI) ? Color.clear : Color.red, lineWidth: 1)
+                                                .stroke(( self.passwordFromUI == "" || self.confirmPasswordFromUI == "" || self.passwordFromUI == self.confirmPasswordFromUI) ? Color.clear : Color.red, lineWidth: 1)
                                         )
 
                 if (self.passwordFromUI != "" && self.confirmPasswordFromUI != "" && self.passwordFromUI != self.confirmPasswordFromUI) {
@@ -84,7 +91,10 @@ struct SignUpView: View {
                                     }
                 
                 TextField("Enter Full Name", text: $fullNameFromUI)
-                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(10)
                     .autocapitalization(.words)
                 
                 VStack(alignment: .leading, spacing: 10) {
@@ -100,19 +110,31 @@ struct SignUpView: View {
                 
                 TextField("Bio", text: self.$bioFromUI)
                     .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(10)
                 
                 TextField("Address", text: self.$addressFromUI)
                     .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(10)
                 
                 TextField("Phone Number", text: self.$phoneFromUI)
                     .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(10)
                 
                 TextField("Company", text: self.$companyFromUI)
-                    .textInputAutocapitalization(.never)
-                    .textFieldStyle(.roundedBorder)
+                    .textInputAutocapitalization(.words)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.black.opacity(0.05))
+                    .cornerRadius(10)
                 
                 VStack{
                     Text("User Profile Picture")
