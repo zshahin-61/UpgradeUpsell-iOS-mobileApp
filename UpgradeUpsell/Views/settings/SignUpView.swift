@@ -237,7 +237,7 @@ struct SignUpView: View {
                 Text("Create Account")
                     .frame(maxWidth: .infinity)
                             .padding()
-                            .background(self.isFormValid() ? Color.green : Color.gray)
+                            .background(self.isFormValid() ? Color(red: 0.0, green: 0.40, blue: 0.0) : Color.gray)
                             .foregroundColor(.white)
                             .cornerRadius(15) // Adjust the corner radius as needed
                             .shadow(radius: 5) // Add a shadow for a raised effect
@@ -260,8 +260,9 @@ struct SignUpView: View {
                 )
             }
         }
+        .padding(.top, 5)
         .navigationBarItems(
-                        trailing: Button(action: {
+                        leading: Button(action: {
                             rootScreen = .Login
                         }) {
                             Image(systemName: "chevron.left")
