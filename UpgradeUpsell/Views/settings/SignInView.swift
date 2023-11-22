@@ -20,27 +20,30 @@ struct SignInView: View {
     
     @State private var showAlert = false
     
+    private var isFormValid: Bool {
+            return !self.emailFromUI.isEmpty && !self.passwordFromUI.isEmpty && isEmailValid()
+        }
+    
     var body: some View {
-        
         VStack{
-            
-            Image("login")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-            HStack{
-                Spacer()
+            VStack {
+                Image("login")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                
                 Text("Upgrade & Upsell")
                     .font(.system(size: 23, weight: .heavy, design: .default))
-                    .kerning(3.0) // Adjust the letter spacing as needed
+                    .kerning(3.0)
                     .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                     .textCase(.uppercase)
-                Spacer()
+                    .padding(.top, 5)
+
+                Text("Sell Your House for a Higher Price")
+                    .bold()
+                    .padding(.top, 5)
+                    .padding(.bottom, 20)
             }
-            .padding(.top, 5)
-            Text("Sell Your House for a Higher Price").bold()
-                .padding(.top, 5)
-                .padding(.bottom, 20)
-           // Form{
+            VStack{
                 //Text("Sign in")
             
                 TextField("Enter your email", text: self.$emailFromUI)
@@ -49,6 +52,11 @@ struct SignInView: View {
                                             .frame(width: 300, height: 50)
                                             .background(Color.black.opacity(0.05))
                                             .cornerRadius(10)
+                
+                if !isEmailValid() {
+                       Text("Invalid email format")
+                           .foregroundColor(.red)
+                   }
                 
                 SecureField("Enter password", text: self.$passwordFromUI)
                     .textInputAutocapitalization(.never)
@@ -102,17 +110,18 @@ struct SignInView: View {
                     })
                 }){
                     Text("Sign In")
-                        //.font(.title2)
-                        .foregroundColor(.white)
-                        //.bold()
-                        .padding()
+                           .foregroundColor(.white)
+                           .padding()
+                           .background(self.isFormValid ? Color(red: 0.0, green: 0.40, blue: 0.0) : Color.gray)
+                           .cornerRadius(10)
+                           .opacity(self.isFormValid ? 1.0 : 0.8)
                 }
                 .disabled(self.emailFromUI.isEmpty || self.passwordFromUI.isEmpty || !isEmailValid() )
                 .buttonStyle(CustomButtonStyle(isEnabled: !self.emailFromUI.isEmpty && !self.passwordFromUI.isEmpty && isEmailValid()))
                 .alert(isPresented: $showAlert) {
                     Alert(
-                        title: Text("Alert Title"),
-                        message: Text("invalid username/password"),
+                        title: Text("Sign In Failed"),
+                        message: Text("Invalid email or password. Please try again."),
                         dismissButton: .default(Text("OK"))
                     )
                 }
@@ -131,9 +140,8 @@ struct SignInView: View {
             }
             .padding(.top,50)
                 
-            //}
-            //.scrollContentBackground(.hidden)
-           // .autocorrectionDisabled(true)
+            }.padding()
+           
             Spacer()
         }
         .scrollContentBackground(.hidden)
