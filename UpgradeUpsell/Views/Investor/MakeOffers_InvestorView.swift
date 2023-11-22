@@ -23,8 +23,7 @@ struct MakeOffers_InvestorView: View {
     @State private var propertyLongitude: Double = 0.0
 
     
-    @State private var shouldDismissView = false
-    @State private var isViewDismissed = false // New state variable
+   // @State private var shouldDismissView = false
     
     var body: some View {
         VStack{
@@ -137,22 +136,20 @@ struct MakeOffers_InvestorView: View {
                         self.dbHelper.addInvestmentSuggestion(newOffer) { error in
                             if let error = error {
                                 alertMessage = "Error: \(error.localizedDescription)"
-                                shouldDismissView = false
-                                //showAlert = true
+                              //  shouldDismissView = false
+                                showAlert = true
                             } else {
                                 insertNotif(newOffer, "Insert")
                                 alertMessage = "Your offer added successfully"
-                                shouldDismissView = true
-                                //showAlert = true
-                                // self.presentationMode.wrappedValue.dismiss()
+                              //  shouldDismissView = true
+                                showAlert = false
+                                self.presentationMode.wrappedValue.dismiss()
                             }
-                            showAlert = true
-                            isViewDismissed = false 
+                            //showAlert = true
                         }
                     }
                     else{
                         showAlert = true
-                        isViewDismissed = false // Reset the state variable
                     }
                 }
                 .buttonStyle(.borderedProminent)
@@ -182,13 +179,13 @@ struct MakeOffers_InvestorView: View {
             Alert(
                 title: Text("Result"),
                 message: Text(alertMessage),
-                dismissButton: .default(Text("OK")){
-                    self.showAlert = false
-                    if shouldDismissView && !isViewDismissed && !alertMessage.lowercased().contains("error") {
-                        self.isViewDismissed = true
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }
+                dismissButton: .default(Text("OK"))
+                //{
+                    //self.showAlert = false
+                    //if shouldDismissView  && !alertMessage.lowercased().contains("error") {
+                      //  self.presentationMode.wrappedValue.dismiss()
+                   // }
+                //}
             )
         }
         //.navigationBarTitle("Add an Offer")
