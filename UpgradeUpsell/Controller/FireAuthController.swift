@@ -191,6 +191,36 @@ class FireAuthController : ObservableObject{
         }
     }
     
+    func reauthenticateUser(email: String, currentPassword: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            // Handle the case where there is no current user
+            completion(.failure(NSError(domain: "Upgrade&Upsell", code: -1, userInfo: [NSLocalizedDescriptionKey: "No authenticated user"])))
+            return
+        }
+
+        let credential = EmailAuthProvider.credential(withEmail: email, password: currentPassword)
+
+        user.reauthenticate(with: credential) { result, error in
+            if let error = error {
+                // Handle reauthentication error
+                completion(.failure(error))
+            } else {
+                // User has been reauthenticated
+                completion(.success(()))
+            }
+        }
+    }
     
+    func updateUserEmail(to newEmail: String, completion: @escaping (Error?) -> Void) {
+        if let user = Auth.auth().currentUser {
+            user.updateEmail(to: newEmail) { error in
+                completion(error)
+            }
+        } else {
+            // Handle the case where there is no current user
+            let noUserError = NSError(domain: "Upgrade&Upsell", code: -1, userInfo: [NSLocalizedDescriptionKey: "No authenticated user"])
+            completion(noUserError)
+        }
+    }
 }
 
