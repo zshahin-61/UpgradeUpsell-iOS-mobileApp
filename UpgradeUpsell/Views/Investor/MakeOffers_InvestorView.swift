@@ -92,40 +92,61 @@ struct MakeOffers_InvestorView: View {
                 }
                 
                 Section(header: Text("Make an Offer").font(.headline)) {
-                    TextField("Amount Offered", text: $amountOffered).textFieldStyle(.roundedBorder)
-                    TextField("Duration in Weeks", text: $durationWeeks).textFieldStyle(.roundedBorder)
-                    Text("Description:")
-                    TextEditor(text: $description)
-                        .frame(height: 200)
-                        .border(Color.gray, width: 1)
-                }
+                                TextField("Amount Offered", text: $amountOffered)
+                                    .keyboardType(.decimalPad)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+
+                                TextField("Duration in Weeks", text: $durationWeeks)
+                                    .keyboardType(.numberPad)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding()
+
+                                Text("Description:")
+                                TextEditor(text: $description)
+                                    .frame(height: 200)
+                                    .cornerRadius(5)
+                                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 0.2))
+                                    .padding()
+                            }
             }
             Section {
                 Button("Submit") {
-                    let newOffer = InvestmentSuggestion(
-                        id: UUID().uuidString,
-                        investorID: self.dbHelper.userProfile?.id ?? "",
-                        investorFullName: self.dbHelper.userProfile?.fullName ?? "",
-                        ownerID: project.ownerID,
-                        projectID: project.id!,
-                        projectTitle: project.title,
-                        amountOffered: Double(amountOffered) ?? 0.0,
-                        durationWeeks: Int(durationWeeks) ?? 0,
-                        description: description,
-                        status: "Pending",
-                        date: Date()
-                    )
-                    
-                    self.dbHelper.addInvestmentSuggestion(newOffer) { error in
-                        if let error = error {
-                            alertMessage = "Error: \(error.localizedDescription)"
-                        } else {
-                            insertNotif(newOffer, "Insert")
-                            alertMessage = "Your offer added successfully"
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
-                        showAlert = true
+                    guard let currUser = self.dbHelper.userProfile else{
+                        return
                     }
+                    if validateForm() {
+                        let newOffer = InvestmentSuggestion(
+                            id: UUID().uuidString,
+                            investorID: currUser.id ?? "",
+                            investorFullName: currUser.fullName,
+                            ownerID: project.ownerID,
+                            projectID: project.id ?? "",
+                            projectTitle: project.title,
+                            amountOffered: Double(amountOffered) ?? 0.0,
+                            durationWeeks: Int(durationWeeks) ?? 0,
+                            description: description,
+                            status: "Pending",
+                            date: Date()
+                        )
+                        
+                        self.dbHelper.addInvestmentSuggestion(newOffer) { error in
+                            if let error = error {
+                                alertMessage = "Error: \(error.localizedDescription)"
+                                //showAlert = true
+                            } else {
+                                insertNotif(newOffer, "Insert")
+                                alertMessage = "Your offer added successfully"
+                                //showAlert = true
+                               // self.presentationMode.wrappedValue.dismiss()
+                            }
+                            //showAlert = true
+                        }
+                    }
+                    //else{
+                        //alertMessage = "Some errors in the from"
+                        showAlert = true
+                    //}
                 }
                 .buttonStyle(.borderedProminent)
             }
@@ -157,7 +178,11 @@ struct MakeOffers_InvestorView: View {
             Alert(
                 title: Text("Result"),
                 message: Text(alertMessage),
-                dismissButton: .default(Text("OK"))
+                dismissButton: .default(Text("OK")){
+                    if !alertMessage.lowercased().contains("error") {
+                                        self.presentationMode.wrappedValue.dismiss()
+                                    }
+                }
             )
         }
         //.navigationBarTitle("Add an Offer")
@@ -182,12 +207,41 @@ struct MakeOffers_InvestorView: View {
                 #endif
             } else {
 #if DEBUG
+                //alertMessage = "Error inserting notification."
                 print("Error inserting notification.")
                 #endif
             }
         }
     }
     
+    // Function to validate the form
+        func validateForm() -> Bool {
+            var isValid = true
+            var validationMessage = ""
+
+            // Validate amountOffered
+            if amountOffered.isEmpty || Double(amountOffered) == nil || Double(amountOffered)! <= 0 {
+                isValid = false
+                validationMessage += "Please enter a valid amount offered.\n"
+            }
+
+            // Validate durationWeeks
+            if durationWeeks.isEmpty || Int(durationWeeks) == nil || Int(durationWeeks)! <= 0 {
+                isValid = false
+                validationMessage += "Please enter a valid duration in weeks.\n"
+            }
+
+            // Validate description
+            if description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                isValid = false
+                validationMessage += "Please enter a description.\n"
+            }
+            if(validationMessage != ""){
+                
+                alertMessage = "Error: " + validationMessage
+            }
+            return isValid
+        }
     
     func formattedDate(from date: Date) -> String {
         let dateFormatter = DateFormatter()

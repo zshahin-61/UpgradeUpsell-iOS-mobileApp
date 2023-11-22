@@ -188,7 +188,9 @@ struct ProfileView: View {
                 self.contactNumberFromUI = currentUser.contactNumber
                 self.errorMsg = nil
                 self.role = currentUser.role
-                
+                if let company = currentUser.company{
+                    self.companyFromUI = company
+                }
                 // MARK: Show image from db
                 if let imageData = currentUser.profilePicture as? Data {
                     self.imageData = imageData
