@@ -22,6 +22,10 @@ struct MakeOffers_InvestorView: View {
     @State private var propertyLatitude: Double = 0.0
     @State private var propertyLongitude: Double = 0.0
 
+    
+    @State private var shouldDismissView = false
+    @State private var isViewDismissed = false // New state variable
+    
     var body: some View {
         VStack{
             Text("Make an Offer").bold().font(.title).foregroundColor(.brown)
@@ -67,7 +71,7 @@ struct MakeOffers_InvestorView: View {
                                 Text("No images available")
                             }
                         }
-                               }
+                    }
                     VStack{
                         HStack{
                             Text("Description: ").bold()
@@ -87,28 +91,28 @@ struct MakeOffers_InvestorView: View {
                         Text("\(project.location)")
                     }
                     MapView(latitude: propertyLatitude, longitude: propertyLongitude)
-                    .frame(height: 200)
+                        .frame(height: 200)
                     
                 }
                 
                 Section(header: Text("Make an Offer").font(.headline)) {
-                                TextField("Amount Offered", text: $amountOffered)
-                                    .keyboardType(.decimalPad)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-
-                                TextField("Duration in Weeks", text: $durationWeeks)
-                                    .keyboardType(.numberPad)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-
-                                Text("Description:")
-                                TextEditor(text: $description)
-                                    .frame(height: 200)
-                                    .cornerRadius(5)
-                                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 0.2))
-                                    .padding()
-                            }
+                    TextField("Amount Offered", text: $amountOffered)
+                        .keyboardType(.decimalPad)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    
+                    TextField("Duration in Weeks", text: $durationWeeks)
+                        .keyboardType(.numberPad)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    
+                    Text("Description:")
+                    TextEditor(text: $description)
+                        .frame(height: 200)
+                        .cornerRadius(5)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 0.2))
+                        .padding()
+                }
             }
             Section {
                 Button("Submit") {
@@ -133,44 +137,44 @@ struct MakeOffers_InvestorView: View {
                         self.dbHelper.addInvestmentSuggestion(newOffer) { error in
                             if let error = error {
                                 alertMessage = "Error: \(error.localizedDescription)"
+                                shouldDismissView = false
                                 //showAlert = true
                             } else {
                                 insertNotif(newOffer, "Insert")
                                 alertMessage = "Your offer added successfully"
+                                shouldDismissView = true
                                 //showAlert = true
-                               // self.presentationMode.wrappedValue.dismiss()
+                                // self.presentationMode.wrappedValue.dismiss()
                             }
-                            //showAlert = true
+                            showAlert = true
+                            isViewDismissed = false 
                         }
                     }
-                    //else{
-                        //alertMessage = "Some errors in the from"
+                    else{
                         showAlert = true
-                    //}
+                        isViewDismissed = false // Reset the state variable
+                    }
                 }
                 .buttonStyle(.borderedProminent)
             }
-        
+            
             .onAppear {
-                        // Retrieve the latitude and longitude values from your database for the property
-                        // For example, if you have a property object with lat and lng properties:
-                         propertyLatitude = project.lat
-                         propertyLongitude = project.lng
-
+                // Retrieve the latitude and longitude values from your database for the property
+                // For example, if you have a property object with lat and lng properties:
+                propertyLatitude = project.lat
+                propertyLongitude = project.lng
+                
                 if propertyLatitude == 0.0 && propertyLongitude == 0.0 {
-                        let geocoder = CLGeocoder()
-                        geocoder.geocodeAddressString(project.location) { placemarks, error in
-                            if let placemark = placemarks?.first, let location = placemark.location {
-                                propertyLatitude = location.coordinate.latitude
-                                propertyLongitude = location.coordinate.longitude
-                            }
+                    let geocoder = CLGeocoder()
+                    geocoder.geocodeAddressString(project.location) { placemarks, error in
+                        if let placemark = placemarks?.first, let location = placemark.location {
+                            propertyLatitude = location.coordinate.latitude
+                            propertyLongitude = location.coordinate.longitude
                         }
                     }
-                        // For testing, you can set sample coordinates like this:
-                        //propertyLatitude = 37.7749 // Replace with the actual latitude
-                        //propertyLongitude = -122.4194 // Replace with the actual longitude
-                    }
-
+                }
+            }
+            
         }
         
         .padding()
@@ -179,9 +183,11 @@ struct MakeOffers_InvestorView: View {
                 title: Text("Result"),
                 message: Text(alertMessage),
                 dismissButton: .default(Text("OK")){
-                    if !alertMessage.lowercased().contains("error") {
-                                        self.presentationMode.wrappedValue.dismiss()
-                                    }
+                    self.showAlert = false
+                    if shouldDismissView && !isViewDismissed && !alertMessage.lowercased().contains("error") {
+                        self.isViewDismissed = true
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                 }
             )
         }
