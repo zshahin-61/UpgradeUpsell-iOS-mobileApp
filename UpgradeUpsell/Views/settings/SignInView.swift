@@ -45,24 +45,31 @@ struct SignInView: View {
             }
 
             VStack {
-                TextField("Enter your email", text: self.$emailFromUI)
-                    .textInputAutocapitalization(.never)
-                    .padding()
-                    .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
-                    .cornerRadius(10)
-
+                ZStack(alignment: .topLeading) {
+                    TextField("Enter your email", text: self.$emailFromUI)
+                        .textInputAutocapitalization(.never)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(isEmailValid() ? Color.clear : Color.red, lineWidth: 1)
+                                .background(Color.black.opacity(0.05))
+                        )
+                        .cornerRadius(10)
+                    
+                    if !isEmailValid() {
+                        Text("Invalid email format")
+                            .foregroundColor(.red)
+                            .padding(.top, 60) // Adjust the spacing based on your layout
+                            .padding(.leading, 5) // Adjust the spacing based on your layout
+                    }
+                }
                 SecureField("Enter password", text: self.$passwordFromUI)
                     .textInputAutocapitalization(.never)
                     .padding()
                     .frame(width: 300, height: 50)
                     .background(Color.black.opacity(0.05))
                     .cornerRadius(10)
-
-                if !isEmailValid() {
-                    Text("Invalid email format")
-                        .foregroundColor(.red)
-                }
             }
             .padding()
 
