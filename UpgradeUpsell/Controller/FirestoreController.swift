@@ -403,6 +403,20 @@ class FirestoreController: ObservableObject {
         }
     
     // MARK: renovateProjects Collection Functions
+    func listenForRenovateProjects(completion: @escaping ([RenovateProject]?, Error?) -> Void) {
+        self.db.collection(COLLECTION_RenovateProject).whereField("status", isEqualTo: "Released")
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    completion(nil, error)
+                } else {
+                    let projects = querySnapshot?.documents.compactMap { document in
+                        try? document.data(as: RenovateProject.self)
+                    } ?? []
+                    completion(projects, nil)
+                }
+            }
+    }
+    
     func addProperty(_ property: RenovateProject, userID: String, completion: @escaping (Bool) -> Void) {
         var propertyToSave = property
         print("userrrrr",COLLECTION_UsersProfile)

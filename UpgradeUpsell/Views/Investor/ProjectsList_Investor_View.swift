@@ -28,7 +28,7 @@ struct ProjectsList_InvestorView: View {
             if let role = dbHelper.userProfile?.role {
                 if(role == "Investor"){
                     self.isLoading = true
-                    self.dbHelper.getRenovateProjectByStatus(status: "Released") { (renovateProjects, error) in
+                    self.dbHelper.listenForRenovateProjects() { (renovateProjects, error) in
                         self.isLoading = false
                         if let error = error {
 #if DEBUG
