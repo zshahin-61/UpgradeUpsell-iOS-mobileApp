@@ -10,26 +10,26 @@ import SwiftUI
 struct SignInView: View {
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
-
+    
     @State private var emailFromUI: String = "g.chehrazi@gmail.com"
     @State private var passwordFromUI: String = "Admin123"
-
+    
     @Binding var rootScreen: RootView
-
+    
     private let gridItems: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
-
+    
     @State private var showAlert = false
-
+    
     private var isFormValid: Bool {
         return !self.emailFromUI.isEmpty && !self.passwordFromUI.isEmpty && isEmailValid()
     }
-
+    
     var body: some View {
         VStack {
             Image("login")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-
+            
             VStack {
                 Text("Upgrade & Upsell")
                     .font(.system(size: 23, weight: .heavy, design: .default))
@@ -37,13 +37,13 @@ struct SignInView: View {
                     .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                     .textCase(.uppercase)
                     .padding(.top, 5)
-
+                
                 Text("Sell Your House for a Higher Price")
                     .bold()
                     .padding(.top, 5)
                     .padding(.bottom, 20)
             }
-
+            
             VStack {
                 ZStack(alignment: .topLeading) {
                     TextField("Enter your email", text: self.$emailFromUI)
@@ -53,7 +53,7 @@ struct SignInView: View {
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(isEmailValid() ? Color.clear : Color.red, lineWidth: 1)
-                                .background(Color.black.opacity(0.05))
+                                .background(Color.gray.opacity(0.1))
                         )
                         .cornerRadius(10)
                     
@@ -68,11 +68,11 @@ struct SignInView: View {
                     .textInputAutocapitalization(.never)
                     .padding()
                     .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
+                    .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
             }
             .padding()
-
+            
             LazyVGrid(columns: self.gridItems) {
                 Button(action: {
                     self.authHelper.signIn(email: self.emailFromUI, password: self.passwordFromUI, withCompletion: { isSuccessful in
@@ -95,9 +95,9 @@ struct SignInView: View {
                                     }
                                 } else {
                                     self.showAlert = true
-                                    #if DEBUG
+#if DEBUG
                                     print(#function, "User does not exist in user profile collection")
-                                    #endif
+#endif
                                 }
                             })
                         } else {
@@ -123,7 +123,7 @@ struct SignInView: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-
+                
                 Button(action: {
                     self.rootScreen = .SignUp
                 }) {
@@ -141,7 +141,7 @@ struct SignInView: View {
         .scrollContentBackground(.hidden)
         .padding()
     }
-
+    
     func isEmailValid() -> Bool {
         if(emailFromUI.isEmpty)
         {
@@ -151,10 +151,10 @@ struct SignInView: View {
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: emailFromUI)
     }
-
+    
     struct CustomButtonStyle: ButtonStyle {
         let isEnabled: Bool
-
+        
         func makeBody(configuration: Configuration) -> some View {
             configuration.label
                 .foregroundColor(.white)
@@ -164,6 +164,10 @@ struct SignInView: View {
                 .shadow(color: .gray, radius: 3, x: 0, y: 3)
         }
     }
+    
+    
+    
 }
+
 
 

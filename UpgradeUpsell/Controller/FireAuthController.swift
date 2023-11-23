@@ -36,7 +36,9 @@ class FireAuthController : ObservableObject{
         Auth.auth().createUser(withEmail : email, password: password){ authResult, error in
             
             guard let result = authResult else{
-                print(#function, "Error while signing up user : \(error)")
+                if let error = error{
+                    print(#function, "Error while signing up user : \(error)")
+                }
                 return
             }
             

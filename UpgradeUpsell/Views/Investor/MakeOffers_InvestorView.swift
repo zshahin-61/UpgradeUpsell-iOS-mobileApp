@@ -230,7 +230,7 @@ struct MakeOffers_InvestorView: View {
             timestamp: Date(),
             userID: myOffer.ownerID,
             event: "Offer \(a)!",
-            details: "Offer $\(myOffer.amountOffered) for project titled \(myOffer.projectTitle) has been \(a) By \(dbHelper.userProfile?.fullName).",
+            details: "Offer $\(myOffer.amountOffered) for project titled \(myOffer.projectTitle) has been \(a) By \(dbHelper.userProfile?.fullName ?? "").",
             isRead: false,
             projectID: myOffer.projectID
         )

@@ -53,7 +53,7 @@ struct SignUpView: View {
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(isEmailValid() ? Color.clear : Color.red, lineWidth: 1)
-                                .background(Color.black.opacity(0.05))
+                                .background(Color.gray.opacity(0.1))
                         )
                         .cornerRadius(10)
                     
@@ -70,14 +70,14 @@ struct SignUpView: View {
                                         //.textFieldStyle(.roundedBorder)
                                         .padding()
                                         .frame(width: 300, height: 50)
-                                        .background(Color.black.opacity(0.05))
+                                        .background(Color.gray.opacity(0.1))
                                         .cornerRadius(10)
 
                                     SecureField("Confirm Password", text: self.$confirmPasswordFromUI)
                                         .textInputAutocapitalization(.never)
                                         .padding()
                                         .frame(width: 300, height: 50)
-                                        .background(Color.black.opacity(0.05))
+                                        .background(Color.gray.opacity(0.1))
                                         .cornerRadius(10)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 10)
@@ -93,7 +93,7 @@ struct SignUpView: View {
                 TextField("Enter Full Name", text: $fullNameFromUI)
                     .padding()
                     .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
+                    .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                     .autocapitalization(.words)
                 
@@ -112,28 +112,28 @@ struct SignUpView: View {
                     .textInputAutocapitalization(.never)
                     .padding()
                     .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
+                    .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                 
                 TextField("Address", text: self.$addressFromUI)
                     .textInputAutocapitalization(.never)
                     .padding()
                     .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
+                    .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                 
                 TextField("Phone Number", text: self.$phoneFromUI)
                     .textInputAutocapitalization(.never)
                     .padding()
                     .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
+                    .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                 
                 TextField("Company", text: self.$companyFromUI)
                     .textInputAutocapitalization(.words)
                     .padding()
                     .frame(width: 300, height: 50)
-                    .background(Color.black.opacity(0.05))
+                    .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                 
                 VStack{
@@ -195,7 +195,7 @@ struct SignUpView: View {
                             if(selectedImage != nil )
                             {
                                 let image = selectedImage!
-                                let imageName = "\(UUID().uuidString).jpg"
+                               // let imageName = "\(UUID().uuidString).jpg"
                                 
                                 imageData = image.jpegData(compressionQuality: 0.1)
                             }
@@ -204,7 +204,7 @@ struct SignUpView: View {
                                 return
                             }
                             
-                            var newUser : UserProfile = UserProfile(id: user.uid, fullName: self.fullNameFromUI, email: self.emailFromUI, role: selectedRole, userBio: self.bioFromUI, profilePicture: imageData, contactNumber: self.phoneFromUI, address: self.addressFromUI, rating: 0, company: companyFromUI)
+                            let newUser : UserProfile = UserProfile(id: user.uid, fullName: self.fullNameFromUI, email: self.emailFromUI, role: selectedRole, userBio: self.bioFromUI, profilePicture: imageData, contactNumber: self.phoneFromUI, address: self.addressFromUI, rating: 0, company: companyFromUI)
                             
                             self.dbHelper.createUserProfile(newUser: newUser)
                             
