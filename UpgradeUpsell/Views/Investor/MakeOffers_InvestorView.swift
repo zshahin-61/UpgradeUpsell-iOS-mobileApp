@@ -94,25 +94,58 @@ struct MakeOffers_InvestorView: View {
                     
                 }
                 
-                Section(header: Text("Make an Offer").font(.headline)) {
-                    TextField("Amount Offered", text: $amountOffered)
-                        .keyboardType(.decimalPad)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                Section(header: Text("Make an Offer").font(.headline) ) {
+//                    TextField("Amount Offered", text: $amountOffered)
+//                        .frame(minWidth: 30, maxWidth: .infinity)
+//                        .border(.gray , width: 0.5)
+//                       // .textFieldStyle(RoundedBorderTextFieldStyle())
+//                        .keyboardType(.decimalPad)
+//                        //.padding()
                     
-                    TextField("Duration in Weeks", text: $durationWeeks)
-                        .keyboardType(.numberPad)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                    VStack {
+                        TextField("Amount Offered", text: $amountOffered)
+                            .keyboardType(.decimalPad)
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)) // Adjust the values based on your preference
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+                    
+//                    TextField("Duration in Weeks", text: $durationWeeks)
+//                        .frame(minWidth: 30, maxWidth: .infinity)
+//                        .border(.gray , width: 0.5)
+//                        .keyboardType(.numberPad)
+                        //.textFieldStyle(RoundedBorderTextFieldStyle())
+                      //  .padding()
+                    VStack {
+                        TextField("Duration in Weeks", text: $durationWeeks)
+                            .keyboardType(.numberPad)
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)) // Adjust the values based on your preference
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+                    
+                    
                     
                     Text("Description:")
-                    TextEditor(text: $description)
-                        .frame(height: 200)
-                        .cornerRadius(5)
-                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 0.2))
-                        .padding()
-                }
-            }
+                    VStack {
+                        TextEditor(text: $description)
+                            .frame(height: 200)
+                           // .keyboardType(.numberPad)
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)) // Adjust the values based on your preference
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+                    
+//                    TextEditor(text: $description)
+//                        .frame(height: 200)
+//                        .cornerRadius(5)
+//                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray, lineWidth: 0.2))
+                        //.padding()
+                }//.background(Color.cyan)
+            } .background(Color.gray.opacity(0.1))// Form
             Section {
                 Button("Submit") {
                     guard let currUser = self.dbHelper.userProfile else{
