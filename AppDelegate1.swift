@@ -8,8 +8,9 @@
 //import Firebase
 //import FirebaseMessaging
 //import UserNotifications
+//import FirebaseCore
 //
-//@UIApplicationMain
+//@main
 //class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 //
 //    var window: UIWindow?
@@ -58,10 +59,10 @@
 //        print("FCM registration token: \(fcmToken ?? "")")
 //    }
 //
-//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-//        // This method will be called when a remote FCM message is received
-//        print("Received data message: \(remoteMessage.appData)")
-//    }
+////    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+////        // This method will be called when a remote FCM message is received
+////        print("Received data message: \(remoteMessage.appData)")
+////    }
 //
 //    // MARK: - UNUserNotificationCenterDelegate
 //

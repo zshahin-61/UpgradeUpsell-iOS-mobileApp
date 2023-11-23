@@ -11,8 +11,22 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
 
+
+//class AppDelegate: NSObject, UIApplicationDelegate {
+//  func application(_ application: UIApplication,
+//                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+//    FirebaseApp.configure()
+//      
+//    
+//  }
+//}
+
+
+
+
 @main
 struct UpgradeUpsellApp: App {
+//    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     let authHelper = FireAuthController()
     @StateObject private var themeManager = ThemeManager()
     
@@ -36,6 +50,8 @@ struct UpgradeUpsellApp: App {
                 .preferredColorScheme(themeManager.currentTheme)
                                 .environmentObject(themeManager)
                 //.background(BackgroundView()) // Apply the gradient background
+            
+            
         }
     }
 }
