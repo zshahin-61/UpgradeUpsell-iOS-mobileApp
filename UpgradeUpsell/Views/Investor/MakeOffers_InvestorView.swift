@@ -126,8 +126,6 @@ struct MakeOffers_InvestorView: View {
                     .cornerRadius(8)
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
                     
-                    
-                    
                     Text("Description:")
                     VStack {
                         TextEditor(text: $description)
