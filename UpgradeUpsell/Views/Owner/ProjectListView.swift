@@ -51,21 +51,23 @@ struct ProjectListView: View {
                     }
                     .onDelete(perform: deleteProjects)
                 }
-                .onAppear {
-                    if let userID = self.dbHelper.userProfile?.id {
-                        dbHelper.getUserProjectsWithStatus(userID: userID) { projects, error in
-                            if let projects = projects {
-                                self.userProjects = projects
-                            } else if let error = error {
-                                // Handle the error
+                
+                //            .padding(.horizontal, 10)
+            }
+            
+        }
+        .onAppear {
+            if let userID = self.dbHelper.userProfile?.id {
+                dbHelper.getUserProjectsWithStatus(userID: userID) { projects, error in
+                    if let projects = projects {
+                        self.userProjects = projects
+                    } else if let error = error {
+                        // Handle the error
 #if DEBUG
-                                print("Error fetching user projects: \(error.localizedDescription)")
+                        print("Error fetching user projects: \(error.localizedDescription)")
 #endif
-                            }
-                        }
                     }
                 }
-                //            .padding(.horizontal, 10)
             }
         }
         .padding(.top, 10)
