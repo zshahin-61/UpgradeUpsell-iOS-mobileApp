@@ -60,7 +60,7 @@ struct SettingsView: View {
                     }
                     HStack{
                         Button(action: {
-                            var newPref = Prefrences(id: dbHelper.userProfile!.id!, fontSize: fontSizeFromUI, theme: themeFromUI, language: langFromUI, pushNotif: pushNotifFromUI, emailNotif: notificationsEmail)
+                            let newPref = Prefrences(id: dbHelper.userProfile!.id!, fontSize: fontSizeFromUI, theme: themeFromUI, language: langFromUI, pushNotif: pushNotifFromUI, emailNotif: notificationsEmail)
                             //
                             self.dbHelper.saveUserPrefrences(newPref: newPref) { (prefrences, error) in
                                 if let error = error {

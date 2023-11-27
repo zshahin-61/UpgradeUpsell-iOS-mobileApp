@@ -19,6 +19,7 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
+            Text("Chat").bold().font(.title).foregroundColor(.brown)
             if dbHelper.messages.isEmpty {
                 if dbHelper.isLoadingMessages {
                     // Loading indicator
@@ -81,7 +82,7 @@ struct ChatView: View {
                     self.listenForMessages()
                 }
             }
-            .navigationBarTitle("Chat", displayMode: .inline)
+            //.navigationBarTitle("Chat", displayMode: .inline)
         }
     }
     
