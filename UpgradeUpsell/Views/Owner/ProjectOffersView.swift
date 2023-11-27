@@ -37,36 +37,36 @@ struct ProjectOffersView: View {
                                 HStack {
                                     Text("Title:").bold()
                                     Spacer()
-                                    Text("\(suggestions[index].projectTitle)")
+                                    Text("\(filteredSuggestions[index].projectTitle)")
                                 }
                                 HStack {
                                     Text("Offer Date:").bold()
                                     Spacer()
-                                    Text("\(dateFormatter.string(from: suggestions[index].date ?? Date()))")
+                                    Text("\(dateFormatter.string(from: filteredSuggestions[index].date ?? Date()))")
                                 }
                                 Group {
                                     HStack {
-                                        NavigationLink(destination: InvestorProfileView(investorID: suggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+                                        NavigationLink(destination: InvestorProfileView(investorID: filteredSuggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                                             Text("Investor:").bold()
                                             Spacer()
-                                            Text(suggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
+                                            Text(filteredSuggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
                                         }
                                     }
                                     
                                     HStack {
                                         Text("Offered amount:").bold()
                                         Spacer()
-                                        Text(String(format: "%.2f", suggestions[index].amountOffered))
+                                        Text(String(format: "%.2f", filteredSuggestions[index].amountOffered))
                                     }
                                     
                                     HStack {
                                         Text("Duration:").bold()
                                         Spacer()
-                                        Text("\(suggestions[index].durationWeeks) Weeks")
+                                        Text("\(filteredSuggestions[index].durationWeeks) Weeks")
                                     }
                                 }//Group
                                 HStack {
-                                    Text("\(suggestions[index].description)")
+                                    Text("\(filteredSuggestions[index].description)")
                                 }
                                 
                                 if !isStatusUpdated[index]  {
@@ -74,7 +74,7 @@ struct ProjectOffersView: View {
                                     HStack {
                                         Text("Status:").bold()
                                         Spacer()
-                                        Picker("Status", selection: $suggestions[index].status) {
+                                        Picker("Status", selection: $filteredSuggestions[index].status) {
                                             Text("Pending").tag("Pending")
                                             Text("Accept").tag("Accept")
                                             Text("Declined").tag("Declined")
@@ -86,8 +86,8 @@ struct ProjectOffersView: View {
                                         Text("Status:").bold()
                                         Spacer()
                                         
-                                        Text(suggestions[index].status)
-                                            .foregroundColor(statusColor(for: suggestions[index].status))
+                                        Text(filteredSuggestions[index].status)
+                                            .foregroundColor(statusColor(for: filteredSuggestions[index].status))
                                     } //hstack
 //                                    if(suggestions[index].status == "Accept"){
 //                                        HStack {
@@ -121,6 +121,7 @@ struct ProjectOffersView: View {
             Spacer()
         }
         .onAppear {
+            print("i am sadddd")
             loadSuggestions()
         }
         .onChange(of: searchText) { _ in
@@ -159,9 +160,9 @@ struct ProjectOffersView: View {
                 } else if let suggestions = suggestions {
                     self.suggestions = suggestions
                     filterSuggestions()
-                    self.updatedStatuses = suggestions.map { $0.status }
+                   // self.updatedStatuses = filteredSuggestions.map { $0.status }
                    // isStatusUpdated = Array(repeating: false, count: suggestions.count)
-                    self.isStatusUpdated = suggestions.map { $0.status == "Pending" ? false : true }
+                    //self.isStatusUpdated = filteredSuggestions.map { $0.status == "Pending" ? false : true }
 //                            self.fetchChatPermissionStatus(sugg: <#T##InvestmentSuggestion#>, completion: <#T##(Bool) -> Void#>)
 //                            self.hasChatPermission =
                     //self.hasChatPermission = suggestions.map{$0.status != "Accept"  ? false : fetchChatPermissionStatus(sugg: $0)  }
@@ -174,11 +175,16 @@ struct ProjectOffersView: View {
     private func filterSuggestions(){
         if(!searchText.isEmpty){
             filteredSuggestions = suggestions.filter {
-                $0.projectTitle.localizedCaseInsensitiveContains(searchText)
+                $0.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
+                
             }
         }else{
-            
+            filteredSuggestions = suggestions
         }
+        
+        self.updatedStatuses = filteredSuggestions.map { $0.status }
+       // isStatusUpdated = Array(repeating: false, count: suggestions.count)
+        self.isStatusUpdated = filteredSuggestions.map { $0.status == "Pending" ? false : true }
     }
     
     // Function to save updated statuses to the database
