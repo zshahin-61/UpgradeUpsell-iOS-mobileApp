@@ -121,11 +121,11 @@ struct InvestorProfileView: View {
             }
         }
        // .navigationBarTitle("Investor Profile", displayMode: .inline)
-        .navigationBarItems(leading: Button(action: {
-                  self.presentationMode.wrappedValue.dismiss()
-               }) {
-                   Text(" Back ").font(.headline)
-               })
+//        .navigationBarItems(leading: Button(action: {
+//                  self.presentationMode.wrappedValue.dismiss()
+//               }) {
+//                   Text(" Back ").font(.headline)
+//               })
     }
     
     private func fetchChatPermissionStatus()  {
