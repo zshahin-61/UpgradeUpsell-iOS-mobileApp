@@ -6,13 +6,16 @@ struct ProjectOffersView: View {
     @EnvironmentObject var dbHelper: FirestoreController
 
     @State private var suggestions: [InvestmentSuggestion] = []
+    @State private var filteredSuggestions: [InvestmentSuggestion] = []
     @State private var isLoading: Bool = false
     @State private var updatedStatuses: [String] = [] // Store updated statuses
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
     
     @State private var isStatusUpdated: [Bool] = []
-    @State private var hasChatPermission: [Bool] = []
+    //@State private var hasChatPermission: [Bool] = []
+    
+    @State private var searchText = ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -21,13 +24,14 @@ struct ProjectOffersView: View {
                 Text("Offers").bold().font(.title).foregroundColor(.brown)
                 Spacer()
             }
+            SearchBar(text: $searchText, placeholder: "Search by title")
             List {
                 if dbHelper.userProfile == nil {
                     Text("No user login")
                 } else if isLoading {
                     ProgressView()
                 } else {
-                    ForEach(suggestions.indices, id: \.self) { index in
+                    ForEach(filteredSuggestions.indices, id: \.self) { index in
                         Section {
                             VStack{
                                 HStack {
@@ -113,28 +117,16 @@ struct ProjectOffersView: View {
                 }.buttonStyle(.borderedProminent)
                 Spacer()
             }
-            .onAppear {
-                if let ownerID = dbHelper.userProfile?.id {
-                    self.isLoading = true
-                    self.dbHelper.getInveSuggByOwnerID(ownerID: ownerID) { (suggestions, error) in
-                        self.isLoading = false
-                        if let error = error {
-#if DEBUG
-                            print("Error getting investment suggestions: \(error)")
-                            #endif
-                        } else if let suggestions = suggestions {
-                            self.suggestions = suggestions
-                            self.updatedStatuses = suggestions.map { $0.status }
-                           // isStatusUpdated = Array(repeating: false, count: suggestions.count)
-                            self.isStatusUpdated = suggestions.map { $0.status == "Pending" ? false : true }
-//                            self.fetchChatPermissionStatus(sugg: <#T##InvestmentSuggestion#>, completion: <#T##(Bool) -> Void#>)
-//                            self.hasChatPermission =
-                            self.hasChatPermission = suggestions.map{$0.status != "Accept"  ? false : fetchChatPermissionStatus(sugg: $0)  }
-                        }
-                    }
-                }
-            }
+            
             Spacer()
+        }
+        .onAppear {
+            loadSuggestions()
+        }
+        .onChange(of: searchText) { _ in
+            // Update filteredSuggestions based on the search text
+            filterSuggestions()
+        
         }
         .alert(isPresented: $isShowingAlert) {
                     Alert(
@@ -152,10 +144,46 @@ struct ProjectOffersView: View {
         formatter.timeStyle = .none
         return formatter
     }()
+    //
+    
+    // load suggestions
+   private func loadSuggestions (){
+        if let ownerID = dbHelper.userProfile?.id {
+            self.isLoading = true
+            self.dbHelper.getInveSuggByOwnerID(ownerID: ownerID) { (suggestions, error) in
+                self.isLoading = false
+                if let error = error {
+#if DEBUG
+                    print("Error getting investment suggestions: \(error)")
+                    #endif
+                } else if let suggestions = suggestions {
+                    self.suggestions = suggestions
+                    filterSuggestions()
+                    self.updatedStatuses = suggestions.map { $0.status }
+                   // isStatusUpdated = Array(repeating: false, count: suggestions.count)
+                    self.isStatusUpdated = suggestions.map { $0.status == "Pending" ? false : true }
+//                            self.fetchChatPermissionStatus(sugg: <#T##InvestmentSuggestion#>, completion: <#T##(Bool) -> Void#>)
+//                            self.hasChatPermission =
+                    //self.hasChatPermission = suggestions.map{$0.status != "Accept"  ? false : fetchChatPermissionStatus(sugg: $0)  }
+                }
+            }
+        }
+    }
+    
+    //filter suggestions
+    private func filterSuggestions(){
+        if(!searchText.isEmpty){
+            filteredSuggestions = suggestions.filter {
+                $0.projectTitle.localizedCaseInsensitiveContains(searchText)
+            }
+        }else{
+            
+        }
+    }
     
     // Function to save updated statuses to the database
     func updateOfferStatuses() {
-        for (index, suggestion) in suggestions.enumerated() {
+        for (index, suggestion) in filteredSuggestions.enumerated() {
             // Check if the status has been updated
             if suggestion.status != updatedStatuses[index] {
                 // Update the status in the database
@@ -224,23 +252,23 @@ struct ProjectOffersView: View {
     }
 
     // Function to fetch chat permission status for the current user
-    private  func fetchChatPermissionStatus(sugg: InvestmentSuggestion) -> Bool {
-        var result = false
-        dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in
-            if let error = error {
-               result = false
-                return
-            }
-
-            if let permission = permission {
-               result = permission.canChat
-            } else {
-                result = false
-            }
-        }
-        return result
-    }
-    
+//    private  func fetchChatPermissionStatus(sugg: InvestmentSuggestion) -> Bool {
+//        var result = false
+//        dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in
+//            if let error = error {
+//               result = false
+//                return
+//            }
+//
+//            if let permission = permission {
+//               result = permission.canChat
+//            } else {
+//                result = false
+//            }
+//        }
+//        return result
+//    }
+//    
     
     func statusColor(for status: String) -> Color {
         switch status {
