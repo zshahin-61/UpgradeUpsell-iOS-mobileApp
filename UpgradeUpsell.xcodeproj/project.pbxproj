@@ -102,6 +102,7 @@
 		5FFE00EB2AFEB0A8002F9B64 /* ChatParticipants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */; };
 		5FFE00ED2B0024D8002F9B64 /* OwnerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */; };
 		5FFE00F32B053856002F9B64 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00F22B053856002F9B64 /* ThemeManager.swift */; };
+		5FFE00F72B1523FF002F9B64 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00F62B1523FF002F9B64 /* SearchBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -177,6 +178,7 @@
 		5FFE00EA2AFEB0A8002F9B64 /* ChatParticipants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatParticipants.swift; sourceTree = "<group>"; };
 		5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerProfileView.swift; sourceTree = "<group>"; };
 		5FFE00F22B053856002F9B64 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		5FFE00F62B1523FF002F9B64 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +301,7 @@
 				5FFE00E62AF54E14002F9B64 /* ChangePasswordView.swift */,
 				5FFE00E82AFE88F6002F9B64 /* ChatView.swift */,
 				5FFE00F22B053856002F9B64 /* ThemeManager.swift */,
+				5FFE00F62B1523FF002F9B64 /* SearchBarView.swift */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				5A47D9532AF437820064AF0E /* UserProfileView.swift in Sources */,
 				5F9466332ABC84400006FBB5 /* SignUpView.swift in Sources */,
 				5F9466152ABB5C460006FBB5 /* FirestoreController.swift in Sources */,
+				5FFE00F72B1523FF002F9B64 /* SearchBarView.swift in Sources */,
 				5FF765752ADDE32E004A0C66 /* InvestorProfileView.swift in Sources */,
 				5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */,
 				5A8DAB332ABCB3B500CDCBCB /* ProjectListView.swift in Sources */,

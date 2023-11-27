@@ -13,19 +13,24 @@ struct ProjectListView: View {
     @EnvironmentObject var authHelper: FireAuthController
     
     @State private var userProjects: [RenovateProject] = []
+    @State private var filteredProjects: [RenovateProject] = []
     @State private var selectedProject: RenovateProject?
     @State private var isShowingPicker = false
     @State private var showDeleteAlert = false
     @State private var selectedOffsets: IndexSet?
+    @State private var searchText = ""
     
     var body: some View {
         VStack {
             Text("My Properties").bold().font(.title).foregroundColor(.brown)
-            if userProjects.isEmpty {
+            
+            SearchBar(text: $searchText, placeholder: "Search by title")
+            
+            if filteredProjects.isEmpty {
                 Text("No properties found.")
             } else {
                 List {
-                    ForEach(userProjects) { property in
+                    ForEach(filteredProjects) { property in
                         //VStack{
                         NavigationLink(destination: ProjectViewEdit(selectedProject: property)
                             .environmentObject(authHelper)
@@ -55,12 +60,12 @@ struct ProjectListView: View {
                     .onDelete { indexSet in
                         
                         let selectedProjects = indexSet.map { userProjects[$0] }
-
-                            guard selectedProjects.allSatisfy({ $0.status.lowercased() != "in progress" }) else {
-                                // Show an alert to inform the user that a project with "In Progress" status cannot be deleted
-                                showAlert(message: "Cannot delete a project with 'In Progress' status.")
-                                return
-                            }
+                        
+                        guard selectedProjects.allSatisfy({ $0.status.lowercased() != "in progress" }) else {
+                            // Show an alert to inform the user that a project with "In Progress" status cannot be deleted
+                            showAlert(message: "Cannot delete a project with 'In Progress' status.")
+                            return
+                        }
                         
                         selectedOffsets = indexSet
                         showDeleteAlert = true
@@ -73,35 +78,50 @@ struct ProjectListView: View {
             
         }
         .alert(isPresented: $showDeleteAlert) {
-                   Alert(
-                       title: Text("Confirm Deletion"),
-                       message: Text("Are you sure you want to delete this property?"),
-                       primaryButton: .destructive(Text("Delete")) {
-                           deleteProjects()
-                       },
-                       secondaryButton: .cancel()
-                   )
-               }
+            Alert(
+                title: Text("Confirm Deletion"),
+                message: Text("Are you sure you want to delete this property?"),
+                primaryButton: .destructive(Text("Delete")) {
+                    deleteProjects()
+                },
+                secondaryButton: .cancel()
+            )
+        }
         .onAppear {
             loadProjects()
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+            filterProjects()
+        }
         .padding(.top, 10)
-//        .navigationBarTitle("List My Properties")//VStack
+        //        .navigationBarTitle("List My Properties")//VStack
     }
     
     //load projects
-    private func loadProjects(){
-        if let userID = self.dbHelper.userProfile?.id {
-            dbHelper.getUserProjectsWithStatus(userID: userID) { projects, error in
-                if let projects = projects {
-                    self.userProjects = projects
-                } else if let error = error {
-                    // Handle the error
-#if DEBUG
-                    print("Error fetching user projects: \(error.localizedDescription)")
-#endif
+    private func loadProjects() {
+            if let userID = self.dbHelper.userProfile?.id {
+                dbHelper.getUserProjectsWithStatus(userID: userID) { projects, error in
+                    if let projects = projects {
+                        self.userProjects = projects
+                        filterProjects()
+                    } else if let error = error {
+                        // Handle the error
+                        #if DEBUG
+                        print("Error fetching user projects: \(error.localizedDescription)")
+                        #endif
+                    }
                 }
             }
+        }
+        
+    private func filterProjects() {
+        print("Search Text: \(searchText)")
+        if !searchText.isEmpty {
+            filteredProjects = userProjects.filter {
+                $0.title.localizedCaseInsensitiveContains(searchText.lowercased())
+            }
+        } else {
+            filteredProjects = userProjects
         }
     }
     
