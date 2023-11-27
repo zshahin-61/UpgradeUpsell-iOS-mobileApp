@@ -7,26 +7,18 @@
 
 import SwiftUI
 
-struct SearchBar: View {
+struct SearchBar222: View {
     @Binding var text: String
     var placeholder: String
 
     var body: some View {
         HStack {
             TextField(placeholder, text: $text)
-                .padding(7)
-                .padding(.horizontal, 25)
+                .padding(8)
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
-                .overlay(
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 8)
-                    }
-                )
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 15)
+                .padding(.vertical, 10)
         }
     }
 }

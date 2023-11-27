@@ -90,7 +90,10 @@ struct ProjectListView: View {
         .onAppear {
             loadProjects()
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+//        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+//            filterProjects()
+//        }
+        .onChange(of: searchText) { _ in
             filterProjects()
         }
         .padding(.top, 10)
@@ -196,4 +199,22 @@ struct ProjectListView: View {
 //            }
 //        }
 //    }
+}
+
+
+
+struct SearchBar: View {
+    @Binding var text: String
+    var placeholder: String
+
+    var body: some View {
+        HStack {
+            TextField(placeholder, text: $text)
+                .padding(8)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .padding(.horizontal, 15)
+                .padding(.vertical, 10)
+        }
+    }
 }
