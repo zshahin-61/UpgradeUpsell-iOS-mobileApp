@@ -137,17 +137,24 @@ struct ProjectListView: View {
 
                     dbHelper.updateProjectStatus(project) { success in
                         if success {
+                            
                             loadProjects()
 #if DEBUG
                             print("Project status updated to 'deleted' successfully.")
                             #endif
+                            
+                            var flName = ""
+                            if let fullName = dbHelper.userProfile?.fullName {
+                                flName = fullName
+                            }
+                            
                             // Insert a notification in Firebase
                             let notification = Notifications(
                                 id: UUID().uuidString,
                                 timestamp: Date(),
                                 userID: project.ownerID,
                                 event: "Project Deactive",
-                                details: "Project titled '\(project.title)' has been deleted By \(dbHelper.userProfile?.fullName).",
+                                details: "Project titled '\(project.title)' has been deleted By \(flName).",
                                 isRead: false,
                                 projectID: project.id!
                             )

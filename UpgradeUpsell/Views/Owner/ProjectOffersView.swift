@@ -18,7 +18,7 @@ struct ProjectOffersView: View {
     @State private var searchText = ""
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading) {
             HStack{
                 Spacer()
                 Text("Offers").bold().font(.title).foregroundColor(.brown)
@@ -33,47 +33,50 @@ struct ProjectOffersView: View {
                 } else {
                     ForEach(filteredSuggestions.indices, id: \.self) { index in
                         Section {
-                            VStack(alignment: .leading, spacing: 5) {
-                                //HStack {
-                                    Text("Title:").bold()
+                            VStack(alignment: .leading) {
+                                VStack(alignment: .leading, spacing: 1) {
+                                Text("Title").font(.subheadline).foregroundColor(.gray)
                                  //   Spacer()
                                     Text("\(filteredSuggestions[index].projectTitle)")
-                              //  }
-                              //  HStack {
-                                    Text("Offer Date:").bold()
+                                }.padding(.top, 1)
+                                
+                                VStack(alignment: .leading, spacing: 1) {
+                                    Text("Offer Date").font(.subheadline).foregroundColor(.gray)
                                 //    Spacer()
                                     Text("\(dateFormatter.string(from: filteredSuggestions[index].date ?? Date()))")
-                             //   }
+                                }.padding(.top, 1)
                                 Group {
-                                    //HStack {
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text("Investor").font(.subheadline).foregroundColor(.gray)
                                         NavigationLink(destination: InvestorProfileView(investorID: filteredSuggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
-                                            Text("Investor:").bold()
+                                            
                                            // Spacer()
                                             Text(filteredSuggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
-                                       // }
-                                    }
+                                        }
+                                   }.padding(.top, 1)
                                     
-                                   // HStack {
-                                        Text("Investment Offer:").bold()
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text("Investment Offer").font(.subheadline).foregroundColor(.gray)
                                     //    Spacer()
                                         Text(String(format: "%.2f", filteredSuggestions[index].amountOffered))
-                                   // }
+                                    }.padding(.top, 1)
                                     
-                                  //  HStack {
-                                        Text("Duration:").bold()
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text("Duration").font(.subheadline).foregroundColor(.gray)
                                     //    Spacer()
                                         Text("\(filteredSuggestions[index].durationWeeks) Weeks")
-                                   // }
+                                    }.padding(.top, 1)
                                 }//Group
-                                //HStack {
-                                Text("Investor description:").bold()
+                                    VStack(alignment: .leading, spacing: 1) {
+                                Text("Investor description").font(.subheadline).foregroundColor(.gray)
                                     Text("\(filteredSuggestions[index].description)")
-                               // }
+                                    }.padding(.top, 1)
+                                    .padding(.bottom, 1)
                                 
                                 if !isStatusUpdated[index]  {
                                     // if suggestions[index].status == "Pending" {
                                     HStack {
-                                        Text("Status:").bold()
+                                        Text("Status:").font(.subheadline).foregroundColor(.gray)
                                         Spacer()
                                         Picker("Status", selection: $filteredSuggestions[index].status) {
                                             Text("Pending").tag("Pending")
@@ -84,7 +87,7 @@ struct ProjectOffersView: View {
                                     }
                                 } else {
                                     HStack {
-                                        Text("Status:").bold()
+                                        Text("Status:").font(.subheadline).foregroundColor(.gray)
                                         Spacer()
                                         
                                         Text(filteredSuggestions[index].status)
@@ -103,8 +106,12 @@ struct ProjectOffersView: View {
                                 
                             }
                         }//Section
-                        .listRowInsets(EdgeInsets())
-                        Divider()
+                        .padding()
+                        .border(Color.gray, width: 0.5)
+                        //.contentMargins(5)
+                        //.padding()
+                        //.listRowInsets(EdgeInsets())
+                        //Divider()
                     }
                     
                 }
@@ -138,7 +145,7 @@ struct ProjectOffersView: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-        .padding(.vertical, 5)
+       // .padding(.vertical, 5)
     }
 
     let dateFormatter: DateFormatter = {

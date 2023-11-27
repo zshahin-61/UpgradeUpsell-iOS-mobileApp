@@ -11,28 +11,23 @@ import Firebase
 struct NotificationDetailView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @Environment(\.presentationMode) var presentationMode
-    
-    
     var notification: Notifications
-    
-
     var body: some View {
-        Form {
-            
+        VStack(alignment: .leading, spacing: 5) {
             //            if let currentUser = dbHelper.userProfile{
             //                Text ("Name: \(currentUser.fullName)")
             //            }
-            Text("The Event: \(notification.event)")
+            Text("Event ").bold()
+            Text("\(notification.event)")
 //            let dateFormatter = DateFormatter()
 //            dateFormatter.dateFormat = "h:mm a"
 //            dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
 //            let notificationTimestamp = Date()
 //            Text("Time: \(dateFormatter.string(from: notificationTimestamp))")
-
-         Text("Times: \(notification.timestamp)")
-            
-            Text("Details: \(notification.details ?? "No details available")")
-            
+            Text("Time").bold()
+            Text(" \(notification.timestamp)")
+            Text("Details").bold()
+            Text(" \(notification.details ?? "No details available")")
             //            HStack{
             //                Button(action: {
             //                    dbHelper.markNotificationAsRead(notification) { success in
@@ -44,6 +39,7 @@ struct NotificationDetailView: View {
             //                
             //            }
             HStack{
+                Spacer()
                 Button(action: {
                     dbHelper.deleteNotification(notification) { success in
                         presentationMode.wrappedValue.dismiss()
@@ -52,13 +48,17 @@ struct NotificationDetailView: View {
                 }) {
                     Text("Delete ")
                         .foregroundColor(.red)
-                }
+                }.padding(.top , 20)
+                Spacer()
             }
+            Spacer()
         }.padding()
             .onAppear(){
                 dbHelper.markNotificationAsRead(notification) { success in
-                    
+                    print("success")
                 }
+                
+                
             }
     }
     

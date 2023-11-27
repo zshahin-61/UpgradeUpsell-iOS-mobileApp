@@ -14,7 +14,8 @@ struct NotificationView: View {
     @State private var notifications: [Notifications] = []
 
     var body: some View {
-        NavigationView {
+        VStack {
+            Text("My Notifications").bold().font(.title).foregroundColor(.brown)
             List {
                 ForEach(notifications, id: \.id) { notification in
                     NavigationLink(destination: NotificationDetailView(notification: notification)) {
@@ -50,9 +51,9 @@ struct NotificationView: View {
                     }
                 }
             }
-            .navigationBarTitle("Notifications")
+           // .navigationBarTitle("Notifications")
             .padding()
-        }
+        } //VStack
     }
 
     private func deleteNotifications(at offsets: IndexSet) {
