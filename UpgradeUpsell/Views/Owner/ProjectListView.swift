@@ -75,6 +75,7 @@ struct ProjectListView: View {
                 
                 //            .padding(.horizontal, 10)
             }
+            Spacer()
             
         }
         .alert(isPresented: $showDeleteAlert) {
@@ -118,7 +119,7 @@ struct ProjectListView: View {
         }
         
     private func filterProjects() {
-        print("Search Text: \(searchText)")
+        //print("Search Text: \(searchText)")
         if !searchText.isEmpty {
             filteredProjects = userProjects.filter {
                 $0.title.localizedCaseInsensitiveContains(searchText.lowercased())
@@ -203,18 +204,3 @@ struct ProjectListView: View {
 
 
 
-struct SearchBar: View {
-    @Binding var text: String
-    var placeholder: String
-
-    var body: some View {
-        HStack {
-            TextField(placeholder, text: $text)
-                .padding(8)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding(.horizontal, 15)
-                .padding(.vertical, 10)
-        }
-    }
-}
