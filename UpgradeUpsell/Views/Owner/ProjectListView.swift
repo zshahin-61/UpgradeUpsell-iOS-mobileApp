@@ -19,6 +19,9 @@ struct ProjectListView: View {
     var body: some View {
         VStack {
             Text("My Properties").bold().font(.title).foregroundColor(.brown)
+            if userProjects.isEmpty {
+                Text("No properties found.")
+            } else {
                 List {
                     ForEach(userProjects) { property in
                         //VStack{
@@ -31,19 +34,19 @@ struct ProjectListView: View {
                                     Text(property.status).font(.caption)
                                 }
                             }
-//                        HStack{
-//                            Spacer()
-//                            
-//                            NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
-//                                .environmentObject(authHelper)
-//                                .environmentObject(self.dbHelper)) {
-//                                    Text("See Offers")
-//                                        .foregroundColor(.blue)
-//                                }
-//                                .padding(.leading, 100)
-//                            
-//                            
-//                        }
+                        //                        HStack{
+                        //                            Spacer()
+                        //
+                        //                            NavigationLink(destination: OffersofaPropertyView(selectedProperty: property)
+                        //                                .environmentObject(authHelper)
+                        //                                .environmentObject(self.dbHelper)) {
+                        //                                    Text("See Offers")
+                        //                                        .foregroundColor(.blue)
+                        //                                }
+                        //                                .padding(.leading, 100)
+                        //
+                        //
+                        //                        }
                         //}
                     }
                     .onDelete(perform: deleteProjects)
@@ -57,13 +60,13 @@ struct ProjectListView: View {
                                 // Handle the error
 #if DEBUG
                                 print("Error fetching user projects: \(error.localizedDescription)")
-                                #endif
+#endif
                             }
                         }
                     }
                 }
                 //            .padding(.horizontal, 10)
-            
+            }
         }
         .padding(.top, 10)
 //        .navigationBarTitle("List My Properties")//VStack
