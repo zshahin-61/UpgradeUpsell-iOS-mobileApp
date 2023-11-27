@@ -49,9 +49,10 @@ jobs:
           -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
           -sdk iphoneos \
           -configuration Debug \
+          -allowProvisioningUpdates
           -destination generic/platform=iOS \
           clean archive
-          -allowProvisioningUpdates
+ 
 
       - name: export ipa
         env:
