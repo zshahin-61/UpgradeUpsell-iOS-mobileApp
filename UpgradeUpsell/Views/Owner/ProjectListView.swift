@@ -25,7 +25,11 @@ struct ProjectListView: View {
                         NavigationLink(destination: ProjectViewEdit(selectedProject: property)
                             .environmentObject(authHelper)
                             .environmentObject(self.dbHelper)) {
-                                Text(property.title)
+                                HStack{
+                                    Text(property.title)
+                                    Spacer()
+                                    Text(property.status).font(.caption)
+                                }
                             }
 //                        HStack{
 //                            Spacer()
