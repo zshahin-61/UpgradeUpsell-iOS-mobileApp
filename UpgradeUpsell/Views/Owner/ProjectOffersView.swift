@@ -33,41 +33,42 @@ struct ProjectOffersView: View {
                 } else {
                     ForEach(filteredSuggestions.indices, id: \.self) { index in
                         Section {
-                            VStack{
-                                HStack {
+                            VStack(alignment: .leading, spacing: 5) {
+                                //HStack {
                                     Text("Title:").bold()
-                                    Spacer()
+                                 //   Spacer()
                                     Text("\(filteredSuggestions[index].projectTitle)")
-                                }
-                                HStack {
+                              //  }
+                              //  HStack {
                                     Text("Offer Date:").bold()
-                                    Spacer()
+                                //    Spacer()
                                     Text("\(dateFormatter.string(from: filteredSuggestions[index].date ?? Date()))")
-                                }
+                             //   }
                                 Group {
-                                    HStack {
+                                    //HStack {
                                         NavigationLink(destination: InvestorProfileView(investorID: filteredSuggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                                             Text("Investor:").bold()
-                                            Spacer()
+                                           // Spacer()
                                             Text(filteredSuggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
-                                        }
+                                       // }
                                     }
                                     
-                                    HStack {
-                                        Text("Offered amount:").bold()
-                                        Spacer()
+                                   // HStack {
+                                        Text("Investment Offer:").bold()
+                                    //    Spacer()
                                         Text(String(format: "%.2f", filteredSuggestions[index].amountOffered))
-                                    }
+                                   // }
                                     
-                                    HStack {
+                                  //  HStack {
                                         Text("Duration:").bold()
-                                        Spacer()
+                                    //    Spacer()
                                         Text("\(filteredSuggestions[index].durationWeeks) Weeks")
-                                    }
+                                   // }
                                 }//Group
-                                HStack {
+                                //HStack {
+                                Text("Investor description:").bold()
                                     Text("\(filteredSuggestions[index].description)")
-                                }
+                               // }
                                 
                                 if !isStatusUpdated[index]  {
                                     // if suggestions[index].status == "Pending" {
@@ -102,6 +103,7 @@ struct ProjectOffersView: View {
                                 
                             }
                         }//Section
+                        .listRowInsets(EdgeInsets())
                         Divider()
                     }
                     
@@ -160,12 +162,6 @@ struct ProjectOffersView: View {
                 } else if let suggestions = suggestions {
                     self.suggestions = suggestions
                     filterSuggestions()
-                   // self.updatedStatuses = filteredSuggestions.map { $0.status }
-                   // isStatusUpdated = Array(repeating: false, count: suggestions.count)
-                    //self.isStatusUpdated = filteredSuggestions.map { $0.status == "Pending" ? false : true }
-//                            self.fetchChatPermissionStatus(sugg: <#T##InvestmentSuggestion#>, completion: <#T##(Bool) -> Void#>)
-//                            self.hasChatPermission =
-                    //self.hasChatPermission = suggestions.map{$0.status != "Accept"  ? false : fetchChatPermissionStatus(sugg: $0)  }
                 }
             }
         }
