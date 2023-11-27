@@ -8,5 +8,7 @@ target 'UpgradeUpsell' do
   # Pods for UpgradeUpsell  pod 'HandyJSON'
 
   pod 'Firebase/Messaging'
- 
+  pod 'Firebase/Core'
+  pod 'Charts'
+
 end

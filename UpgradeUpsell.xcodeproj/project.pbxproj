@@ -104,6 +104,19 @@
 		5FFE00F32B053856002F9B64 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFE00F22B053856002F9B64 /* ThemeManager.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5AA2262B2B1507E100D614D0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5A47D9452AF0A36A0064AF0E /* MultiImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagePickerView.swift; sourceTree = "<group>"; };
 		5A47D9492AF15A870064AF0E /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -394,6 +407,7 @@
 				5F9465ED2ABB33E50006FBB5 /* Sources */,
 				5F9465EE2ABB33E50006FBB5 /* Frameworks */,
 				5F9465EF2ABB33E50006FBB5 /* Resources */,
+				5AA2262B2B1507E100D614D0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -716,9 +730,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -755,9 +772,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
