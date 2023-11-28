@@ -44,14 +44,8 @@ jobs:
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles          
 
       - name: build archive
-        run: |
-          xcodebuild -scheme "UpgradeUpsell" \
-          -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
-          -sdk iphoneos \
-          -configuration Debug \
-          -allowProvisioningUpdates \
-          -destination generic/platform=iOS \
-          clean archive
+  run: xcodebuild archive -scheme "UpgradeUpsell" -sdk iphoneos -destination generic/platform=iOS -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive -allowProvisioningUpdates
+
  
 
       - name: export ipa
