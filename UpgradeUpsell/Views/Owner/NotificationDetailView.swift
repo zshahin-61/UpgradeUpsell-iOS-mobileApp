@@ -54,7 +54,7 @@ struct NotificationDetailView: View {
             Spacer()
         }.padding()
             .onAppear(){
-                dbHelper.markNotificationAsRead(notification) { success in
+                self.dbHelper.markNotificationAsRead(notification) { success in
                     print("success")
                 }
                 

@@ -649,12 +649,17 @@ struct ProjectViewEdit: View {
     
     func insertNotif(_ project : RenovateProject, _ a : String){
         
+        var flName = ""
+        if let fullName = dbHelper.userProfile?.fullName{
+            flName = fullName
+        }
+        
         let notification = Notifications(
             id: UUID().uuidString,
             timestamp: Date(),
             userID: project.ownerID,
             event: "Project \(a)!",
-            details: "Project titled '\(project.title)' has been \(a) By \(dbHelper.userProfile?.fullName).",
+            details: "Project titled '\(project.title)' has been \(a) By \(flName).",
             isRead: false,
             projectID: project.id!
         )
