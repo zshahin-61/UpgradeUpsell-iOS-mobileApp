@@ -22,7 +22,6 @@ struct MyOffersView: View {
     @State private var showDeleteConfirmation = false
     
     var body: some View {
-        //NavigationView {
         VStack {
             Text("My Offers").bold().font(.title).foregroundColor(.brown)
                 .padding(.horizontal,10)
@@ -34,13 +33,13 @@ struct MyOffersView: View {
                 if isLoading {
                     ProgressView()
                 } else {
-                    List {
+                    ScrollView {
                         ForEach(filteredSuggestions.indices, id: \.self) { index in
-                            VStack(alignment: .leading, spacing: 10) {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Section{
                                     Text(filteredSuggestions[index].projectTitle)
                                         .font(.headline)
-                                        //.bold()
+                                    //.bold()
                                         .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                                     
                                     HStack {
@@ -72,11 +71,11 @@ struct MyOffersView: View {
                                             .foregroundColor(.red)
                                     }
                                     .alert("Confirmation", isPresented: $showDeleteConfirmation) {
-                                                                Button("Delete", role: .destructive) {
-                                                                    deleteSuggestion(filteredSuggestions[index])
-                                                                }
-                                                                Button("Cancel", role: .cancel) {}
-                                                            }
+                                        Button("Delete", role: .destructive) {
+                                            deleteSuggestion(filteredSuggestions[index])
+                                        }
+                                        Button("Cancel", role: .cancel) {}
+                                    }
                                 }
                                 else{
                                     HStack {
@@ -89,17 +88,21 @@ struct MyOffersView: View {
                                 }//else
                             }//VStack
                             .padding(10)
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
-                            .padding(.horizontal)
-                            .listRowBackground(Color.clear)
+                            //                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
+                            //                            .padding(.horizontal)
+                            //                            .listRowBackground(Color.clear)
+                            .background(RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder(Color.gray, lineWidth: 1.0) // Add border
+                                .background(Color(.systemBackground))).padding(.horizontal)
+                                .padding(.horizontal, 5)
                         }
-                        .onDelete(perform: deleteSuggestion2)
-                    }
-                    .padding(.vertical, 10)
+                        // .onDelete(perform: deleteSuggestion2)
+                    }//list
+                    .padding(.vertical, 5)
                 }
             }
         }
-        .navigationBarTitle("My Offers", displayMode: .inline)
+        //.navigationBarTitle("My Offers", displayMode: .inline)
         .onAppear {
             loadSuggestions()
         }
@@ -108,7 +111,6 @@ struct MyOffersView: View {
             filterSuggestions()
         
         }
-        //}//nav view
     }
     
     //load suggestions

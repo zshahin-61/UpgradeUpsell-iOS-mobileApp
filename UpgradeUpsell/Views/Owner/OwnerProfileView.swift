@@ -133,17 +133,17 @@ struct OwnerProfileView: View {
             }
         }
        // .navigationBarTitle("Investor Profile", displayMode: .inline)
-        .navigationBarItems(leading: Button(action: {
-                  self.presentationMode.wrappedValue.dismiss()
-               }) {
+       // .navigationBarItems(leading: Button(action: {
+                  //self.presentationMode.wrappedValue.dismiss()
+             //  }) {
 //                   Image(systemName: "arrow.left.circle.fill") // Add your icon system name
 //                   //                                .imageScale(.large)
-                   Text(" < Back ").font(.headline)
+         //          Text(" < Back ").font(.headline)
 //                   Label(
 //                           title: { Text("Back").font(.headline) },
 //                           icon: { Image(systemName: "arrow.left.circle.fill") }
 //                       )
-               })
+            //   })
     }
     
     private func fetchChatPermissionStatus()  {

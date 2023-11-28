@@ -69,7 +69,7 @@ struct ProfileView: View {
                 FormSection(header: "Personal Details") {
                     TextField("Full Name", text: $nameFromUI)
                         .padding(.horizontal, 5)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 20, maxHeight: .infinity)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30, maxHeight: .infinity)
                         //.frame(width: 300, height: 30)
                         .border(Color.gray, width: 0.5)
                     
@@ -85,7 +85,7 @@ struct ProfileView: View {
                 }
                 
             if self.role == "Investor" || self.role == "Realtor"{
-                FormSection(header: "Your Rating") {
+                FormSection(header: "Rating") {
                     RatingView(rating: rating)
                         .frame(maxWidth: .infinity)
                     //   .padding()
@@ -220,7 +220,7 @@ struct ProfileView: View {
                 self.errorMsg = nil
                 self.role = currentUser.role
                 if let company = currentUser.company{
-                    print("companyyyyyy")
+                    //print("companyyyyyy")
                     self.companyFromUI = company
                 }
                 // MARK: Show image from db
