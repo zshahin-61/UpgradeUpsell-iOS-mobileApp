@@ -1,17 +1,17 @@
 //
-//  CreateProjectView.swift
+//  ProjectAddView.swift
 //  UpgradeUpsell
 //
-//  Created by Created by Zahra Shahin 2023-10-14.
+//  Created by Golnaz Chehrazi on 2023-11-27.
 //
+
 import SwiftUI
 import Firebase
 import MapKit
 import Foundation
 import FirebaseFirestoreSwift
 
-struct ProjectViewEdit: View {
-    
+struct ProjectAddView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var locationHelper: LocationHelper
@@ -48,7 +48,6 @@ struct ProjectViewEdit: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     
-    var selectedProject: RenovateProject?
     
     
     @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64732, longitude: -79.38279), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
@@ -336,12 +335,6 @@ struct ProjectViewEdit: View {
                 }//section
             }//.padding(.top, 2)//form
             Button(action: {
-                if selectedProject != nil {
-                    // If selectedProject is not nil
-                    updateProperty()
-                    resetFormFields()
-                } else {
-                    // If selectedProject is nil
                     if !title.isEmpty && !description.isEmpty && !address.isEmpty {
                         guard let userID = dbHelper.userProfile?.id else {
                             return
@@ -400,7 +393,7 @@ struct ProjectViewEdit: View {
                         alertMessage = "Please Enter Title, Description, Address, and Square Footage!"
                         showAlert = true
                     }
-                }
+                 
             }) {
                 Text("Save")
                     .font(.headline)
@@ -447,55 +440,6 @@ struct ProjectViewEdit: View {
             //                    Text("Access to the photo library is not authorized.")
             //                }
             //            }
-            
-            
-            
-            .onAppear() {
-                if let currentProject = selectedProject {
-                    self.title = currentProject.title
-                    self.description = currentProject.description
-                    self.selectedCategory = currentProject.category
-                    self.address = currentProject.location
-                    
-                    self.lng = currentProject.lng
-                    self.lat = currentProject.lat
-                    self.investmentNeeded = currentProject.investmentNeeded
-                    self.status = currentProject.status
-                    self.startDate = currentProject.startDate
-                    self.endDate = currentProject.endDate
-                    self.numberOfBedrooms = currentProject.numberOfBedrooms
-                    self.numberOfBathrooms = currentProject.numberOfBathrooms
-                    self.propertyType = currentProject.propertyType
-                    self.squareFootage = currentProject.squareFootage
-                    self.isFurnished = currentProject.isFurnished
-                    
-                    // MARK: Show image from db
-                    //                    if let imageData = currentProject.images as? Data {
-                    //                        self.imageData = imageData
-                    //                    } else {
-                    //                        print("Invalid image data format")
-                    //                    }
-                    // MARK: Show images from db
-                    if let imageDatas = currentProject.images, !imageDatas.isEmpty {
-                        var loadedImages: [UIImage] = []
-                        
-                        for imageData in imageDatas {
-                            if let uiImage = UIImage(data: imageData) {
-                                loadedImages.append(uiImage)
-                            } else {
-#if DEBUG
-                                print("Failed to convert image data to UIImage")
-                                #endif
-                            }
-                        }
-                        
-                        // Now, you have an array of loaded images
-                        self.selectedImages = loadedImages
-                    }
-                } else {
-                    resetFormFields()
-                }
-            } //onApperar
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text("Message! "),
@@ -590,62 +534,6 @@ struct ProjectViewEdit: View {
     //
     //        }
     //    }
-    
-    private func updateProperty() {
-        guard let userID = dbHelper.userProfile?.id else {
-            return
-        }
-        
-        var imageDatas: [Data] = []
-        
-        if !selectedImages.isEmpty {
-            for image in selectedImages {
-                if let imageData = image?.jpegData(compressionQuality: 0.1) {
-                    imageDatas.append(imageData)
-                }
-            }
-        }
-        
-        let updatedProperty = RenovateProject(
-            projectID: selectedProject?.id ?? UUID().uuidString,
-            title: title,
-            description: description,
-            location: address,
-            lng: lng,
-            lat: lat,
-            images: imageDatas,
-            ownerID: userID,
-            category: selectedCategory,
-            investmentNeeded: investmentNeeded,
-            selectedInvestmentSuggestionID: selectedProject?.selectedInvestmentSuggestionID ?? "",
-            status: status,
-            startDate: startDate,
-            endDate: endDate,
-            numberOfBedrooms: numberOfBedrooms,
-            numberOfBathrooms: numberOfBathrooms,
-            propertyType: propertyType,
-            squareFootage: squareFootage,
-            isFurnished: isFurnished,
-            createdDate: selectedProject?.createdDate ?? Date(),
-            updatedDate: Date(),
-            favoriteCount: selectedProject?.favoriteCount ?? 0,
-            realtorID: selectedProject?.realtorID ?? ""
-        )
-        
-        dbHelper.updateProperty(updatedProperty) { success in
-            if success {
-                insertNotif(updatedProperty, "Update")
-                alertMessage = "Property Update successfully"
-               resetFormFields()
-                //                Find a solution after run above code project will be Crash
-                             presentationMode.wrappedValue.dismiss()
-            } else {
-                alertMessage = "Failed to Update property. Please try again."
-            }
-            showAlert = true
-        }
-    }
-    
     
     func insertNotif(_ project : RenovateProject, _ a : String){
         

@@ -24,7 +24,7 @@ struct HomeView: View {
                     Text("View Projects")
                 }
             
-            ProjectViewEdit()
+            ProjectAddView()
                 .tabItem {
                     Label("Add Property", systemImage: "plus.circle")
                     Text("Add Property")

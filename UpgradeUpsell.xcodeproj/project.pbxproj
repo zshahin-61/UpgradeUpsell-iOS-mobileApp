@@ -84,6 +84,7 @@
 		5F9466352ABC845C0006FBB5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466342ABC845C0006FBB5 /* ProfileView.swift */; };
 		5F9466372ABCC5940006FBB5 /* PhotoLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */; };
 		5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */; };
+		5FB31F332B159849000D40E0 /* ProjectAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31F322B159849000D40E0 /* ProjectAddView.swift */; };
 		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
 		5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882462ACE591C0034439F /* HomeView_Realtor.swift */; };
 		5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */; };
@@ -161,6 +162,7 @@
 		5F9466342ABC845C0006FBB5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryManager.swift; sourceTree = "<group>"; };
 		5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		5FB31F322B159849000D40E0 /* ProjectAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAddView.swift; sourceTree = "<group>"; };
 		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
 		5FD882462ACE591C0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
 		5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOffers_InvestorView.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				5A47D9452AF0A36A0064AF0E /* MultiImagePickerView.swift */,
 				5A47D9492AF15A870064AF0E /* MapView.swift */,
 				5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */,
+				5FB31F322B159849000D40E0 /* ProjectAddView.swift */,
 			);
 			path = Owner;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FB31F332B159849000D40E0 /* ProjectAddView.swift in Sources */,
 				5FFE00E72AF54E14002F9B64 /* ChangePasswordView.swift in Sources */,
 				5FFE00EB2AFEB0A8002F9B64 /* ChatParticipants.swift in Sources */,
 				5F9466242ABBC4B30006FBB5 /* Investment.swift in Sources */,
