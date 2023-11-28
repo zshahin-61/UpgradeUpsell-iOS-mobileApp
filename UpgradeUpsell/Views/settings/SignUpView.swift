@@ -172,13 +172,13 @@ struct SignUpView: View {
                     }
                 }
             }
-            .sheet(isPresented: $isShowingPicker) {
-                if photoLibraryManager.isAuthorized {
-                    ImagePickerView(selectedImage: $selectedImage)
-                } else {
-                    Text("Access to photo library is not authorized.")
-                }
-            }
+//            .sheet(isPresented: $isShowingPicker) {
+//                if photoLibraryManager.isAuthorized {
+//                    ImagePickerView(selectedImage: $selectedImage)
+//                } else {
+//                    Text("Access to photo library is not authorized.")
+//                }
+//            }
             //}
             .autocorrectionDisabled(true)
             
