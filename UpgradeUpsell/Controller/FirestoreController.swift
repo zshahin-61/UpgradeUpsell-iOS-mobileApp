@@ -902,7 +902,7 @@ class FirestoreController: ObservableObject {
 
         let query = suggestionsRef
             .whereField("ownerID", isEqualTo: ownerID)
-            .whereField("status", isNotEqualTo: "Declined")
+            //.whereField("status", isNotEqualTo: "Declined")
         
         // Perform the query.
         query.getDocuments { (querySnapshot, error) in
@@ -916,7 +916,9 @@ class FirestoreController: ObservableObject {
                 for document in querySnapshot!.documents {
                     // Deserialize the document data into an InvestmentSuggestion object.
                     if let suggestion = try? document.data(as: InvestmentSuggestion.self) {
-                        suggestions.append(suggestion)
+                        if suggestion.status.lowercased() != "declined" {
+                                                suggestions.append(suggestion)
+                                            }
                     }
                 }
 
