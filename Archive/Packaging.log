@@ -1,0 +1,194 @@
+2023-11-27 19:19:48 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x2b687f060; archive(resolved)="<IDEArchive: 0x2cc35c3a0>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team(resolved)="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	Chain (15, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x2b687f060; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionProcessingPipelineContext: 0x2cc31a890; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2d3e3dd50; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2d3e28aa0; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2d3e541a0; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2d3e8c100; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2d3e4ce60; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x403eae6d0; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2b50cf000; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2b97f34a0; teamID='7B7KJQCFCP', teamName='Priteshkumar Patel', teamType='Individual', username='pnp2484@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2be18a820; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="(null)">
+	<IDEDistributionContext: 0x2be18ae60; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="(null)">
+	<IDEDistributionContext: 0x2ff4a2dc0; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x2b7636150>", team="(null)">
+	<IDEDistributionContext: 0x2f8194490; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="(null)", team="(null)">
+	<IDEDistributionContext: 0x2b7454cd0; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="(null)", team="(null)">
+	<IDEDistributionContext: 0x2f9b93b80; archive = "<IDEArchive: 0x2cc35c3a0>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x2b687f060>
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionCreateDestRootStep
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionCopyItemStep
+2023-11-27 19:19:48 +0000  Running /usr/bin/ditto '-V' '/Users/zahrashahin/Library/Developer/Xcode/Archives/2023-11-27/UpgradeUpsell 2023-11-27, 2.19 PM.xcarchive/Products/Applications/UpgradeUpsell.app' '/var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Root/Payload/UpgradeUpsell.app'
+2023-11-27 19:19:48 +0000  >>> Copying /Users/zahrashahin/Library/Developer/Xcode/Archives/2023-11-27/UpgradeUpsell 2023-11-27, 2.19 PM.xcarchive/Products/Applications/UpgradeUpsell.app 
+2023-11-27 19:19:48 +0000  copying file ./_CodeSignature/CodeResources ... 
+2023-11-27 19:19:48 +0000  8387 bytes for ./_CodeSignature/CodeResources
+copying file ./AppIcon60x60@2x.png ... 
+2023-11-27 19:19:48 +0000  16751 bytes for ./AppIcon60x60@2x.png
+2023-11-27 19:19:48 +0000  copying file ./SDWebImage_SDWebImage.bundle/PrivacyInfo.xcprivacy ... 
+2023-11-27 19:19:48 +0000  599 bytes for ./SDWebImage_SDWebImage.bundle/PrivacyInfo.xcprivacy
+copying file ./SDWebImage_SDWebImage.bundle/Info.plist ... 
+2023-11-27 19:19:48 +0000  687 bytes for ./SDWebImage_SDWebImage.bundle/Info.plist
+2023-11-27 19:19:48 +0000  copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/close-with-transparency@2x.png ... 
+2023-11-27 19:19:48 +0000  837 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/close-with-transparency@2x.png
+copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/close-with-transparency.png ... 
+2023-11-27 19:19:48 +0000  379 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/close-with-transparency.png
+2023-11-27 19:19:48 +0000  copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/oTF-1C-LZP-view-SM1-hn-m3n.nib ... 
+2023-11-27 19:19:48 +0000  10799 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/oTF-1C-LZP-view-SM1-hn-m3n.nib
+copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/card-view-vc.nib ... 
+2023-11-27 19:19:48 +0000  1040 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/card-view-vc.nib
+2023-11-27 19:19:48 +0000  copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/banner-view-vc.nib ... 
+2023-11-27 19:19:48 +0000  1044 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/banner-view-vc.nib
+copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/x01-lq-3r6-view-1pz-BP-O6T.nib ... 
+2023-11-27 19:19:48 +0000  13221 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/x01-lq-3r6-view-1pz-BP-O6T.nib
+copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/lbb-HM-tHJ-view-vRb-yf-OWE.nib ... 
+2023-11-27 19:19:48 +0000  4842 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/lbb-HM-tHJ-view-vRb-yf-OWE.nib
+copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/modal-view-vc.nib ... 
+2023-11-27 19:19:48 +0000  1042 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/modal-view-vc.nib
+copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/lGH-bl-7Xw-view-ef6-R8-q1S.nib ... 
+2023-11-27 19:19:48 +0000  3628 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/lGH-bl-7Xw-view-ef6-R8-q1S.nib
+copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/image-only-vc.nib ... 
+2023-11-27 19:19:48 +0000  1046 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/image-only-vc.nib
+copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/Info.plist ... 
+243 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/Info.plist
+2023-11-27 19:19:48 +0000  copying file ./Firebase_FirebaseInAppMessaging_iOS.bundle/Info.plist ... 
+2023-11-27 19:19:48 +0000  715 bytes for ./Firebase_FirebaseInAppMessaging_iOS.bundle/Info.plist
+2023-11-27 19:19:48 +0000  copying file ./GoogleService-Info.plist ... 
+2023-11-27 19:19:48 +0000  474 bytes for ./GoogleService-Info.plist
+copying file ./ExportOptions.plist ... 
+2023-11-27 19:19:48 +0000  182 bytes for ./ExportOptions.plist
+copying file ./Assets.car ... 
+2023-11-27 19:19:48 +0000  254111 bytes for ./Assets.car
+2023-11-27 19:19:48 +0000  copying file ./UpgradeUpsell ... 
+2023-11-27 19:19:48 +0000  30063904 bytes for ./UpgradeUpsell
+copying file ./AppIcon76x76@2x~ipad.png ... 
+2023-11-27 19:19:48 +0000  21129 bytes for ./AppIcon76x76@2x~ipad.png
+copying file ./embedded.mobileprovision ... 
+2023-11-27 19:19:48 +0000  16858 bytes for ./embedded.mobileprovision
+copying file ./Info.plist ... 
+2023-11-27 19:19:48 +0000  1543 bytes for ./Info.plist
+copying file ./PkgInfo ... 
+2023-11-27 19:19:48 +0000  8 bytes for ./PkgInfo
+2023-11-27 19:19:48 +0000  /usr/bin/ditto exited with 0
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionEmbedProfileStep
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionInfoPlistStep
+2023-11-27 19:19:48 +0000  Skipping step: IDEDistributionInfoPlistStep because it said so
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2023-11-27 19:19:48 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2023-11-27 19:19:48 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2023-11-27 19:19:48 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionSymbolsStep
+2023-11-27 19:19:48 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionAppThinningStep
+2023-11-27 19:19:48 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionArchThinningStep
+2023-11-27 19:19:48 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Root/Payload/UpgradeUpsell.app/UpgradeUpsell' '-verify_arch' 'arm64e'
+2023-11-27 19:19:48 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2023-11-27 19:19:48 +0000  Skipping architecture thinning for item "UpgradeUpsell" because arch "arm64e" wasn't found
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionODRStep
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionStripXattrsStep
+2023-11-27 19:19:48 +0000  Skipping stripping extended attributes because the codesign step will strip them.
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionCodesignStep
+2023-11-27 19:19:48 +0000  Entitlements for <IDEDistributionItem: 0x2f958bfe0; bundleID='com.moxdroid.UpgradeUpsell', path='<DVTFilePath:0x2fdfff970:'/Users/zahrashahin/Library/Developer/Xcode/Archives/2023-11-27/UpgradeUpsell 2023-11-27, 2.19 PM.xcarchive/Products/Applications/UpgradeUpsell.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x404c73600; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x2e561e3b0; name='Apple Development: Priteshkumar Patel (NRYB4WH97V)', hash='D08430109581EEEE5F6DE89E0034CF139862B7AE', serialNumber='4E2585EE84BCC825825F2413379112F4', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-11-20 18:50:30 +0000''>', entitlements='{
+    "application-identifier" = "7B7KJQCFCP.com.moxdroid.UpgradeUpsell";
+    "aps-environment" = development;
+    "com.apple.developer.team-identifier" = 7B7KJQCFCP;
+    "get-task-allow" = 1;
+}', teamID='7B7KJQCFCP', identifier='com.moxdroid.UpgradeUpsell', executablePath='<DVTFilePath:0x405d928f0:'/Users/zahrashahin/Library/Developer/Xcode/Archives/2023-11-27/UpgradeUpsell 2023-11-27, 2.19 PM.xcarchive/Products/Applications/UpgradeUpsell.app/UpgradeUpsell'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "7B7KJQCFCP.com.moxdroid.UpgradeUpsell";
+    "aps-environment" = development;
+    "com.apple.developer.team-identifier" = 7B7KJQCFCP;
+    "get-task-allow" = 1;
+}
+2023-11-27 19:19:48 +0000  Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2023-11-27 19:19:48 +0000  Entitlements for <IDEDistributionItem: 0x2f958bfe0; bundleID='com.moxdroid.UpgradeUpsell', path='<DVTFilePath:0x2fdfff970:'/Users/zahrashahin/Library/Developer/Xcode/Archives/2023-11-27/UpgradeUpsell 2023-11-27, 2.19 PM.xcarchive/Products/Applications/UpgradeUpsell.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x404c73600; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x2b18128a0; name='Apple Development: Priteshkumar Patel (NRYB4WH97V)', hash='D08430109581EEEE5F6DE89E0034CF139862B7AE', serialNumber='4E2585EE84BCC825825F2413379112F4', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-11-20 18:50:30 +0000''>', entitlements='{
+    "application-identifier" = "7B7KJQCFCP.com.moxdroid.UpgradeUpsell";
+    "aps-environment" = development;
+    "com.apple.developer.team-identifier" = 7B7KJQCFCP;
+    "get-task-allow" = 1;
+}', teamID='7B7KJQCFCP', identifier='com.moxdroid.UpgradeUpsell', executablePath='<DVTFilePath:0x405d928f0:'/Users/zahrashahin/Library/Developer/Xcode/Archives/2023-11-27/UpgradeUpsell 2023-11-27, 2.19 PM.xcarchive/Products/Applications/UpgradeUpsell.app/UpgradeUpsell'>', hardenedRuntime='0'>'> are: {
+    "application-identifier" = "7B7KJQCFCP.com.moxdroid.UpgradeUpsell";
+    "aps-environment" = development;
+    "com.apple.developer.team-identifier" = 7B7KJQCFCP;
+    "get-task-allow" = 1;
+}
+2023-11-27 19:19:48 +0000  Writing entitlements for <IDEDistributionItem: 0x2f958bfe0; bundleID='com.moxdroid.UpgradeUpsell', path='<DVTFilePath:0x2fdfff970:'/Users/zahrashahin/Library/Developer/Xcode/Archives/2023-11-27/UpgradeUpsell 2023-11-27, 2.19 PM.xcarchive/Products/Applications/UpgradeUpsell.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x404c73600; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x2fbf50db0; name='Apple Development: Priteshkumar Patel (NRYB4WH97V)', hash='D08430109581EEEE5F6DE89E0034CF139862B7AE', serialNumber='4E2585EE84BCC825825F2413379112F4', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-11-20 18:50:30 +0000''>', entitlements='{
+    "application-identifier" = "7B7KJQCFCP.com.moxdroid.UpgradeUpsell";
+    "aps-environment" = development;
+    "com.apple.developer.team-identifier" = 7B7KJQCFCP;
+    "get-task-allow" = 1;
+}', teamID='7B7KJQCFCP', identifier='com.moxdroid.UpgradeUpsell', executablePath='<DVTFilePath:0x405d928f0:'/Users/zahrashahin/Library/Developer/Xcode/Archives/2023-11-27/UpgradeUpsell 2023-11-27, 2.19 PM.xcarchive/Products/Applications/UpgradeUpsell.app/UpgradeUpsell'>', hardenedRuntime='0'>'> to: /var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/entitlements~~~eC13O0
+2023-11-27 19:19:48 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' 'D08430109581EEEE5F6DE89E0034CF139862B7AE' '--entitlements' '/var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/entitlements~~~eC13O0' '--generate-entitlement-der' '--preserve-metadata=identifier,flags,runtime' '/var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Root/Payload/UpgradeUpsell.app'
+2023-11-27 19:19:48 +0000  /var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Root/Payload/UpgradeUpsell.app: replacing existing signature
+2023-11-27 19:19:48 +0000  /var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Root/Payload/UpgradeUpsell.app: signed app bundle with Mach-O thin (arm64) [com.moxdroid.UpgradeUpsell]
+2023-11-27 19:19:48 +0000  /usr/bin/codesign exited with 0
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionZipODRItemStep
+2023-11-27 19:19:48 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2023-11-27 19:19:48 +0000  Processing step: IDEDistributionCreateIPAStep
+2023-11-27 19:19:48 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Root' '/var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Packages/UpgradeUpsell.ipa'
+2023-11-27 19:19:48 +0000  >>> Copying /var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Root 
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/_CodeSignature/CodeResources ... 
+2023-11-27 19:19:48 +0000  8387 bytes for ./Payload/UpgradeUpsell.app/_CodeSignature/CodeResources
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/AppIcon60x60@2x.png ... 
+2023-11-27 19:19:48 +0000  16751 bytes for ./Payload/UpgradeUpsell.app/AppIcon60x60@2x.png
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/SDWebImage_SDWebImage.bundle/PrivacyInfo.xcprivacy ... 
+2023-11-27 19:19:48 +0000  599 bytes for ./Payload/UpgradeUpsell.app/SDWebImage_SDWebImage.bundle/PrivacyInfo.xcprivacy
+copying file ./Payload/UpgradeUpsell.app/SDWebImage_SDWebImage.bundle/Info.plist ... 
+2023-11-27 19:19:48 +0000  687 bytes for ./Payload/UpgradeUpsell.app/SDWebImage_SDWebImage.bundle/Info.plist
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/close-with-transparency@2x.png ... 
+2023-11-27 19:19:48 +0000  837 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/close-with-transparency@2x.png
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/close-with-transparency.png ... 
+2023-11-27 19:19:48 +0000  379 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/close-with-transparency.png
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/oTF-1C-LZP-view-SM1-hn-m3n.nib ... 
+2023-11-27 19:19:48 +0000  10799 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/oTF-1C-LZP-view-SM1-hn-m3n.nib
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/card-view-vc.nib ... 
+2023-11-27 19:19:48 +0000  1040 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/card-view-vc.nib
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/banner-view-vc.nib ... 
+2023-11-27 19:19:48 +0000  1044 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/banner-view-vc.nib
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/x01-lq-3r6-view-1pz-BP-O6T.nib ... 
+2023-11-27 19:19:48 +0000  13221 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/x01-lq-3r6-view-1pz-BP-O6T.nib
+copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/lbb-HM-tHJ-view-vRb-yf-OWE.nib ... 
+2023-11-27 19:19:48 +0000  4842 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/lbb-HM-tHJ-view-vRb-yf-OWE.nib
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/modal-view-vc.nib ... 
+2023-11-27 19:19:48 +0000  1042 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/modal-view-vc.nib
+copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/lGH-bl-7Xw-view-ef6-R8-q1S.nib ... 
+2023-11-27 19:19:48 +0000  3628 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/lGH-bl-7Xw-view-ef6-R8-q1S.nib
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/image-only-vc.nib ... 
+2023-11-27 19:19:48 +0000  1046 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/image-only-vc.nib
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/Info.plist ... 
+2023-11-27 19:19:48 +0000  243 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/FIRInAppMessageDisplayStoryboard.storyboardc/Info.plist
+copying file ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/Info.plist ... 
+2023-11-27 19:19:48 +0000  715 bytes for ./Payload/UpgradeUpsell.app/Firebase_FirebaseInAppMessaging_iOS.bundle/Info.plist
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/GoogleService-Info.plist ... 
+2023-11-27 19:19:48 +0000  474 bytes for ./Payload/UpgradeUpsell.app/GoogleService-Info.plist
+copying file ./Payload/UpgradeUpsell.app/ExportOptions.plist ... 
+2023-11-27 19:19:48 +0000  182 bytes for ./Payload/UpgradeUpsell.app/ExportOptions.plist
+copying file ./Payload/UpgradeUpsell.app/Assets.car ... 
+2023-11-27 19:19:48 +0000  254111 bytes for ./Payload/UpgradeUpsell.app/Assets.car
+2023-11-27 19:19:48 +0000  copying file ./Payload/UpgradeUpsell.app/UpgradeUpsell ... 
+2023-11-27 19:19:49 +0000  30063904 bytes for ./Payload/UpgradeUpsell.app/UpgradeUpsell
+copying file ./Payload/UpgradeUpsell.app/AppIcon76x76@2x~ipad.png ... 
+2023-11-27 19:19:49 +0000  21129 bytes for ./Payload/UpgradeUpsell.app/AppIcon76x76@2x~ipad.png
+copying file ./Payload/UpgradeUpsell.app/embedded.mobileprovision ... 
+2023-11-27 19:19:49 +0000  16858 bytes for ./Payload/UpgradeUpsell.app/embedded.mobileprovision
+copying file ./Payload/UpgradeUpsell.app/Info.plist ... 
+2023-11-27 19:19:49 +0000  1543 bytes for ./Payload/UpgradeUpsell.app/Info.plist
+copying file ./Payload/UpgradeUpsell.app/PkgInfo ... 
+2023-11-27 19:19:49 +0000  8 bytes for ./Payload/UpgradeUpsell.app/PkgInfo
+2023-11-27 19:19:49 +0000  /usr/bin/ditto exited with 0
+2023-11-27 19:19:49 +0000  Processing step: IDEDistributionAppStoreInformationStep
+2023-11-27 19:19:49 +0000  Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2023-11-27 19:19:49 +0000  Processing step: IDEDistributionGenerateProcessedDistributionItems
+2023-11-27 19:19:49 +0000  IDEDistributionItem init <DVTFilePath:0x2bc52a7b0:'/var/folders/x_/0177xzbs5l9bhm9t2pxk4clh0000gn/T/XcodeDistPipeline.~~~0gpvoR/Root/Payload/UpgradeUpsell.app'>
+2023-11-27 19:19:49 +0000  Processing step: IDEDistributionCreateManifestStep

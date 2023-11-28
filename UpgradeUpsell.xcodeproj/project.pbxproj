@@ -30,7 +30,6 @@
 		5AAC1E852B05DD2C003C9C64 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAC1E842B05DD2C003C9C64 /* FirebaseAnalyticsSwift */; };
 		5AAC1E872B05DD2C003C9C64 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAC1E862B05DD2C003C9C64 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		5AAC1E892B05DD2C003C9C64 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAC1E882B05DD2C003C9C64 /* FirebaseAppCheck */; };
-		5AAC1E8B2B0BC26A003C9C64 /* AppDelegate1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAC1E8A2B0BC26A003C9C64 /* AppDelegate1.swift */; };
 		5AFC64A42B0F1B3E006C7F11 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5AFC64A32B0F1B3E006C7F11 /* FirebaseAnalytics */; };
 		5AFC64A62B0F1B3E006C7F11 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 5AFC64A52B0F1B3E006C7F11 /* FirebaseAnalyticsOnDeviceConversion */; };
 		5AFC64A82B0F1B3E006C7F11 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5AFC64A72B0F1B3E006C7F11 /* FirebaseAnalyticsSwift */; };
@@ -136,8 +135,8 @@
 		5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
+		5AA2263C2B15740E00D614D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
-		5AAC1E8A2B0BC26A003C9C64 /* AppDelegate1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate1.swift; sourceTree = "<group>"; };
 		5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "UpgradeUpsell/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F9465F12ABB33E50006FBB5 /* UpgradeUpsell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpgradeUpsell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeUpsellApp.swift; sourceTree = "<group>"; };
@@ -230,13 +229,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3C5039BACEC8B1A406BA2F46 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		5A47D94B2AF16C190064AF0E /* Admin */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,12 +301,10 @@
 		5F9465E82ABB33E50006FBB5 = {
 			isa = PBXGroup;
 			children = (
-				5AAC1E8A2B0BC26A003C9C64 /* AppDelegate1.swift */,
 				5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */,
 				5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */,
 				5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */,
 				5F9465F22ABB33E50006FBB5 /* Products */,
-				3C5039BACEC8B1A406BA2F46 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -329,6 +319,7 @@
 		5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */ = {
 			isa = PBXGroup;
 			children = (
+				5AA2263C2B15740E00D614D0 /* Info.plist */,
 				5A7D69202B0EDA4400295469 /* UpgradeUpsell.entitlements */,
 				5F9466292ABC82D90006FBB5 /* Views */,
 				5F9466162ABB60640006FBB5 /* Models */,
@@ -573,7 +564,6 @@
 				5A47D94F2AF1A6610064AF0E /* ReportView.swift in Sources */,
 				5A8DAB312ABCB3A200CDCBCB /* ProjectViewEdit.swift in Sources */,
 				5A8DAB482ADE066F00CDCBCB /* NotificationView.swift in Sources */,
-				5AAC1E8B2B0BC26A003C9C64 /* AppDelegate1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,13 +707,14 @@
 				DEVELOPMENT_TEAM = 7B7KJQCFCP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UpgradeUpsell/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Upgrade Upsell to access your device's camera for capturing photos.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -734,7 +725,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -758,13 +749,14 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UpgradeUpsell/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Upgrade Upsell to access your device's camera for capturing photos.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -776,7 +768,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
