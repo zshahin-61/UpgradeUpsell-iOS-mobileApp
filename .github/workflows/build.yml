@@ -8,10 +8,10 @@ jobs:
   build_with_signing:
     runs-on: macos-latest
     steps:
-      - name: check Xcode version
+      - name: Check Xcode version
         run: /usr/bin/xcodebuild -version
 
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Install the Apple certificate and provisioning profile
@@ -21,31 +21,57 @@ jobs:
           BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
-          # create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
           PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-          # import certificate and provisioning profile from secrets
+
           echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
           echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
-          # create temporary keychain
+
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          # import certificate to keychain
+
           security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
-          # apply provisioning profile
+
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles          
-      - name: build archive
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+      - name: Print Certificates and Provisioning Profiles
+        run: |
+          echo "$BUILD_CERTIFICATE_BASE64" | base64 --decode
+          echo "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode
+          cat $CERTIFICATE_PATH
+          cat $PP_PATH
+      - name: Build archive
         run: |
           xcodebuild -scheme "UpgradeUpsell" \
-          -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive \
+          -archivePath $RUNNER_TEMP/Archive/UpgradeUpsell.xcarchive \
           -sdk iphoneos \
           -configuration Debug \
+          -allowProvisioningUpdates \
           -destination generic/platform=iOS \
           clean archive
- 
+          
+    
+      - name: Export IPA
+        env:
+          EXPORT_OPTIONS_PLIST: ${{ secrets.EXPORT_OPTIONS_PLIST }}
+        run: |
+          EXPORT_OPTS_PATH=$RUNNER_TEMP/ExportOptions.plist
+          echo -n "$EXPORT_OPTIONS_PLIST" | base64 --decode -o $EXPORT_OPTS_PATH
+          xcodebuild -exportArchive -archivePath $RUNNER_TEMP/UpgradeUpsell.xcarchive -exportOptionsPlist $EXPORT_OPTS_PATH -exportPath $RUNNER_TEMP/build
 
-     
+      - name: Install App Center CLI
+        run: |
+          npm install -g appcenter-cli
+          appcenter --version
+
+      - name: Upload API file to App Center
+        env:
+          APP_CENTER_API_TOKEN: ${{ secrets.APP_CENTER_API_TOKEN }}
+          APP_NAME: YOUR_APP_NAME
+          API_FILE_PATH: path/to/your/api/file
+        run: |
+          appcenter distribute release -f "$API_FILE_PATH" -g Collaborators --token $APP_CENTER_API_TOKEN -a $APP_NAME
