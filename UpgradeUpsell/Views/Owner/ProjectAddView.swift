@@ -419,27 +419,6 @@ struct ProjectAddView: View {
                     Text("Access to the photo library is not authorized.")
                 }
             }
-            // //           .sheet(isPresented: $isShowingPicker) {
-            // //               if photoLibraryManager.isAuthorized {
-            // //                       MultiImagePickerView(selectedImages: $selectedImages)
-            //  //
-            //  //              } else {
-            //  //                  Text("Access to the photo library is not authorized.")
-            //  //              }
-            //   //         }
-            //select from file
-            //            .sheet(isPresented: $isShowingPicker) {
-            //                if photoLibraryManager.isAuthorized {
-            //                    NavigationView {
-            //                        MultiImagePickerView(selectedImages: $selectedImages)
-            //                        .navigationBarItems(trailing: Button("Cancel") {
-            //                            $isShowingPicker.wrappedValue = false // Close the sheet when the "Cancel" button is tapped
-            //                        })
-            //                    }
-            //                } else {
-            //                    Text("Access to the photo library is not authorized.")
-            //                }
-            //            }
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text("Message! "),
@@ -447,12 +426,8 @@ struct ProjectAddView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            
-            //Spacer()
         }
-        //            .padding()
-        //.navigationBarTitle("Update a Property")//VStack
-        //    Spacer()
+      
     }//View
     
     
@@ -477,63 +452,6 @@ struct ProjectAddView: View {
         
     }
     
-    //    private func insertProperty() {
-    //        guard let userID = dbHelper.userProfile?.id else {
-    //            return
-    //        }
-    //        //Image
-    //        var imageData :Data? = nil
-    //
-    //        if(selectedImage != nil )
-    //        {
-    //            let image = selectedImage!
-    //            let imageName = "\(UUID().uuidString).jpg"
-    //            print(imageName)
-    //            imageData = image.jpegData(compressionQuality: 0.1)
-    //        }
-    //
-    //        // Create a new property
-    //        let newProperty = RenovateProject(
-    //            projectID: UUID().uuidString,
-    //            title: title,
-    //            description: description,
-    //            location: location,
-    //            lng: lng,
-    //            lat: lat,
-    //            images: imageData,
-    //            ownerID: userID,
-    //            category: selectedCategory,
-    //            investmentNeeded: investmentNeeded,
-    //            selectedInvestmentSuggestionID: "",
-    //            status: status,
-    //            startDate: startDate,
-    //            endDate: endDate,
-    //            numberOfBedrooms: numberOfBedrooms,
-    //            numberOfBathrooms: numberOfBathrooms,
-    //            propertyType: propertyType,
-    //            squareFootage: squareFootage,
-    //            isFurnished: isFurnished,
-    //            createdDate: Date(),
-    //            updatedDate: Date(),
-    //            favoriteCount: 0,
-    //            realtorID: ""
-    //        )
-    //
-    //
-    //        self.dbHelper.addProperty(newProperty, userID: userID)
-    //        { success in
-    //            if success {
-    //                insertNotif(newProperty, "Insert")
-    //                alertMessage = "Property added successfully"
-    //                resetFormFields()
-    //
-    //            } else {
-    //                alertMessage = "Failed to save property. Please try again."
-    //            }
-    //            showAlert = true
-    //
-    //        }
-    //    }
     
     func insertNotif(_ project : RenovateProject, _ a : String){
         
