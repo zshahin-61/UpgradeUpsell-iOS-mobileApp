@@ -25,7 +25,7 @@ struct ProjectOffersView: View {
                 Spacer()
             }
             SearchBar(text: $searchText, placeholder: "Search by title")
-            List {
+            ScrollView {
                 if dbHelper.userProfile == nil {
                     Text("No user login")
                 } else if isLoading {
@@ -35,14 +35,14 @@ struct ProjectOffersView: View {
                         Section {
                             VStack(alignment: .leading) {
                                 VStack(alignment: .leading, spacing: 1) {
-                                Text("Title").font(.subheadline).foregroundColor(.gray)
-                                 //   Spacer()
+                                    Text("Title").font(.subheadline).foregroundColor(.gray)
+                                    //   Spacer()
                                     Text("\(filteredSuggestions[index].projectTitle)")
                                 }.padding(.top, 1)
                                 
                                 VStack(alignment: .leading, spacing: 1) {
                                     Text("Offer Date").font(.subheadline).foregroundColor(.gray)
-                                //    Spacer()
+                                    //    Spacer()
                                     Text("\(dateFormatter.string(from: filteredSuggestions[index].date ?? Date()))")
                                 }.padding(.top, 1)
                                 Group {
@@ -50,27 +50,27 @@ struct ProjectOffersView: View {
                                         Text("Investor").font(.subheadline).foregroundColor(.gray)
                                         NavigationLink(destination: InvestorProfileView(investorID: filteredSuggestions[index].investorID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
                                             
-                                           // Spacer()
+                                            // Spacer()
                                             Text(filteredSuggestions[index].investorFullName) .foregroundColor(.blue)// Link to Investor Profile
                                         }
-                                   }.padding(.top, 1)
+                                    }.padding(.top, 1)
                                     
                                     VStack(alignment: .leading, spacing: 1) {
                                         Text("Investment Offer").font(.subheadline).foregroundColor(.gray)
-                                    //    Spacer()
+                                        //    Spacer()
                                         Text(String(format: "%.2f", filteredSuggestions[index].amountOffered))
                                     }.padding(.top, 1)
                                     
                                     VStack(alignment: .leading, spacing: 1) {
                                         Text("Duration").font(.subheadline).foregroundColor(.gray)
-                                    //    Spacer()
+                                        //    Spacer()
                                         Text("\(filteredSuggestions[index].durationWeeks) Weeks")
                                     }.padding(.top, 1)
                                 }//Group
-                                    VStack(alignment: .leading, spacing: 1) {
-                                Text("Investor description").font(.subheadline).foregroundColor(.gray)
+                                VStack(alignment: .leading, spacing: 1) {
+                                    Text("Investor description").font(.subheadline).foregroundColor(.gray)
                                     Text("\(filteredSuggestions[index].description)")
-                                    }.padding(.top, 1)
+                                }.padding(.top, 1)
                                     .padding(.bottom, 1)
                                 
                                 if !isStatusUpdated[index]  {
@@ -93,29 +93,31 @@ struct ProjectOffersView: View {
                                         Text(filteredSuggestions[index].status)
                                             .foregroundColor(statusColor(for: filteredSuggestions[index].status))
                                     } //hstack
-//                                    if(suggestions[index].status == "Accept"){
-//                                        HStack {
-//                                            Text("You can chat with the user after approved by the administrator")
-//                                            NavigationLink(destination: ChatView(reciverUserId: suggestions[index].investorID)) {
-//                                                Text("Chat with Investor")
-//                                            }
-//                                            .disabled(!isStatusUpdated[index] || !hasChatPermission[index])
-//                                        }
-//                                    } //if 
+                                    //                                    if(suggestions[index].status == "Accept"){
+                                    //                                        HStack {
+                                    //                                            Text("You can chat with the user after approved by the administrator")
+                                    //                                            NavigationLink(destination: ChatView(reciverUserId: suggestions[index].investorID)) {
+                                    //                                                Text("Chat with Investor")
+                                    //                                            }
+                                    //                                            .disabled(!isStatusUpdated[index] || !hasChatPermission[index])
+                                    //                                        }
+                                    //                                    } //if
                                 } // esle
                                 
                             }
                         }//Section
                         .padding()
-                        .border(Color.gray, width: 0.5)
+                        //.border(Color.gray, width: 0.5)
+                        .background(RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(Color.gray, lineWidth: 1.0)
+                            .background(Color(.systemBackground)))
                         //.contentMargins(5)
-                        //.padding()
+                        .padding()
                         //.listRowInsets(EdgeInsets())
-                        //Divider()
+                        Divider()
                     }
-                    
                 }
-            } //List
+            }//List
 
             HStack(alignment: .center) {
                 Spacer()
