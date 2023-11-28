@@ -15,17 +15,17 @@ struct HomeView_Admin: View {
     
     @Binding var rootScreen: RootView
 
-    func generateUUID() -> String {
-                return UUID().uuidString
-            }
+//    func generateUUID() -> String {
+//                return UUID().uuidString
+//            }
     
     
     var body: some View {
 
         //----------
 
-        let generatedUUID = generateUUID()
-        Text("Generated UUID: \(generatedUUID)")
+        //let generatedUUID = generateUUID()
+        //Text("Generated UUID: \(generatedUUID)")
         //-------
         TabView() {
          

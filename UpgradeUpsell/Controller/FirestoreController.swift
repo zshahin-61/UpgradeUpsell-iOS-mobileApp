@@ -898,8 +898,12 @@ class FirestoreController: ObservableObject {
         let suggestionsRef = db.collection(COLLECTION_InvestmentSuggestions)
 
         // Create a query to filter suggestions by the owner's ID.
-        let query = suggestionsRef.whereField("ownerID", isEqualTo: ownerID)
+        //let query = suggestionsRef.whereField("ownerID", isEqualTo: ownerID)
 
+        let query = suggestionsRef
+            .whereField("ownerID", isEqualTo: ownerID)
+            .whereField("status", isNotEqualTo: "Declined")
+        
         // Perform the query.
         query.getDocuments { (querySnapshot, error) in
             if let error = error {

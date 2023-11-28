@@ -30,27 +30,29 @@ struct MakeOffers_InvestorView: View {
             Text("Make an Offer").bold().font(.title).foregroundColor(.brown)
             Form {
                 Section(header: Text("Property Information").font(.headline)) {
-                    HStack{
-                        Text("Title: ").bold()
-                        Text("\(project.title)")}
-                    HStack{
-                        Text("Category: ").bold()
+                    VStack(alignment: .leading, spacing: 2){
+                        Text("Title: ").font(.subheadline)
+                        Text("\(project.title)")
+                    }.padding(2)
+                    VStack(alignment: .leading, spacing: 2){
+                        Text("Category: ").font(.subheadline)
                         Text("\(project.category)")
-                    }
-                    HStack{
-                        Text("Released date: ").bold()
+                    }.padding(2)
+                    VStack(alignment: .leading, spacing: 2){
+                        Text("Released date: ").font(.subheadline)
                         Text("\(formattedDate(from: project.createdDate))")
-                    }
-                    VStack{
+                    }.padding(2)
+                    VStack(alignment: .leading, spacing: 2){
                         HStack{
-                            Text("Need to be done between: ").bold()
+                            Text("Need to be done between: ").font(.subheadline)
                             Spacer()
                         }
                         HStack{
                             Text(" \(formattedDate(from: project.startDate))")
-                            Text("   to    \(formattedDate(from: project.endDate))")
+                            Text("  to  \(formattedDate(from: project.endDate))")
                         }
-                    }
+                    }.padding(2)
+                    
                     Section {
                         if let images = project.images{
                             if !images.isEmpty {
@@ -60,7 +62,7 @@ struct MakeOffers_InvestorView: View {
                                             if let uiImage = UIImage(data: image) {
                                                 Image(uiImage:  uiImage)
                                                     .resizable()
-                                                    .aspectRatio(contentMode: .fit)
+                                                    //.aspectRatio(contentMode: .fit)
                                                     .frame(width: 200, height: 200) // Set a fixed size
                                             }
                                         }
@@ -71,24 +73,27 @@ struct MakeOffers_InvestorView: View {
                             }
                         }
                     }
-                    VStack{
+                    
+                    VStack(alignment: .leading, spacing: 2){
                         HStack{
-                            Text("Description: ").bold()
+                            Text("Owner Description:").font(.subheadline)
                             Spacer()
                         }
                         Text("\(project.description)")
-                    }
-                    HStack{
-                        Text("Likes: ").bold()
-                        Text("\(project.favoriteCount)")
-                        Spacer()
-                        Text("Status: ").bold()
-                        Text("\(project.status)")
-                    }
-                    HStack{
-                        Text("Location: ").bold()
+                    }.padding(2)
+                    
+//                    HStack{
+//                        Text("Likes: ").bold()
+//                        Text("\(project.favoriteCount)")
+//                        Spacer()
+//                        Text("Status: ").bold()
+//                        Text("\(project.status)")
+//                    }
+                    VStack(alignment: .leading, spacing: 2){
+                        Text("Location: ").font(.subheadline)
                         Text("\(project.location)")
-                    }
+                    }.padding(2)
+                    
                     MapView(latitude: propertyLatitude, longitude: propertyLongitude)
                         .frame(height: 200)
                     
@@ -111,12 +116,6 @@ struct MakeOffers_InvestorView: View {
                     .cornerRadius(8)
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
                     
-//                    TextField("Duration in Weeks", text: $durationWeeks)
-//                        .frame(minWidth: 30, maxWidth: .infinity)
-//                        .border(.gray , width: 0.5)
-//                        .keyboardType(.numberPad)
-                        //.textFieldStyle(RoundedBorderTextFieldStyle())
-                      //  .padding()
                     VStack {
                         TextField("Duration in Weeks", text: $durationWeeks)
                             .keyboardType(.numberPad)

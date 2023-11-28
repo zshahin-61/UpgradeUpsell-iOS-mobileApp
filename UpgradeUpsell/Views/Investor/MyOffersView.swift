@@ -187,23 +187,23 @@ struct MyOffersView: View {
     }
     
     // Function to delete an offer
-    func deleteSuggestion2(at offsets: IndexSet) {
-        for index in offsets {
-            let suggestion = suggestions[index]
-            // Implement the logic to delete the offer from your data source (e.g., Firestore)
-            dbHelper.deleteSuggestion(suggestion) { (success, error) in
-                if success {
-                    // Delete was successful
-                    suggestions.remove(at: index)
-                    insertNotif(suggestion, "Delete")
-                } else if let error = error {
-#if DEBUG
-                    print("Error deleting suggestion: \(error)")
-                    #endif
-                }
-            }
-        }
-    }
+//    func deleteSuggestion2(at offsets: IndexSet) {
+//        for index in offsets {
+//            let suggestion = suggestions[index]
+//            // Implement the logic to delete the offer from your data source (e.g., Firestore)
+//            dbHelper.deleteSuggestion(suggestion) { (success, error) in
+//                if success {
+//                    // Delete was successful
+//                    suggestions.remove(at: index)
+//                    insertNotif(suggestion, "Delete")
+//                } else if let error = error {
+//#if DEBUG
+//                    print("Error deleting suggestion: \(error)")
+//                    #endif
+//                }
+//            }
+//        }
+//    }
     
     func deleteSuggestion(_ suggestion: InvestmentSuggestion) {
         // Implement the logic to delete the offer from your data source (e.g., Firestore)

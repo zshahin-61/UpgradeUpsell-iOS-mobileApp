@@ -20,7 +20,7 @@ struct UsersView: View {
 
     var body: some View {
         VStack {
-            Text("User List").bold().font(.title).foregroundColor(.blue)
+            Text("User List").bold().font(.title).foregroundColor(.brown)
                 .padding(.horizontal, 10)
             
             Picker("Select Role", selection: $selectedRole) {
@@ -34,7 +34,7 @@ struct UsersView: View {
             List(filteredUsers) { user in
                 VStack(alignment: .leading, spacing: 10) {
                     
-                    NavigationLink(destination: UserProfileView(UserID: user.id!)) {
+                    NavigationLink(destination: UserProfileView(UserID: user.id!).environmentObject(self.dbHelper)) {
                         HStack {
                                                  if let imageData = user.profilePicture, let uiImage = UIImage(data: imageData) {
                                                      Image(uiImage: uiImage)
@@ -47,7 +47,7 @@ struct UsersView: View {
                                                          .frame(width: 40, height: 40)
                                                  }
                                                  Text(user.fullName)
-                                                     .font(.title)
+                                                     .font(.headline)
                                                      .bold()
                                                      .foregroundColor(Color.blue)
                                              }

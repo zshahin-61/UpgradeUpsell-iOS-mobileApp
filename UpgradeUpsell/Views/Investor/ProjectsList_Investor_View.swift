@@ -17,7 +17,7 @@ struct ProjectsList_InvestorView: View {
     
     var body: some View {
         VStack{
-            Text("Released Properties List").bold().font(.title).foregroundColor(.brown)
+            Text("Released Property List").bold().font(.title).foregroundColor(.brown)
             SearchBar(text: $searchText, placeholder: "Search by title")
             List(self.filteredProjects) { prj in
                 NavigationLink(destination: MakeOffers_InvestorView(project: prj).environmentObject(dbHelper).environmentObject(authHelper)) {
