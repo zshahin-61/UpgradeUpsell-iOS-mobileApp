@@ -237,6 +237,7 @@ struct ProjectOffersView: View {
                             }
                         }
                         
+                        loadSuggestions()
                         // Set the alert message
                                                alertMessage = "Status updated successfully."
                                                isShowingAlert = true
