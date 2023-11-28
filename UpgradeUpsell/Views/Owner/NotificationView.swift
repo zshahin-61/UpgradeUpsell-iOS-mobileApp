@@ -30,13 +30,7 @@ struct NotificationView: View {
                 }
                 .onDelete(perform: deleteNotifications)
             }
-            .navigationBarItems(trailing:
-                Button(action: {
-                    deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
-                }) {
-                    Text("Delete All")
-                }
-            )
+           
             .onAppear {
                 if let userID = self.dbHelper.userProfile?.id {
                     dbHelper.getNotifications(forUserID: userID) { notifications, error in
@@ -51,8 +45,15 @@ struct NotificationView: View {
                     }
                 }
             }
+            .navigationBarItems(trailing:
+                Button(action: {
+                    deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
+                }) {
+                    Text("Delete All")
+                }
+            )
            // .navigationBarTitle("Notifications")
-            .padding()
+           // .padding()
         } //VStack
     }
 
