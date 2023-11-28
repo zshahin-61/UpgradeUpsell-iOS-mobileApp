@@ -139,6 +139,7 @@
                             dismissButton: .default(Text("OK"))
                         )
                     }
+            
             .onAppear {
                loadSuggestions()
             }
@@ -147,7 +148,12 @@
                 filterSuggestions()
             
             }
-
+            .onChange(of: isShowingAlert) { _ in
+                // Reload data when isShowingAlert changes
+                if !isShowingAlert {
+                    loadSuggestions()
+                }
+            }
         }
 
         //load suggestions
