@@ -29,16 +29,16 @@ struct SettingsView: View {
             VStack {
                 Form {
                     Section(header: Text("Preferences")) {
-//                        Picker("Theme", selection: $themeFromUI) {
-//                            Text("Light").tag("light")
-//                            Text("Dark").tag("dark")
-//                        }
+                        //                        Picker("Theme", selection: $themeFromUI) {
+                        //                            Text("Light").tag("light")
+                        //                            Text("Dark").tag("dark")
+                        //                        }
                         
                         Toggle("Dark Mode", isOn: Binding(
-                                       get: { themeManager.selectedTheme == "dark" },
-                                       set: { _ in themeManager.toggleTheme() }
-                                   ))
-                                   .padding()
+                            get: { themeManager.selectedTheme == "dark" },
+                            set: { _ in themeManager.toggleTheme() }
+                        ))
+                        .padding()
                         
                         Picker("Language", selection: $langFromUI) {
                             Text("English")//.tag("en_CA")
@@ -100,7 +100,7 @@ struct SettingsView: View {
                             }else if self.role ==  "Owner"{
                                 self.rootScreen = .Home
                             }  else if self.role == "Admin"{
-                                    self.rootScreen = .Admin
+                                self.rootScreen = .Admin
                                 
                             } else if self.role == "Realtor"
                                         
@@ -111,7 +111,7 @@ struct SettingsView: View {
                             Text("Back")
                         }.buttonStyle(.borderedProminent)
                     }
-                
+                    
                     Section(header: Text("Account")) {
                         Button(action:{
                             
@@ -139,11 +139,11 @@ struct SettingsView: View {
                 } else if self.role == "Realtor"
                 {
                     self.rootScreen =  .RealtorHome
-                
+                    
                 } else if self.role ==  "Admin"{
                     self.rootScreen =  .Admin
                 }
-            
+                
                 //self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text("< Back")
@@ -154,9 +154,9 @@ struct SettingsView: View {
                     self.role = role
                 }
                 dbHelper.getPreferencesFromFirestore(forUserID: dbHelper.userProfile?.id! ?? ""){ (userPref, error) in
-//                    guard let userPref = dbHelper.userPrefrences else{
-//                        return
-//                    }
+                    //                    guard let userPref = dbHelper.userPrefrences else{
+                    //                        return
+                    //                    }
                     if let error = error{
                         
                     }else if let userPref = userPref {
@@ -169,6 +169,7 @@ struct SettingsView: View {
                     }
                 }
             }
+            
         }
         .alert(isPresented: $showingDeleteAlert) {
             Alert(
@@ -194,6 +195,7 @@ struct SettingsView: View {
                 secondaryButton: .cancel()
             )
         }
+        Spacer()
     }
 }
 

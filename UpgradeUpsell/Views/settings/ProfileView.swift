@@ -39,7 +39,7 @@ struct ProfileView: View {
                 Text("Profile").bold().font(.title).foregroundColor(.brown)
                 Spacer()
             }
-            Form{
+           // Form{
                 VStack {
                             if let selectedImage = selectedImage {
                                 Image(uiImage: selectedImage)
@@ -68,7 +68,7 @@ struct ProfileView: View {
                 
                 FormSection(header: "Personal Details") {
                     TextField("Full Name", text: $nameFromUI)
-                        .padding(.horizontal, 10)
+                        .padding(.horizontal, 5)
                         .frame(width: 280, height: 30)
                         .border(Color.gray, width: 1)
                     
@@ -86,7 +86,7 @@ struct ProfileView: View {
                     FormSection(header: "Your Rating") {
                         RatingView(rating: rating)
                             .frame(maxWidth: .infinity)
-                            .padding()
+                         //   .padding()
                             .background(Color(UIColor.systemBackground))
                             .cornerRadius(8)
                     }
@@ -94,7 +94,7 @@ struct ProfileView: View {
                 
                 FormSection(header: "Contact Information") {
                     TextField("Company", text: $companyFromUI)
-                        .padding(.horizontal, 10)
+                        .padding(.horizontal, 5)
                         .frame(width: 280, height: 30)
                         .border(Color.gray, width: 1)
                     
@@ -104,7 +104,7 @@ struct ProfileView: View {
                         .border(Color.gray, width: 1)
                     
                     TextField("Phone Number", text: $contactNumberFromUI)
-                        .padding(.horizontal, 10)
+                        .padding(.horizontal, 5)
                         .frame(width: 280, height: 30)
                         .border(Color.gray, width: 1)
                 }
@@ -112,7 +112,8 @@ struct ProfileView: View {
                 if let err = errorMsg {
                     Text(err).foregroundColor(Color.red).bold()
                 }
-            }
+          //  }
+            Spacer()
             HStack{
                 Button(action: {                //Validate the data such as no mandatory inputs, password rules, etc.
                     //
@@ -186,7 +187,7 @@ struct ProfileView: View {
             }
             Spacer()
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 5)
         .onAppear() {
             if let currentUser = dbHelper.userProfile{
                 self.email = currentUser.email
