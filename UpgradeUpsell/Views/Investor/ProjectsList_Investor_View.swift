@@ -28,21 +28,7 @@ struct ProjectsList_InvestorView: View {
         //.navigationTitle("Renovation Projects")
         .onAppear {
             // Fetch investment suggestions when the view appears.
-            if let role = dbHelper.userProfile?.role {
-                if(role == "Investor"){
-                    self.isLoading = true
-                    self.dbHelper.listenForRenovateProjects() { (renovateProjects, error) in
-                        self.isLoading = false
-                        if let error = error {
-#if DEBUG
-                            print("Error getting investment suggestions: \(error)")
-                            #endif
-                        } else if let projectList = renovateProjects {
-                            self.prjList = projectList
-                        }
-                    }
-                }
-            }
+            loadProjects()
         }
         .onChange(of: searchText) { _ in
             filterProjects()
