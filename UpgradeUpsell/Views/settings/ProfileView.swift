@@ -69,46 +69,66 @@ struct ProfileView: View {
                 FormSection(header: "Personal Details") {
                     TextField("Full Name", text: $nameFromUI)
                         .padding(.horizontal, 5)
-                        .frame(width: 300, height: 30)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 20, maxHeight: .infinity)
+                        //.frame(width: 300, height: 30)
                         .border(Color.gray, width: 0.5)
                     
                     
                     Text("Email: \(email)")
                     
                     TextEditor(text: $bioFromUI)
-                    //                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                        .frame(width: 300, height: 100)
+                                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+                        //.frame(width: 300, height: 100)
+                                       //     .frame(minWidth: 10, minHeight: 50)
                         .border(Color.gray, width: 0.5)
                     //.padding()
                 }
                 
-                if self.role == "Investor" || self.role == "Realtor"{
-                    FormSection(header: "Your Rating") {
-                        RatingView(rating: rating)
-                            .frame(maxWidth: .infinity)
-                         //   .padding()
-                            .background(Color(UIColor.systemBackground))
-                            .cornerRadius(8)
-                    }
+            if self.role == "Investor" || self.role == "Realtor"{
+                FormSection(header: "Your Rating") {
+                    RatingView(rating: rating)
+                        .frame(maxWidth: .infinity)
+                    //   .padding()
+                        .background(Color(UIColor.systemBackground))
+                        .cornerRadius(8)
                 }
                 
                 FormSection(header: "Contact Information") {
                     TextField("Company", text: $companyFromUI)
                         .padding(.horizontal, 5)
-                        .frame(width: 300, height: 30)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30, maxHeight: .infinity)
+                        //.frame(width: 300, height: 30)
                         .border(Color.gray, width: 0.5)
                     
                     TextField("Address", text: $addressFromUI)
                         .padding(.horizontal, 10)
-                        .frame(width: 300, height: 30)
+                       // .frame(width: 300, height: 30)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30, maxHeight: .infinity)
                         .border(Color.gray, width: 0.5)
                     
                     TextField("Phone Number", text: $contactNumberFromUI)
                         .padding(.horizontal, 5)
-                        .frame(width: 300, height: 30)
+                        //.frame(width: 300, height: 30)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30, maxHeight: .infinity)
                         .border(Color.gray, width: 0.5)
                 }
-                
+            }else{
+                FormSection(header: "Contact Information") {
+                    TextField("Address", text: $addressFromUI)
+                        .padding(.horizontal, 10)
+                        //.frame(width: 300, height: 30)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30, maxHeight: .infinity)
+                        .border(Color.gray, width: 0.5)
+                    
+                    TextField("Phone Number", text: $contactNumberFromUI)
+                        .padding(.horizontal, 5)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30, maxHeight: .infinity)
+                        //.frame(width: 300, height: 30)
+                        .border(Color.gray, width: 0.5)
+                }
+            }
+            
+            
                 if let err = errorMsg {
                     Text(err).foregroundColor(Color.red).bold()
                 }

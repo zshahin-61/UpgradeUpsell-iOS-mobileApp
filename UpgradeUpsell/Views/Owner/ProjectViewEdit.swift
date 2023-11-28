@@ -11,7 +11,6 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct ProjectViewEdit: View {
-    
     @EnvironmentObject var dbHelper: FirestoreController
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var locationHelper: LocationHelper
@@ -21,15 +20,11 @@ struct ProjectViewEdit: View {
     @StateObject private var photoLibraryManager = PhotoLibraryManager()
     
     @State private var isShowingPicker = false
-    //    @State private var selectedImage: UIImage?
-    //    @State private var imageData: Data?
     @State private var selectedImages: [UIImage?] = []
-    
     
     @State private var title = ""
     @State private var description = ""
     @State private var address = ""
-    //    @State private var location = ""
     @State private var lng: Double = 0.0
     @State private var lat: Double = 0.0
     @State private var category = ""
@@ -50,9 +45,7 @@ struct ProjectViewEdit: View {
     
     var selectedProject: RenovateProject
     
-    
     @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64732, longitude: -79.38279), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-    
     
     // status: Delete show but deactive by owner be onwer and didnot show on the list | all offer will be decline
     
@@ -68,7 +61,6 @@ struct ProjectViewEdit: View {
         "Townhouse",
         "Other"
     ]
-    
     
     var body: some View {
         VStack{
@@ -240,9 +232,6 @@ struct ProjectViewEdit: View {
                             }
                         }
                     }
-                    
-                    
-                    
                     VStack {
                         
                         HStack {
