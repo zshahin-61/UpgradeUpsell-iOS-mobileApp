@@ -17,17 +17,28 @@ struct NotificationDetailView: View {
             //            if let currentUser = dbHelper.userProfile{
             //                Text ("Name: \(currentUser.fullName)")
             //            }
-            Text("Event ").bold()
-            Text("\(notification.event)")
+            
+            VStack(alignment: .leading, spacing: 1) {
+            Text("Event").font(.subheadline).foregroundColor(.gray)
+             //   Spacer()
+                Text("\(notification.event)")
+            }.padding(.top, 1)
+            
+            
 //            let dateFormatter = DateFormatter()
 //            dateFormatter.dateFormat = "h:mm a"
 //            dateFormatter.timeZone = TimeZone(abbreviation: "EDT")
 //            let notificationTimestamp = Date()
 //            Text("Time: \(dateFormatter.string(from: notificationTimestamp))")
-            Text("Time").bold()
+            VStack(alignment: .leading, spacing: 1) {
+            Text("Time").font(.subheadline).foregroundColor(.gray)
             Text(" \(notification.timestamp)")
-            Text("Details").bold()
+            }.padding(.top, 1)
+            
+            VStack(alignment: .leading, spacing: 1) {
+            Text("Details").font(.subheadline).foregroundColor(.gray)
             Text(" \(notification.details ?? "No details available")")
+            }.padding(.top, 1)
             //            HStack{
             //                Button(action: {
             //                    dbHelper.markNotificationAsRead(notification) { success in
