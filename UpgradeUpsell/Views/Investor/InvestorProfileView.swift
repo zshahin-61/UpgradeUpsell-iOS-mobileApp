@@ -54,11 +54,11 @@ struct InvestorProfileView: View {
             
             RatingView(rating: rating)
             
-            HStack{
-                Text("Bio:")
-                    .font(.headline)
-                Spacer()
-            }
+//            HStack{
+//                Text("Bio:")
+//                    .font(.headline)
+//                Spacer()
+//            }
                 Text(bio)
                     .font(.body)
                

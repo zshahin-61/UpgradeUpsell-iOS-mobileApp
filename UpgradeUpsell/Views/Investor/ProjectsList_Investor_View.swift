@@ -17,7 +17,7 @@ struct ProjectsList_InvestorView: View {
     
     var body: some View {
         VStack{
-            Text("List of Properties").bold().font(.title).foregroundColor(.brown)
+            Text("Released Properties List").bold().font(.title).foregroundColor(.brown)
             SearchBar(text: $searchText, placeholder: "Search by title")
             List(self.filteredProjects) { prj in
                 NavigationLink(destination: MakeOffers_InvestorView(project: prj).environmentObject(dbHelper).environmentObject(authHelper)) {
@@ -73,30 +73,12 @@ struct ProjectListItemView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(project.category)
             Text(project.title)
                 .font(.headline)
-            Text(project.location)
+            Text("\(project.category), \(Text(project.location))")
                 .font(.subheadline)
-            //Text("Estimated Fund:$\(project.investmentNeeded)")
-        
-            // Add any other project details you want to display
+            
         }
     }
 }
-
-//struct ProjectDetailView: View {
-//    let project: RenovateProject
-//
-//    var body: some View {
-//        VStack {
-//            Text(project.title)
-//                .font(.title)
-//            Text(project.description)
-//                .font(.body)
-//            // Add more project details and UI components as needed
-//        }
-//        .navigationTitle(project.title)
-//    }
-//}
 

@@ -73,6 +73,7 @@ struct MyOffersView: View {
                                     .alert("Confirmation", isPresented: $showDeleteConfirmation) {
                                         Button("Delete", role: .destructive) {
                                             deleteSuggestion(filteredSuggestions[index])
+                                            
                                         }
                                         Button("Cancel", role: .cancel) {}
                                     }
