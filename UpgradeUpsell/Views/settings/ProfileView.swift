@@ -69,16 +69,16 @@ struct ProfileView: View {
                 FormSection(header: "Personal Details") {
                     TextField("Full Name", text: $nameFromUI)
                         .padding(.horizontal, 5)
-                        .frame(width: 280, height: 30)
-                        .border(Color.gray, width: 1)
+                        .frame(width: 300, height: 30)
+                        .border(Color.gray, width: 0.5)
                     
                     
                     Text("Email: \(email)")
                     
                     TextEditor(text: $bioFromUI)
                     //                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-                        .frame(width: 280, height: 100)
-                        .border(Color.gray, width: 1)
+                        .frame(width: 300, height: 100)
+                        .border(Color.gray, width: 0.5)
                     //.padding()
                 }
                 
@@ -95,18 +95,18 @@ struct ProfileView: View {
                 FormSection(header: "Contact Information") {
                     TextField("Company", text: $companyFromUI)
                         .padding(.horizontal, 5)
-                        .frame(width: 280, height: 30)
-                        .border(Color.gray, width: 1)
+                        .frame(width: 300, height: 30)
+                        .border(Color.gray, width: 0.5)
                     
                     TextField("Address", text: $addressFromUI)
                         .padding(.horizontal, 10)
-                        .frame(width: 280, height: 30)
-                        .border(Color.gray, width: 1)
+                        .frame(width: 300, height: 30)
+                        .border(Color.gray, width: 0.5)
                     
                     TextField("Phone Number", text: $contactNumberFromUI)
                         .padding(.horizontal, 5)
-                        .frame(width: 280, height: 30)
-                        .border(Color.gray, width: 1)
+                        .frame(width: 300, height: 30)
+                        .border(Color.gray, width: 0.5)
                 }
                 
                 if let err = errorMsg {
@@ -187,7 +187,7 @@ struct ProfileView: View {
             }
             Spacer()
         }
-        .padding(.horizontal, 5)
+        .padding(.horizontal, 10)
         .onAppear() {
             if let currentUser = dbHelper.userProfile{
                 self.email = currentUser.email
