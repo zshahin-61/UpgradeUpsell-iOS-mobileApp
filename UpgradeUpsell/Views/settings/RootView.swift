@@ -8,5 +8,6 @@
 import SwiftUI
 
 enum RootView{
-    case Login, Home, SignUp, Profile, Settings, InvestorHome, RealtorHome , Admin, ChangePassword
+    //Settings,
+    case Login, Home, SignUp, Profile,  InvestorHome, RealtorHome , Admin, ChangePassword
 }

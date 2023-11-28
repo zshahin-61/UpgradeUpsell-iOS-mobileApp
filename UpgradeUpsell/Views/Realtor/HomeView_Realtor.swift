@@ -58,11 +58,11 @@ struct HomeView_Realtor: View {
                     Label("Profile", systemImage: "person.circle.fill")
                 }
                 
-                Button(action: {
-                    rootScreen = .Settings
-                }) {
-                    Label("Settings", systemImage: "gearshape.fill")
-                }
+//                Button(action: {
+//                    rootScreen = .Settings
+//                }) {
+//                    Label("Settings", systemImage: "gearshape.fill")
+//                }
                 
                 Button(action: {
                     rootScreen = .ChangePassword
