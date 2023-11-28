@@ -136,10 +136,6 @@
 		5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
-		5AA2263C2B15740E00D614D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-=======
->>>>>>> Stashed changes
 		5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		5AAC1E8A2B0BC26A003C9C64 /* AppDelegate1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate1.swift; sourceTree = "<group>"; };
 		5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "UpgradeUpsell/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -318,10 +314,7 @@
 				5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */,
 				5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */,
 				5F9465F22ABB33E50006FBB5 /* Products */,
-<<<<<<< Updated upstream
-=======
 				3C5039BACEC8B1A406BA2F46 /* Pods */,
->>>>>>> Stashed changes
 			);
 			sourceTree = "<group>";
 		};
@@ -336,10 +329,6 @@
 		5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
-				5AA2263C2B15740E00D614D0 /* Info.plist */,
-=======
->>>>>>> Stashed changes
 				5A7D69202B0EDA4400295469 /* UpgradeUpsell.entitlements */,
 				5F9466292ABC82D90006FBB5 /* Views */,
 				5F9466162ABB60640006FBB5 /* Models */,
