@@ -129,12 +129,17 @@ struct MyOffersView: View {
     //insert in notifications
     func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){
         
+        var flName = ""
+        if let fullName = dbHelper.userProfile?.fullName{
+            flName = fullName
+        }
+        
         let notification = Notifications(
             id: UUID().uuidString,
             timestamp: Date(),
             userID: myOffer.ownerID,
             event: "Offer \(a)!",
-            details: "Offer $\(myOffer.amountOffered) for project titled \(myOffer.projectTitle) has been \(a) By \(dbHelper.userProfile?.fullName).",
+            details: "Offer $\(myOffer.amountOffered) for project titled \(myOffer.projectTitle) has been \(a) By \(flName).",
             isRead: false,
             projectID: myOffer.projectID
         )

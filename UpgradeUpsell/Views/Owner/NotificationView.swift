@@ -12,12 +12,33 @@ import Firebase
 struct NotificationView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var notifications: [Notifications] = []
-
+    @State private var showingDeleteConfirmationAlert = false
+    
     var body: some View {
-        NavigationView {
+        VStack {
+            Text("My Notifications").bold().font(.title).foregroundColor(.brown)
+            HStack{
+                Spacer()
+                Button(action: {
+                    //deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
+                    showingDeleteConfirmationAlert = true
+                }) {
+                    Text("Delete All")
+                }
+                .alert(isPresented: $showingDeleteConfirmationAlert) {
+                                    Alert(
+                                        title: Text("Delete All Notifications"),
+                                        message: Text("Are you sure you want to delete all notifications?"),
+                                        primaryButton: .destructive(Text("Delete")) {
+                                            deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
+                                        },
+                                        secondaryButton: .cancel()
+                                    )
+                                }
+            }.padding(.trailing, 20)
             List {
                 ForEach(notifications, id: \.id) { notification in
-                    NavigationLink(destination: NotificationDetailView(notification: notification)) {
+                    NavigationLink(destination: NotificationDetailView(notification: notification).environmentObject(self.dbHelper)) {
                         HStack {
                             Image(systemName: notification.isRead ? "eye.fill" : "eye.slash.fill")
                                 .resizable()
@@ -29,13 +50,7 @@ struct NotificationView: View {
                 }
                 .onDelete(perform: deleteNotifications)
             }
-            .navigationBarItems(trailing:
-                Button(action: {
-                    deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
-                }) {
-                    Text("Delete All")
-                }
-            )
+           
             .onAppear {
                 if let userID = self.dbHelper.userProfile?.id {
                     dbHelper.getNotifications(forUserID: userID) { notifications, error in
@@ -50,9 +65,17 @@ struct NotificationView: View {
                     }
                 }
             }
-            .navigationBarTitle("Notifications")
-            .padding()
-        }
+           
+           // .navigationBarTitle("Notifications")
+           // .padding()
+        } //VStack
+        .navigationBarItems(trailing:
+            Button(action: {
+                deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
+            }) {
+                Text("Delete All")
+            }
+        )
     }
 
     private func deleteNotifications(at offsets: IndexSet) {
