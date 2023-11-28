@@ -130,7 +130,7 @@ struct ProjectOffersView: View {
             Spacer()
         }
         .onAppear {
-            print("i am sadddd")
+            //print("i am sadddd")
             loadSuggestions()
         }
         .onChange(of: searchText) { _ in

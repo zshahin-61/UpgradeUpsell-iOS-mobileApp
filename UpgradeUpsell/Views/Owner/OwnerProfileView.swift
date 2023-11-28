@@ -32,7 +32,7 @@ struct OwnerProfileView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            Text("Investor Profile").bold().font(.title).foregroundColor(.brown)
+            Text("Owner Profile").bold().font(.title).foregroundColor(.brown)
             if let data = imageData, let uiImage = UIImage(data: data) {
                 Image(uiImage: uiImage)
                     .resizable()

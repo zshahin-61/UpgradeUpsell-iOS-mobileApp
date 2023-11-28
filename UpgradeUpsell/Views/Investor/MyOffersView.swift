@@ -13,15 +13,19 @@ struct MyOffersView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     
     @State private var suggestions: [InvestmentSuggestion] = []
+    @State private var filteredSuggestions: [InvestmentSuggestion] = []
     @State private var isLoading: Bool = false
     
     @State private var isChatEnabled: [Bool] = []
+    @State private var searchText = ""
     
     var body: some View {
         //NavigationView {
         VStack {
             Text("My Offers").bold().font(.title).foregroundColor(.brown)
                 .padding(.horizontal,10)
+            SearchBar(text: $searchText, placeholder: "Search by title")
+            
             if dbHelper.userProfile == nil {
                 Text("No user logged in")
             } else {
@@ -29,57 +33,50 @@ struct MyOffersView: View {
                     ProgressView()
                 } else {
                     List {
-                        ForEach(suggestions.indices, id: \.self) { index in
+                        ForEach(filteredSuggestions.indices, id: \.self) { index in
                             VStack(alignment: .leading, spacing: 10) {
                                 Section{
-                                    Text(suggestions[index].projectTitle)
-                                        .font(.title)
-                                        .bold()
+                                    Text(filteredSuggestions[index].projectTitle)
+                                        .font(.subheadline)
+                                        //.bold()
                                         .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                                     
                                     HStack {
                                         Text("Offered Amount:")
                                         Spacer()
-                                        Text(String(format: "$%.2f", suggestions[index].amountOffered))
+                                        Text(String(format: "$%.2f", filteredSuggestions[index].amountOffered))
                                     }
                                     
                                     HStack {
                                         Text("Duration:")
                                         Spacer()
-                                        Text("\(suggestions[index].durationWeeks) Weeks")
+                                        Text("\(filteredSuggestions[index].durationWeeks) Weeks")
                                     }
                                     
                                     HStack {
                                         Text("Status:")
                                         Spacer()
-                                        Text(suggestions[index].status).foregroundColor(statusColor(for: suggestions[index].status))
+                                        Text(filteredSuggestions[index].status).foregroundColor(statusColor(for: filteredSuggestions[index].status))
                                     }
                                     
-                                    Text(suggestions[index].description)
+                                    Text(filteredSuggestions[index].description)
                                 }//Section
-                                if(suggestions[index].status != "Accept"){
+                                if(filteredSuggestions[index].status != "Accept"){
                                     Button(action: {
-                                        deleteSuggestion(suggestions[index]) // Call the function to delete the offer
+                                        deleteSuggestion(filteredSuggestions[index]) // Call the function to delete the offer
                                     }) {
                                         Text("Delete")
                                             .foregroundColor(.red)
                                     }
                                 }
-                        else{
-                            HStack {
-                                NavigationLink(destination: OwnerProfileView(ownerID: suggestions[index].ownerID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
-                                    Text("Owner:").bold()
-                                    Spacer()
-                                    Text("Owner Profile") .foregroundColor(.blue)// Link to Investor Profile
-                                }
-                            }
-                                    //fetchChatPermissionStatus(user1: suggestion.ownerID)
-                                    //if(isChatEnabled[index]){
-                                        
-                                       // NavigationLink(destination: ChatView(receiverUserID: suggestions[index].ownerID).environmentObject(dbHelper)) {
-                                          //  Text("Chat with Owner")
-                                        //}
-                                    //} //if
+                                else{
+                                    HStack {
+                                        NavigationLink(destination: OwnerProfileView(ownerID: filteredSuggestions[index].ownerID).environmentObject(self.authHelper).environmentObject(self.dbHelper)) {
+                                            //                                    Text("Owner:").bold()
+                                            //                                    Spacer()
+                                            Text("Owner Profile") .foregroundColor(.blue)// Link to Investor Profile
+                                        }
+                                    }
                                 }//else
                             }//VStack
                             .padding(10)
@@ -95,35 +92,57 @@ struct MyOffersView: View {
         }
         .navigationBarTitle("My Offers", displayMode: .inline)
         .onAppear {
-            if let investorID = dbHelper.userProfile?.id {
-                isLoading = true
-                dbHelper.getInveSuggByInvestorID(investorID: investorID) { (suggestions, error) in
-                    if let error = error {
+            loadSuggestions()
+        }
+        .onChange(of: searchText) { _ in
+            // Update filteredSuggestions based on the search text
+            filterSuggestions()
+        
+        }
+        //}//nav view
+    }
+    
+    //load suggestions
+    private func loadSuggestions(){
+        if let investorID = dbHelper.userProfile?.id {
+            isLoading = true
+            dbHelper.getInveSuggByInvestorID(investorID: investorID) { (suggestions, error) in
+                if let error = error {
 #if DEBUG
-                        print("Error getting investment suggestions: \(error)")
-                        #endif
-                    } else if let suggestions = suggestions {
-                        self.suggestions = suggestions
-                        self.isChatEnabled = Array(repeating: false, count: suggestions.count)
-//                        self.isChatEnabled = suggestions.map{$0.status != "Accept"  ? false : fetchChatPermissionStatus(sugg: $0)  }
-                        DispatchQueue.global().async {
-                                            let chatPermissions = suggestions.map { suggestion in
-                                                fetchChatPermissionStatus(sugg: suggestion) { canChat in
-                                                    // This closure is called when the asynchronous call is completed
-                                                    DispatchQueue.main.async {
-                                                        self.isChatEnabled.append(canChat)
-                                                    }
-                                                }
-                                            }
-
-                                            // No need to update UI here
-                                        }
-                        isLoading = false
+                    print("Error getting investment suggestions: \(error)")
+                    #endif
+                } else if let suggestions = suggestions {
+                    self.suggestions = suggestions
+                    filterSuggestions()
+                    
+                    isLoading = false
+                }
+            }
+        }
+    }
+    
+    //filter suggestions
+    private func filterSuggestions(){
+        if(!searchText.isEmpty){
+            filteredSuggestions = suggestions.filter {
+                $0.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
+                
+            }
+        }else{
+            filteredSuggestions = suggestions
+        }
+        
+        self.isChatEnabled = Array(repeating: false, count: filteredSuggestions.count)
+        DispatchQueue.global().async {
+            let chatPermissions = filteredSuggestions.map { suggestion in
+                fetchChatPermissionStatus(sugg: suggestion) { canChat in
+                    // This closure is called when the asynchronous call is completed
+                    DispatchQueue.main.async {
+                        self.isChatEnabled.append(canChat)
                     }
                 }
             }
         }
-        //}//nav view
     }
     
     //insert in notifications
