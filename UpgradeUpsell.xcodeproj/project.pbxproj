@@ -298,6 +298,13 @@
 			path = settings;
 			sourceTree = "<group>";
 		};
+		5AA2263A2B15252400D614D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5F9465E82ABB33E50006FBB5 = {
 			isa = PBXGroup;
 			children = (
@@ -305,6 +312,11 @@
 				5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */,
 				5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */,
 				5F9465F22ABB33E50006FBB5 /* Products */,
+<<<<<<< Updated upstream
+=======
+				3C5039BACEC8B1A406BA2F46 /* Pods */,
+				5AA2263A2B15252400D614D0 /* Frameworks */,
+>>>>>>> Stashed changes
 			);
 			sourceTree = "<group>";
 		};
