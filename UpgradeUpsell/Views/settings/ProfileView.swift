@@ -24,12 +24,15 @@ struct ProfileView: View {
     @State private var imageData: Data?
     @State private var role: String = "Owner"
     
+    //@State private var isShowingPicker = false
+    @State private var isShowingCamera = false
+        //@State private var selectedImage: UIImage?
+    @State private var isCameraPermissionDenied = false
     
     @Binding var rootScreen : RootView
     //var backRoot: RootView
     
     var body: some View {
-        //ScrollView {
         VStack(alignment: .leading) {
             HStack{
                 Spacer()
@@ -37,21 +40,31 @@ struct ProfileView: View {
                 Spacer()
             }
             Form{
-                //Section(header: Text("Profile").bold()) {
-                VStack{
-                    if let data = imageData, let uiImage = UIImage(data: data) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .clipShape(Circle())
-                    }
-                    Button(action: {
-                        isShowingPicker = true
-                    }) {
-                        Text("Change Picture")
+                VStack {
+                            if let selectedImage = selectedImage {
+                                Image(uiImage: selectedImage)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Circle())
+                            } else if let data = imageData, let uiImage = UIImage(data: data) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Circle())
+                            }
+                            Button(action: {
+                                isShowingPicker = true
+                            }) {
+                                Text("Change Picture")
+                            }
+                        }
+                .sheet(isPresented: $isShowingPicker) {
+                    if photoLibraryManager.isAuthorized {
+                        ImagePickerView(selectedImage: $selectedImage)
+                    } else {
+                        Text("Access to photo library is not authorized.")
                     }
                 }
-                //}
                 
                 FormSection(header: "Personal Details") {
                     TextField("Full Name", text: $nameFromUI)
@@ -110,7 +123,7 @@ struct ProfileView: View {
                     if(selectedImage != nil )
                     {
                         let image = selectedImage!
-                        let imageName = "\(UUID().uuidString).jpg"
+                       // let imageName = "\(UUID().uuidString).jpg"
                         
                         imageData = image.jpegData(compressionQuality: 0.1)
                         dbHelper.userProfile!.profilePicture = imageData
@@ -173,10 +186,7 @@ struct ProfileView: View {
             }
             Spacer()
         }
-        
         .padding(.horizontal, 10)
-        // }
-        
         .onAppear() {
             if let currentUser = dbHelper.userProfile{
                 self.email = currentUser.email
@@ -189,18 +199,18 @@ struct ProfileView: View {
                 self.errorMsg = nil
                 self.role = currentUser.role
                 if let company = currentUser.company{
+                    print("companyyyyyy")
                     self.companyFromUI = company
                 }
                 // MARK: Show image from db
                 if let imageData = currentUser.profilePicture as? Data {
                     self.imageData = imageData
                 } else {
-#if DEBUG
+                    #if DEBUG
                     print("Invalid image data format")
                     #endif
                 }
             }}
-        
         .navigationBarItems(leading: Button(action: {
             if(self.role == "Investor"){
                 self.rootScreen = .InvestorHome
@@ -218,16 +228,43 @@ struct ProfileView: View {
         }) {
             Text("< Back")
         })
-        .sheet(isPresented: $isShowingPicker) {
-            // Image picker view
-            if photoLibraryManager.isAuthorized {
-                ImagePickerView(selectedImage: $selectedImage)
-            } else {
-                Text("Access to the photo library is not authorized.")
-            }
-        }
+//        .sheet(isPresented: $isShowingPicker) {
+//            // Image picker view
+//            if photoLibraryManager.isAuthorized {
+//                ImagePickerView(selectedImage: $selectedImage)
+//            } else {
+//                Text("Access to the photo library is not authorized.")
+//            }
+//        }
     Spacer()
     }
+    
+    // Function to check camera permissions
+        func checkCameraPermissions() {
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+            case .authorized:
+                // Camera access is already granted.
+                break
+            case .notDetermined:
+                // Camera access is not determined yet. Request permission.
+                AVCaptureDevice.requestAccess(for: .video) { granted in
+                    if granted {
+                        // Permission granted
+                        self.isCameraPermissionDenied = false
+                    } else {
+                        // Permission denied
+                        self.isCameraPermissionDenied = true
+                    }
+                }
+            case .denied, .restricted:
+                // Camera access is denied or restricted by the user or parental controls.
+                self.isCameraPermissionDenied = true
+            @unknown default:
+                // Handle unknown cases if necessary.
+                break
+            }
+        }
+    
 }
 
 struct FormSection<Content: View>: View {
