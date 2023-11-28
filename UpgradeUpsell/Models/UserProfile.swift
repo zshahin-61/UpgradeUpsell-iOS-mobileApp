@@ -83,8 +83,10 @@ struct UserProfile: Codable, Hashable, Identifiable {
         }
         
         let myRating = dictionary["rating"] as? Double ?? 4.5
+        
         let myCompany = dictionary["company"] as? String ?? ""
 
+        
 //        self.init(user: myName, contactNumber: myContactNumber, address: myAddress, image: myImage, friends: myFriends, numberOfEventsAttending: myNumberOfEventsAttending)
         self.init(id:myUserID, fullName: myFullName, email: myEmail, role: myRole, userBio: myUserBio, profilePicture: myProfilePicture, contactNumber: myContactNumber, address: myAddress, rating: myRating, company: myCompany)
     }

@@ -40,34 +40,24 @@ struct ProfileView: View {
                 Spacer()
             }
             Form{
-                VStack{
-                    Text("User Profile Picture")
-                    if photoLibraryManager.isAuthorized {
-                        Button(action: {
-                            isShowingPicker = true
-                        }) {
-                            Text("Select Image")
+                VStack {
+                            if let selectedImage = selectedImage {
+                                Image(uiImage: selectedImage)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Circle())
+                            } else if let data = imageData, let uiImage = UIImage(data: data) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Circle())
+                            }
+                            Button(action: {
+                                isShowingPicker = true
+                            }) {
+                                Text("Change Picture")
+                            }
                         }
-                        Button(action: {
-                            isShowingCamera = true
-                            checkCameraPermissions()
-                        }) {
-                            Text("Capture Photo")
-                        }
-                        if let image = selectedImage {
-                            Image(uiImage: image)
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .clipShape(Circle())
-                        }
-                    } else {
-                        Button(action: {
-                            photoLibraryManager.requestPermission()
-                        }) {
-                            Text("Request Access For Photo Library")
-                        }
-                    }
-                }
                 .sheet(isPresented: $isShowingPicker) {
                     if photoLibraryManager.isAuthorized {
                         ImagePickerView(selectedImage: $selectedImage)
@@ -133,7 +123,7 @@ struct ProfileView: View {
                     if(selectedImage != nil )
                     {
                         let image = selectedImage!
-                        let imageName = "\(UUID().uuidString).jpg"
+                       // let imageName = "\(UUID().uuidString).jpg"
                         
                         imageData = image.jpegData(compressionQuality: 0.1)
                         dbHelper.userProfile!.profilePicture = imageData
@@ -209,6 +199,7 @@ struct ProfileView: View {
                 self.errorMsg = nil
                 self.role = currentUser.role
                 if let company = currentUser.company{
+                    print("companyyyyyy")
                     self.companyFromUI = company
                 }
                 // MARK: Show image from db
