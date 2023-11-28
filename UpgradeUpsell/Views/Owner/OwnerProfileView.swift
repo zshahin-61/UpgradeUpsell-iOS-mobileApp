@@ -31,36 +31,44 @@ struct OwnerProfileView: View {
     @State private var isChatEnabled: Bool = false
     
     var body: some View {
-        VStack(alignment: .center, spacing: 20) {
-            Text("Owner Profile").bold().font(.title).foregroundColor(.brown)
-            if let data = imageData, let uiImage = UIImage(data: data) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .frame(width: 150, height: 150)
-                    .clipShape(Circle())
-            } else {
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .frame(width: 150, height: 150)
-                    .foregroundColor(.gray)
-            }
-            
-            Text(name)
-                .font(.title)
-                .fontWeight(.bold)
-            
-            Text(company)
-                .font(.headline)
-            
-            RatingView(rating: rating)
-            
+        VStack(alignment: .leading, spacing: 20) {
             HStack{
-                Text("Bio:")
-                    .font(.headline)
+                Spacer()
+                Text("Owner Profile").bold().font(.title).foregroundColor(.brown)
                 Spacer()
             }
+            HStack{
+                Spacer()
+                VStack{
+                    if let data = imageData, let uiImage = UIImage(data: data) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .clipShape(Circle())
+                    } else {
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .foregroundColor(.gray)
+                    }
+                    Text(name)
+                    .font(.title)
+                        .fontWeight(.bold)
+                }
+                Spacer()
+            }
+            //Text(company)
+                //.font(.headline)
+            
+           // RatingView(rating: rating)
+            
+            //HStack{
+               // Text("Bio")
+                 //   .font(.headline)
+              //  Spacer()
+            //}
                 Text(bio)
-                    .font(.body)
+                .font(.body).padding()
                
             
             if let err = errorMsg {
@@ -82,14 +90,18 @@ struct OwnerProfileView: View {
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("Back")
-                        .font(.headline)
-                        .frame(width: 100, height: 50)
-                    // .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+//                    HStack {
+//                            Image(systemName: "arrow.left.circle.fill") // Add your icon system name
+//                                .imageScale(.large)
+                            Text("Back")
+                                .font(.headline)
+                                .frame(width: 100, height: 50)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        //}
                 }.buttonStyle(.borderedProminent)
             }
+            Spacer()
         }
         .padding(.horizontal, 10)
         .onAppear(){
@@ -124,7 +136,13 @@ struct OwnerProfileView: View {
         .navigationBarItems(leading: Button(action: {
                   self.presentationMode.wrappedValue.dismiss()
                }) {
-                   Text(" Back ").font(.headline)
+//                   Image(systemName: "arrow.left.circle.fill") // Add your icon system name
+//                   //                                .imageScale(.large)
+                   Text(" < Back ").font(.headline)
+//                   Label(
+//                           title: { Text("Back").font(.headline) },
+//                           icon: { Image(systemName: "arrow.left.circle.fill") }
+//                       )
                })
     }
     
