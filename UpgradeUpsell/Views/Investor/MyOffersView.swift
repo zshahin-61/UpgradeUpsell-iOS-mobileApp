@@ -19,6 +19,8 @@ struct MyOffersView: View {
     @State private var isChatEnabled: [Bool] = []
     @State private var searchText = ""
     
+    @State private var showDeleteConfirmation = false
+    
     var body: some View {
         //NavigationView {
         VStack {
@@ -37,7 +39,7 @@ struct MyOffersView: View {
                             VStack(alignment: .leading, spacing: 10) {
                                 Section{
                                     Text(filteredSuggestions[index].projectTitle)
-                                        .font(.subheadline)
+                                        .font(.headline)
                                         //.bold()
                                         .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                                     
@@ -63,11 +65,18 @@ struct MyOffersView: View {
                                 }//Section
                                 if(filteredSuggestions[index].status != "Accept"){
                                     Button(action: {
-                                        deleteSuggestion(filteredSuggestions[index]) // Call the function to delete the offer
+                                        // Call the function to delete the offer
+                                        showDeleteConfirmation = true
                                     }) {
                                         Text("Delete")
                                             .foregroundColor(.red)
                                     }
+                                    .alert("Confirmation", isPresented: $showDeleteConfirmation) {
+                                                                Button("Delete", role: .destructive) {
+                                                                    deleteSuggestion(filteredSuggestions[index])
+                                                                }
+                                                                Button("Cancel", role: .cancel) {}
+                                                            }
                                 }
                                 else{
                                     HStack {
@@ -114,7 +123,6 @@ struct MyOffersView: View {
                 } else if let suggestions = suggestions {
                     self.suggestions = suggestions
                     filterSuggestions()
-                    
                     isLoading = false
                 }
             }
@@ -198,6 +206,7 @@ struct MyOffersView: View {
         // Implement the logic to delete the offer from your data source (e.g., Firestore)
         self.dbHelper.deleteSuggestion(suggestion) { (success, error) in
             if success {
+                loadSuggestions()
                 // Delete was successful
                 insertNotif(suggestion, "Delete")
                 if let index = suggestions.firstIndex(where: { $0.id == suggestion.id }) {
@@ -208,6 +217,7 @@ struct MyOffersView: View {
                 print("Error deleting suggestion: \(error)")
                 #endif
             }
+            
         }
     }
     
