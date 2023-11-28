@@ -26,11 +26,11 @@ struct HomeView_Realtor: View {
                 Text("View Projects")
             }
             
-            ProjectViewEdit()
-            .tabItem {
-                Label("Add Property", systemImage: "plus.circle")
-                Text("Add Property")
-            }
+//            ProjectViewEdit()
+//            .tabItem {
+//                Label("Add Property", systemImage: "plus.circle")
+//                Text("Add Property")
+//            }
             
             ProjectOffersView()
             .tabItem {

@@ -48,7 +48,7 @@ struct ProjectViewEdit: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     
-    var selectedProject: RenovateProject?
+    var selectedProject: RenovateProject
     
     
     @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64732, longitude: -79.38279), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
@@ -175,51 +175,6 @@ struct ProjectViewEdit: View {
                         
                         Stepper("\(numberOfBathrooms)", value: $numberOfBathrooms, in: 0...10)
                     }
-                    // Image
-                    //                    VStack(alignment: .leading, spacing: 10) {
-                    //                        HStack {
-                    //                            if let data = imageData, let uiImage = UIImage(data: data) {
-                    //                                if selectedImage == nil {
-                    //                                    Image(uiImage: uiImage)
-                    //                                        .resizable()
-                    //                                        .frame(width: 150, height: 150)
-                    //                                        .clipShape(Rectangle())
-                    //                                } else {
-                    //                                    //
-                    //                                }
-                    //                            }
-                    //                            VStack {
-                    //                                Text("Upload Images").bold()
-                    //                                    .foregroundColor(Color(red: 0.0, green: 0.30, blue: 0.0))
-                    //                                if photoLibraryManager.isAuthorized {
-                    //                                    if let image = selectedImage {
-                    //                                        Image(uiImage: image)
-                    //                                            .resizable()
-                    //                                            .frame(width: 150, height: 150)
-                    //                                            .clipShape(Rectangle())
-                    //                                    }
-                    //                                    Button(action: {
-                    //                                        isShowingPicker = true
-                    //                                    }) {
-                    //                                        Text("Choose Picture")
-                    //                                    }.buttonStyle(.borderedProminent)
-                    //                                } else {
-                    //                                    Button(action: {
-                    //                                        photoLibraryManager.requestPermission()
-                    //                                    }) {
-                    //                                        Text("Request Access For Photo Library")
-                    //                                    }
-                    //                                }
-                    //                            }
-                    //                            .sheet(isPresented: $isShowingPicker) {
-                    //                                if photoLibraryManager.isAuthorized {
-                    //                                    ImagePickerView(selectedImage: $selectedImage)
-                    //                                } else {
-                    //                                    Text("Access to photo library is not authorized.")
-                    //                                }
-                    //                            }
-                    //                        }
-                    //                    }
                     
                     // Image
                     if selectedImages.count >= 3 {
@@ -237,19 +192,7 @@ struct ProjectViewEdit: View {
                                     .frame(width: 150, height: 150)
                                     .clipShape(Rectangle())
                             } else {
-                                // Display selected images in a horizontal stack
-//                                ScrollView(.horizontal) {
-//                                    HStack {
-//                                        ForEach(selectedImages.indices, id: \.self) { index in
-//                                            if let image = selectedImages[index] {
-//                                                Image(uiImage: image)
-//                                                    .resizable()
-//                                                    .frame(width: 150, height: 150)
-//                                                    .clipShape(Rectangle())
-//                                            }
-//                                        }
-//                                    }
-//                                }
+                                
                                 ScrollView(.horizontal) {
                                     HStack {
                                         ForEach(selectedImages.indices, id: \.self) { index in
@@ -339,67 +282,7 @@ struct ProjectViewEdit: View {
                 if selectedProject != nil {
                     // If selectedProject is not nil
                     updateProperty()
-                    resetFormFields()
-                } else {
-                    // If selectedProject is nil
-                    if !title.isEmpty && !description.isEmpty && !address.isEmpty {
-                        guard let userID = dbHelper.userProfile?.id else {
-                            return
-                        }
-                        
-                        // Create an array to store image data for all selected images
-                        var imageDatas: [Data] = []
-                        
-                        // Check if any images are selected
-                        if !selectedImages.isEmpty {
-                            for image in selectedImages {
-                                if let imageData = image?.jpegData(compressionQuality: 0.1) {
-                                    imageDatas.append(imageData)
-                                }
-                            }
-                        }
-                        
-                        // Create a new property with an array of image data
-                        let newProperty = RenovateProject(
-                            projectID: UUID().uuidString,
-                            title: title,
-                            description: description,
-                            location: address,
-                            lng: lng,
-                            lat: lat,
-                            images: imageDatas,
-                            ownerID: userID,
-                            category: selectedCategory,
-                            investmentNeeded: investmentNeeded,
-                            selectedInvestmentSuggestionID: "",
-                            status: "Released",
-                            startDate: startDate,
-                            endDate: endDate,
-                            numberOfBedrooms: numberOfBedrooms,
-                            numberOfBathrooms: numberOfBathrooms,
-                            propertyType: propertyType,
-                            squareFootage: squareFootage,
-                            isFurnished: isFurnished,
-                            createdDate: Date(),
-                            updatedDate: Date(),
-                            favoriteCount: 0,
-                            realtorID: ""
-                        )
-                        
-                        self.dbHelper.addProperty(newProperty, userID: userID) { success in
-                            if success {
-                                insertNotif(newProperty, "Insert")
-                                alertMessage = "Property added successfully"
-                                resetFormFields()
-                            } else {
-                                alertMessage = "Failed to save property. Please try again."
-                            }
-                            showAlert = true
-                        }
-                    } else {
-                        alertMessage = "Please Enter Title, Description, Address, and Square Footage!"
-                        showAlert = true
-                    }
+                    //resetFormFields()
                 }
             }) {
                 Text("Save")
@@ -426,32 +309,8 @@ struct ProjectViewEdit: View {
                     Text("Access to the photo library is not authorized.")
                 }
             }
-            // //           .sheet(isPresented: $isShowingPicker) {
-            // //               if photoLibraryManager.isAuthorized {
-            // //                       MultiImagePickerView(selectedImages: $selectedImages)
-            //  //
-            //  //              } else {
-            //  //                  Text("Access to the photo library is not authorized.")
-            //  //              }
-            //   //         }
-            //select from file
-            //            .sheet(isPresented: $isShowingPicker) {
-            //                if photoLibraryManager.isAuthorized {
-            //                    NavigationView {
-            //                        MultiImagePickerView(selectedImages: $selectedImages)
-            //                        .navigationBarItems(trailing: Button("Cancel") {
-            //                            $isShowingPicker.wrappedValue = false // Close the sheet when the "Cancel" button is tapped
-            //                        })
-            //                    }
-            //                } else {
-            //                    Text("Access to the photo library is not authorized.")
-            //                }
-            //            }
-            
-            
-            
             .onAppear() {
-                if let currentProject = selectedProject {
+                 let currentProject = selectedProject
                     self.title = currentProject.title
                     self.description = currentProject.description
                     self.selectedCategory = currentProject.category
@@ -492,9 +351,7 @@ struct ProjectViewEdit: View {
                         // Now, you have an array of loaded images
                         self.selectedImages = loadedImages
                     }
-                } else {
-                    resetFormFields()
-                }
+                
             } //onApperar
             .alert(isPresented: $showAlert) {
                 Alert(
@@ -503,12 +360,7 @@ struct ProjectViewEdit: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            
-            //Spacer()
         }
-        //            .padding()
-        //.navigationBarTitle("Update a Property")//VStack
-        //    Spacer()
     }//View
     
     
@@ -607,7 +459,7 @@ struct ProjectViewEdit: View {
         }
         
         let updatedProperty = RenovateProject(
-            projectID: selectedProject?.id ?? UUID().uuidString,
+            projectID: selectedProject.id ?? UUID().uuidString,
             title: title,
             description: description,
             location: address,
@@ -617,7 +469,7 @@ struct ProjectViewEdit: View {
             ownerID: userID,
             category: selectedCategory,
             investmentNeeded: investmentNeeded,
-            selectedInvestmentSuggestionID: selectedProject?.selectedInvestmentSuggestionID ?? "",
+            selectedInvestmentSuggestionID: selectedProject.selectedInvestmentSuggestionID ?? "",
             status: status,
             startDate: startDate,
             endDate: endDate,
@@ -626,23 +478,23 @@ struct ProjectViewEdit: View {
             propertyType: propertyType,
             squareFootage: squareFootage,
             isFurnished: isFurnished,
-            createdDate: selectedProject?.createdDate ?? Date(),
+            createdDate: selectedProject.createdDate ?? Date(),
             updatedDate: Date(),
-            favoriteCount: selectedProject?.favoriteCount ?? 0,
-            realtorID: selectedProject?.realtorID ?? ""
+            favoriteCount: selectedProject.favoriteCount ?? 0,
+            realtorID: selectedProject.realtorID ?? ""
         )
         
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
                 insertNotif(updatedProperty, "Update")
-                alertMessage = "Property Update successfully"
-               resetFormFields()
+               // alertMessage = "Property Update successfully"
+               //resetFormFields()
                 //                Find a solution after run above code project will be Crash
                              presentationMode.wrappedValue.dismiss()
             } else {
                 alertMessage = "Failed to Update property. Please try again."
             }
-            showAlert = true
+            //showAlert = true
         }
     }
     

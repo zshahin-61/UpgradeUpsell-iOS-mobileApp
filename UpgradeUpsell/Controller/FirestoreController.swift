@@ -468,7 +468,7 @@ class FirestoreController: ObservableObject {
                 "startDate": property.startDate,
                 "endDate": property.endDate,
                 "numberOfBedrooms": property.numberOfBedrooms,
-                "numberOfBathrooms": property.numberOfBedrooms,
+                "numberOfBathrooms": property.numberOfBathrooms,
                 "propertyType": property.propertyType,
                 "squareFootage": property.squareFootage,
                 "isFurnished": property.isFurnished,
