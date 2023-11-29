@@ -1,8 +1,8 @@
 name: "Build iOS app"
 
 on:
-  workflow_dispatch:
-    branches: [main]
+  release:
+    types: [published]
 
 jobs:
   build_with_signing:
@@ -45,15 +45,19 @@ jobs:
           cat $CERTIFICATE_PATH
           cat $PP_PATH
           
-      - name: Build archive
-        run: |
-          xcodebuild build -scheme "UpgradeUpsell" \
-          -sdk iphoneos \
-          -destination generic/platform=iOS
+      - name: Build IOS Appp
+        uses: yukiarrr/ios-build-action@v1.4.0
+        with:
+          project-path: ios/UpgradeUpsell.xcodeproj
+          p12-base64: ${{ secrets.IOS_P12_BASE64 }}
+          mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION_BASE64 }}
+          code-signing-identity: "iPhone Distribution"
+          team-id: ${{ secrets.IOS_TEAM_ID }}
+          certificate-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          workspace-path: ios/UpgradeUpsell.xcworkspace
 
-      - name: Archive iOS app
-        run: |
-          xcodebuild archive -scheme "UpgradeUpsell" \
-          -sdk iphoneos \
-          -destination generic/platform=iOS \
-          -archivePath $RUNNER_TEMP/Archive/UpgradeUpsell.xcarchive 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Gakko IOS IPA
+          path: "output.ipa"
