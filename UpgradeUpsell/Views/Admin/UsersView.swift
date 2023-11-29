@@ -53,13 +53,13 @@ struct UsersView: View {
                                              }
                                          }
                     
-                    Text("Role: \(user.role)")
+                    //Text("Role: \(user.role)")
                     
-                    Button(action: {
-                        // Implement the action to select the user
-                    }) {
-                        Text("Select")
-                    }
+//                    Button(action: {
+//                        // Implement the action to select the user
+//                    }) {
+//                        Text("Select")
+//                    }
                 }
                 .padding(10)
                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))

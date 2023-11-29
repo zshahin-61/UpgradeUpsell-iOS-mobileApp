@@ -22,6 +22,7 @@ struct UserProfileView: View {
         @State private var bio: String = ""
         @State private var rating: Double = 4.5
         @State private var company: String = ""
+        @State private var role: String = ""
         @State private var errorMsg: String? = nil
         
         @State private var showAlert = false
@@ -47,20 +48,32 @@ struct UserProfileView: View {
                 
                 Text(name)
                     .font(.title)
-                    .fontWeight(.bold)
+                    //.fontWeight(.bold)
                 
-                Text(company)
-                    .font(.headline)
+                HStack{
+                    Text("Role: ").font(.headline)
+                    Text(role)
+                        .font(.headline)
+                }
                 
-                //RatingView(rating: rating)
-                
+                if(self.role == "Investor" ||  self.role == "Realtor" ){
+                    Text(company)
+                        .font(.headline)
+                    
+                    
+                    RatingView(rating: rating)
+                }
                 HStack{
                     Text("Bio:")
                         .font(.headline)
                     Spacer()
                 }
+                HStack{
                     Text(bio)
                         .font(.body)
+                    Spacer()
+                }
+                   
                    
                 
                 if let err = errorMsg {
@@ -79,6 +92,7 @@ struct UserProfileView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }.buttonStyle(.borderedProminent)
+                Spacer()
             }
             .padding(.horizontal, 10)
             .onAppear(){
@@ -87,16 +101,17 @@ struct UserProfileView: View {
                     if let error = error {
                         self.errorMsg = error.localizedDescription
                     }
-                    else if let UserInfo = UserInfo {
-                        self.name = UserInfo.fullName
-                        self.bio = UserInfo.userBio
-                        self.company = UserInfo.company ?? ""
-                        self.rating = UserInfo.rating ?? 4.5
+                    else if let userInfo = UserInfo {
+                        self.name = userInfo.fullName
+                        self.bio = userInfo.userBio
+                        self.role = userInfo.role
+                        self.company = userInfo.company ?? ""
+                        self.rating = userInfo.rating ?? 4.5
                         
                         self.errorMsg = nil
                         
                         // MARK: Show image from db
-                        if let imageData = UserInfo.profilePicture as? Data {
+                        if let imageData = userInfo.profilePicture as? Data {
                             self.imageData = imageData
                         } else {
                             print("Invalid image data format")
