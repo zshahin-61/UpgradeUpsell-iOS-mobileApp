@@ -24,10 +24,12 @@
        // @State private var isChatEnabled: [Bool] = []
         @State private var searchText = ""
         
+        @State private var ownerNames: [String: String] = [:]
+        
         var body: some View {
             VStack {
             //sample
-                Text("My Offers").bold().font(.title).foregroundColor(.brown)
+                Text("Accepted Offers").bold().font(.title).foregroundColor(.brown)
                     .padding(.horizontal,10)
                 SearchBar(text: $searchText, placeholder: "Search by title")
                 
@@ -88,6 +90,12 @@
                                             .font(.headline)
                                         //.bold()
                                             .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+                                        
+                                        HStack {
+                                                Text("Owner:")
+                                                Spacer()
+                                                Text(ownerNames[filteredSuggestions[index].ownerID] ?? "Unknown Owner")
+                                            }
                                         
                                         HStack {
                                             Text("Investor:")
@@ -222,6 +230,23 @@
                 filteredSuggestions = suggestions
             }
             updateChatButtonTitles()
+            fetchOwnerNames()
+        }
+        
+        private func fetchOwnerNames() {
+            let ownerIDs = Set(filteredSuggestions.map { $0.ownerID })
+            
+            for ownerID in ownerIDs {
+                dbHelper.getUserProfilebyUserID(userID: ownerID) {(userProfile, error) in
+                    if let error = error {
+                        print("Error fetching user profile: \(error)")
+                    } else if let userProfile = userProfile {
+                        DispatchQueue.main.async {
+                            self.ownerNames[ownerID] = userProfile.fullName
+                        }
+                    }
+                }
+            }
         }
         
         //insert in notifications
