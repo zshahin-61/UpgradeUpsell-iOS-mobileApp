@@ -484,7 +484,7 @@
 			mainGroup = 5F9465E82ABB33E50006FBB5;
 			packageReferences = (
 				5F9466072ABB43830006FBB5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */,
 			);
 			productRefGroup = 5F9465F22ABB33E50006FBB5 /* Products */;
 			projectDirPath = "";
@@ -813,7 +813,7 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+		5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
@@ -1011,7 +1011,7 @@
 		};
 		5FFE00E22AF1B314002F9B64 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			package = 5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */;
 			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
