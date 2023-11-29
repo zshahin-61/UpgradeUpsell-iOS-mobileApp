@@ -50,19 +50,28 @@ struct UserProfileView: View {
                     .font(.title)
                     //.fontWeight(.bold)
                 
+                
+                
+                if(self.role == "Investor" ||  self.role == "Realtor" ){
+                    RatingView(rating: rating)
+                    
+                    
+                    HStack{
+                        Text(company)
+                            .font(.headline)
+                        
+                        Spacer()
+                        
+                    }
+                }
+                
                 HStack{
                     Text("Role: ").font(.headline)
                     Text(role)
                         .font(.headline)
+                    Spacer()
                 }
                 
-                if(self.role == "Investor" ||  self.role == "Realtor" ){
-                    Text(company)
-                        .font(.headline)
-                    
-                    
-                    RatingView(rating: rating)
-                }
                 HStack{
                     Text("Bio:")
                         .font(.headline)
