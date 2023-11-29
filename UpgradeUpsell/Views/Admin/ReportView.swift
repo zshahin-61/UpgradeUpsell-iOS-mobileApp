@@ -40,91 +40,130 @@
                         ScrollView {
                             ForEach(filteredSuggestions.indices, id: \.self) { index in
                                 VStack(alignment: .leading, spacing: 10) {
-                                    Text(filteredSuggestions[index].projectTitle)
-                                        .font(.headline)
-                                    //.bold()
-                                        .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+//                                    Text(filteredSuggestions[index].projectTitle)
+//                                        .font(.headline)
+//                                    //.bold()
+//                                        .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+//                                    
+//                                    HStack {
+//                                        Text("Investor:")
+//                                        Spacer()
+//                                        Text(filteredSuggestions[index].investorFullName)
+//                                        Spacer()
+//                                        
+//                                    }
+//                                    
+////                                    HStack {
+////                                        Text("Owner:")
+////                                        Spacer()
+////                                        Text(filteredSuggestions[index].investorFullName)
+////                                        Spacer()
+////                                        
+////                                    }
+//                                    
+//                                    HStack {
+//                                        Text("Offered Amount:")
+//                                        Spacer()
+//                                        Text(String(format: "$%.2f", filteredSuggestions[index].amountOffered))
+//                                        Spacer()
+//                                        
+//                                    }
+//                                    
+//                                    HStack {
+//                                        Text("Duration:")
+//                                        Spacer()
+//                                        Text("\(filteredSuggestions[index].durationWeeks) Weeks")
+//                                    }
+//                                    
+//                                    HStack {
+//                                        Text("Status:")
+//                                        Spacer()
+//                                        Text(filteredSuggestions[index].status)
+//                                    }
+//                                    
+//                                    Text(filteredSuggestions[index].description)
                                     
-                                    HStack {
-                                        Text("Offered Amount:")
-                                        Spacer()
-                                        Text(String(format: "$%.2f", filteredSuggestions[index].amountOffered))
-                                        Spacer()
+                                    Section{
+                                        Text(filteredSuggestions[index].projectTitle)
+                                            .font(.headline)
+                                        //.bold()
+                                            .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                                         
-                                    }
+                                        HStack {
+                                            Text("Investor:")
+                                            Spacer()
+                                            Text(filteredSuggestions[index].investorFullName)
+                                        }
+                                        
+                                        HStack {
+                                            Text("Offered Amount:")
+                                            Spacer()
+                                            Text(String(format: "$%.2f", filteredSuggestions[index].amountOffered))
+                                        }
+                                        
+                                        HStack {
+                                            Text("Duration:")
+                                            Spacer()
+                                            Text("\(filteredSuggestions[index].durationWeeks) Weeks")
+                                        }
+                                        
+                                        Text(filteredSuggestions[index].description)
+                                    }//Section
                                     
-                                    HStack {
-                                        Text("Duration:")
-                                        Spacer()
-                                        Text("\(filteredSuggestions[index].durationWeeks) Weeks")
-                                    }
-                                    
-                                    HStack {
-                                        Text("Status:")
-                                        Spacer()
-                                        Text(filteredSuggestions[index].status)
-                                    }
-                                    
-                                    Text(filteredSuggestions[index].description)
                                     HStack{
-                                        
+                                        Spacer()
                                         Button(action: {
                                             // Fetch the current chat permission status
-                                                dbHelper.fetchChatPermission(user1: filteredSuggestions[index].ownerID, user2: filteredSuggestions[index].investorID) { (permission, error) in
-                                                    if let error = error {
-                                                        print("Error fetching chat permission: \(error)")
-                                                        // Handle the error as needed
-                                                        return
-                                                    }
-
-                                                    // Determine the new chat permission status
-                                                    let newCanChat = !(permission?.canChat ?? false)
-
-                                                    // Update the chat permission
-                                                    dbHelper.createChatPermission(user1: filteredSuggestions[index].ownerID, user2: filteredSuggestions[index].investorID, canChat: newCanChat) { error in
-                                                        if let error = error {
-                                                            print("Error updating ChatPermission: \(error)")
-                                                            // Handle the error as needed
-                                                            alertMessage = "Error updating ChatPermission: \(error)"
-                                                        } else {
-                                                            // Update the button title based on the new chat permission status
-                                                            DispatchQueue.main.async {
-                                                                chatButtonTitles[index] = newCanChat ? "Disable Chat" : "Enable Chat"
-                                                                alertMessage = "ChatPermission updated successfully"
-                                                                print("ChatPermission updated successfully")
-                                                            }
-                                                        }
-
-                                                        // Show the alert
-                                                        isShowingAlert = true
-                                                    }
+                                            dbHelper.fetchChatPermission(user1: filteredSuggestions[index].ownerID, user2: filteredSuggestions[index].investorID) { (permission, error) in
+                                                if let error = error {
+                                                    print("Error fetching chat permission: \(error)")
+                                                    // Handle the error as needed
+                                                    return
                                                 }
-//                                            dbHelper.createChatPermission(user1: filteredSuggestions[index].ownerID, user2: filteredSuggestions[index].investorID, canChat: true) { error in
-//                                                if let error = error {
-//                                                    print("Error creating ChatPermission: \(error)")
-//                                                    alertMessage = "Error creating ChatPermission: \(error)"
-//                                                } else {
-//                                                    alertMessage = "ChatPermission created successfully"
-//                                                    print("ChatPermission created successfully")
-//                                                }
-//                                                
-//                                                isShowingAlert = true
-//                                                
-//                                            }
-                                            
+                                                
+                                                // Determine the new chat permission status
+                                                let newCanChat = !(permission?.canChat ?? false)
+                                                
+                                                // Update the chat permission
+                                                dbHelper.createChatPermission(user1: filteredSuggestions[index].ownerID, user2: filteredSuggestions[index].investorID, canChat: newCanChat) { error in
+                                                    if let error = error {
+                                                        print("Error updating ChatPermission: \(error)")
+                                                        // Handle the error as needed
+                                                        alertMessage = "Error updating ChatPermission: \(error)"
+                                                    } else {
+                                                        // Update the button title based on the new chat permission status
+                                                        DispatchQueue.main.async {
+                                                            chatButtonTitles[index] = newCanChat ? "Disable Chat" : "Enable Chat"
+                                                            alertMessage = "ChatPermission updated successfully"
+                                                            print("ChatPermission updated successfully")
+                                                        }
+                                                    }
+                                                    
+                                                    // Show the alert
+                                                    isShowingAlert = true
+                                                }
+                                            }
                                         }) {
                                             Text(chatButtonTitles.indices.contains(index) ? chatButtonTitles[index] : "")
-
+                                            
                                             //Text(canChatButtonTitle(for: filteredSuggestions[index]))
                                             //Text("Chattttttttt")
                                         }.buttonStyle(.borderedProminent)
+                                        
+                                        Spacer()
                                     }
-                                    
                                 }
+//                                .padding(10)
+//                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
+//                                .padding(.horizontal)
+//                                .listRowBackground(Color.clear)
                                 .padding(10)
-                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
-                                .padding(.horizontal)
-                                .listRowBackground(Color.clear)
+                                .background(RoundedRectangle(cornerRadius: 10)
+                                    .strokeBorder(Color.gray, lineWidth: 1.0) // Add border
+                                    .background(Color(.systemBackground))).padding(.horizontal)
+                                    .padding(.horizontal, 5)
+                                
+                                
                             }
                             
                         }
