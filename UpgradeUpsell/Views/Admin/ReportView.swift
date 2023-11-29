@@ -31,7 +31,7 @@
                 //sample
                 Text("Accepted Offers").bold().font(.title).foregroundColor(.brown)
                     .padding(.horizontal,10)
-                SearchBar(text: $searchText, placeholder: "Search by title")
+                SearchBar(text: $searchText, placeholder: "Search by Title or Investor or Owner ")
                 
                 if dbHelper.userProfile == nil {
                     Text("No user logged in")
@@ -210,6 +210,7 @@
                      } else if let suggestions = suggestions {
                          self.suggestions = suggestions
                          filterSuggestions()
+                         fetchOwnerNames()
                        isLoading = false
                      }
                  }
@@ -218,20 +219,31 @@
         
         //filter suggestions
         private func filterSuggestions(){
-            if(!searchText.isEmpty){
-                filteredSuggestions = suggestions.filter {
-                    $0.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
-                    
+//            if(!searchText.isEmpty){
+//                filteredSuggestions = suggestions.filter {
+//                    $0.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
+//                    
+//                }
+//            }else{
+//                filteredSuggestions = suggestions
+//            }
+            if !searchText.isEmpty {
+                    filteredSuggestions = suggestions.filter { suggestion in
+                        let titleMatch = suggestion.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
+                        let investorMatch = suggestion.investorFullName.localizedCaseInsensitiveContains(searchText.lowercased())
+                        let ownerNameMatch = ownerNames[suggestion.ownerID]?.localizedCaseInsensitiveContains(searchText.lowercased()) ?? false
+                        
+                        return titleMatch || investorMatch || ownerNameMatch
+                    }
+                } else {
+                    filteredSuggestions = suggestions
                 }
-            }else{
-                filteredSuggestions = suggestions
-            }
-            updateChatButtonTitles()
-            fetchOwnerNames()
+
+                updateChatButtonTitles()
         }
         
         private func fetchOwnerNames() {
-            let ownerIDs = Set(filteredSuggestions.map { $0.ownerID })
+            let ownerIDs = Set(suggestions.map { $0.ownerID })
             
             for ownerID in ownerIDs {
                 dbHelper.getUserProfilebyUserID(userID: ownerID) {(userProfile, error) in
@@ -247,7 +259,7 @@
         }
         
         //insert in notifications
-        func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){            
+        func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){
             var flName = ""
             if let fullName = dbHelper.userProfile?.fullName{
                 flName = fullName

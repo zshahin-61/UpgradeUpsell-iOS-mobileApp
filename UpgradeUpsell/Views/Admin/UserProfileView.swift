@@ -52,7 +52,7 @@ struct UserProfileView: View {
                 Text(company)
                     .font(.headline)
                 
-                RatingView(rating: rating)
+                //RatingView(rating: rating)
                 
                 HStack{
                     Text("Bio:")
@@ -104,11 +104,11 @@ struct UserProfileView: View {
                     }
                 }
             }
-            .navigationBarItems(leading: Button(action: {
-                      self.presentationMode.wrappedValue.dismiss()
-                   }) {
-                       Text(" Back ").font(.headline)
-                   })
+//            .navigationBarItems(leading: Button(action: {
+//                      self.presentationMode.wrappedValue.dismiss()
+//                   }) {
+//                       Text(" Back ").font(.headline)
+//                   })
         }
     }
 
