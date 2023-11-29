@@ -1,8 +1,8 @@
 name: "Build iOS app"
 
 on:
-  workflow_dispatch:
-    branches: [main]
+  workflow_dispatch: 
+   branches: [main]
 
 jobs:
   build_with_signing:
@@ -36,14 +36,25 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
 
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
 
+      - name: Download Provisioning Profile
+        run: |
+          echo "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode > provisioning_profile.mobileprovision
+
+      - name: Install Provisioning Profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
+     
       - name: Print Certificates and Provisioning Profiles
         run: |
           echo "$BUILD_CERTIFICATE_BASE64" | base64 --decode
           echo "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode
           cat $CERTIFICATE_PATH
           cat $PP_PATH
+          
       - name: Build archive
         run: |
           xcodebuild -scheme "UpgradeUpsell" \
