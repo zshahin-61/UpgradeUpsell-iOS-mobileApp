@@ -28,7 +28,7 @@
         
         var body: some View {
             VStack {
-            //sample
+                //sample
                 Text("Accepted Offers").bold().font(.title).foregroundColor(.brown)
                     .padding(.horizontal,10)
                 SearchBar(text: $searchText, placeholder: "Search by title")
@@ -42,48 +42,48 @@
                         ScrollView {
                             ForEach(filteredSuggestions.indices, id: \.self) { index in
                                 VStack(alignment: .leading, spacing: 10) {
-//                                    Text(filteredSuggestions[index].projectTitle)
-//                                        .font(.headline)
-//                                    //.bold()
-//                                        .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
-//                                    
-//                                    HStack {
-//                                        Text("Investor:")
-//                                        Spacer()
-//                                        Text(filteredSuggestions[index].investorFullName)
-//                                        Spacer()
-//                                        
-//                                    }
-//                                    
-////                                    HStack {
-////                                        Text("Owner:")
-////                                        Spacer()
-////                                        Text(filteredSuggestions[index].investorFullName)
-////                                        Spacer()
-////                                        
-////                                    }
-//                                    
-//                                    HStack {
-//                                        Text("Offered Amount:")
-//                                        Spacer()
-//                                        Text(String(format: "$%.2f", filteredSuggestions[index].amountOffered))
-//                                        Spacer()
-//                                        
-//                                    }
-//                                    
-//                                    HStack {
-//                                        Text("Duration:")
-//                                        Spacer()
-//                                        Text("\(filteredSuggestions[index].durationWeeks) Weeks")
-//                                    }
-//                                    
-//                                    HStack {
-//                                        Text("Status:")
-//                                        Spacer()
-//                                        Text(filteredSuggestions[index].status)
-//                                    }
-//                                    
-//                                    Text(filteredSuggestions[index].description)
+                                    //                                    Text(filteredSuggestions[index].projectTitle)
+                                    //                                        .font(.headline)
+                                    //                                    //.bold()
+                                    //                                        .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
+                                    //
+                                    //                                    HStack {
+                                    //                                        Text("Investor:")
+                                    //                                        Spacer()
+                                    //                                        Text(filteredSuggestions[index].investorFullName)
+                                    //                                        Spacer()
+                                    //
+                                    //                                    }
+                                    //
+                                    ////                                    HStack {
+                                    ////                                        Text("Owner:")
+                                    ////                                        Spacer()
+                                    ////                                        Text(filteredSuggestions[index].investorFullName)
+                                    ////                                        Spacer()
+                                    ////
+                                    ////                                    }
+                                    //
+                                    //                                    HStack {
+                                    //                                        Text("Offered Amount:")
+                                    //                                        Spacer()
+                                    //                                        Text(String(format: "$%.2f", filteredSuggestions[index].amountOffered))
+                                    //                                        Spacer()
+                                    //
+                                    //                                    }
+                                    //
+                                    //                                    HStack {
+                                    //                                        Text("Duration:")
+                                    //                                        Spacer()
+                                    //                                        Text("\(filteredSuggestions[index].durationWeeks) Weeks")
+                                    //                                    }
+                                    //
+                                    //                                    HStack {
+                                    //                                        Text("Status:")
+                                    //                                        Spacer()
+                                    //                                        Text(filteredSuggestions[index].status)
+                                    //                                    }
+                                    //
+                                    //                                    Text(filteredSuggestions[index].description)
                                     
                                     Section{
                                         Text(filteredSuggestions[index].projectTitle)
@@ -92,10 +92,10 @@
                                             .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                                         
                                         HStack {
-                                                Text("Owner:")
-                                                Spacer()
-                                                Text(ownerNames[filteredSuggestions[index].ownerID] ?? "Unknown Owner")
-                                            }
+                                            Text("Owner:")
+                                            Spacer()
+                                            Text(ownerNames[filteredSuggestions[index].ownerID] ?? "Unknown Owner")
+                                        }
                                         
                                         HStack {
                                             Text("Investor:")
@@ -161,19 +161,16 @@
                                         Spacer()
                                     }
                                 }
-//                                .padding(10)
-//                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
-//                                .padding(.horizontal)
-//                                .listRowBackground(Color.clear)
+                                //                                .padding(10)
+                                //                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.systemBackground)))
+                                //                                .padding(.horizontal)
+                                //                                .listRowBackground(Color.clear)
                                 .padding(10)
                                 .background(RoundedRectangle(cornerRadius: 10)
                                     .strokeBorder(Color.gray, lineWidth: 1.0) // Add border
                                     .background(Color(.systemBackground))).padding(.horizontal)
                                     .padding(.horizontal, 5)
-                                
-                                
                             }
-                            
                         }
                         .padding(.vertical, 10)
                     }
@@ -250,8 +247,7 @@
         }
         
         //insert in notifications
-        func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){
-            
+        func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){            
             var flName = ""
             if let fullName = dbHelper.userProfile?.fullName{
                 flName = fullName
@@ -324,10 +320,9 @@
               isShowingAlert = true
           }
 
-        
         // Function to fetch chat permission status for the current user\
         private func fetchChatPermissionStatus(sugg: InvestmentSuggestion, completion: @escaping (Bool) -> Void) {
-            dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in
+            self.dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in
                 if let error = error {
     #if DEBUG
                     print("Error fetching chat permission: \(error)")
