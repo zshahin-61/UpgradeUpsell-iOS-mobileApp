@@ -150,6 +150,24 @@ struct SignUpView: View {
                         }) {
                             Text("Capture Photo")
                         }
+                        .sheet(isPresented: $isShowingCamera) {
+                            if isCameraPermissionDenied {
+                                // Show an alert indicating camera permission is denied
+                                Text("Camera access is not authorized.")
+                            } else {
+                                // Present your camera interface here
+                                // This could be a custom camera view or a UIImagePickerController
+                                // For simplicity, let's assume you have a custom camera view named CameraView
+                                CameraView { capturedImage in
+                                    // Handle the captured image here
+                                    // You can set it to selectedImage or perform other actions
+                                    self.selectedImage = capturedImage
+
+                                    // Close the camera interface
+                                    isShowingCamera = false
+                                }
+                            }
+                        }
                         if let image = selectedImage {
                             Image(uiImage: image)
                                 .resizable()
@@ -172,14 +190,6 @@ struct SignUpView: View {
                     }
                 }
             }
-//            .sheet(isPresented: $isShowingPicker) {
-//                if photoLibraryManager.isAuthorized {
-//                    ImagePickerView(selectedImage: $selectedImage)
-//                } else {
-//                    Text("Access to photo library is not authorized.")
-//                }
-//            }
-            //}
             .autocorrectionDisabled(true)
             
             Button(action: {
@@ -315,11 +325,13 @@ struct SignUpView: View {
                 } else {
                     // Permission denied
                     self.isCameraPermissionDenied = true
+                    print("Camera permission denied")
                 }
             }
         case .denied, .restricted:
             // Camera access is denied or restricted by the user or parental controls.
             self.isCameraPermissionDenied = true
+            print("Camera permission denied")
         @unknown default:
             // Handle unknown cases if necessary.
             break
