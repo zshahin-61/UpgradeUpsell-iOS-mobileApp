@@ -30,43 +30,66 @@ class FireAuthController : ObservableObject{
             self.user = user
         }
     }
-    
-    
-    func signUp(email: String, password : String, withCompletion completion: @escaping (Bool) -> Void){
-        Auth.auth().createUser(withEmail : email, password: password){ authResult, error in
-            
-            guard let result = authResult else{
-                if let error = error{
-                    print(#function, "Error while signing up user : \(error)")
+   
+    func signUp(email: String, password: String, withCompletion completion: @escaping (Bool, Error?) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print(#function, "Error while signing up user: \(error)")
+                DispatchQueue.main.async {
+                    completion(false, error)
                 }
                 return
             }
-            
-            print(#function, "AuthResult : \(result)")
-            
-            switch(authResult){
-            case .none:
-                print(#function, "Unable to create account")
-                DispatchQueue.main.async {
-                    self.isLoginSuccessful = false
-                    completion(self.isLoginSuccessful)
-                }
-            case .some(_):
-                print(#function, "Successfully created user account")
-                
-                self.user = authResult?.user
-                //save the email in the UserDefaults
-                UserDefaults.standard.set(self.user?.email, forKey: "KEY_ID")
-                
-                DispatchQueue.main.async {
-                    self.isLoginSuccessful = true
-                    completion(self.isLoginSuccessful)
-                }
+
+            print(#function, "Successfully created user account")
+
+            self.user = authResult?.user
+            // Save the email in UserDefaults
+            UserDefaults.standard.set(self.user?.email, forKey: "KEY_ID")
+
+            DispatchQueue.main.async {
+                completion(true, nil)
             }
-            
         }
-        
     }
+
+    
+    
+//    func signUp(email: String, password : String, withCompletion completion: @escaping (Bool) -> Void){
+//        Auth.auth().createUser(withEmail : email, password: password){ authResult, error in
+//            
+//            guard let result = authResult else{
+//                if let error = error{
+//                    print(#function, "Error while signing up user : \(error)")
+//                }
+//                return
+//            }
+//            
+//            print(#function, "AuthResult : \(result)")
+//            
+//            switch(authResult){
+//            case .none:
+//                print(#function, "Unable to create account")
+//                DispatchQueue.main.async {
+//                    self.isLoginSuccessful = false
+//                    completion(self.isLoginSuccessful)
+//                }
+//            case .some(_):
+//                print(#function, "Successfully created user account")
+//                
+//                self.user = authResult?.user
+//                //save the email in the UserDefaults
+//                UserDefaults.standard.set(self.user?.email, forKey: "KEY_ID")
+//                
+//                DispatchQueue.main.async {
+//                    self.isLoginSuccessful = true
+//                    completion(self.isLoginSuccessful)
+//                }
+//            }
+//            
+//        }
+//        
+//    }
     
 //    func signIn(email: String, password : String, withCompletion completion: @escaping (Bool) -> Void){
 //
