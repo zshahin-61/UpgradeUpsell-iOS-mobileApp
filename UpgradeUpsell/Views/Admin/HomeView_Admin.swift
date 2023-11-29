@@ -41,12 +41,12 @@ struct HomeView_Admin: View {
                 }
 
         
-            NotificationView()
-                .tabItem {
-                    Label("Notifications", systemImage: "bell")
-                    Text("Notifications")
-                    
-                }
+//            NotificationView()
+//                .tabItem {
+//                    Label("Notifications", systemImage: "bell")
+//                    Text("Notifications")
+//                    
+//                }
 
             
             
