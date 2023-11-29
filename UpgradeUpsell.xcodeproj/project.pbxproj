@@ -24,7 +24,6 @@
 		5A8DAB462ADDFC0B00CDCBCB /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB452ADDFC0B00CDCBCB /* Notifications.swift */; };
 		5A8DAB482ADE066F00CDCBCB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */; };
 		5A8DAB4A2ADE29A900CDCBCB /* NotificationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */; };
-		5AAC1E7F2B059BFD003C9C64 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */; };
 		5AAC1E812B05DD2C003C9C64 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAC1E802B05DD2C003C9C64 /* FirebaseAnalytics */; };
 		5AAC1E832B05DD2C003C9C64 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAC1E822B05DD2C003C9C64 /* FirebaseAnalyticsOnDeviceConversion */; };
 		5AAC1E852B05DD2C003C9C64 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAC1E842B05DD2C003C9C64 /* FirebaseAnalyticsSwift */; };
@@ -85,6 +84,7 @@
 		5F9466372ABCC5940006FBB5 /* PhotoLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */; };
 		5F9466392ABCC5DC0006FBB5 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */; };
 		5FB31F332B159849000D40E0 /* ProjectAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31F322B159849000D40E0 /* ProjectAddView.swift */; };
+		5FB31F352B178C8E000D40E0 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FB31F342B178C8E000D40E0 /* ExportOptions.plist */; };
 		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
 		5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882462ACE591C0034439F /* HomeView_Realtor.swift */; };
 		5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */; };
@@ -137,7 +137,6 @@
 		5A8DAB472ADE066F00CDCBCB /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		5A8DAB492ADE29A900CDCBCB /* NotificationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailView.swift; sourceTree = "<group>"; };
 		5AA2263C2B15740E00D614D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "UpgradeUpsell/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F9465F12ABB33E50006FBB5 /* UpgradeUpsell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpgradeUpsell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9465F42ABB33E50006FBB5 /* UpgradeUpsellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeUpsellApp.swift; sourceTree = "<group>"; };
@@ -163,6 +162,7 @@
 		5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryManager.swift; sourceTree = "<group>"; };
 		5F9466382ABCC5DC0006FBB5 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		5FB31F322B159849000D40E0 /* ProjectAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAddView.swift; sourceTree = "<group>"; };
+		5FB31F342B178C8E000D40E0 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
 		5FD882462ACE591C0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
 		5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOffers_InvestorView.swift; sourceTree = "<group>"; };
@@ -304,7 +304,7 @@
 		5F9465E82ABB33E50006FBB5 = {
 			isa = PBXGroup;
 			children = (
-				5AAC1E7E2B059BFD003C9C64 /* ExportOptions.plist */,
+				5FB31F342B178C8E000D40E0 /* ExportOptions.plist */,
 				5F1BA5132AE3F6E000BCE947 /* GoogleService-Info.plist */,
 				5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */,
 				5F9465F22ABB33E50006FBB5 /* Products */,
@@ -503,7 +503,7 @@
 				5F9465FC2ABB33E60006FBB5 /* Preview Assets.xcassets in Resources */,
 				5F9465F92ABB33E60006FBB5 /* Assets.xcassets in Resources */,
 				5F1BA5142AE3F6E000BCE947 /* GoogleService-Info.plist in Resources */,
-				5AAC1E7F2B059BFD003C9C64 /* ExportOptions.plist in Resources */,
+				5FB31F352B178C8E000D40E0 /* ExportOptions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,17 +704,15 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = UpgradeUpsell/UpgradeUpsell.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"UpgradeUpsell/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7B7KJQCFCP;
+				DEVELOPMENT_TEAM = 7B7KJQCFCP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UpgradeUpsell/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = UpgradeUpsell;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Upgrade Upsell to access your device's camera for capturing photos.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -731,7 +729,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = UpgradeUpsellProvisioning;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -749,17 +746,15 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = UpgradeUpsell/UpgradeUpsell.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UpgradeUpsell/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7B7KJQCFCP;
+				DEVELOPMENT_TEAM = 7B7KJQCFCP;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UpgradeUpsell/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = UpgradeUpsell;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Upgrade Upsell to access your device's camera for capturing photos.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -777,7 +772,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = UpgradeUpsellProvisioning;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

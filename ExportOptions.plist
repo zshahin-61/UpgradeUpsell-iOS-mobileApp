@@ -3,12 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>method</key>
-	<string>development</string>
+	<string>app-store</string>
 	<key>teamID</key>
-	<string>Priteshkumar Patel</string>
-	<key>com.moxdroid.UpgradeUpsell</key>
-	<string>Xcode Managed Profile</string>
+	<string>NRYB4WH97V</string>
+	<key>signingCertificate</key>
+	<string>Apple Development: Priteshkumar Patel (NRYB4WH97V)</string>
 	<key>provisioningProfiles</key>
-	<dict/>
+	<dict>
+		<key>com.moxdroid.UpgradeUpsell</key>
+		<string>6fb5aed4-e896-4927-a7b5-c44e0e23c91a</string>
+	</dict>
 </dict>
 </plist>
