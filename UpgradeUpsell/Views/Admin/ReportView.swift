@@ -141,12 +141,13 @@
                                                     } else {
                                                         // Update the button title based on the new chat permission status
                                                         DispatchQueue.main.async {
-                                                            chatButtonTitles[index] = newCanChat ? "Disable Chat" : "Enable Chat"
+                                                            //chatButtonTitles[index] = newCanChat ? "Disable Chat" : "Enable Chat"
                                                             alertMessage = "ChatPermission updated successfully"
                                                             print("ChatPermission updated successfully")
                                                         }
                                                     }
-                                                    
+                                                    insertNotif(filteredSuggestions[index], chatButtonTitles[index])
+
                                                     // Show the alert
                                                     isShowingAlert = true
                                                 }
@@ -259,29 +260,80 @@
         }
         
         //insert in notifications
-        func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){
+        func insertNotif(_ myOffer: InvestmentSuggestion, _ a: String) {
             var flName = ""
-            if let fullName = dbHelper.userProfile?.fullName{
+            if let fullName = dbHelper.userProfile?.fullName {
                 flName = fullName
             }
+
+            // Notification for Investor
             
-            let notification = Notifications(
+            var ownerFLName = "N/A"
+            if let ownerName = ownerNames[myOffer.ownerID] {
+                ownerFLName = ownerName
+            }
+            
+            let investorNotification = Notifications(
                 id: UUID().uuidString,
                 timestamp: Date(),
-                userID: myOffer.ownerID,
-                event: "Offer \(a)!",
-                details: "Offer $\(myOffer.amountOffered) for project titled \(myOffer.projectTitle) has been \(a) By \(flName).",
+                userID: myOffer.investorID,
+                event: "Chat permission updated \(a)!",
+                details: "\(a)  with \(ownerFLName)  for project titled \(myOffer.projectTitle) by \(flName).",
                 isRead: false,
                 projectID: myOffer.projectID
             )
-            dbHelper.insertNotification(notification) { notificationSuccess in
+
+            dbHelper.insertNotification(investorNotification) { notificationSuccess in
                 if notificationSuccess {
-                    print("Notification inserted successfully.")
+                    print("Investor notification inserted successfully.")
                 } else {
-                    print("Error inserting notification.")
+                    print("Error inserting investor notification.")
+                }
+            }
+
+            // Notification for Owner
+            let ownerNotification = Notifications(
+                id: UUID().uuidString,
+                timestamp: Date(),
+                userID: myOffer.ownerID,
+                event: "Chat permission updated \(a)!",
+                details: "\(a) with \(myOffer.investorFullName) for project titled \(myOffer.projectTitle) by \(flName).",
+                isRead: false,
+                projectID: myOffer.projectID
+            )
+
+            dbHelper.insertNotification(ownerNotification) { notificationSuccess in
+                if notificationSuccess {
+                    print("Owner notification inserted successfully.")
+                } else {
+                    print("Error inserting owner notification.")
                 }
             }
         }
+
+//        func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){
+//            var flName = ""
+//            if let fullName = dbHelper.userProfile?.fullName{
+//                flName = fullName
+//            }
+//            
+//            let notification = Notifications(
+//                id: UUID().uuidString,
+//                timestamp: Date(),
+//                userID: myOffer.ownerID,
+//                event: "Chat permission updated \(a)!",
+//                details: "you can/cant chat by $\(myOffer.investorFullName) for project titled \(myOffer.projectTitle) has been \(a) By \(flName).",
+//                isRead: false,
+//                projectID: myOffer.projectID
+//            )
+//            dbHelper.insertNotification(notification) { notificationSuccess in
+//                if notificationSuccess {
+//                    print("Notification inserted successfully.")
+//                } else {
+//                    print("Error inserting notification.")
+//                }
+//            }
+//        }
      
         //handleChatPermissionResult
 //          private func canChatButtonTitle(for suggestion: InvestmentSuggestion) -> String {
