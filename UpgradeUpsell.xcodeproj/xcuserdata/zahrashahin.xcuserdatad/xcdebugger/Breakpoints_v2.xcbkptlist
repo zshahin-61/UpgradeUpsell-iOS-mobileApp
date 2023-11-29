@@ -254,6 +254,36 @@
                   endingLineNumber = "19"
                   offsetFromSymbolStart = "220">
                </Location>
+               <Location
+                  uuid = "3D8C24C7-0620-42FD-88E4-319649A092FB - fe385139b9a10f01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of UpgradeUpsell.OffersofaPropertyView.noOffer : Swift.String"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zahrashahin/Downloads/Upgradeupsell/UpgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/OffersofaPropertyView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "30">
+               </Location>
+               <Location
+                  uuid = "3D8C24C7-0620-42FD-88E4-319649A092FB - 42a29caf64299e12"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UpgradeUpsell.OffersofaPropertyView.init(authHelper: SwiftUI.EnvironmentObject&lt;UpgradeUpsell.FireAuthController&gt;, dbHelper: SwiftUI.EnvironmentObject&lt;UpgradeUpsell.FirestoreController&gt;, selectedProperty: UpgradeUpsell.RenovateProject) -&gt; UpgradeUpsell.OffersofaPropertyView"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zahrashahin/Downloads/Upgradeupsell/UpgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/OffersofaPropertyView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "217">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
