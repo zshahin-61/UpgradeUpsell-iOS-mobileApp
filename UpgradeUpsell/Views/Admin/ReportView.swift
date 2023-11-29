@@ -14,13 +14,14 @@
 
         @State private var suggestions: [InvestmentSuggestion] = []
         @State private var filteredSuggestions: [InvestmentSuggestion] = []
+        @State private var chatButtonTitles: [String] = []
         
         @State private var isLoading: Bool = false
 
         @State private var isShowingAlert = false
         @State private var alertMessage = ""
         
-        @State private var isChatEnabled: [Bool] = []
+       // @State private var isChatEnabled: [Bool] = []
         @State private var searchText = ""
         
         var body: some View {
@@ -36,55 +37,87 @@
                     if isLoading {
                         ProgressView()
                     } else {
-                        List {
-                            ForEach(suggestions) { suggestion in
+                        ScrollView {
+                            ForEach(filteredSuggestions.indices, id: \.self) { index in
                                 VStack(alignment: .leading, spacing: 10) {
-                                    Text(suggestion.projectTitle)
+                                    Text(filteredSuggestions[index].projectTitle)
                                         .font(.headline)
-                                        //.bold()
+                                    //.bold()
                                         .foregroundColor(Color(red: 0.0, green: 0.40, blue: 0.0))
                                     
                                     HStack {
                                         Text("Offered Amount:")
                                         Spacer()
-                                        Text(String(format: "$%.2f", suggestion.amountOffered))
+                                        Text(String(format: "$%.2f", filteredSuggestions[index].amountOffered))
                                         Spacer()
                                         
                                     }
-                                  
+                                    
                                     HStack {
                                         Text("Duration:")
                                         Spacer()
-                                        Text("\(suggestion.durationWeeks) Weeks")
+                                        Text("\(filteredSuggestions[index].durationWeeks) Weeks")
                                     }
-
+                                    
                                     HStack {
                                         Text("Status:")
                                         Spacer()
-                                        Text(suggestion.status)
+                                        Text(filteredSuggestions[index].status)
                                     }
-
-                                    Text(suggestion.description)
+                                    
+                                    Text(filteredSuggestions[index].description)
                                     HStack{
-                                                                             
+                                        
                                         Button(action: {
-                                            
-                                            dbHelper.createChatPermission(user1: suggestion.ownerID, user2: suggestion.investorID, canChat: true) { error in
-                                                if let error = error {
-                                                    print("Error creating ChatPermission: \(error)")
-                                                    alertMessage = "Error creating ChatPermission: \(error)"
-                                                } else {
-                                                    alertMessage = "ChatPermission created successfully"
-                                                    print("ChatPermission created successfully")
+                                            // Fetch the current chat permission status
+                                                dbHelper.fetchChatPermission(user1: filteredSuggestions[index].ownerID, user2: filteredSuggestions[index].investorID) { (permission, error) in
+                                                    if let error = error {
+                                                        print("Error fetching chat permission: \(error)")
+                                                        // Handle the error as needed
+                                                        return
+                                                    }
+
+                                                    // Determine the new chat permission status
+                                                    let newCanChat = !(permission?.canChat ?? false)
+
+                                                    // Update the chat permission
+                                                    dbHelper.createChatPermission(user1: filteredSuggestions[index].ownerID, user2: filteredSuggestions[index].investorID, canChat: newCanChat) { error in
+                                                        if let error = error {
+                                                            print("Error updating ChatPermission: \(error)")
+                                                            // Handle the error as needed
+                                                            alertMessage = "Error updating ChatPermission: \(error)"
+                                                        } else {
+                                                            // Update the button title based on the new chat permission status
+                                                            DispatchQueue.main.async {
+                                                                chatButtonTitles[index] = newCanChat ? "Disable Chat" : "Enable Chat"
+                                                                alertMessage = "ChatPermission updated successfully"
+                                                                print("ChatPermission updated successfully")
+                                                            }
+                                                        }
+
+                                                        // Show the alert
+                                                        isShowingAlert = true
+                                                    }
                                                 }
-                                                
-                                                isShowingAlert = true
-                                                
-                                            }
+//                                            dbHelper.createChatPermission(user1: filteredSuggestions[index].ownerID, user2: filteredSuggestions[index].investorID, canChat: true) { error in
+//                                                if let error = error {
+//                                                    print("Error creating ChatPermission: \(error)")
+//                                                    alertMessage = "Error creating ChatPermission: \(error)"
+//                                                } else {
+//                                                    alertMessage = "ChatPermission created successfully"
+//                                                    print("ChatPermission created successfully")
+//                                                }
+//                                                
+//                                                isShowingAlert = true
+//                                                
+//                                            }
                                             
                                         }) {
-                                            Text("Enable Chat")
-                                                                               }
+                                            Text(chatButtonTitles.indices.contains(index) ? chatButtonTitles[index] : "")
+
+                                            //Text(canChatButtonTitle(for: filteredSuggestions[index]))
+                                            //Text("Chattttttttt")
+                                        }.buttonStyle(.borderedProminent)
                                     }
                                     
                                 }
@@ -106,10 +139,21 @@
                             dismissButton: .default(Text("OK"))
                         )
                     }
+            
             .onAppear {
                loadSuggestions()
             }
-
+            .onChange(of: searchText) { _ in
+                // Update filteredSuggestions based on the search text
+                filterSuggestions()
+            
+            }
+            .onChange(of: isShowingAlert) { _ in
+                // Reload data when isShowingAlert changes
+                if !isShowingAlert {
+                    loadSuggestions()
+                }
+            }
         }
 
         //load suggestions
@@ -138,18 +182,7 @@
             }else{
                 filteredSuggestions = suggestions
             }
-            
-            self.isChatEnabled = Array(repeating: false, count: filteredSuggestions.count)
-            DispatchQueue.global().async {
-                let chatPermissions = filteredSuggestions.map { suggestion in
-                    fetchChatPermissionStatus(sugg: suggestion) { canChat in
-                        // This closure is called when the asynchronous call is completed
-                        DispatchQueue.main.async {
-                            self.isChatEnabled.append(canChat)
-                        }
-                    }
-                }
-            }
+            updateChatButtonTitles()
         }
         
         //insert in notifications
@@ -178,6 +211,56 @@
             }
         }
      
+        //handleChatPermissionResult
+//          private func canChatButtonTitle(for suggestion: InvestmentSuggestion) -> String {
+//              var canChat = false
+//              //let chatPermissionID = [suggestion.investorID, suggestion.ownerID].sorted().joined(separator: "_")
+//               fetchChatPermissionStatus(sugg: suggestion){ ( chatEnabled) in
+//                       //if let chatEnabled = chatEnabled{
+//                       canChat = chatEnabled
+//                   print("Aradddddddd\(chatEnabled)")
+//                   //}
+//              }
+//              if canChat {
+//                  return "Disable Chat"
+//              }
+//              else{
+//                  return "Enable Chat"
+//              }
+//            //  return canChat ? "Disable Chat" : "Enable Chat"
+//          }
+        private func updateChatButtonTitles() {
+                chatButtonTitles.removeAll()
+
+                for suggestion in filteredSuggestions {
+                    dbHelper.fetchChatPermission(user1: suggestion.ownerID, user2: suggestion.investorID) { (permission, error) in
+                        if let error = error {
+                            print("Error fetching chat permission: \(error)")
+                            return
+                        }
+
+                        if let permission = permission {
+                            DispatchQueue.main.async {
+                                let title = permission.canChat ? "Disable Chat" : "Enable Chat"
+                                self.chatButtonTitles.append(title)
+                            }
+                        }
+                    }
+                }
+            }
+          
+          private func handleChatPermissionResult(error: Error?) {
+              if let error = error {
+                  print("Error handling ChatPermission: \(error)")
+                  alertMessage = "Error handling ChatPermission: \(error)"
+              } else {
+                  alertMessage = "ChatPermission updated successfully"
+                  print("ChatPermission updated successfully")
+              }
+              isShowingAlert = true
+          }
+
+        
         // Function to fetch chat permission status for the current user\
         private func fetchChatPermissionStatus(sugg: InvestmentSuggestion, completion: @escaping (Bool) -> Void) {
             dbHelper.fetchChatPermission(user1: sugg.ownerID, user2: sugg.investorID) { (permission, error) in

@@ -1005,6 +1005,7 @@ class FirestoreController: ObservableObject {
     }
 
     // ChatPermissions
+   
     func createChatPermission(user1: String, user2: String, canChat: Bool, completion: @escaping (Error?) -> Void) {
             let documentID = "\(user1)_\(user2)"
             let data: [String: Any] = [
