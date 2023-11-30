@@ -157,7 +157,8 @@ struct ProfileView: View {
                 .sheet(isPresented: $isShowingPicker) {
                     ImagePicker(selectedImage: $imageSelected, sourceType: .photoLibrary)
                  //   Text("vvvvvvv Photo Library")
-                }.sheet(isPresented: $openCameraRoll) {
+                }
+                .sheet(isPresented: $openCameraRoll) {
                     ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
                    // Text("vvvvvvv Camera")
                 }

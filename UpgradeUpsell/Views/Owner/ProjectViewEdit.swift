@@ -268,11 +268,11 @@ struct ProjectViewEdit: View {
                 }//section
             }//.padding(.top, 2)//form
             Button(action: {
-                if selectedProject != nil {
+                //if selectedProject != nil {
                     // If selectedProject is not nil
                     updateProperty()
                     //resetFormFields()
-                }
+                //}
             }) {
                 Text("Save")
                     .font(.headline)
