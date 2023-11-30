@@ -158,14 +158,14 @@ struct SignUpView: View {
                                 // Present your camera interface here
                                 // This could be a custom camera view or a UIImagePickerController
                                 // For simplicity, let's assume you have a custom camera view named CameraView
-                                CameraView { capturedImage in
-                                    // Handle the captured image here
-                                    // You can set it to selectedImage or perform other actions
-                                    self.selectedImage = capturedImage
-
-                                    // Close the camera interface
-                                    isShowingCamera = false
-                                }
+//                                CameraView { capturedImage in
+//                                    // Handle the captured image here
+//                                    // You can set it to selectedImage or perform other actions
+//                                    self.selectedImage = capturedImage
+//
+//                                    // Close the camera interface
+//                                    isShowingCamera = false
+//                                }
                             }
                         }
                         if let image = selectedImage {
