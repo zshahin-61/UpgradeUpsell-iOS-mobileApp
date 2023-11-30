@@ -51,8 +51,6 @@
 		5A47D9512AF1A6700064AF0E /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9502AF1A6700064AF0E /* UsersView.swift */; };
 		5A47D9532AF437820064AF0E /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9522AF437820064AF0E /* UserProfileView.swift */; };
 		5A47D9952AFD7A390064AF0E /* tmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A47D9942AFD7A390064AF0E /* tmp.swift */; };
-		5A7536AA2B19279E00BA1CB0 /* Pods_UpgradeUpsell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67AE70B789C9A6A67116E801 /* Pods_UpgradeUpsell.framework */; };
-		5A7536AB2B19279E00BA1CB0 /* Pods_UpgradeUpsell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67AE70B789C9A6A67116E801 /* Pods_UpgradeUpsell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5A7536AD2B192D4000BA1CB0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5A7536AC2B192D4000BA1CB0 /* FirebaseAnalytics */; };
 		5A7536AF2B192D4000BA1CB0 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 5A7536AE2B192D4000BA1CB0 /* FirebaseAnalyticsOnDeviceConversion */; };
 		5A7536B12B192D4000BA1CB0 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5A7536B02B192D4000BA1CB0 /* FirebaseAnalyticsSwift */; };
@@ -159,7 +157,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5A7536AB2B19279E00BA1CB0 /* Pods_UpgradeUpsell.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,9 +228,6 @@
 		5FFE00EC2B0024D8002F9B64 /* OwnerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerProfileView.swift; sourceTree = "<group>"; };
 		5FFE00F22B053856002F9B64 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		5FFE00F62B1523FF002F9B64 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
-		67AE70B789C9A6A67116E801 /* Pods_UpgradeUpsell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UpgradeUpsell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		90C4A18036B64119917E3049 /* Pods-UpgradeUpsell.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpgradeUpsell.debug.xcconfig"; path = "Target Support Files/Pods-UpgradeUpsell/Pods-UpgradeUpsell.debug.xcconfig"; sourceTree = "<group>"; };
-		F707CE08328FEADE1898FFA4 /* Pods-UpgradeUpsell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpgradeUpsell.release.xcconfig"; path = "Target Support Files/Pods-UpgradeUpsell/Pods-UpgradeUpsell.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,7 +297,6 @@
 				5F94660D2ABB43830006FBB5 /* FirebaseAuth in Frameworks */,
 				5A005C6E2B18F1C1004EB9CA /* FirebaseAnalyticsSwift in Frameworks */,
 				5A005C782B18F1C1004EB9CA /* FirebaseAuthCombine-Community in Frameworks */,
-				5A7536AA2B19279E00BA1CB0 /* Pods_UpgradeUpsell.framework in Frameworks */,
 				5A005CA82B18F1F6004EB9CA /* FirebaseAppCheck in Frameworks */,
 				5A005C982B18F1C1004EB9CA /* FirebaseRemoteConfig in Frameworks */,
 				5AFC64B02B0F1B3E006C7F11 /* FirebaseAuth in Frameworks */,
@@ -331,8 +324,6 @@
 		0A1E4557B4AA175AA56DE31E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				90C4A18036B64119917E3049 /* Pods-UpgradeUpsell.debug.xcconfig */,
-				F707CE08328FEADE1898FFA4 /* Pods-UpgradeUpsell.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -417,7 +408,6 @@
 				5F9465F32ABB33E50006FBB5 /* UpgradeUpsell */,
 				5F9465F22ABB33E50006FBB5 /* Products */,
 				0A1E4557B4AA175AA56DE31E /* Pods */,
-				7C7A3B39A2DF08D05B584364 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -505,14 +495,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		7C7A3B39A2DF08D05B584364 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				67AE70B789C9A6A67116E801 /* Pods_UpgradeUpsell.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -520,12 +502,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5F9465FF2ABB33E60006FBB5 /* Build configuration list for PBXNativeTarget "UpgradeUpsell" */;
 			buildPhases = (
-				EE569372FD30CFD4F81143B8 /* [CP] Check Pods Manifest.lock */,
 				5F9465ED2ABB33E50006FBB5 /* Sources */,
 				5F9465EE2ABB33E50006FBB5 /* Frameworks */,
 				5F9465EF2ABB33E50006FBB5 /* Resources */,
 				5AA2262B2B1507E100D614D0 /* Embed Frameworks */,
-				67DA284B49D81DAC446AD27F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -647,7 +627,7 @@
 			mainGroup = 5F9465E82ABB33E50006FBB5;
 			packageReferences = (
 				5F9466072ABB43830006FBB5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */,
 			);
 			productRefGroup = 5F9465F22ABB33E50006FBB5 /* Products */;
 			projectDirPath = "";
@@ -670,48 +650,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		67DA284B49D81DAC446AD27F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UpgradeUpsell/Pods-UpgradeUpsell-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UpgradeUpsell/Pods-UpgradeUpsell-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UpgradeUpsell/Pods-UpgradeUpsell-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EE569372FD30CFD4F81143B8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-UpgradeUpsell-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5F9465ED2ABB33E50006FBB5 /* Sources */ = {
@@ -905,7 +843,6 @@
 		};
 		5F9466002ABB33E60006FBB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90C4A18036B64119917E3049 /* Pods-UpgradeUpsell.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
@@ -952,7 +889,6 @@
 		};
 		5F9466012ABB33E60006FBB5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F707CE08328FEADE1898FFA4 /* Pods-UpgradeUpsell.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1029,7 +965,7 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+		5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
@@ -1400,7 +1336,7 @@
 		};
 		5FFE00E22AF1B314002F9B64 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			package = 5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */;
 			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
