@@ -15,13 +15,14 @@ struct ChatView: View {
     @State private var senderUserID: String = "" // Current user's ID
     var receiverUserID: String // ID of the user you're chatting with
     @State private var prevMsg: ChatMessage? = nil // Change from let to var
-
-
+    @State private var messages: [ChatMessage] = []
+    @State private var isLoadingMessages = false
+    
     var body: some View {
         VStack {
             Text("Chat").bold().font(.title).foregroundColor(.brown)
-            if dbHelper.messages.isEmpty {
-                if dbHelper.isLoadingMessages {
+            if messages.isEmpty {
+                if isLoadingMessages {
                     // Loading indicator
                     ProgressView("Loading messages...")
                 } else {
@@ -35,9 +36,9 @@ struct ChatView: View {
                 // Use ScrollViewReader to initialize scrollView
                 ScrollViewReader { scrollView in
                     List {
-                                    ForEach(Array(dbHelper.messages.enumerated()), id: \.element.id) { index, message in
+                                    ForEach(Array(messages.enumerated()), id: \.element.id) { index, message in
                                         if index>0{
-                                            ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: dbHelper.messages[index - 1])
+                                            ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: messages[index - 1])
                                         }
                                         else{
                                             ChatMessageView(message: message, isSender: message.senderId == senderUserID, prvMsg: nil)
@@ -48,15 +49,15 @@ struct ChatView: View {
                         // Initialize scrollView when the List appears
                         DispatchQueue.main.async {
                             withAnimation {
-                                scrollView.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
+                                scrollView.scrollTo(messages.last?.id, anchor: .bottom)
                             }
                         }
                     }
-                    .onChange(of: dbHelper.messages) { _ in
+                    .onChange(of: messages) { _ in
                         // Scroll to the last message whenever new messages are added
                         DispatchQueue.main.async {
                             withAnimation {
-                                scrollView.scrollTo(dbHelper.messages.last?.id, anchor: .bottom)
+                                scrollView.scrollTo(messages.last?.id, anchor: .bottom)
                             }
                         }
                     }
@@ -88,8 +89,10 @@ struct ChatView: View {
     
     private func listenForMessages() {
         if let currentUser = dbHelper.userProfile?.id {
+            isLoadingMessages = true
             dbHelper.listenForMessages(user1: currentUser, user2: receiverUserID) { messages in
-                dbHelper.messages = messages
+                self.messages = messages
+                isLoadingMessages = false
                 // Scroll to the last message whenever new messages are added
                 // scrollToLastMessage()
             }

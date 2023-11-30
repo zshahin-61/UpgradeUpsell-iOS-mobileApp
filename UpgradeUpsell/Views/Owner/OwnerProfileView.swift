@@ -81,7 +81,7 @@ struct OwnerProfileView: View {
                                                       // HStack {
                                                          //  Text("You can chat with the user after approved by the administrator")
                     NavigationLink(destination: ChatView(receiverUserID: ownerID).environmentObject(dbHelper)) {
-                                                               Text("Chat with Investor")
+                                                               Text("Chat with Owner")
                     }
                                                    //        .disabled(!isStatusUpdated[index] || !hasChatPermission[index])
                                                       // }

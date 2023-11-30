@@ -16,8 +16,8 @@ class FirestoreController: ObservableObject {
     //@Published var userProperty: RenovateProject?
     //@Published var backRoot : RootView = .SignUp
 
-    @Published var messages: [ChatMessage] = []
-    @Published var isLoadingMessages = false
+    //@Published var messages: [ChatMessage] = []
+    //@Published var isLoadingMessages = false
     
     private let db: Firestore
     private static var shared: FirestoreController?
@@ -980,7 +980,7 @@ class FirestoreController: ObservableObject {
 
        // Function to listen for incoming chat messages
     func listenForMessages(user1: String, user2: String, completion: @escaping ([ChatMessage]) -> Void) {
-        self.isLoadingMessages = true
+        //self.isLoadingMessages = true
         db.collection(COLLECTION_ChatMessages)
             .whereField("senderId", in: [user1, user2])
             .whereField("receiverId", in: [user1, user2])
@@ -988,19 +988,19 @@ class FirestoreController: ObservableObject {
             .addSnapshotListener { querySnapshot, error in
                 // Handle the snapshot changes here
                 guard let documents = querySnapshot?.documents else {
-                    self.isLoadingMessages = false
+                    //self.isLoadingMessages = false
                     print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
                     return
                 }
                 
-                self.messages = [ChatMessage]()
+                var messages = [ChatMessage]()
                 for document in documents {
                     if let msg = try? document.data(as: ChatMessage.self) {
-                        self.messages.append(msg)
+                        messages.append(msg)
                     }
                 }
-                self.isLoadingMessages = false
-                completion(self.messages)
+                //self.isLoadingMessages = false
+                completion(messages)
             }
     }
 

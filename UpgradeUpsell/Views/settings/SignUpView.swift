@@ -150,6 +150,24 @@ struct SignUpView: View {
                         }) {
                             Text("Capture Photo")
                         }
+                        .sheet(isPresented: $isShowingCamera) {
+                            if isCameraPermissionDenied {
+                                // Show an alert indicating camera permission is denied
+                                Text("Camera access is not authorized.")
+                            } else {
+                                // Present your camera interface here
+                                // This could be a custom camera view or a UIImagePickerController
+                                // For simplicity, let's assume you have a custom camera view named CameraView
+                                CameraView { capturedImage in
+                                    // Handle the captured image here
+                                    // You can set it to selectedImage or perform other actions
+                                    self.selectedImage = capturedImage
+
+                                    // Close the camera interface
+                                    isShowingCamera = false
+                                }
+                            }
+                        }
                         if let image = selectedImage {
                             Image(uiImage: image)
                                 .resizable()
@@ -172,23 +190,18 @@ struct SignUpView: View {
                     }
                 }
             }
-//            .sheet(isPresented: $isShowingPicker) {
-//                if photoLibraryManager.isAuthorized {
-//                    ImagePickerView(selectedImage: $selectedImage)
-//                } else {
-//                    Text("Access to photo library is not authorized.")
-//                }
-//            }
-            //}
             .autocorrectionDisabled(true)
             
             Button(action: {
                 //sign up function
                 if isFormValid() {
                     // Attempt to create a new user with Firebase Authentication
-                    self.authHelper.signUp(email: self.emailFromUI.lowercased(), password: self.passwordFromUI, withCompletion: { isSuccessful in
+                    self.authHelper.signUp(email: self.emailFromUI.lowercased(), password: self.passwordFromUI, withCompletion: { success, error in
                         
-                        if (isSuccessful){
+                        if (success){
+                            
+                            /////
+                            print("salammmm")
                             // MARK: USER IMAGE
                             var imageData :Data? = nil
                             
@@ -223,13 +236,39 @@ struct SignUpView: View {
                                 
                             }
                         }else{
-                            // Unable to create user, show alert
-                            self.errorMsg = "Unable to create user. Please try again."
-                            self.showAlert = true // Set showAlert to true to trigger the alert
                             
-#if DEBUG
-                            print(#function, "unable to create user")
-#endif
+                            print("byeeeeee")
+                            
+                            // Unable to create user, show alert
+//                            self.errorMsg = "Unable to create user. Please try again."
+//                            self.showAlert = true // Set showAlert to true to trigger the alert
+//                            
+//                            print(#function, "unable to create user")
+                            if let error = error {
+                                print("hereeeeeee")
+                                if let authError = error as? AuthError {
+                                    switch authError {
+                                    case .emailAlreadyInUse:
+                                        // Email is already in use, show alert or handle accordingly
+                                        self.errorMsg = "Email is already in use"
+                                        self.showAlert = true
+                                        
+                                    default:
+                                        // Handle other authentication errors
+                                        self.errorMsg = "Authentication error: \(error.localizedDescription)"
+                                        self.showAlert = true
+                                        print("Authentication error: \(error.localizedDescription)")
+                                    }
+                                } else {
+                                    // Handle other types of errors
+                                    print("Error: \(error.localizedDescription)")
+                                    self.errorMsg = "Error: \(error.localizedDescription)"
+                                    self.showAlert = true
+                                }
+                            }
+                            else{
+                                print("why here")
+                            }
                         }
                     })
                 }
@@ -252,13 +291,13 @@ struct SignUpView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            .alert(isPresented: $isCameraPermissionDenied) {
-                Alert(
-                    title: Text("Camera Permission Denied"),
-                    message: Text("Please enable camera access in your device settings to capture a photo."),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
+//            .alert(isPresented: $isCameraPermissionDenied) {
+//                Alert(
+//                    title: Text("Camera Permission Denied"),
+//                    message: Text("Please enable camera access in your device settings to capture a photo."),
+//                    dismissButton: .default(Text("OK"))
+//                )
+//            }
         }
         .padding(.top, 5)
         .navigationBarItems(
@@ -269,7 +308,6 @@ struct SignUpView: View {
                             Text("Back")
                         }
                     )
-        
     }
     
 // Function to check camera permissions
@@ -287,11 +325,13 @@ struct SignUpView: View {
                 } else {
                     // Permission denied
                     self.isCameraPermissionDenied = true
+                    print("Camera permission denied")
                 }
             }
         case .denied, .restricted:
             // Camera access is denied or restricted by the user or parental controls.
             self.isCameraPermissionDenied = true
+            print("Camera permission denied")
         @unknown default:
             // Handle unknown cases if necessary.
             break
@@ -325,4 +365,30 @@ struct BorderedProminentButtonStyle: ButtonStyle {
                     .stroke(configuration.isPressed ? Color.green.opacity(0.8) : Color(red: 0.0, green: 0.40, blue: 0.0), lineWidth: 2)
             )
     }
+}
+
+enum AuthError: Error {
+    case emailAlreadyInUse
+    case invalidEmail
+    case weakPassword
+    // Add more cases as needed
+    
+    init(_ error: Error) {
+        // Map Firebase authentication errors to your AuthError cases
+        // You can customize this mapping based on your needs
+        let errorCode = (error as NSError).code
+        switch errorCode {
+        case AuthErrorCode.emailAlreadyInUse.rawValue:
+            self = .emailAlreadyInUse
+        case AuthErrorCode.invalidEmail.rawValue:
+            self = .invalidEmail
+        case AuthErrorCode.weakPassword.rawValue:
+            self = .weakPassword
+        // Add more cases as needed
+        default:
+            self = .unknown
+        }
+    }
+    
+    case unknown
 }
