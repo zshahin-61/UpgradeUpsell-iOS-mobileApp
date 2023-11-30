@@ -34,11 +34,18 @@ struct SignUpView: View {
     @Binding var rootScreen : RootView
     
     @State private var isShowingPicker = false
-    //@State private var isShowingCamera = false
+    //@State private var selectedImage: UIImage?
+    //@State private var isCameraAuthorized = false
+    //@State private var isShowingPicker = false
+    @State private var isShowingCamera = false
+        //@State private var selectedImage: UIImage?
+    //@State private var isCameraPermissionDenied = false
     
     @State var openCameraRoll = false
     @State var imageSelected = UIImage()
     
+    //@State private var isLibraryAuthorized = false
+    //@State private var camAuthSatatus = ""
     
     var body: some View {
         
@@ -139,64 +146,68 @@ struct SignUpView: View {
                 VStack{
                     Text("User Profile Picture")
                     HStack{
-                    
-                        if photoLibraryManager.isAuthorized {
-                        
-                            Button(action: {
-                                isShowingPicker = true
-                                openCameraRoll = true
-                            }) {
-                                Text("Select Image")
-                            }.buttonStyle(.borderedProminent)
-                            
-                            
-                        //}
-                    } else if photoLibraryManager.authStatus == "notDetermined" {
-                        Button(action: {
-                            photoLibraryManager.requestPermission()
-                            photoLibraryManager.checkPermission()
-                            
-                        }) {
-                            
-                            //                            if(!photoLibraryManager.isAuthorized){
-                            //                                Text("Photo Library Access denied")
-                            //                            }
-                            //                            else{
-                            Text("Request Access For Photo Library")
-                            // }
-                        }.buttonStyle(.borderedProminent)
-                    } else{
-                        Text("Photo Library Access is \(photoLibraryManager.authStatus)").foregroundColor(.red)
-                    }
-                        Spacer()
-                        
-                        if cameraManager.isCameraAuthorized {
-                                                Button(action: {
-                                                    isShowingPicker = false
-                                                    openCameraRoll = true
-                                                }) {
-                                                    Text("Capture Photo")
-                                                }.buttonStyle(.borderedProminent)
-                        //} else {
-                            //
-                        } else if cameraManager.cameraAuthSatus == "notDetermined" {
-                            Button(action: {
-                                cameraManager.requestPermission()
-                                cameraManager.checkCameraPermission()
-                            }) {
+                        Section{
+                            if photoLibraryManager.isAuthorized {
                                 
-                                //                            if(!photoLibraryManager.isAuthorized){
-                                //                                Text("Photo Library Access denied")
-                                //                            }
-                                //                            else{
-                                Text("Request Access For camera")
-                                // }
-                            }.buttonStyle(.borderedProminent)
-                        } else {
-                            Text("Camera access is not \(cameraManager.cameraAuthSatus).").foregroundColor(.red)
+                                Button(action: {
+                                    //if photoLibraryManager.isAuthorized {
+                                        isShowingPicker = true
+                                        //openCameraRoll = true
+                                    //}
+                                }) {
+                                    Text("Select Image")
+                                }.buttonStyle(.borderedProminent)
+                                
+                                //}
+                            } else if photoLibraryManager.authStatus == "notDetermined" {
+                                Button(action: {
+                                    photoLibraryManager.requestPermission()
+                                    photoLibraryManager.checkPermission()
+                                    
+                                }) {
+                                    
+                                    //                            if(!photoLibraryManager.isAuthorized){
+                                    //                                Text("Photo Library Access denied")
+                                    //                            }
+                                    //                            else{
+                                    Text("Request Access For Photo Library")
+                                    // }
+                                }.buttonStyle(.borderedProminent)
+                            } else{
+                                Text("Photo Library Access is \(photoLibraryManager.authStatus)").foregroundColor(.red)
+                            }
                         }
-                        
-                        
+                        Spacer()
+                        Section{
+                            if cameraManager.isCameraAuthorized {
+                                Button(action: {
+                                    //if cameraManager.isCameraAuthorized {
+                                        //isShowingPicker = false
+                                        openCameraRoll = true
+                                    //}
+                                }) {
+                                    Text("Capture Photo")
+                                }.buttonStyle(.borderedProminent)
+                                //} else {
+                                //
+                            } else if cameraManager.cameraAuthSatus == "notDetermined" {
+                                Button(action: {
+                                    cameraManager.requestPermission()
+                                    cameraManager.checkCameraPermission()
+                                }) {
+                                    
+                                    //                            if(!photoLibraryManager.isAuthorized){
+                                    //                                Text("Photo Library Access denied")
+                                    //                            }
+                                    //                            else{
+                                    Text("Request Access For camera")
+                                    // }
+                                }.buttonStyle(.borderedProminent)
+                            } else {
+                                Text("Camera access is \(cameraManager.cameraAuthSatus).").foregroundColor(.red)
+                            }
+                            
+                        }
 //                        Button(action: {
 //                            isShowingPicker = false
 //                            checkCameraPermissions()
@@ -211,27 +222,7 @@ struct SignUpView: View {
                         .frame(width: 150, height: 150)
                         .clipShape(Circle())
                 }
-                .sheet(isPresented: $openCameraRoll) {
-                    if(isShowingPicker){
-                        if photoLibraryManager.isAuthorized {
-                            //if isShowingPicker {
-                            ImagePicker(selectedImage: $imageSelected, sourceType: .photoLibrary)
-                            //} else {
-                            //    ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
-                            //}
-                        } else {
-                            Text("Access to the photo library is not authorized.")
-                        }
-                    }
-                    else{
-                        if !cameraManager.isCameraAuthorized {
-                             //Show an alert indicating camera permission is denied
-                            Text("Camera access is not authorized.")
-                        } else {
-                            ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
-                        }
-                    }
-                }
+
             }
             .autocorrectionDisabled(true)
             
@@ -343,7 +334,36 @@ struct SignUpView: View {
 //            }
         }
         .padding(.top, 5)
-        
+        //.sheet(isPresented: $openCameraRoll) {
+            //if(isShowingPicker){
+                //if photoLibraryManager.isAuthorized {
+                    //if isShowingPicker {
+            
+          //  ImagePicker(selectedImage: $imageSelected, sourceType: isShowingPicker ? .photoLibrary : .camera)
+         //   Text("vvvvvvv\(String(isShowingPicker))")
+                    //} else {
+                    //    ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
+                    //}
+//                } else {
+//                    Text("Access to the photo library is not authorized.")
+//                }
+            //}
+            //else{
+//                if !cameraManager.isCameraAuthorized {
+//                     //Show an alert indicating camera permission is denied
+//                    Text("Camera access is not authorized.")
+//                } else {
+                    //ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
+                //}
+            //}
+      //  }
+        .sheet(isPresented: $isShowingPicker) {
+            ImagePicker(selectedImage: $imageSelected, sourceType: .photoLibrary)
+            Text("vvvvvvv Photo Library")
+        }.sheet(isPresented: $openCameraRoll) {
+            ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
+            Text("vvvvvvv Camera")
+        }
         .navigationBarItems(
                         leading: Button(action: {
                             rootScreen = .Login
