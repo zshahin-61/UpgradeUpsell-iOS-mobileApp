@@ -9,9 +9,7 @@ struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var authHelper: FireAuthController
     @EnvironmentObject var dbHelper: FirestoreController
-    
     @StateObject private var photoLibraryManager = PhotoLibraryManager()
-    @StateObject private var cameraManager = CameraManager()
     
     @State private var email: String = ""
     @State private var addressFromUI: String = ""
@@ -22,7 +20,7 @@ struct ProfileView: View {
     @State private var companyFromUI: String = ""
     @State private var rating: Double = 4.5
     @State private var isShowingPicker = false
-    //@State private var selectedImage: UIImage?
+    @State private var selectedImage: UIImage?
     @State private var imageData: Data?
     @State private var role: String = "Owner"
     
@@ -30,9 +28,6 @@ struct ProfileView: View {
     @State private var isShowingCamera = false
         //@State private var selectedImage: UIImage?
     @State private var isCameraPermissionDenied = false
-    
-    @State var openCameraRoll = false
-    @State var imageSelected = UIImage()
     
     @Binding var rootScreen : RootView
     //var backRoot: RootView
@@ -45,102 +40,44 @@ struct ProfileView: View {
                 Spacer()
             }
            // Form{
-            VStack{
-                Text("User Profile Picture")
-                HStack{
-                
+                VStack {
+                            if let selectedImage = selectedImage {
+                                Image(uiImage: selectedImage)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Circle())
+                            } else if let data = imageData, let uiImage = UIImage(data: data) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .frame(width: 150, height: 150)
+                                    .clipShape(Circle())
+                            }
+                            Button(action: {
+                                if photoLibraryManager.isAuthorized {
+                                    isShowingPicker = true
+                                } else if photoLibraryManager.authStatus == "notDetermined" {
+                                    photoLibraryManager.requestPermission()
+                                    photoLibraryManager.checkPermission()
+                                }
+                                
+                            }) {
+                                
+                                if photoLibraryManager.isAuthorized {
+                                    Text("Change Picture")
+                                }
+                                else{
+                                    Text("Photo library access permission")
+                                }
+                            }
+                        }
+                .sheet(isPresented: $isShowingPicker) {
                     if photoLibraryManager.isAuthorized {
-                    
-                        Button(action: {
-                            isShowingPicker = true
-                            openCameraRoll = true
-                        }) {
-                            Text("Select Image")
-                        }.buttonStyle(.borderedProminent)
-                        
-                        
-                    //}
-                } else if photoLibraryManager.authStatus == "notDetermined" {
-                    Button(action: {
-                        photoLibraryManager.requestPermission()
-                        photoLibraryManager.checkPermission()
-                        
-                    }) {
-                        
-                        //                            if(!photoLibraryManager.isAuthorized){
-                        //                                Text("Photo Library Access denied")
-                        //                            }
-                        //                            else{
-                        Text("Request Access For Photo Library")
-                        // }
-                    }.buttonStyle(.borderedProminent)
-                } else{
-                    Text("Photo Library Access is \(photoLibraryManager.authStatus)").foregroundColor(.red)
-                }
-                    Spacer()
-                    
-                    if cameraManager.isCameraAuthorized {
-                                            Button(action: {
-                                                isShowingPicker = false
-                                                openCameraRoll = true
-                                            }) {
-                                                Text("Capture Photo")
-                                            }.buttonStyle(.borderedProminent)
-                    //} else {
-                        //
-                    } else if cameraManager.cameraAuthSatus == "notDetermined" {
-                        Button(action: {
-                            cameraManager.requestPermission()
-                            cameraManager.checkCameraPermission()
-                        }) {
-                            
-                            //                            if(!photoLibraryManager.isAuthorized){
-                            //                                Text("Photo Library Access denied")
-                            //                            }
-                            //                            else{
-                            Text("Request Access For camera")
-                            // }
-                        }.buttonStyle(.borderedProminent)
-                    } else {
-                        Text("Camera access is not \(cameraManager.cameraAuthSatus).").foregroundColor(.red)
+                        ImagePickerView(selectedImage: $selectedImage)
                     }
-                    
-                    
-//                        Button(action: {
-//                            isShowingPicker = false
-//                            checkCameraPermissions()
-//                            openCameraRoll = true
-//                        }) {
-//                            Text("Capture Photo")
-//                        }.buttonStyle(.borderedProminent)
-                }
-                
-                Image(uiImage: imageSelected)
-                    .resizable()
-                    .frame(width: 150, height: 150)
-                    .clipShape(Circle())
-            }
-            .sheet(isPresented: $openCameraRoll) {
-                if(isShowingPicker){
-                    if photoLibraryManager.isAuthorized {
-                        //if isShowingPicker {
-                        ImagePicker(selectedImage: $imageSelected, sourceType: .photoLibrary)
-                        //} else {
-                        //    ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
-                        //}
-                    } else {
-                        Text("Access to the photo library is not authorized.")
+                    else{
+                        Text("Access to photo library is \(photoLibraryManager.authStatus).")
                     }
                 }
-                else{
-                    if !cameraManager.isCameraAuthorized {
-                         //Show an alert indicating camera permission is denied
-                        Text("Camera access is not authorized.")
-                    } else {
-                        ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
-                    }
-                }
-            }
                 
                 FormSection(header: "Personal Details") {
                     TextField("Full Name", text: $nameFromUI)
@@ -217,9 +154,9 @@ struct ProfileView: View {
                     //Image
                     var imageData :Data? = nil
                     
-                    if(imageSelected != nil )
+                    if(selectedImage != nil )
                     {
-                        let image = imageSelected
+                        let image = selectedImage!
                        // let imageName = "\(UUID().uuidString).jpg"
                         
                         imageData = image.jpegData(compressionQuality: 0.1)
@@ -307,6 +244,7 @@ struct ProfileView: View {
                     print("Invalid image data format")
                     #endif
                 }
+                
             }}
         .navigationBarItems(leading: Button(action: {
             if(self.role == "Investor"){
