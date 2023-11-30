@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 class FirestoreController: ObservableObject {
     @Published var userProfile: UserProfile?
     @Published var userPrefrences: Prefrences?
-    @Published var myPropertyList: [RenovateProject] = [RenovateProject]()
+    //@Published var myPropertyList: [RenovateProject] = [RenovateProject]()
     //@Published var userProperty: RenovateProject?
     //@Published var backRoot : RootView = .SignUp
 

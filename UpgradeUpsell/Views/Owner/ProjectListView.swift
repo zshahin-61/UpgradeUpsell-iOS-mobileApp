@@ -32,6 +32,8 @@ struct ProjectListView: View {
                 List {
                     ForEach(filteredProjects) { property in
                         //VStack{
+                        
+                        
                         NavigationLink(destination: ProjectViewEdit(selectedProject: property)
                             .environmentObject(authHelper)
                             .environmentObject(self.dbHelper)) {
@@ -40,7 +42,8 @@ struct ProjectListView: View {
                                     Spacer()
                                     Text(property.status).font(.caption)
                                 }
-                            }
+                            }//Navigation link
+                        
                         //                        HStack{
                         //                            Spacer()
                         //

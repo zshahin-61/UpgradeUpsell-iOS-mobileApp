@@ -282,6 +282,13 @@ struct ProjectViewEdit: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+            
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }){
+                Text("Back")
+            }
+            
             .sheet(isPresented: $isShowingPicker) {
                 if photoLibraryManager.isAuthorized {
 //                      NavigationView {
@@ -349,6 +356,12 @@ struct ProjectViewEdit: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
+            .onDisappear {
+                        // This closure will be called when the view disappears (e.g., when dismissed)
+                        // You can perform any cleanup or actions here
+                
+                resetFormFields() // Example: Reset form fields when the view disappears
+                    }
         }
     }//View
     
@@ -476,12 +489,13 @@ struct ProjectViewEdit: View {
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
                 insertNotif(updatedProperty, "Update")
-               // alertMessage = "Property Update successfully"
-               //resetFormFields()
+                // alertMessage = "Property Update successfully"
+                //resetFormFields()
                 //                Find a solution after run above code project will be Crash
-                             presentationMode.wrappedValue.dismiss()
+                presentationMode.wrappedValue.dismiss()
             } else {
                 alertMessage = "Failed to Update property. Please try again."
+                showAlert = true
             }
             //showAlert = true
         }
@@ -516,6 +530,7 @@ struct ProjectViewEdit: View {
             }
         }
     }
+    
     func convertAddressToCoordinates() {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
