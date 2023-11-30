@@ -162,28 +162,27 @@ struct SignUpView: View {
                                 Text("Capture Photo")
                             }.buttonStyle(.borderedProminent)
                         }
-
-                            Image(uiImage: imageSelected)
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .clipShape(Circle())
+                        
+                        Image(uiImage: imageSelected)
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .clipShape(Circle())
                         //}
-                    } else {
+                    } else if photoLibraryManager.authStatus == "notDetermined" {
                         Button(action: {
                             photoLibraryManager.requestPermission()
                         }) {
                             
-//                            if(!photoLibraryManager.isAuthorized){
-//                                Text("Photo Library Access denied")
-//                            }
-//                            else{
-                                Text("Request Access For Photo Library")
-                           // }
+                            //                            if(!photoLibraryManager.isAuthorized){
+                            //                                Text("Photo Library Access denied")
+                            //                            }
+                            //                            else{
+                            Text("Request Access For Photo Library")
+                            // }
                         }
+                    } else{
+                        Text("Photo Library Access is \(photoLibraryManager.authStatus)")
                     }
-                    
-                   
-                    
                 }
 //                .sheet(isPresented: $isShowingPicker) {
 //                    if photoLibraryManager.isAuthorized {
@@ -378,26 +377,26 @@ struct SignUpView: View {
         return !emailFromUI.isEmpty && isEmailValid() && !passwordFromUI.isEmpty && passwordFromUI == confirmPasswordFromUI
     }
     
-    func requestPermission() {
-        // Request photo library access permission
-        PHPhotoLibrary.requestAuthorization { status in
-            switch status {
-            case .authorized:
-                // Photo library access is granted
-                self.isLibraryAuthorized = true
-            case .denied, .restricted:
-                // Photo library access is denied or restricted
-                self.isLibraryAuthorized = false
-                // You can show an alert or update UI to inform the user
-                print("Photo library access denied.")
-            case .notDetermined:
-                // User has not yet made a choice
-                print("Photo library access not determined.")
-            @unknown default:
-                break
-            }
-        }
-    }
+//    func requestPermission() {
+//        // Request photo library access permission
+//        PHPhotoLibrary.requestAuthorization { status in
+//            switch status {
+//            case .authorized:
+//                // Photo library access is granted
+//                self.isLibraryAuthorized = true
+//            case .denied, .restricted:
+//                // Photo library access is denied or restricted
+//                self.isLibraryAuthorized = false
+//                // You can show an alert or update UI to inform the user
+//                print("Photo library access denied.")
+//            case .notDetermined:
+//                // User has not yet made a choice
+//                print("Photo library access not determined.")
+//            @unknown default:
+//                break
+//            }
+//        }
+//    }
 
 }
 

@@ -62,7 +62,7 @@ struct ProfileView: View {
                     if photoLibraryManager.isAuthorized {
                         ImagePickerView(selectedImage: $selectedImage)
                     } else {
-                        Text("Access to photo library is not authorized.")
+                        Text("Access to photo library is \(photoLibraryManager.authStatus).")
                     }
                 }
                 
