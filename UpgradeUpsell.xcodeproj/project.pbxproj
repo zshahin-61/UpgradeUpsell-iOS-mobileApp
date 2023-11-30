@@ -131,6 +131,7 @@
 		5FB31FAA2B1811DF000D40E0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FA92B1811DF000D40E0 /* CameraView.swift */; };
 		5FB31FBE2B18A67A000D40E0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FBD2B18A67A000D40E0 /* ImagePicker.swift */; };
 		5FB31FC02B18A9C7000D40E0 /* ProfileImageMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FBF2B18A9C7000D40E0 /* ProfileImageMod.swift */; };
+		5FB31FC22B18E3F6000D40E0 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FC12B18E3F6000D40E0 /* CameraManager.swift */; };
 		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
 		5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882462ACE591C0034439F /* HomeView_Realtor.swift */; };
 		5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */; };
@@ -212,6 +213,7 @@
 		5FB31FA92B1811DF000D40E0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		5FB31FBD2B18A67A000D40E0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		5FB31FBF2B18A9C7000D40E0 /* ProfileImageMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageMod.swift; sourceTree = "<group>"; };
+		5FB31FC12B18E3F6000D40E0 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
 		5FD882462ACE591C0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
 		5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOffers_InvestorView.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				5F9466362ABCC5940006FBB5 /* PhotoLibraryManager.swift */,
 				5FF765762ADE987D004A0C66 /* RatingView.swift */,
 				5FF765782ADEA6B6004A0C66 /* BackgroundView.swift */,
+				5FB31FC12B18E3F6000D40E0 /* CameraManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -721,6 +724,7 @@
 				5F9466242ABBC4B30006FBB5 /* Investment.swift in Sources */,
 				5A8DAB2E2ABCAB6100CDCBCB /* SettingsView.swift in Sources */,
 				5A8DAB462ADDFC0B00CDCBCB /* Notifications.swift in Sources */,
+				5FB31FC22B18E3F6000D40E0 /* CameraManager.swift in Sources */,
 				5F94661C2ABBC06E0006FBB5 /* ChatMessage.swift in Sources */,
 				5A47D9952AFD7A390064AF0E /* tmp.swift in Sources */,
 				5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */,
