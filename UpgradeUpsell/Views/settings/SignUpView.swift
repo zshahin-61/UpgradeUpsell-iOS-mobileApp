@@ -16,6 +16,7 @@ struct SignUpView: View {
     @EnvironmentObject var dbHelper : FirestoreController
     
     @StateObject private var photoLibraryManager = PhotoLibraryManager()
+    @StateObject private var cameraManager = CameraManager()
     
     @State private var emailFromUI : String = ""
     @State private var passwordFromUI : String = ""
@@ -34,17 +35,17 @@ struct SignUpView: View {
     
     @State private var isShowingPicker = false
     @State private var selectedImage: UIImage?
-    @State private var isCameraAuthorized = false
+    //@State private var isCameraAuthorized = false
     //@State private var isShowingPicker = false
     @State private var isShowingCamera = false
         //@State private var selectedImage: UIImage?
-    @State private var isCameraPermissionDenied = false
+    //@State private var isCameraPermissionDenied = false
     
     @State var openCameraRoll = false
     @State var imageSelected = UIImage()
     
-    @State private var isLibraryAuthorized = false
-    @State private var camAuthSatatus = ""
+    //@State private var isLibraryAuthorized = false
+    //@State private var camAuthSatatus = ""
     
     var body: some View {
         
@@ -145,7 +146,8 @@ struct SignUpView: View {
                 VStack{
                     Text("User Profile Picture")
                     HStack{
-                    if photoLibraryManager.isAuthorized {
+                    
+                        if photoLibraryManager.isAuthorized {
                         
                             Button(action: {
                                 isShowingPicker = true
@@ -159,6 +161,7 @@ struct SignUpView: View {
                     } else if photoLibraryManager.authStatus == "notDetermined" {
                         Button(action: {
                             photoLibraryManager.requestPermission()
+                            photoLibraryManager.checkPermission()
                             
                         }) {
                             
@@ -168,13 +171,13 @@ struct SignUpView: View {
                             //                            else{
                             Text("Request Access For Photo Library")
                             // }
-                        }
+                        }.buttonStyle(.borderedProminent)
                     } else{
                         Text("Photo Library Access is \(photoLibraryManager.authStatus)").foregroundColor(.red)
                     }
                         Spacer()
                         
-                        if self.isCameraAuthorized {
+                        if cameraManager.isCameraAuthorized {
                                                 Button(action: {
                                                     isShowingPicker = false
                                                     openCameraRoll = true
@@ -183,10 +186,10 @@ struct SignUpView: View {
                                                 }.buttonStyle(.borderedProminent)
                         //} else {
                             //
-                        } else if self.camAuthSatatus == "notDetermined"{
+                        } else if cameraManager.cameraAuthSatus == "notDetermined" {
                             Button(action: {
-                                self.checkCameraPermissions()
-                                
+                                cameraManager.requestPermission()
+                                cameraManager.checkCameraPermission()
                             }) {
                                 
                                 //                            if(!photoLibraryManager.isAuthorized){
@@ -197,7 +200,7 @@ struct SignUpView: View {
                                 // }
                             }.buttonStyle(.borderedProminent)
                         } else {
-                            Text("Camera access is not authorized.").foregroundColor(.red)
+                            Text("Camera access is not \(cameraManager.cameraAuthSatus).").foregroundColor(.red)
                         }
                         
                         
@@ -346,7 +349,7 @@ struct SignUpView: View {
                 }
             }
             else{
-                if isCameraPermissionDenied {
+                if !cameraManager.isCameraAuthorized {
                      //Show an alert indicating camera permission is denied
                     Text("Camera access is not authorized.")
                 } else {
@@ -365,37 +368,37 @@ struct SignUpView: View {
     }
     
 // Function to check camera permissions
-    func checkCameraPermissions() {
-            switch AVCaptureDevice.authorizationStatus(for: .video) {
-            case .authorized:
-                // Camera access is already granted.
-                self.isCameraAuthorized = true
-                self.camAuthSatatus = "authorized"
-            case .notDetermined:
-                self.camAuthSatatus = "notDetermined"
-                // Camera access is not determined yet. Request permission.
-                AVCaptureDevice.requestAccess(for: .video) { granted in
-                    if granted {
-                        // Permission granted
-                        self.isCameraAuthorized = true
-                        self.camAuthSatatus = "authorized"
-                    } else {
-                        // Permission denied
-                        self.isCameraAuthorized = false
-                        print("Camera permission denied")
-                        self.camAuthSatatus = "denied"
-                    }
-                }
-            case .denied, .restricted:
-                // Camera access is denied or restricted by the user or parental controls.
-                self.isCameraAuthorized = false
-                self.camAuthSatatus = "denied"
-                print("Camera permission denied")
-            @unknown default:
-                // Handle unknown cases if necessary.
-                break
-            }
-        }
+//    func checkCameraPermissions() {
+//            switch AVCaptureDevice.authorizationStatus(for: .video) {
+//            case .authorized:
+//                // Camera access is already granted.
+//                self.isCameraAuthorized = true
+//                self.camAuthSatatus = "authorized"
+//            case .notDetermined:
+//                self.camAuthSatatus = "notDetermined"
+//                // Camera access is not determined yet. Request permission.
+//                AVCaptureDevice.requestAccess(for: .video) { granted in
+//                    if granted {
+//                        // Permission granted
+//                        self.isCameraAuthorized = true
+//                        self.camAuthSatatus = "authorized"
+//                    } else {
+//                        // Permission denied
+//                        self.isCameraAuthorized = false
+//                        print("Camera permission denied")
+//                        self.camAuthSatatus = "denied"
+//                    }
+//                }
+//            case .denied, .restricted:
+//                // Camera access is denied or restricted by the user or parental controls.
+//                self.isCameraAuthorized = false
+//                self.camAuthSatatus = "denied"
+//                print("Camera permission denied")
+//            @unknown default:
+//                // Handle unknown cases if necessary.
+//                break
+//            }
+//        }
 //    func checkCameraPermissions() {
 //        switch AVCaptureDevice.authorizationStatus(for: .video) {
 //        case .authorized:
