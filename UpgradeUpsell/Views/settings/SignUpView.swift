@@ -34,18 +34,11 @@ struct SignUpView: View {
     @Binding var rootScreen : RootView
     
     @State private var isShowingPicker = false
-    @State private var selectedImage: UIImage?
-    //@State private var isCameraAuthorized = false
-    //@State private var isShowingPicker = false
-    @State private var isShowingCamera = false
-        //@State private var selectedImage: UIImage?
-    //@State private var isCameraPermissionDenied = false
+    //@State private var isShowingCamera = false
     
     @State var openCameraRoll = false
     @State var imageSelected = UIImage()
     
-    //@State private var isLibraryAuthorized = false
-    //@State private var camAuthSatatus = ""
     
     var body: some View {
         
@@ -218,13 +211,27 @@ struct SignUpView: View {
                         .frame(width: 150, height: 150)
                         .clipShape(Circle())
                 }
-//                .sheet(isPresented: $isShowingPicker) {
-//                    if photoLibraryManager.isAuthorized {
-//                        ImagePickerView(selectedImage: $selectedImage)
-//                    } else {
-//                        Text("Access to photo library is not authorized.")
-//                    }
-//                }
+                .sheet(isPresented: $openCameraRoll) {
+                    if(isShowingPicker){
+                        if photoLibraryManager.isAuthorized {
+                            //if isShowingPicker {
+                            ImagePicker(selectedImage: $imageSelected, sourceType: .photoLibrary)
+                            //} else {
+                            //    ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
+                            //}
+                        } else {
+                            Text("Access to the photo library is not authorized.")
+                        }
+                    }
+                    else{
+                        if !cameraManager.isCameraAuthorized {
+                             //Show an alert indicating camera permission is denied
+                            Text("Camera access is not authorized.")
+                        } else {
+                            ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
+                        }
+                    }
+                }
             }
             .autocorrectionDisabled(true)
             
@@ -241,9 +248,9 @@ struct SignUpView: View {
                             // MARK: USER IMAGE
                             var imageData :Data? = nil
                             
-                            if(selectedImage != nil )
+                            if(imageSelected != nil )
                             {
-                                let image = selectedImage!
+                                let image = imageSelected
                                // let imageName = "\(UUID().uuidString).jpg"
                                 
                                 imageData = image.jpegData(compressionQuality: 0.1)
@@ -336,27 +343,7 @@ struct SignUpView: View {
 //            }
         }
         .padding(.top, 5)
-        .sheet(isPresented: $openCameraRoll) {
-            if(isShowingPicker){
-                if photoLibraryManager.isAuthorized {
-                    //if isShowingPicker {
-                    ImagePicker(selectedImage: $imageSelected, sourceType: .photoLibrary)
-                    //} else {
-                    //    ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
-                    //}
-                } else {
-                    Text("Access to the photo library is not authorized.")
-                }
-            }
-            else{
-                if !cameraManager.isCameraAuthorized {
-                     //Show an alert indicating camera permission is denied
-                    Text("Camera access is not authorized.")
-                } else {
-                    ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
-                }
-            }
-        }
+        
         .navigationBarItems(
                         leading: Button(action: {
                             rootScreen = .Login
