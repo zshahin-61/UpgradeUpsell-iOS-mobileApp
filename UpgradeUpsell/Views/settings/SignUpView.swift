@@ -141,11 +141,13 @@ struct SignUpView: View {
                     if photoLibraryManager.isAuthorized {
                         Button(action: {
                             isShowingPicker = true
+                            isShowingCamera = false
                         }) {
                             Text("Select Image")
                         }
                         Button(action: {
                             isShowingCamera = true
+                            isShowingPicker = false
                             checkCameraPermissions()
                         }) {
                             Text("Capture Photo")

@@ -14,6 +14,8 @@ struct ContentView: View {
     
     @State private var root: RootView = .Login
     
+    
+    
     var body: some View {
         ZStack { // Add a ZStack to create the background
             //LinearGradient(gradient: Gradient(colors: [Color.blue, Color.gray, Color.green]), startPoint: .top, endPoint: .bottom)

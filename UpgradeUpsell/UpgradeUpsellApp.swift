@@ -38,6 +38,7 @@ struct UpgradeUpsellApp: App {
                                 )
                 .preferredColorScheme(themeManager.currentTheme)
                                 .environmentObject(themeManager)
+            
                 //.background(BackgroundView()) // Apply the gradient background
             
             
