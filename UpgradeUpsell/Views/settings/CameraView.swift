@@ -62,3 +62,31 @@ struct CameraView: UIViewControllerRepresentable {
         // Nothing to do here
     }
 }
+
+
+//import SwiftUI
+//
+//struct CameraView: View {
+//    let onCapture: (UIImage) -> Void
+//
+//    var body: some View {
+//        VStack {
+//            Text("Camera View Placeholder")
+//                .foregroundColor(.white)
+//                .padding()
+//                .background(Color.gray)
+//                .cornerRadius(10)
+//
+//            Button("Capture Photo") {
+//                // Simulate capturing a photo for demonstration purposes
+//                let capturedImage = UIImage(systemName: "photo")!
+//                onCapture(capturedImage)
+//            }
+//            .padding()
+//            .background(Color.blue)
+//            .foregroundColor(.white)
+//            .cornerRadius(10)
+//        }
+//    }
+//}
+

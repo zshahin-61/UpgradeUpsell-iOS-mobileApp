@@ -40,6 +40,11 @@ struct SignUpView: View {
         //@State private var selectedImage: UIImage?
     @State private var isCameraPermissionDenied = false
     
+    @State var openCameraRoll = false
+    @State var imageSelected = UIImage()
+    
+    @State private var isLibraryAuthorized = false
+    
     var body: some View {
         
         VStack{
@@ -138,57 +143,57 @@ struct SignUpView: View {
                 
                 VStack{
                     Text("User Profile Picture")
+                    HStack{
                     if photoLibraryManager.isAuthorized {
-                        Button(action: {
-                            isShowingPicker = true
-                        }) {
-                            Text("Select Image")
-                        }
-                        Button(action: {
-                            isShowingCamera = true
-                            checkCameraPermissions()
-                        }) {
-                            Text("Capture Photo")
-                        }
-                        .sheet(isPresented: $isShowingCamera) {
-                            if isCameraPermissionDenied {
-                                // Show an alert indicating camera permission is denied
-                                Text("Camera access is not authorized.")
-                            } else {
-                                // Present your camera interface here
-                                // This could be a custom camera view or a UIImagePickerController
-                                // For simplicity, let's assume you have a custom camera view named CameraView
-//                                CameraView { capturedImage in
-//                                    // Handle the captured image here
-//                                    // You can set it to selectedImage or perform other actions
-//                                    self.selectedImage = capturedImage
-//
-//                                    // Close the camera interface
-//                                    isShowingCamera = false
-//                                }
-                            }
-                        }
-                        if let image = selectedImage {
-                            Image(uiImage: image)
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .clipShape(Circle())
-                        }
-                    } else {
+                        
+                            Button(action: {
+                                isShowingPicker = true
+                                openCameraRoll = true
+                            }) {
+                                Text("Select Image")
+                            }.buttonStyle(.borderedProminent)
+                            
+                            
+                        //}
+                    } else if photoLibraryManager.authStatus == "notDetermined" {
                         Button(action: {
                             photoLibraryManager.requestPermission()
+                            
                         }) {
+                            
+                            //                            if(!photoLibraryManager.isAuthorized){
+                            //                                Text("Photo Library Access denied")
+                            //                            }
+                            //                            else{
                             Text("Request Access For Photo Library")
+                            // }
                         }
+                    } else{
+                        Text("Photo Library Access is \(photoLibraryManager.authStatus)").foregroundColor(.red)
                     }
-                }
-                .sheet(isPresented: $isShowingPicker) {
-                    if photoLibraryManager.isAuthorized {
-                        ImagePickerView(selectedImage: $selectedImage)
-                    } else {
-                        Text("Access to photo library is not authorized.")
+                        Spacer()
+                        
+                        Button(action: {
+                            isShowingPicker = false
+                            checkCameraPermissions()
+                            openCameraRoll = true
+                        }) {
+                            Text("Capture Photo")
+                        }.buttonStyle(.borderedProminent)
                     }
+                    
+                    Image(uiImage: imageSelected)
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle())
                 }
+//                .sheet(isPresented: $isShowingPicker) {
+//                    if photoLibraryManager.isAuthorized {
+//                        ImagePickerView(selectedImage: $selectedImage)
+//                    } else {
+//                        Text("Access to photo library is not authorized.")
+//                    }
+//                }
             }
             .autocorrectionDisabled(true)
             
@@ -300,6 +305,27 @@ struct SignUpView: View {
 //            }
         }
         .padding(.top, 5)
+        .sheet(isPresented: $openCameraRoll) {
+            if(isShowingPicker){
+                if photoLibraryManager.isAuthorized {
+                    //if isShowingPicker {
+                    ImagePicker(selectedImage: $imageSelected, sourceType: .photoLibrary)
+                    //} else {
+                    //    ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
+                    //}
+                } else {
+                    Text("Access to the photo library is not authorized.")
+                }
+            }
+            else{
+                if isCameraPermissionDenied {
+                     //Show an alert indicating camera permission is denied
+                    Text("Camera access is not authorized.")
+                } else {
+                    ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
+                }
+            }
+        }
         .navigationBarItems(
                         leading: Button(action: {
                             rootScreen = .Login
@@ -353,6 +379,28 @@ struct SignUpView: View {
         // Add more validation checks if needed
         return !emailFromUI.isEmpty && isEmailValid() && !passwordFromUI.isEmpty && passwordFromUI == confirmPasswordFromUI
     }
+    
+//    func requestPermission() {
+//        // Request photo library access permission
+//        PHPhotoLibrary.requestAuthorization { status in
+//            switch status {
+//            case .authorized:
+//                // Photo library access is granted
+//                self.isLibraryAuthorized = true
+//            case .denied, .restricted:
+//                // Photo library access is denied or restricted
+//                self.isLibraryAuthorized = false
+//                // You can show an alert or update UI to inform the user
+//                print("Photo library access denied.")
+//            case .notDetermined:
+//                // User has not yet made a choice
+//                print("Photo library access not determined.")
+//            @unknown default:
+//                break
+//            }
+//        }
+//    }
+
 }
 
 struct BorderedProminentButtonStyle: ButtonStyle {
@@ -392,3 +440,4 @@ enum AuthError: Error {
     
     case unknown
 }
+
