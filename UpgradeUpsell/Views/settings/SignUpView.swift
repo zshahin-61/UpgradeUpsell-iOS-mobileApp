@@ -143,8 +143,9 @@ struct SignUpView: View {
                 
                 VStack{
                     Text("User Profile Picture")
+                    HStack{
                     if photoLibraryManager.isAuthorized {
-                        HStack{
+                        
                             Button(action: {
                                 isShowingPicker = true
                                 openCameraRoll = true
@@ -152,25 +153,12 @@ struct SignUpView: View {
                                 Text("Select Image")
                             }.buttonStyle(.borderedProminent)
                             
-                            Spacer()
                             
-                            Button(action: {
-                                isShowingPicker = false
-                                checkCameraPermissions()
-                                openCameraRoll = true
-                            }) {
-                                Text("Capture Photo")
-                            }.buttonStyle(.borderedProminent)
-                        }
-                        
-                        Image(uiImage: imageSelected)
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .clipShape(Circle())
                         //}
                     } else if photoLibraryManager.authStatus == "notDetermined" {
                         Button(action: {
                             photoLibraryManager.requestPermission()
+                            
                         }) {
                             
                             //                            if(!photoLibraryManager.isAuthorized){
@@ -181,8 +169,23 @@ struct SignUpView: View {
                             // }
                         }
                     } else{
-                        Text("Photo Library Access is \(photoLibraryManager.authStatus)")
+                        Text("Photo Library Access is \(photoLibraryManager.authStatus)").foregroundColor(.red)
                     }
+                        Spacer()
+                        
+                        Button(action: {
+                            isShowingPicker = false
+                            checkCameraPermissions()
+                            openCameraRoll = true
+                        }) {
+                            Text("Capture Photo")
+                        }.buttonStyle(.borderedProminent)
+                    }
+                    
+                    Image(uiImage: imageSelected)
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle())
                 }
 //                .sheet(isPresented: $isShowingPicker) {
 //                    if photoLibraryManager.isAuthorized {
