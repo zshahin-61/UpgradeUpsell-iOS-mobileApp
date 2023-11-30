@@ -11,6 +11,8 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
 import UserNotifications
+import FirebaseMessaging
+import UIKit
 
 @main
 struct UpgradeUpsellApp: App {
@@ -47,24 +49,32 @@ struct UpgradeUpsellApp: App {
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    var window: UIWindow?
+
     let gcmMessageIDKey = "gcm.message_id"
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        
         Messaging.messaging().delegate = self
         
-        if #available(iOS 10.0, *){
-            UNUserNotificationCenter.current().delegate = self
-            let authOptions : UNAuthorizationOptions = [.alert , .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
-                options: authOptions,
-                completionHandler: {_, _ in})
-        } else {
-            let settings: UIUserNotificationSettings =
-            UIUserNotificationSettings(types: [.alert , . badge, . sound],categories: nil)
-            application.registerUserNotificationSettings(settings)
-        }
+//        if #available(iOS 10.0, *){
+//            UNUserNotificationCenter.current().delegate = self
+//            let authOptions : UNAuthorizationOptions = [.alert , .badge, .sound]
+//            UNUserNotificationCenter.current().requestAuthorization(
+//                options: authOptions,
+//                completionHandler: {_, _ in})
+//        } else {
+//            let settings: UIUserNotificationSettings =
+//            UIUserNotificationSettings(types: [.alert , . badge, . sound],categories: nil)
+//            application.registerUserNotificationSettings(settings)
+//        }
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+          UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: { _, _ in }
+          )
         
         application.registerForRemoteNotifications()
         return true
@@ -80,10 +90,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         completionHandler(UIBackgroundFetchResult.newData)
     }
 }
+
+
+
+
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         let deviceToken:[String: String] = ["token": fcmToken ?? ""]
         print("Device token:", deviceToken)
+        
+           NotificationCenter.default.post(
+             name: Notification.Name("FCMToken"),
+             object: nil,
+             userInfo: deviceToken
+           )
     }
 }
 @available(iOS 10, *)
@@ -106,10 +126,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
   }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("APNs token retrieved: \(deviceToken)")
 
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Unable to register for remote notifications: \(error.localizedDescription)")
 
     }
 

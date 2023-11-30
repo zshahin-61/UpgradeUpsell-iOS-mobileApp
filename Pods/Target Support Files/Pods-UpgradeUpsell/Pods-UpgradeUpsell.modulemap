@@ -1,0 +1,6 @@
+framework module Pods_UpgradeUpsell {
+  umbrella header "Pods-UpgradeUpsell-umbrella.h"
+
+  export *
+  module * { export * }
+}
