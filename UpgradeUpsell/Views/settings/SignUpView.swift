@@ -34,19 +34,9 @@ struct SignUpView: View {
     @Binding var rootScreen : RootView
     
     @State private var isShowingPicker = false
-    //@State private var selectedImage: UIImage?
-    //@State private var isCameraAuthorized = false
-    //@State private var isShowingPicker = false
-    @State private var isShowingCamera = false
-        //@State private var selectedImage: UIImage?
-    //@State private var isCameraPermissionDenied = false
-    
     @State var openCameraRoll = false
     @State var imageSelected = UIImage()
-    
-    //@State private var isLibraryAuthorized = false
-    //@State private var camAuthSatatus = ""
-    
+
     var body: some View {
         
         VStack{
@@ -359,10 +349,10 @@ struct SignUpView: View {
       //  }
         .sheet(isPresented: $isShowingPicker) {
             ImagePicker(selectedImage: $imageSelected, sourceType: .photoLibrary)
-            Text("vvvvvvv Photo Library")
+            //Text("vvvvvvv Photo Library")
         }.sheet(isPresented: $openCameraRoll) {
             ImagePicker(selectedImage: $imageSelected, sourceType: .camera)
-            Text("vvvvvvv Camera")
+            //Text("vvvvvvv Camera")
         }
         .navigationBarItems(
                         leading: Button(action: {
