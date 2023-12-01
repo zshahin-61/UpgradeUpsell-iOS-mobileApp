@@ -66,7 +66,7 @@ struct NotificationView: View {
                     }
                 }
             }
-           
+           Spacer()
            // .navigationBarTitle("Notifications")
            // .padding()
         } //VStack
