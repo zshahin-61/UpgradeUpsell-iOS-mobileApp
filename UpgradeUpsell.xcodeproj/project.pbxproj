@@ -627,7 +627,7 @@
 			mainGroup = 5F9465E82ABB33E50006FBB5;
 			packageReferences = (
 				5F9466072ABB43830006FBB5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */,
+				5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 5F9465F22ABB33E50006FBB5 /* Products */;
 			projectDirPath = "";
@@ -873,7 +873,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -918,7 +918,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -965,7 +965,7 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */ = {
+		5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
@@ -1336,7 +1336,7 @@
 		};
 		5FFE00E22AF1B314002F9B64 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */;
+			package = 5FFE00E12AF1B314002F9B64 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
