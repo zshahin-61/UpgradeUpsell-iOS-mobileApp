@@ -2,7 +2,7 @@ name: "Build iOS app"
 
 on:
   workflow_dispatch: 
-   branches: [main]
+   branches: [ios]
 
 jobs:
   build_with_signing:
