@@ -859,7 +859,7 @@
 				CODE_SIGN_ENTITLEMENTS = UpgradeUpsell/UpgradeUpsell.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"UpgradeUpsell/Preview Content\"";
 				DEVELOPMENT_TEAM = 7B7KJQCFCP;
@@ -879,7 +879,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -901,7 +901,7 @@
 				CODE_SIGN_ENTITLEMENTS = UpgradeUpsell/UpgradeUpsell.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UpgradeUpsell/Preview Content\"";
 				DEVELOPMENT_TEAM = 7B7KJQCFCP;
 				ENABLE_PREVIEWS = YES;
@@ -921,7 +921,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.moxdroid.UpgradeUpsell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
