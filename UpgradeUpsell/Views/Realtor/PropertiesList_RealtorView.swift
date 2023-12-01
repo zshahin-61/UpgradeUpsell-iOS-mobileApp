@@ -20,7 +20,7 @@ struct PropertiesList_RealtorView: View {
             Text("In Progress Property List").bold().font(.title).foregroundColor(.brown)
             SearchBar(text: $searchText, placeholder: "Search by title")
             List(self.filteredProjects) { prj in
-                NavigationLink(destination: MakeOffers_InvestorView(project: prj).environmentObject(dbHelper).environmentObject(authHelper)) {
+                NavigationLink(destination: PropertyDetails_RealtorView(project: prj).environmentObject(dbHelper).environmentObject(authHelper)) {
                     ProjectListItemView(project: prj)
                 }
             }
@@ -37,7 +37,7 @@ struct PropertiesList_RealtorView: View {
     
     private func loadProjects(){
         if let role = dbHelper.userProfile?.role {
-            if(role == "Investor"){
+            if(role == "Realtor"){
                 self.isLoading = true
                 self.dbHelper.listenForRenovateProjects_InProgress() { (renovateProjects, error) in
                     self.isLoading = false
