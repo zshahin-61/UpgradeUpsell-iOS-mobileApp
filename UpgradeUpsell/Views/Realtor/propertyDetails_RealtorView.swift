@@ -30,8 +30,9 @@ struct PropertyDetails_RealtorView: View {
         VStack{
             Text("Property Details").bold().font(.title).foregroundColor(.brown)
             List {
-                Section(header: Text("Property Information").font(.headline)) {
-                    VStack(alignment: .leading, spacing: 2){
+                //Section(header: Text("Property Information").font(.headline)) {
+                Section{
+                VStack(alignment: .leading, spacing: 2){
                         Text("Title: ").font(.subheadline)
                         Text("\(project.title)")
                     }.padding(2)
@@ -98,7 +99,7 @@ struct PropertyDetails_RealtorView: View {
                     MapView(latitude: propertyLatitude, longitude: propertyLongitude)
                         .frame(height: 200)
                     
-                }
+                }//section
             } .background(Color.gray.opacity(0.1))// Form
             
             .onAppear {
