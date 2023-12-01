@@ -20,7 +20,7 @@ struct HomeView_Realtor: View {
          
 //                        EventsListView().environmentObject(locationHelper)
 
-            ProjectListView()
+            PropertiesList_RealtorView()
             .tabItem {
                 Label("View Projects", systemImage: "list.bullet.rectangle")
                 Text("View Projects")
@@ -32,11 +32,11 @@ struct HomeView_Realtor: View {
 //                Text("Add Property")
 //            }
             
-            ProjectOffersView()
-            .tabItem {
-                Label("View Offers", systemImage: "gift")
-                Text("View Offers")
-            }
+//            ProjectOffersView()
+//            .tabItem {
+//                Label("View Offers", systemImage: "gift")
+//                Text("View Offers")
+//            }
         
             Text("Notifications")
                 .tabItem {
