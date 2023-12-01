@@ -68,7 +68,7 @@ struct ChatView: View {
                 TextField("Type a message", text: $messageText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
-                    .padding(.bottom, 8) // Add padding to the bottom of the text field
+                    .padding(.bottom, 8).autocorrectionDisabled() // Add padding to the bottom of the text field
                 
                 Button("Send") {
                     sendMessage()
