@@ -130,6 +130,8 @@
 		5FB31FBE2B18A67A000D40E0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FBD2B18A67A000D40E0 /* ImagePicker.swift */; };
 		5FB31FC02B18A9C7000D40E0 /* ProfileImageMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FBF2B18A9C7000D40E0 /* ProfileImageMod.swift */; };
 		5FB31FC22B18E3F6000D40E0 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FC12B18E3F6000D40E0 /* CameraManager.swift */; };
+		5FB31FC42B195A17000D40E0 /* PropertiesList_RealtorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FC32B195A17000D40E0 /* PropertiesList_RealtorView.swift */; };
+		5FB31FC62B195D9B000D40E0 /* propertyDetails_RealtorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FC52B195D9B000D40E0 /* propertyDetails_RealtorView.swift */; };
 		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
 		5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882462ACE591C0034439F /* HomeView_Realtor.swift */; };
 		5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */; };
@@ -211,6 +213,8 @@
 		5FB31FBD2B18A67A000D40E0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		5FB31FBF2B18A9C7000D40E0 /* ProfileImageMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageMod.swift; sourceTree = "<group>"; };
 		5FB31FC12B18E3F6000D40E0 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		5FB31FC32B195A17000D40E0 /* PropertiesList_RealtorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesList_RealtorView.swift; sourceTree = "<group>"; };
+		5FB31FC52B195D9B000D40E0 /* propertyDetails_RealtorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = propertyDetails_RealtorView.swift; sourceTree = "<group>"; };
 		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
 		5FD882462ACE591C0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
 		5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOffers_InvestorView.swift; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 			children = (
 				5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */,
 				5FD882462ACE591C0034439F /* HomeView_Realtor.swift */,
+				5FB31FC32B195A17000D40E0 /* PropertiesList_RealtorView.swift */,
+				5FB31FC52B195D9B000D40E0 /* propertyDetails_RealtorView.swift */,
 			);
 			path = Realtor;
 			sourceTree = "<group>";
@@ -666,6 +672,7 @@
 				5F94661C2ABBC06E0006FBB5 /* ChatMessage.swift in Sources */,
 				5A47D9952AFD7A390064AF0E /* tmp.swift in Sources */,
 				5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */,
+				5FB31FC62B195D9B000D40E0 /* propertyDetails_RealtorView.swift in Sources */,
 				5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */,
 				5F94662D2ABC838C0006FBB5 /* HomeView_Owner.swift in Sources */,
 				5A8DAB3E2AD4A48B00CDCBCB /* LocationHelper.swift in Sources */,
@@ -685,6 +692,7 @@
 				5F9466372ABCC5940006FBB5 /* PhotoLibraryManager.swift in Sources */,
 				5A47D94A2AF15A870064AF0E /* MapView.swift in Sources */,
 				5FF765772ADE987D004A0C66 /* RatingView.swift in Sources */,
+				5FB31FC42B195A17000D40E0 /* PropertiesList_RealtorView.swift in Sources */,
 				5F9466182ABB609B0006FBB5 /* UserProfile.swift in Sources */,
 				5F94661A2ABBB01D0006FBB5 /* Prefrences.swift in Sources */,
 				5FFE00E52AF1E469002F9B64 /* EditOfferView.swift in Sources */,

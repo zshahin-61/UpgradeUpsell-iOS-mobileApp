@@ -36,21 +36,22 @@ struct NotificationView: View {
                                     )
                                 }
             }.padding(.trailing, 20)
-            List {
+            ScrollView{
                 ForEach(notifications, id: \.id) { notification in
                     NavigationLink(destination: NotificationDetailView(notification: notification).environmentObject(self.dbHelper)) {
                         HStack {
                             Image(systemName: notification.isRead ? "eye.fill" : "eye.slash.fill")
                                 .resizable()
                                 .frame(width: 30, height: 30)
-                                .padding(.trailing, 10)
-                            Text(notification.event)
+                                .padding(.horizontal, 5)
+                                .foregroundColor(.black)
+                            Text(notification.event).foregroundColor(.black)//.padding()
+                            Spacer()
                         }
                     }
                 }
                 .onDelete(perform: deleteNotifications)
             }
-           
             .onAppear {
                 if let userID = self.dbHelper.userProfile?.id {
                     dbHelper.getNotifications(forUserID: userID) { notifications, error in
@@ -69,13 +70,13 @@ struct NotificationView: View {
            // .navigationBarTitle("Notifications")
            // .padding()
         } //VStack
-        .navigationBarItems(trailing:
-            Button(action: {
-                deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
-            }) {
-                Text("Delete All")
-            }
-        )
+//        .navigationBarItems(trailing:
+//            Button(action: {
+//                deleteAllNotifications(userID: self.dbHelper.userProfile?.id)
+//            }) {
+//                Text("Delete All")
+//            }
+//        )
     }
 
     private func deleteNotifications(at offsets: IndexSet) {
