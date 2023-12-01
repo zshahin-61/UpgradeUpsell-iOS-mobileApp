@@ -283,11 +283,11 @@ struct ProjectViewEdit: View {
                     .cornerRadius(10)
             }
             
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }){
-                Text("Back")
-            }
+//            Button(action: {
+//                presentationMode.wrappedValue.dismiss()
+//            }){
+//                Text("Back")
+//            }
             
             .sheet(isPresented: $isShowingPicker) {
                 if photoLibraryManager.isAuthorized {
