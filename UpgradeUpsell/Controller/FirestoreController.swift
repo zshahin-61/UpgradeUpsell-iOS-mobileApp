@@ -970,9 +970,9 @@ class FirestoreController: ObservableObject {
                 for document in querySnapshot!.documents {
                     // Deserialize the document data into an InvestmentSuggestion object.
                     if let suggestion = try? document.data(as: InvestmentSuggestion.self) {
-                        if suggestion.status.lowercased() != "declined" {
+                        //if suggestion.status.lowercased() != "declined" {
                                                 suggestions.append(suggestion)
-                                            }
+                                           // }
                     }
                 }
 

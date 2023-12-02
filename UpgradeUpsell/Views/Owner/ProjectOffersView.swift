@@ -16,6 +16,7 @@ struct ProjectOffersView: View {
     //@State private var hasChatPermission: [Bool] = []
     
     @State private var searchText = ""
+    @State private var selectedStatus: String = ""
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,7 +25,17 @@ struct ProjectOffersView: View {
                 Text("Offers").bold().font(.title).foregroundColor(.brown)
                 Spacer()
             }
+            
             SearchBar(text: $searchText, placeholder: "Search by title")
+            Picker("Status", selection: $selectedStatus) {
+                Text("All").tag("")
+                Text("Pending").tag("Pending")
+                Text("Accept").tag("Accept")
+                Text("Declined").tag("Declined")
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal, 10)
+            
             ScrollView {
                 if dbHelper.userProfile == nil {
                     Text("No user login")
@@ -140,6 +151,9 @@ struct ProjectOffersView: View {
             filterSuggestions()
         
         }
+        .onChange(of: selectedStatus) { _ in
+                   filterSuggestions()
+               }
         .alert(isPresented: $isShowingAlert) {
                     Alert(
                         title: Text("Alert Message"),
@@ -178,10 +192,12 @@ struct ProjectOffersView: View {
     
     //filter suggestions
     private func filterSuggestions(){
-        if(!searchText.isEmpty){
-            filteredSuggestions = suggestions.filter {
-                $0.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
-                
+        if(!searchText.isEmpty || !selectedStatus.isEmpty){
+            filteredSuggestions = suggestions.filter { suggestion in
+                let titleMatch = searchText.isEmpty || suggestion.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
+                let statusMatch = selectedStatus == "" || suggestion.status == selectedStatus
+
+                return titleMatch && statusMatch
             }
         }else{
             filteredSuggestions = suggestions

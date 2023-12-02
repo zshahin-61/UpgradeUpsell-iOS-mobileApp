@@ -23,6 +23,7 @@ struct MakeOffers_InvestorView: View {
     @State private var propertyLongitude: Double = 0.0
 
     @State private var previousOffer: InvestmentSuggestion?
+    @State private var preStatus:String = ""
     
    // @State private var shouldDismissView = false
     
@@ -108,6 +109,12 @@ struct MakeOffers_InvestorView: View {
 //                        .keyboardType(.decimalPad)
 //                        //.padding()
                     
+                    if(!preStatus.isEmpty){
+                        VStack{
+                            Text("Status: \(preStatus)")
+                        }
+                    }
+                    
                     VStack {
                         TextField("Amount Offered", text: $amountOffered)
                             .keyboardType(.decimalPad)
@@ -155,6 +162,7 @@ struct MakeOffers_InvestorView: View {
                             offerTopUpdate.amountOffered = Double(self.amountOffered) ?? 0.0
                             offerTopUpdate.durationWeeks = Int(durationWeeks) ?? 0
                             offerTopUpdate.description = self.description
+                            offerTopUpdate.status = "Pending"
                             offerTopUpdate.date = Date()
                             self.dbHelper.updateInvestmentSuggestion(offerTopUpdate) { error in
                                 if let error = error {
@@ -203,7 +211,7 @@ struct MakeOffers_InvestorView: View {
                         }
                     }else{
                             showAlert = true
-                        }
+                        }//if valid form
                 }
                 .buttonStyle(.borderedProminent)
             }
@@ -236,6 +244,7 @@ struct MakeOffers_InvestorView: View {
                             self.amountOffered = String(previousOfferData.amountOffered)
                             self.durationWeeks =  String(previousOfferData.durationWeeks)
                             self.description = previousOfferData.description
+                            self.preStatus = previousOfferData.status
                             
                         }
                     }

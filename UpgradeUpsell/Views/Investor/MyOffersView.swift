@@ -21,11 +21,23 @@ struct MyOffersView: View {
     
     @State private var showDeleteConfirmation = false
     
+    @State private var selectedStatus: String = ""
+    
     var body: some View {
         VStack {
             Text("My Offers").bold().font(.title).foregroundColor(.brown)
                 .padding(.horizontal,10)
+            
             SearchBar(text: $searchText, placeholder: "Search by title")
+           
+            Picker("Status", selection: $selectedStatus) {
+                Text("All").tag("")
+                Text("Pending").tag("Pending")
+                Text("Accept").tag("Accept")
+                Text("Declined").tag("Declined")
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal, 10)
             
             if dbHelper.userProfile == nil {
                 Text("No user logged in")
@@ -112,6 +124,9 @@ struct MyOffersView: View {
             filterSuggestions()
         
         }
+        .onChange(of: selectedStatus) { _ in
+                   filterSuggestions()
+               }
     }
     
     //load suggestions
@@ -133,30 +148,50 @@ struct MyOffersView: View {
     }
     
     //filter suggestions
-    private func filterSuggestions(){
-        if(!searchText.isEmpty){
-            filteredSuggestions = suggestions.filter {
-                $0.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
-                
+    private func filterSuggestions() {
+        if !searchText.isEmpty || !selectedStatus.isEmpty {
+            filteredSuggestions = suggestions.filter { suggestion in
+                let titleMatch = searchText.isEmpty || suggestion.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
+                let statusMatch = selectedStatus == "" || suggestion.status == selectedStatus
+
+                return titleMatch && statusMatch
             }
-        }else{
+        } else {
             filteredSuggestions = suggestions
         }
-        
+
+        // Sort by date
         filteredSuggestions.sort(by: { $0.date ?? Date() > $1.date ?? Date() })
+
+        // Group by status
+        //let groupedSuggestions = Dictionary(grouping: filteredSuggestions, by: { $0.status })
         
-//        self.isChatEnabled = Array(repeating: false, count: filteredSuggestions.count)
-//        DispatchQueue.global().async {
-//            let chatPermissions = filteredSuggestions.map { suggestion in
-//                fetchChatPermissionStatus(sugg: suggestion) { canChat in
-//                    // This closure is called when the asynchronous call is completed
-//                    DispatchQueue.main.async {
-//                        self.isChatEnabled.append(canChat)
-//                    }
-//                }
-//            }
-//        }
     }
+
+//    private func filterSuggestions(){
+//        if(!searchText.isEmpty){
+//            filteredSuggestions = suggestions.filter {
+//                $0.projectTitle.localizedCaseInsensitiveContains(searchText.lowercased())
+//                
+//            }
+//        }else{
+//            filteredSuggestions = suggestions
+//        }
+//        
+//        filteredSuggestions.sort(by: { $0.date ?? Date() > $1.date ?? Date() })
+//        
+////        self.isChatEnabled = Array(repeating: false, count: filteredSuggestions.count)
+////        DispatchQueue.global().async {
+////            let chatPermissions = filteredSuggestions.map { suggestion in
+////                fetchChatPermissionStatus(sugg: suggestion) { canChat in
+////                    // This closure is called when the asynchronous call is completed
+////                    DispatchQueue.main.async {
+////                        self.isChatEnabled.append(canChat)
+////                    }
+////                }
+////            }
+////        }
+//    }
     
     //insert in notifications
     func insertNotif(_ myOffer : InvestmentSuggestion, _ a : String){

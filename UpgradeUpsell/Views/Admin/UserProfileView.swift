@@ -54,8 +54,6 @@ struct UserProfileView: View {
                 
                 if(self.role == "Investor" ||  self.role == "Realtor" ){
                     RatingView(rating: rating)
-                    
-                    
                     HStack{
                         Text(company)
                             .font(.headline)
