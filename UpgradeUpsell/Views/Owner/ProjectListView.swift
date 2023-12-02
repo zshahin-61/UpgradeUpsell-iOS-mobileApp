@@ -18,13 +18,23 @@ struct ProjectListView: View {
     @State private var isShowingPicker = false
     @State private var showDeleteAlert = false
     @State private var selectedOffsets: IndexSet?
+    
     @State private var searchText = ""
+    @State private var selectedStatus: String = ""
     
     var body: some View {
         VStack {
             Text("My Properties").bold().font(.title).foregroundColor(.brown)
             
             SearchBar(text: $searchText, placeholder: "Search by title")
+            Picker("Status", selection: $selectedStatus) {
+                Text("All").tag("")
+                Text("Released").tag("Released")
+                Text("In Progress").tag("In Progress")
+                //Text("Declined").tag("Declined")
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal, 10)
             
             if filteredProjects.isEmpty {
                 Text("No properties found.")
@@ -32,7 +42,6 @@ struct ProjectListView: View {
                 List {
                     ForEach(filteredProjects) { property in
                         //VStack{
-                        
                         
                         NavigationLink(destination: ProjectViewEdit(selectedProject: property)
                             .environmentObject(authHelper)
@@ -100,6 +109,9 @@ struct ProjectListView: View {
         .onChange(of: searchText) { _ in
             filterProjects()
         }
+        .onChange(of: selectedStatus) { _ in
+            filterProjects()
+               }
         .padding(.top, 10)
         //        .navigationBarTitle("List My Properties")//VStack
     }
@@ -123,9 +135,16 @@ struct ProjectListView: View {
         
     private func filterProjects() {
         //print("Search Text: \(searchText)")
-        if !searchText.isEmpty {
-            filteredProjects = userProjects.filter {
-                $0.title.localizedCaseInsensitiveContains(searchText.lowercased())
+//        if !searchText.isEmpty {
+//            filteredProjects = userProjects.filter {
+//                $0.title.localizedCaseInsensitiveContains(searchText.lowercased())
+//            }
+        if(!searchText.isEmpty || !selectedStatus.isEmpty){
+            filteredProjects = userProjects.filter { project in
+                let titleMatch = searchText.isEmpty || project.title.localizedCaseInsensitiveContains(searchText.lowercased())
+                let statusMatch = selectedStatus == "" || project.status == selectedStatus
+
+                return titleMatch && statusMatch
             }
         } else {
             filteredProjects = userProjects
