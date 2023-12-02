@@ -187,6 +187,8 @@ struct ProjectOffersView: View {
             filteredSuggestions = suggestions
         }
         
+        filteredSuggestions.sort(by: { $0.date ?? Date() > $1.date ?? Date() })
+        
         self.updatedStatuses = filteredSuggestions.map { $0.status }
        // isStatusUpdated = Array(repeating: false, count: suggestions.count)
         self.isStatusUpdated = filteredSuggestions.map { $0.status == "Pending" ? false : true }
