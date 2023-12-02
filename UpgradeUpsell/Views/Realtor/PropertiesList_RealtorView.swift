@@ -64,6 +64,7 @@ struct PropertiesList_RealtorView: View {
                 $0.title.localizedCaseInsensitiveContains(searchText.lowercased())
             }
         }
+        self.filteredProjects.sort(by: { $0.createdDate   > $1.createdDate  })
     }
     
 }

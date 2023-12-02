@@ -130,6 +130,9 @@ struct ProjectListView: View {
         } else {
             filteredProjects = userProjects
         }
+        
+        self.filteredProjects.sort(by: { $0.createdDate   > $1.createdDate  })
+        
     }
     
  //Add status Delete

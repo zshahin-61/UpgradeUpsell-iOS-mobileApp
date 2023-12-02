@@ -143,17 +143,19 @@ struct MyOffersView: View {
             filteredSuggestions = suggestions
         }
         
-        self.isChatEnabled = Array(repeating: false, count: filteredSuggestions.count)
-        DispatchQueue.global().async {
-            let chatPermissions = filteredSuggestions.map { suggestion in
-                fetchChatPermissionStatus(sugg: suggestion) { canChat in
-                    // This closure is called when the asynchronous call is completed
-                    DispatchQueue.main.async {
-                        self.isChatEnabled.append(canChat)
-                    }
-                }
-            }
-        }
+        filteredSuggestions.sort(by: { $0.date ?? Date() > $1.date ?? Date() })
+        
+//        self.isChatEnabled = Array(repeating: false, count: filteredSuggestions.count)
+//        DispatchQueue.global().async {
+//            let chatPermissions = filteredSuggestions.map { suggestion in
+//                fetchChatPermissionStatus(sugg: suggestion) { canChat in
+//                    // This closure is called when the asynchronous call is completed
+//                    DispatchQueue.main.async {
+//                        self.isChatEnabled.append(canChat)
+//                    }
+//                }
+//            }
+//        }
     }
     
     //insert in notifications

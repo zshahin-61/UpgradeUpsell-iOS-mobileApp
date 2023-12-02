@@ -533,7 +533,6 @@ class FirestoreController: ObservableObject {
         }
     }
 
-    
     func updateProjectStatus(_ property: RenovateProject ,completion: @escaping (Bool) -> Void) {
 
         
@@ -762,6 +761,42 @@ class FirestoreController: ObservableObject {
     }
     
     // MARK: functions for Collection investment Sugesstions
+    
+    func getPreviousOffer(investorID: String, projectID: String, completion: @escaping (InvestmentSuggestion?) -> Void) {
+            let offersCollection = db.collection(COLLECTION_InvestmentSuggestions)
+
+            // Build the query to fetch the previous offer
+            let query = offersCollection
+                .whereField("investorID", isEqualTo: investorID)
+                .whereField("projectID", isEqualTo: projectID)
+                .order(by: "date", descending: true)
+                .limit(to: 1)
+
+            // Execute the query
+            query.getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion(nil)
+                } else {
+                    guard let documents = querySnapshot?.documents else {
+                        print("No documents found")
+                        completion(nil)
+                        return
+                    }
+
+                    // Parse the data and return the result
+                    if let suggestion = documents.compactMap({ document in
+                        try? document.data(as: InvestmentSuggestion.self)
+                    }).first {
+                        completion(suggestion)
+                    } else {
+                        completion(nil)
+                    }
+                }
+            }
+        }
+
+    
     func updateInvestmentStatus(suggestionID: String, newStatus: String, completion: @escaping (Error?) -> Void) {
         let collectionRef = Firestore.firestore().collection(COLLECTION_InvestmentSuggestions)
 
@@ -798,13 +833,18 @@ class FirestoreController: ObservableObject {
         }
     }
     
-    func updateInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
+    func updateInvestmentSuggestion(_ suggestion: InvestmentSuggestion, completion: @escaping (Error?) -> Void) {
         do {
-            try self.db.collection(COLLECTION_InvestmentSuggestions).document(suggestion.id!).setData(from: suggestion)
+            let documentReference = self.db.collection(COLLECTION_InvestmentSuggestions).document(suggestion.id!)
+            try documentReference.setData(from: suggestion) { error in
+                completion(error)
+            }
         } catch {
             print("Error updating investment suggestion in Firestore: \(error)")
+            completion(error)
         }
     }
+
     
     func deleteInvestmentSuggestion(_ suggestion: InvestmentSuggestion) {
         self.db.collection(COLLECTION_InvestmentSuggestions).document(suggestion.id!).delete { error in

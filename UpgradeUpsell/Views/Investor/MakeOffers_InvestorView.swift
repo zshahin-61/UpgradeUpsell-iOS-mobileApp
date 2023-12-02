@@ -22,6 +22,7 @@ struct MakeOffers_InvestorView: View {
     @State private var propertyLatitude: Double = 0.0
     @State private var propertyLongitude: Double = 0.0
 
+    @State private var previousOffer: InvestmentSuggestion?
     
    // @State private var shouldDismissView = false
     
@@ -149,38 +150,60 @@ struct MakeOffers_InvestorView: View {
                         return
                     }
                     if validateForm() {
-                        let newOffer = InvestmentSuggestion(
-                            id: UUID().uuidString,
-                            investorID: currUser.id ?? "",
-                            investorFullName: currUser.fullName,
-                            ownerID: project.ownerID,
-                            projectID: project.id ?? "",
-                            projectTitle: project.title,
-                            amountOffered: Double(amountOffered) ?? 0.0,
-                            durationWeeks: Int(durationWeeks) ?? 0,
-                            description: description,
-                            status: "Pending",
-                            date: Date()
-                        )
-                        
-                        self.dbHelper.addInvestmentSuggestion(newOffer) { error in
-                            if let error = error {
-                                alertMessage = "Error: \(error.localizedDescription)"
-                              //  shouldDismissView = false
-                                showAlert = true
-                            } else {
-                                insertNotif(newOffer, "Insert")
-                                alertMessage = "Your offer added successfully"
-                              //  shouldDismissView = true
-                                showAlert = false
-                                self.presentationMode.wrappedValue.dismiss()
+                        if let previousOffer = self.previousOffer{
+                            var offerTopUpdate = previousOffer
+                            offerTopUpdate.amountOffered = Double(self.amountOffered) ?? 0.0
+                            offerTopUpdate.durationWeeks = Int(durationWeeks) ?? 0
+                            offerTopUpdate.description = self.description
+                            offerTopUpdate.date = Date()
+                            self.dbHelper.updateInvestmentSuggestion(offerTopUpdate) { error in
+                                if let error = error {
+                                    // Handle the error (e.g., show an alert)
+                                    print("Error updating investment suggestion: \(error.localizedDescription)")
+                                    alertMessage = "Error updating investment suggestion: \(error.localizedDescription)"
+                                    showAlert = true
+                                } else {
+                                    // Update successful
+                                    print("Investment suggestion updated successfully")
+                                    //alertMessage = "Investment suggestion updated successfully"
+                                    showAlert = false
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                                
                             }
-                            //showAlert = true
                         }
-                    }
-                    else{
-                        showAlert = true
-                    }
+                        else{
+                            let newOffer = InvestmentSuggestion(
+                                id: UUID().uuidString,
+                                investorID: currUser.id ?? "",
+                                investorFullName: currUser.fullName,
+                                ownerID: project.ownerID,
+                                projectID: project.id ?? "",
+                                projectTitle: project.title,
+                                amountOffered: Double(amountOffered) ?? 0.0,
+                                durationWeeks: Int(durationWeeks) ?? 0,
+                                description: description,
+                                status: "Pending",
+                                date: Date()
+                            )
+                            self.dbHelper.addInvestmentSuggestion(newOffer) { error in
+                                if let error = error {
+                                    alertMessage = "Error: \(error.localizedDescription)"
+                                    //  shouldDismissView = false
+                                    showAlert = true
+                                } else {
+                                    insertNotif(newOffer, "Insert")
+                                    alertMessage = "Your offer added successfully"
+                                    //  shouldDismissView = true
+                                    showAlert = false
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                                //showAlert = true
+                            }
+                        }
+                    }else{
+                            showAlert = true
+                        }
                 }
                 .buttonStyle(.borderedProminent)
             }
@@ -200,6 +223,23 @@ struct MakeOffers_InvestorView: View {
                         }
                     }
                 }
+
+                guard let investorID = dbHelper.userProfile?.id else { return }
+                print("xxxxxxxx")
+                print(investorID)
+                print(project.id!)
+
+                dbHelper.getPreviousOffer(investorID: investorID, projectID: project.id ?? "") { previousOfferData in
+                        if let previousOfferData = previousOfferData {
+                            self.previousOffer = previousOfferData
+                            
+                            self.amountOffered = String(previousOfferData.amountOffered)
+                            self.durationWeeks =  String(previousOfferData.durationWeeks)
+                            self.description = previousOfferData.description
+                            
+                        }
+                    }
+                
             }
             
         }
