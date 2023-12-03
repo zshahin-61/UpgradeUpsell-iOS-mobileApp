@@ -171,6 +171,7 @@ struct MakeOffers_InvestorView: View {
                                     alertMessage = "Error updating investment suggestion: \(error.localizedDescription)"
                                     showAlert = true
                                 } else {
+                                    insertNotif(offerTopUpdate, "update")
                                     // Update successful
                                     print("Investment suggestion updated successfully")
                                     //alertMessage = "Investment suggestion updated successfully"

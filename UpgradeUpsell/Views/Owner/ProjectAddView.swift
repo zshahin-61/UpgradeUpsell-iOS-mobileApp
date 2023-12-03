@@ -237,18 +237,18 @@ struct ProjectAddView: View {
                                     .clipShape(Rectangle())
                             } else {
                                 // Display selected images in a horizontal stack
-//                                ScrollView(.horizontal) {
-//                                    HStack {
-//                                        ForEach(selectedImages.indices, id: \.self) { index in
-//                                            if let image = selectedImages[index] {
-//                                                Image(uiImage: image)
-//                                                    .resizable()
-//                                                    .frame(width: 150, height: 150)
-//                                                    .clipShape(Rectangle())
-//                                            }
-//                                        }
-//                                    }
-//                                }
+                                //                                ScrollView(.horizontal) {
+                                //                                    HStack {
+                                //                                        ForEach(selectedImages.indices, id: \.self) { index in
+                                //                                            if let image = selectedImages[index] {
+                                //                                                Image(uiImage: image)
+                                //                                                    .resizable()
+                                //                                                    .frame(width: 150, height: 150)
+                                //                                                    .clipShape(Rectangle())
+                                //                                            }
+                                //                                        }
+                                //                                    }
+                                //                                }
                                 ScrollView(.horizontal) {
                                     HStack {
                                         ForEach(selectedImages.indices, id: \.self) { index in
@@ -275,7 +275,7 @@ struct ProjectAddView: View {
                                         }
                                     }
                                 }
-
+                                
                             }
                         }
                         VStack {
@@ -335,65 +335,66 @@ struct ProjectAddView: View {
                 }//section
             }//.padding(.top, 2)//form
             Button(action: {
-                    if !title.isEmpty && !description.isEmpty && !address.isEmpty {
-                        guard let userID = dbHelper.userProfile?.id else {
-                            return
-                        }
-                        
-                        // Create an array to store image data for all selected images
-                        var imageDatas: [Data] = []
-                        
-                        // Check if any images are selected
-                        if !selectedImages.isEmpty {
-                            for image in selectedImages {
-                                if let imageData = image?.jpegData(compressionQuality: 0.1) {
-                                    imageDatas.append(imageData)
-                                }
+                if !title.isEmpty && !description.isEmpty && !address.isEmpty {
+                    guard let userID = dbHelper.userProfile?.id else {
+                        return
+                    }
+                    
+                    // Create an array to store image data for all selected images
+                    var imageDatas: [Data] = []
+                    
+                    // Check if any images are selected
+                    if !selectedImages.isEmpty {
+                        for image in selectedImages {
+                            if let imageData = image?.jpegData(compressionQuality: 0.1) {
+                                imageDatas.append(imageData)
                             }
                         }
-                        
-                        // Create a new property with an array of image data
-                        let newProperty = RenovateProject(
-                            projectID: UUID().uuidString,
-                            title: title,
-                            description: description,
-                            location: address,
-                            lng: lng,
-                            lat: lat,
-                            images: imageDatas,
-                            ownerID: userID,
-                            category: selectedCategory,
-                            investmentNeeded: investmentNeeded,
-                            selectedInvestmentSuggestionID: "",
-                            status: "Released",
-                            startDate: startDate,
-                            endDate: endDate,
-                            numberOfBedrooms: numberOfBedrooms,
-                            numberOfBathrooms: numberOfBathrooms,
-                            propertyType: propertyType,
-                            squareFootage: squareFootage,
-                            isFurnished: isFurnished,
-                            createdDate: Date(),
-                            updatedDate: Date(),
-                            favoriteCount: 0,
-                            realtorID: ""
-                        )
-                        
-                        self.dbHelper.addProperty(newProperty, userID: userID) { success in
-                            if success {
-                                insertNotif(newProperty, "Insert")
-                                alertMessage = "Property added successfully"
-                                resetFormFields()
-                            } else {
-                                alertMessage = "Failed to save property. Please try again."
-                            }
-                            showAlert = true
+                    }
+                    
+                    // Create a new property with an array of image data
+                    let newProperty = RenovateProject(
+                        projectID: UUID().uuidString,
+                        title: title,
+                        description: description,
+                        location: address,
+                        lng: lng,
+                        lat: lat,
+                        images: imageDatas,
+                        ownerID: userID,
+                        category: selectedCategory,
+                        investmentNeeded: investmentNeeded,
+                        selectedInvestmentSuggestionID: "",
+                        status: "Released",
+                        startDate: startDate,
+                        endDate: endDate,
+                        numberOfBedrooms: numberOfBedrooms,
+                        numberOfBathrooms: numberOfBathrooms,
+                        propertyType: propertyType,
+                        squareFootage: squareFootage,
+                        isFurnished: isFurnished,
+                        createdDate: Date(),
+                        updatedDate: Date(),
+                        favoriteCount: 0,
+                        realtorID: ""
+                    )
+                    
+                    self.dbHelper.addProperty(newProperty, userID: userID) { success in
+                        if success {
+                            sendNotificationToInvestors(newProperty, "Insert")
+                            insertNotif(newProperty, "Insert")
+                            alertMessage = "Property added successfully"
+                            resetFormFields()
+                        } else {
+                            alertMessage = "Failed to save property. Please try again."
                         }
-                    } else {
-                        alertMessage = "Please Enter Title, Description, Address, and Square Footage!"
                         showAlert = true
                     }
-                 
+                } else {
+                    alertMessage = "Please Enter Title, Description, Address, and Square Footage!"
+                    showAlert = true
+                }
+                
             }) {
                 Text("Save")
                     .font(.headline)
@@ -405,7 +406,7 @@ struct ProjectAddView: View {
             }
             .sheet(isPresented: $isShowingPicker) {
                 if photoLibraryManager.isAuthorized {
-//                      NavigationView {
+                    //                      NavigationView {
                     MultiImagePickerView(sourceType: .photoLibrary) { pickedImages in
                         // Handle the picked images here and append them to your 'selectedImages' array
                         for image in pickedImages {
@@ -414,7 +415,7 @@ struct ProjectAddView: View {
                         // Dismiss the sheet
                         $isShowingPicker.wrappedValue = false
                     }
-//                      }
+                    //                      }
                 } else {
                     Text("Access to the photo library is not authorized.")
                 }
@@ -427,7 +428,7 @@ struct ProjectAddView: View {
                 )
             }
         }
-      
+        
     }//View
     
     
@@ -473,11 +474,11 @@ struct ProjectAddView: View {
             if notificationSuccess {
 #if DEBUG
                 print("Notification inserted successfully.")
-                #endif
+#endif
             } else {
 #if DEBUG
                 print("Error inserting notification.")
-                #endif
+#endif
             }
         }
     }
@@ -487,7 +488,7 @@ struct ProjectAddView: View {
             if let error = error {
 #if DEBUG
                 print("Geocoding error: \(error.localizedDescription)")
-                #endif
+#endif
             } else if let placemark = placemarks?.first {
                 self.lat = placemark.location?.coordinate.latitude ?? 0.0
                 self.lng = placemark.location?.coordinate.longitude ?? 0.0
@@ -497,7 +498,47 @@ struct ProjectAddView: View {
         }
     }
     
-    
+    func sendNotificationToInvestors(_ project : RenovateProject, _ a : String) {
+        
+        var flName =  ""
+        if let currUser = dbHelper.userProfile {
+            flName = currUser.fullName
+        }
+        
+        dbHelper.getUsersByRole(role: "Investor"){ (investors, error) in
+            if let error = error {
+                print("Error getting investor users: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let investors = investors else {
+                print("No investor users found.")
+                return
+            }
+            
+            for inv in investors {
+                if let userID = inv.id {
+                    // Create a notification entry for each investor
+                    let notification = Notifications(
+                        id: UUID().uuidString, // Firestore will generate an ID
+                        timestamp: Date(),
+                        userID: userID,
+                        event: "Project \(a)!",
+                        details: "Project titled '\(project.title)' has been \(a) By \(flName).",
+                        isRead: false,
+                        projectID: project.id!
+                    )
+                    
+                    // Save the notification entry to the "notifications" collection
+                    self.dbHelper.insertNotification(notification){isSuccesful in
+                        if(!isSuccesful){
+                            print("Notification not sent to user:  \(inv.id)")
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
     
 }
-

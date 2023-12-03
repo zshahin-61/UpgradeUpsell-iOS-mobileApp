@@ -488,7 +488,8 @@ struct ProjectViewEdit: View {
         
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
-                insertNotif(updatedProperty, "Update")
+                insertNotif(updatedProperty, "update")
+                sendNotificationToInvestors(updatedProperty , "update")
                 // alertMessage = "Property Update successfully"
                 //resetFormFields()
                 //                Find a solution after run above code project will be Crash
@@ -529,6 +530,48 @@ struct ProjectViewEdit: View {
                 #endif
             }
         }
+    }
+    
+    func sendNotificationToInvestors(_ project : RenovateProject, _ a : String) {
+        
+        var flName =  ""
+        if let currUser = dbHelper.userProfile {
+            flName = currUser.fullName
+        }
+        
+        dbHelper.getInvestmentSuggestionsbyProjectID(forProjectID: project.id!){ (suggestions,  error) in
+           
+            if let error = error {
+                print("Error getting investor users: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let suggestions = suggestions else {
+                print("No suggestions found for this project.")
+                return
+            }
+            
+            for sugg in suggestions {
+                    // Create a notification entry for each investor
+                    let notification = Notifications(
+                        id: UUID().uuidString, // Firestore will generate an ID
+                        timestamp: Date(),
+                        userID: sugg.investorID,
+                        event: "Project \(a)!",
+                        details: "Project titled '\(project.title)' has been \(a) By \(flName).",
+                        isRead: false,
+                        projectID: project.id!
+                    )
+                    
+                    // Save the notification entry to the "notifications" collection
+                    self.dbHelper.insertNotification(notification){isSuccesful in
+                        if(!isSuccesful){
+                            print("Notification not sent to user:  \(sugg.id)")
+                        }
+                    }
+            }
+        }
+        
     }
     
     func convertAddressToCoordinates() {
