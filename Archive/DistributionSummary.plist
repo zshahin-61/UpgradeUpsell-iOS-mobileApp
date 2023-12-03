@@ -14,9 +14,9 @@
 			<key>certificate</key>
 			<dict>
 				<key>SHA1</key>
-				<string>D08430109581EEEE5F6DE89E0034CF139862B7AE</string>
+				<string>91D74ECF5D892A7704F25B185F890E1E88AB3690</string>
 				<key>dateExpires</key>
-				<string>2024-11-19</string>
+				<string>2024-11-28</string>
 				<key>type</key>
 				<string>Apple Development</string>
 			</dict>
@@ -36,9 +36,9 @@
 			<key>profile</key>
 			<dict>
 				<key>UUID</key>
-				<string>bcd27b2c-7a42-4cb6-9c8c-3905586c1381</string>
+				<string>6fb5aed4-e896-4927-a7b5-c44e0e23c91a</string>
 				<key>dateExpires</key>
-				<string>2024-11-22</string>
+				<string>2024-11-28</string>
 				<key>name</key>
 				<string>iOS Team Provisioning Profile: com.moxdroid.UpgradeUpsell</string>
 			</dict>
@@ -50,7 +50,7 @@
 				<string>Priteshkumar Patel</string>
 			</dict>
 			<key>versionNumber</key>
-			<string>1.0</string>
+			<string>2.2</string>
 		</dict>
 	</array>
 </dict>
