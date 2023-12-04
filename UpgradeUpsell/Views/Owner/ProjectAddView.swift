@@ -381,10 +381,18 @@ struct ProjectAddView: View {
                     
                     self.dbHelper.addProperty(newProperty, userID: userID) { success in
                         if success {
-                            sendNotificationToInvestors(newProperty, "Insert")
-                            insertNotif(newProperty, "Insert")
-                            alertMessage = "Property added successfully"
-                            resetFormFields()
+                            sendNotificationToInvestors(newProperty, "Insert") { success in
+                                if success {
+                                    // Handle success
+                                    print("Notifications sent successfully.")
+                                    insertNotif(newProperty, "Insert")
+                                    alertMessage = "Property added successfully"
+                                    resetFormFields()
+                                } else {
+                                    // Handle failure
+                                    print("Failed to send notifications.")
+                                }
+                            }
                         } else {
                             alertMessage = "Failed to save property. Please try again."
                         }
@@ -498,24 +506,25 @@ struct ProjectAddView: View {
         }
     }
     
-    func sendNotificationToInvestors(_ project : RenovateProject, _ a : String) {
-        
-        var flName =  ""
+    func sendNotificationToInvestors(_ project: RenovateProject, _ a: String, completion: @escaping (Bool) -> Void) {
+        var flName = ""
         if let currUser = dbHelper.userProfile {
             flName = currUser.fullName
         }
-        
-        dbHelper.getUsersByRole(role: "Investor"){ (investors, error) in
+
+        dbHelper.getUsersByRole(role: "Investor") { (investors, error) in
             if let error = error {
                 print("Error getting investor users: \(error.localizedDescription)")
+                completion(false)
                 return
             }
-            
+
             guard let investors = investors else {
                 print("No investor users found.")
+                completion(false)
                 return
             }
-            
+
             for inv in investors {
                 if let userID = inv.id {
                     // Create a notification entry for each investor
@@ -528,17 +537,63 @@ struct ProjectAddView: View {
                         isRead: false,
                         projectID: project.id!
                     )
-                    
+
                     // Save the notification entry to the "notifications" collection
-                    self.dbHelper.insertNotification(notification){isSuccesful in
-                        if(!isSuccesful){
-                            print("Notification not sent to user:  \(inv.id)")
+                    self.dbHelper.insertNotification(notification) { isSuccessful in
+                        if !isSuccessful {
+                            print("Notification not sent to user: \(inv.id)")
                         }
                     }
                 }
             }
+            
+            // Notify completion after processing all investors
+            completion(true)
         }
-        
     }
+
     
+//    func sendNotificationToInvestors(_ project : RenovateProject, _ a : String) {
+//        
+//        var flName =  ""
+//        if let currUser = dbHelper.userProfile {
+//            flName = currUser.fullName
+//        }
+//        
+//        dbHelper.getUsersByRole(role: "Investor"){ (investors, error) in
+//            if let error = error {
+//                print("Error getting investor users: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            guard let investors = investors else {
+//                print("No investor users found.")
+//                return
+//            }
+//            
+//            for inv in investors {
+//                if let userID = inv.id {
+//                    // Create a notification entry for each investor
+//                    let notification = Notifications(
+//                        id: UUID().uuidString, // Firestore will generate an ID
+//                        timestamp: Date(),
+//                        userID: userID,
+//                        event: "Project \(a)!",
+//                        details: "Project titled '\(project.title)' has been \(a) By \(flName).",
+//                        isRead: false,
+//                        projectID: project.id!
+//                    )
+//                    
+//                    // Save the notification entry to the "notifications" collection
+//                    self.dbHelper.insertNotification(notification){isSuccesful in
+//                        if(!isSuccesful){
+//                            print("Notification not sent to user:  \(inv.id)")
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        
+//    }
+//    
 }

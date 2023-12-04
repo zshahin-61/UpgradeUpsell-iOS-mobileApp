@@ -71,7 +71,7 @@ struct ProjectListView: View {
                     //                    .onDelete(perform: deleteProjects)
                     .onDelete { indexSet in
                         
-                        let selectedProjects = indexSet.map { userProjects[$0] }
+                        let selectedProjects = indexSet.map { filteredProjects[$0] }
                         
                         guard selectedProjects.allSatisfy({ $0.status.lowercased() != "in progress" }) else {
                             // Show an alert to inform the user that a project with "In Progress" status cannot be deleted
@@ -158,7 +158,7 @@ struct ProjectListView: View {
     private func deleteProjects() {
             if let selectedOffsets = selectedOffsets {
                 for offset in selectedOffsets {
-                    let project = userProjects[offset]
+                    let project = filteredProjects[offset]
 
                     dbHelper.updateProjectStatus(project) { success in
                         if success {
