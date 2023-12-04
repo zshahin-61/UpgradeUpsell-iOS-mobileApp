@@ -489,11 +489,21 @@ struct ProjectViewEdit: View {
         dbHelper.updateProperty(updatedProperty) { success in
             if success {
                 insertNotif(updatedProperty, "update")
-                sendNotificationToInvestors(updatedProperty , "update")
+                //sendNotificationToInvestors(updatedProperty , "update")
+                sendNotificationToInvestors(updatedProperty, "Update") { successf in
+                    if successf {
+                        // Handle success
+                        print("Notifications sent successfully.")
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        // Handle failure
+                        print("Failed to send notifications.")
+                    }
+                }
                 // alertMessage = "Property Update successfully"
                 //resetFormFields()
                 //                Find a solution after run above code project will be Crash
-                presentationMode.wrappedValue.dismiss()
+                
             } else {
                 alertMessage = "Failed to Update property. Please try again."
                 showAlert = true
@@ -532,47 +542,90 @@ struct ProjectViewEdit: View {
         }
     }
     
-    func sendNotificationToInvestors(_ project : RenovateProject, _ a : String) {
-        
-        var flName =  ""
+    func sendNotificationToInvestors(_ project: RenovateProject, _ a: String, completion: @escaping (Bool) -> Void) {
+        var flName = ""
         if let currUser = dbHelper.userProfile {
             flName = currUser.fullName
         }
-        
-        dbHelper.getInvestmentSuggestionsbyProjectID(forProjectID: project.id!){ (suggestions,  error) in
-           
+
+        dbHelper.getInvestmentSuggestionsbyProjectID(forProjectID: project.id!) { (suggestions, error) in
             if let error = error {
-                print("Error getting investor users: \(error.localizedDescription)")
+                print("Error getting investment suggestions: \(error.localizedDescription)")
+                completion(false)
                 return
             }
-            
+
             guard let suggestions = suggestions else {
                 print("No suggestions found for this project.")
+                completion(false)
                 return
             }
-            
+
             for sugg in suggestions {
-                    // Create a notification entry for each investor
-                    let notification = Notifications(
-                        id: UUID().uuidString, // Firestore will generate an ID
-                        timestamp: Date(),
-                        userID: sugg.investorID,
-                        event: "Project \(a)!",
-                        details: "Project titled '\(project.title)' has been \(a) By \(flName).",
-                        isRead: false,
-                        projectID: project.id!
-                    )
-                    
-                    // Save the notification entry to the "notifications" collection
-                    self.dbHelper.insertNotification(notification){isSuccesful in
-                        if(!isSuccesful){
-                            print("Notification not sent to user:  \(sugg.id)")
-                        }
+                // Create a notification entry for each investor
+                let notification = Notifications(
+                    id: UUID().uuidString, // Firestore will generate an ID
+                    timestamp: Date(),
+                    userID: sugg.investorID,
+                    event: "Project \(a)!",
+                    details: "Project titled '\(project.title)' has been \(a) By \(flName).",
+                    isRead: false,
+                    projectID: project.id!
+                )
+
+                // Save the notification entry to the "notifications" collection
+                self.dbHelper.insertNotification(notification) { isSuccessful in
+                    if !isSuccessful {
+                        print("Notification not sent to user:  \(sugg.id)")
                     }
+                }
             }
+
+            completion(true)
         }
-        
     }
+
+//    func sendNotificationToInvestors(_ project : RenovateProject, _ a : String) {
+//        
+//        var flName =  ""
+//        if let currUser = dbHelper.userProfile {
+//            flName = currUser.fullName
+//        }
+//        
+//        dbHelper.getInvestmentSuggestionsbyProjectID(forProjectID: project.id!){ (suggestions,  error) in
+//           
+//            if let error = error {
+//                print("Error getting investor users: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            guard let suggestions = suggestions else {
+//                print("No suggestions found for this project.")
+//                return
+//            }
+//            
+//            for sugg in suggestions {
+//                    // Create a notification entry for each investor
+//                    let notification = Notifications(
+//                        id: UUID().uuidString, // Firestore will generate an ID
+//                        timestamp: Date(),
+//                        userID: sugg.investorID,
+//                        event: "Project \(a)!",
+//                        details: "Project titled '\(project.title)' has been \(a) By \(flName).",
+//                        isRead: false,
+//                        projectID: project.id!
+//                    )
+//                    
+//                    // Save the notification entry to the "notifications" collection
+//                    self.dbHelper.insertNotification(notification){isSuccesful in
+//                        if(!isSuccesful){
+//                            print("Notification not sent to user:  \(sugg.id)")
+//                        }
+//                    }
+//            }
+//        }
+//        
+//    }
     
     func convertAddressToCoordinates() {
         let geocoder = CLGeocoder()

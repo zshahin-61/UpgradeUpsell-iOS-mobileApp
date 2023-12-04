@@ -195,6 +195,18 @@ struct ProjectListView: View {
                                     #endif
                                 }
                             }
+                            
+                            sendNotificationToInvestors(project, "delete") { successf in
+                                if successf {
+                                    // Handle success
+                                    print("Notifications sent successfully.")
+                                    //presentationMode.wrappedValue.dismiss()
+                                } else {
+                                    // Handle failure
+                                    print("Failed to send notifications.")
+                                }
+                            }
+                            
 
                         } else {
                             #if DEBUG
@@ -205,6 +217,63 @@ struct ProjectListView: View {
                 }
             }
         }
+    
+    
+    func sendNotificationToInvestors(_ project: RenovateProject, _ a: String, completion: @escaping (Bool) -> Void) {
+        var flName = ""
+        if let currUser = dbHelper.userProfile {
+            flName = currUser.fullName
+        }
+
+        dbHelper.getInvestmentSuggestionsbyProjectID(forProjectID: project.id!) { (suggestions, error) in
+            if let error = error {
+                print("Error getting investment suggestions: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+
+            guard let suggestions = suggestions else {
+                print("No suggestions found for this project.")
+                completion(false)
+                return
+            }
+
+            for sugg in suggestions {
+                
+                //var suggToUpdate = sugg
+                //suggToUpdate.status = "Declined"
+                dbHelper.updateInvestmentStatus(suggestionID: sugg.id ?? "" , newStatus: "Declined") { error in
+                    if let error = error{
+                        print("error: \(error)")
+                    }else
+                    {
+                        print("staus updated to declined\(sugg.id ?? "")")
+                    }
+                }
+                
+                // Create a notification entry for each investor
+                let notification = Notifications(
+                    id: UUID().uuidString, // Firestore will generate an ID
+                    timestamp: Date(),
+                    userID: sugg.investorID,
+                    event: "Project \(a)!",
+                    details: "Project titled '\(project.title)' has been \(a) By \(flName).",
+                    isRead: false,
+                    projectID: project.id!
+                )
+
+                // Save the notification entry to the "notifications" collection
+                self.dbHelper.insertNotification(notification) { isSuccessful in
+                    if !isSuccessful {
+                        print("Notification not sent to user:  \(sugg.id)")
+                    }
+                }
+            }
+
+            completion(true)
+        }
+    }
+
     
     private func showAlert(message: String) {
         let alert = UIAlertController(title: "Cannot Delete Project", message: message, preferredStyle: .alert)
