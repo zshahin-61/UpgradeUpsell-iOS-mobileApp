@@ -153,7 +153,7 @@
                                                 }
                                             }
                                         }) {
-                                            Text(chatButtonTitles.indices.contains(index) ? chatButtonTitles[index] : "")
+                                            Text(chatButtonTitles.indices.contains(index) ? chatButtonTitles[index] : "Enable Chat")
                                             
                                             //Text(canChatButtonTitle(for: filteredSuggestions[index]))
                                             //Text("Chattttttttt")
@@ -368,6 +368,10 @@
                                 let title = permission.canChat ? "Disable Chat" : "Enable Chat"
                                 self.chatButtonTitles.append(title)
                             }
+                        }
+                        else{
+                            let title = "Enable Chat"
+                            self.chatButtonTitles.append(title)
                         }
                     }
                 }
