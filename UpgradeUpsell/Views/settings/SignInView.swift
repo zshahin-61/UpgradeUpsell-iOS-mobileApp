@@ -13,8 +13,10 @@ struct SignInView: View {
     
     //@State private var emailFromUI: String = "zshahin.61@gmail.com"
     //@State private var emailFromUI: String = "admin@gmail.com"
-    @State private var emailFromUI: String = "g.chehrazi@gmail.com"
-    @State private var passwordFromUI: String = "Admin123"
+    //@State private var emailFromUI: String = "g.chehrazi@gmail.com"
+    //@State private var passwordFromUI: String = "Admin123"
+    @State private var emailFromUI: String = ""
+    @State private var passwordFromUI: String = ""
     
     @Binding var rootScreen: RootView
     
