@@ -239,10 +239,7 @@ struct ProjectListView: View {
             }
 
             for sugg in suggestions {
-                
-                //var suggToUpdate = sugg
-                //suggToUpdate.status = "Declined"
-                dbHelper.updateInvestmentStatus(suggestionID: sugg.id ?? "" , newStatus: "Declined") { error in
+                self.dbHelper.updateInvestmentStatus(suggestionID: sugg.id ?? "" , newStatus: "Declined") { error in
                     if let error = error{
                         print("error: \(error)")
                     }else
