@@ -18,35 +18,17 @@ struct HomeView_Realtor: View {
     var body: some View {
         TabView() {
          
-//                        EventsListView().environmentObject(locationHelper)
-
             PropertiesList_RealtorView()
             .tabItem {
                 Label("View Projects", systemImage: "list.bullet.rectangle")
-                Text("View Projects")
+                //Text("View Projects")
             }
             
-//            ProjectViewEdit()
-//            .tabItem {
-//                Label("Add Property", systemImage: "plus.circle")
-//                Text("Add Property")
-//            }
-            
-//            ProjectOffersView()
-//            .tabItem {
-//                Label("View Offers", systemImage: "gift")
-//                Text("View Offers")
-//            }
-        
-            Text("Notifications")
-                .tabItem {
+            NotificationRealtorView()
+            //Text("Notificationssss")
+            .tabItem {
                     Label("Notifications", systemImage: "bell")
                 }
-
-            
-            
-            //                .onAppear {
-            //                    UITabBar.appearance().isHidden = true // Hide the system tab bar
         }
         .navigationBarTitle("Realtor Dashboard", displayMode: .inline)
         .navigationBarItems(trailing: HStack {

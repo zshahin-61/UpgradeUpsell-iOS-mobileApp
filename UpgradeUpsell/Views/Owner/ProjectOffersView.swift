@@ -224,13 +224,13 @@ struct ProjectOffersView: View {
                     } else {
                         isStatusUpdated[index] = true
                         if suggestion.status == "Accept" { // Check if the status is "Accept"
-                            updatePropertyStatus(propertyID: suggestion.projectID, status: "In Progress")
+                            updatePropertyStatus(suggestion: suggestion, status: "In Progress")
                                             }
                         else if suggestion.status == "Pending" { // Check if the status is "Accept"
-                            updatePropertyStatus(propertyID: suggestion.projectID, status: "Released")
+                            updatePropertyStatus(suggestion: suggestion, status: "Released")
                                             }
                         else if suggestion.status == "Declined" { // Check if the status is "Accept"
-                            updatePropertyStatus(propertyID: suggestion.projectID, status: "Released")
+                            updatePropertyStatus(suggestion: suggestion, status: "Released")
                                             }
                         // Insert a notification in Firebase
                         let notification = Notifications(
@@ -266,21 +266,77 @@ struct ProjectOffersView: View {
     }
     
     // Function to update the property status to "InProgress"
-    func updatePropertyStatus(propertyID: String, status: String) {
+    func updatePropertyStatus(suggestion: InvestmentSuggestion, status: String) {
         // Update the property status to "InProgress" in the database
-        dbHelper.updatePropertyStatus(propertyID: propertyID, newStatus: status) { error in
+        dbHelper.updatePropertyStatus(propertyID: suggestion.projectID, newStatus: status) { error in
             if let error = error {
 #if DEBUG
-                print("Error updating property status to InProgress: \(error)")
+                print("Error updating property status to \(status): \(error)")
                 #endif
+                if status == "In Progress"{
+                    sendNotificationToRealtors(suggestion, "accept"){ success in
+                        if !success  {
+                            print("error in send notifi cation msg to Realtors")
+                        }
+                        
+                    }
+                }
             } else {
 #if DEBUG
-                print("Property status updated to InProgress.")
+                print("Property status updated to \(status).")
                 #endif
             }
         }
     }
 
+    //
+    func sendNotificationToRealtors(_ suggestion: InvestmentSuggestion, _ a: String, completion: @escaping (Bool) -> Void) {
+        var flName = ""
+        if let currUser = dbHelper.userProfile {
+            flName = currUser.fullName
+        }
+
+        self.dbHelper.getUsersByRole(role: "Realtor") { (realtors, error) in
+            if let error = error {
+                print("Error getting investor users: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+
+            guard let realtors = realtors else {
+                print("No investor users found.")
+                completion(false)
+                return
+            }
+
+            for rlt in realtors {
+                if let userID = rlt.id {
+                    // Create a notification entry for each investor
+                    let notification = Notifications(
+                        id: UUID().uuidString, // Firestore will generate an ID
+                        timestamp: Date(),
+                        userID: userID,
+                        event: "Renovation Suggestion \(a)!",
+                        details: "Project titled '\(suggestion.projectTitle)' status has been set to 'In progress' By \(flName).",
+                        isRead: false,
+                        projectID: suggestion.projectID
+                    )
+
+                    // Save the notification entry to the "notifications" collection
+                    self.dbHelper.insertNotification(notification) { isSuccessful in
+                        if !isSuccessful {
+                            print("Notification not sent to user: \(rlt.id)")
+                        }
+                    }
+                }
+            }
+            
+            // Notify completion after processing all investors
+            completion(true)
+        }
+    }
+
+    
     // Function to fetch chat permission status for the current user
 //    private  func fetchChatPermissionStatus(sugg: InvestmentSuggestion) -> Bool {
 //        var result = false

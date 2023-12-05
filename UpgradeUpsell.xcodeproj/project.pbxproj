@@ -57,7 +57,6 @@
 		5A7536B32B192D4000BA1CB0 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 5A7536B22B192D4000BA1CB0 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		5A7536B52B192D4000BA1CB0 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 5A7536B42B192D4000BA1CB0 /* FirebaseAppCheck */; };
 		5A7D691F2B0ED88700295469 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 5A7D691E2B0ED88700295469 /* FirebaseMessaging */; };
-		5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */; };
 		5A8DAB2E2ABCAB6100CDCBCB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */; };
 		5A8DAB312ABCB3A200CDCBCB /* ProjectViewEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */; };
 		5A8DAB332ABCB3B500CDCBCB /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */; };
@@ -132,6 +131,7 @@
 		5FB31FC22B18E3F6000D40E0 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FC12B18E3F6000D40E0 /* CameraManager.swift */; };
 		5FB31FC42B195A17000D40E0 /* PropertiesList_RealtorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FC32B195A17000D40E0 /* PropertiesList_RealtorView.swift */; };
 		5FB31FC62B195D9B000D40E0 /* propertyDetails_RealtorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FC52B195D9B000D40E0 /* propertyDetails_RealtorView.swift */; };
+		5FB31FFE2B1F99F1000D40E0 /* NotificationRealtorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB31FFD2B1F99F1000D40E0 /* NotificationRealtorView.swift */; };
 		5FD8823D2ACDAB3C0034439F /* HomeView_Investor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */; };
 		5FD882472ACE591C0034439F /* HomeView_Realtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882462ACE591C0034439F /* HomeView_Realtor.swift */; };
 		5FD882492ACF407B0034439F /* MakeOffers_InvestorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */; };
@@ -174,7 +174,6 @@
 		5A47D9522AF437820064AF0E /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		5A47D9942AFD7A390064AF0E /* tmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tmp.swift; sourceTree = "<group>"; };
 		5A7D69202B0EDA4400295469 /* UpgradeUpsell.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UpgradeUpsell.entitlements; sourceTree = "<group>"; };
-		5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtorPersonDashboardView.swift; sourceTree = "<group>"; };
 		5A8DAB2D2ABCAB6100CDCBCB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5A8DAB302ABCB3A200CDCBCB /* ProjectViewEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewEdit.swift; sourceTree = "<group>"; };
 		5A8DAB322ABCB3B500CDCBCB /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
@@ -215,6 +214,7 @@
 		5FB31FC12B18E3F6000D40E0 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		5FB31FC32B195A17000D40E0 /* PropertiesList_RealtorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertiesList_RealtorView.swift; sourceTree = "<group>"; };
 		5FB31FC52B195D9B000D40E0 /* propertyDetails_RealtorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = propertyDetails_RealtorView.swift; sourceTree = "<group>"; };
+		5FB31FFD2B1F99F1000D40E0 /* NotificationRealtorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRealtorView.swift; sourceTree = "<group>"; };
 		5FD8823C2ACDAB3C0034439F /* HomeView_Investor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Investor.swift; sourceTree = "<group>"; };
 		5FD882462ACE591C0034439F /* HomeView_Realtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView_Realtor.swift; sourceTree = "<group>"; };
 		5FD882482ACF407B0034439F /* MakeOffers_InvestorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOffers_InvestorView.swift; sourceTree = "<group>"; };
@@ -365,10 +365,10 @@
 		5A8DAB362ABCB50500CDCBCB /* Realtor */ = {
 			isa = PBXGroup;
 			children = (
-				5A8DAB2B2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift */,
 				5FD882462ACE591C0034439F /* HomeView_Realtor.swift */,
 				5FB31FC32B195A17000D40E0 /* PropertiesList_RealtorView.swift */,
 				5FB31FC52B195D9B000D40E0 /* propertyDetails_RealtorView.swift */,
+				5FB31FFD2B1F99F1000D40E0 /* NotificationRealtorView.swift */,
 			);
 			path = Realtor;
 			sourceTree = "<group>";
@@ -675,8 +675,8 @@
 				5FB31FC62B195D9B000D40E0 /* propertyDetails_RealtorView.swift in Sources */,
 				5F9465F72ABB33E50006FBB5 /* ContentView.swift in Sources */,
 				5F94662D2ABC838C0006FBB5 /* HomeView_Owner.swift in Sources */,
+				5FB31FFE2B1F99F1000D40E0 /* NotificationRealtorView.swift in Sources */,
 				5A8DAB3E2AD4A48B00CDCBCB /* LocationHelper.swift in Sources */,
-				5A8DAB2C2ABCA87D00CDCBCB /* RealtorPersonDashboardView.swift in Sources */,
 				5FFE00E92AFE88F6002F9B64 /* ChatView.swift in Sources */,
 				5F9466262ABBD0D90006FBB5 /* RenovateProject.swift in Sources */,
 				5FFE00ED2B0024D8002F9B64 /* OwnerProfileView.swift in Sources */,

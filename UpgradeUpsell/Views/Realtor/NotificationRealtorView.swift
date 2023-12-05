@@ -1,15 +1,13 @@
 //
-//  NotificationView.swift
+//  NotoficationRealtorView.swift
 //  UpgradeUpsell
 //
-//  Created by zahra SHAHIN on 2023-10-16.
-//
+//  Created by Golnaz Chehrazi on 2023-12-05.
 //
 
 import SwiftUI
-import Firebase
 
-struct NotificationView: View {
+struct NotificationRealtorView: View {
     @EnvironmentObject var dbHelper: FirestoreController
     @State private var notifications: [Notifications] = []
     @State private var showingDeleteConfirmationAlert = false
@@ -54,7 +52,7 @@ struct NotificationView: View {
             }
             .onAppear {
                 if let userID = self.dbHelper.userProfile?.id {
-                    dbHelper.getNotifications(forUserID: userID) { notifications, error in
+                    self.dbHelper.getNotifications(forUserID: userID) { notifications, error in
                         if let notifications = notifications {
                             self.notifications = notifications
                         } else if let error = error {
@@ -105,69 +103,4 @@ struct NotificationView: View {
         }
     }
 }
-
-
-
-
-
-//import SwiftUI
-//import Firebase
-
-
-//struct NotificationView: View {
-//    @EnvironmentObject var dbHelper: FirestoreController
-//    @State private var notifications: [Notifications] = []
-////    @State private var isDetailViewPresented = false
-//
-//    var body: some View {
-//        VStack {
-//                        Text("Notifications").bold().font(.title).foregroundColor(.brown)
-//
-//            List {
-//                ForEach(notifications, id: \.id) { notification in
-//                    NavigationLink(    destination: NotificationDetailView( notification: notification),
-//                        label: {
-//                            HStack {
-//                                Image(systemName: notification.isRead ? "eye.fill" : "eye.slash.fill")
-//                                    .resizable()
-//                                    .frame(width: 30, height: 30)
-//                                    .padding(.trailing, 10)
-//                                Text(notification.event)
-//                            }
-//                        }
-//                    )
-//                }
-//                .onDelete(perform: deleteNotifications)
-//            }
-//            .onAppear {
-//                if let userID = self.dbHelper.userProfile?.id {
-//                    dbHelper.getNotifications(forUserID: userID) { notifications, error in
-//                        if let notifications = notifications {
-//                            self.notifications = notifications
-//                        } else if let error = error {
-//                            // Handle the error
-//                            print("Error fetching notifications: \(error.localizedDescription)")
-//                        }
-//                    }
-//                }
-//            }
-////            .navigationBarTitle("Notifications")
-//            .padding()
-//        }
-//    }
-//
-//    private func deleteNotifications(at offsets: IndexSet) {
-//        for offset in offsets {
-//            let notification = notifications[offset]
-//            dbHelper.deleteNotification(notification) { success in
-//                if success {
-////                    print("Notification deleted successfully.")
-//                    notifications.remove(at: offset)
-//                } else {
-//                    print("Error deleting notification.")
-//                }
-//            }
-//        }
-//    }
-//}
 
