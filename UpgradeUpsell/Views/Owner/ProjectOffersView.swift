@@ -224,7 +224,13 @@ struct ProjectOffersView: View {
                     } else {
                         isStatusUpdated[index] = true
                         if suggestion.status == "Accept" { // Check if the status is "Accept"
-                            updatePropertyStatus(suggestion: suggestion, status: "In Progress")
+                            self.updatePropertyStatus(suggestion: suggestion, status: "In Progress")
+                            self.sendNotificationToRealtors(suggestion, "accept"){ success in
+                                if !success  {
+                                    print("error in send notifi cation msg to Realtors")
+                                }
+                                
+                            }
                                             }
                         else if suggestion.status == "Pending" { // Check if the status is "Accept"
                             updatePropertyStatus(suggestion: suggestion, status: "Released")
@@ -273,14 +279,14 @@ struct ProjectOffersView: View {
 #if DEBUG
                 print("Error updating property status to \(status): \(error)")
                 #endif
-                if status == "In Progress"{
-                    sendNotificationToRealtors(suggestion, "accept"){ success in
-                        if !success  {
-                            print("error in send notifi cation msg to Realtors")
-                        }
-                        
-                    }
-                }
+//                if status == "In Progress"{
+//                    sendNotificationToRealtors(suggestion, "accept"){ success in
+//                        if !success  {
+//                            print("error in send notifi cation msg to Realtors")
+//                        }
+//                        
+//                    }
+//                }
             } else {
 #if DEBUG
                 print("Property status updated to \(status).")

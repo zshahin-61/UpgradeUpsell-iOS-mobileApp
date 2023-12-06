@@ -36,5 +36,369 @@
             landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BB5F9E20-3C79-4E9F-97D1-498A42451EDD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
+            landmarkName = "sendNotificationToRealtors(_:_:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BB5F9E20-3C79-4E9F-97D1-498A42451EDD - 98e6006ab9adcf00"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "function signature specialization &lt;Arg[5] = Value Promoted from Box&gt; of closure #1 (Swift.Optional&lt;Swift.Array&lt;UpgradeUpsell.UserProfile&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.sendNotificationToRealtors(_: UpgradeUpsell.InvestmentSuggestion, _: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "318"
+                  endingLineNumber = "318"
+                  offsetFromSymbolStart = "2376">
+               </Location>
+               <Location
+                  uuid = "BB5F9E20-3C79-4E9F-97D1-498A42451EDD - 98e6006ab9adcf00"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "function signature specialization &lt;Arg[5] = Value Promoted from Box&gt; of closure #1 (Swift.Optional&lt;Swift.Array&lt;UpgradeUpsell.UserProfile&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.sendNotificationToRealtors(_: UpgradeUpsell.InvestmentSuggestion, _: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "318"
+                  endingLineNumber = "318"
+                  offsetFromSymbolStart = "1168">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "53A80556-13F6-4400-8622-654E616665EC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "sendNotificationToRealtors(_:_:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "53A80556-13F6-4400-8622-654E616665EC - 98e6006ab9adc99c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "function signature specialization &lt;Arg[5] = Value Promoted from Box&gt; of closure #1 (Swift.Optional&lt;Swift.Array&lt;UpgradeUpsell.UserProfile&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.sendNotificationToRealtors(_: UpgradeUpsell.InvestmentSuggestion, _: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "306"
+                  endingLineNumber = "306"
+                  offsetFromSymbolStart = "1088">
+               </Location>
+               <Location
+                  uuid = "53A80556-13F6-4400-8622-654E616665EC - d2ed5591be66bf8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UpgradeUpsell.ProjectOffersView.sendNotificationToRealtors(_: UpgradeUpsell.InvestmentSuggestion, _: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "305"
+                  endingLineNumber = "305"
+                  offsetFromSymbolStart = "376">
+               </Location>
+               <Location
+                  uuid = "53A80556-13F6-4400-8622-654E616665EC - 98e6006ab9adc99c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "function signature specialization &lt;Arg[5] = Value Promoted from Box&gt; of closure #1 (Swift.Optional&lt;Swift.Array&lt;UpgradeUpsell.UserProfile&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.sendNotificationToRealtors(_: UpgradeUpsell.InvestmentSuggestion, _: Swift.String, completion: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "306"
+                  endingLineNumber = "306"
+                  offsetFromSymbolStart = "472">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1BEC35CC-C4CC-4D45-A60F-CB2EDF0DEB17"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "updatePropertyStatus(suggestion:status:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1BEC35CC-C4CC-4D45-A60F-CB2EDF0DEB17 - 4874ebb5118c519d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool) -&gt; () in closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.updatePropertyStatus(suggestion: UpgradeUpsell.InvestmentSuggestion, status: Swift.String) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "282"
+                  endingLineNumber = "282"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  uuid = "1BEC35CC-C4CC-4D45-A60F-CB2EDF0DEB17 - d7aaf3d4b821ea62"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.updatePropertyStatus(suggestion: UpgradeUpsell.InvestmentSuggestion, status: Swift.String) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "290"
+                  endingLineNumber = "290"
+                  offsetFromSymbolStart = "916">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F069DC3-A3E6-4BC3-9309-B23F89BC29A7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "updatePropertyStatus(suggestion:status:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6F069DC3-A3E6-4BC3-9309-B23F89BC29A7 - d7aaf3d4b821ebd7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.updatePropertyStatus(suggestion: UpgradeUpsell.InvestmentSuggestion, status: Swift.String) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "277"
+                  endingLineNumber = "277"
+                  offsetFromSymbolStart = "1064">
+               </Location>
+               <Location
+                  uuid = "6F069DC3-A3E6-4BC3-9309-B23F89BC29A7 - 4874ebb5118c5101"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool) -&gt; () in closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.updatePropertyStatus(suggestion: UpgradeUpsell.InvestmentSuggestion, status: Swift.String) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "278"
+                  endingLineNumber = "278"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "6F069DC3-A3E6-4BC3-9309-B23F89BC29A7 - 7d379dc697490362"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UpgradeUpsell.ProjectOffersView.updatePropertyStatus(suggestion: UpgradeUpsell.InvestmentSuggestion, status: Swift.String) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "277"
+                  endingLineNumber = "277"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  uuid = "6F069DC3-A3E6-4BC3-9309-B23F89BC29A7 - d7aaf3d4b821ebf6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.updatePropertyStatus(suggestion: UpgradeUpsell.InvestmentSuggestion, status: Swift.String) -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "278"
+                  endingLineNumber = "278"
+                  offsetFromSymbolStart = "84">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "34EEA32F-D5B3-477E-A499-DFC557A92C5C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "updateOfferStatuses()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4825DBD9-6342-4C67-B47F-23F2CC0FDE22"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "updateOfferStatuses()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E2592AC8-532D-446B-AD33-069EFF8E09EA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "updateOfferStatuses()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E2592AC8-532D-446B-AD33-069EFF8E09EA - 63429f788f21acee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.updateOfferStatuses() -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "228"
+                  endingLineNumber = "228"
+                  offsetFromSymbolStart = "1156">
+               </Location>
+               <Location
+                  uuid = "E2592AC8-532D-446B-AD33-069EFF8E09EA - 63429f788f21acee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.updateOfferStatuses() -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "228"
+                  endingLineNumber = "228"
+                  offsetFromSymbolStart = "1188">
+               </Location>
+               <Location
+                  uuid = "E2592AC8-532D-446B-AD33-069EFF8E09EA - 53e090593ff058c2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool) -&gt; () in closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in UpgradeUpsell.ProjectOffersView.updateOfferStatuses() -&gt; ()"
+                  moduleName = "UpgradeUpsell"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/golnaz/Documents/___CO-OP_G02_UgradeUpsell/Untitled/UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "229"
+                  endingLineNumber = "229"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D1CD3FFA-AC08-4018-935F-094BA2579424"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
+            landmarkName = "sendNotificationToRealtors(_:_:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F118D8B7-1E38-40FE-8C23-545A62F8CDCB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpgradeUpsell/Views/Owner/ProjectOffersView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "sendNotificationToRealtors(_:_:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
